@@ -1,62 +1,72 @@
 experiment:
-  seed: 42
+  seed: 10
+  device: cuda
 
 data:
-  path: "data/dupont_1991b/0"
+  path: "data/dupont_1991b"
   batch_size: 32
   num_workers: 2
+  fold: 0
 
 model:
   state_dim: 2
   parameter_dim: 13
   hidden_dim: 128
-  num_layers: 2
-  dropout: 0.1
-
-loss:
-  parameter_weight: 1.0
-  trajectory_weight: 1.0
+  num_gru_layers: 2
+  drop_out: 0.1
 
 training:
   epochs: 100
-  patience: 20
   learning_rate: 0.001
-  weight_decay: 0.0001
+  weight_decay: 0.00001
+  parameter_loss_weight: 1.0
+  trajectory_loss_weight: 1.0
+  patience: 15
   gradient_clip: 1.0
-  checkpoint_path: "checkpoints/best_model.pt"
 
 ode:
-  state_names:
-    - "Z"
-    - "Y"
+  name: physiome_model
+
+  parameters:
+    v0: 1.0
+    v1: 7.3
+    beta: 0.6
+    VM2: 65.0
+    VM3: 500.0
+    KR: 2.0
+    KA: 0.9
+    kf: 1.0
+    k: 10.0
+    K2: 1.0
+    n: 2.0
+    m: 2.0
+    p: 4.0
+
+  initial_state:
+    Z: 0.52
+    Y: 0.93
+
   parameter_names:
-    - "v0"
-    - "v1"
-    - "beta"
-    - "VM2"
-    - "VM3"
-    - "KR"
-    - "KA"
-    - "kf"
-    - "k"
-    - "K2"
-    - "n"
-    - "m"
-    - "p"
-  base_theta:
-    - 1.0
-    - 7.3
-    - 0.6
-    - 65.0
-    - 500.0
-    - 2.0
-    - 0.9
-    - 1.0
-    - 10.0
-    - 1.0
-    - 2.0
-    - 2.0
-    - 4.0
-  base_y0:
-    - 0.52
-    - 0.93
+    - v0
+    - v1
+    - beta
+    - VM2
+    - VM3
+    - KR
+    - KA
+    - kf
+    - k
+    - K2
+    - n
+    - m
+    - p
+
+  state_names:
+    - Z
+    - Y
+
+output:
+  checkpoint: "checkpoints/best_model.pt"
+  results: "results/test_results.pt"
+  history: "results/training_history.pt"
+  figures: "figures"

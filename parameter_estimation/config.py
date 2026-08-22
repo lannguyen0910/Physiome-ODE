@@ -1,12 +1,12 @@
 from pathlib import Path
+
 import yaml
+import torch
 
 
 class Config:
     def __init__(self, path="config.yaml"):
-
         self.path = Path(path)
-
         with open(self.path, "r") as f:
             self.cfg = yaml.safe_load(f)
 
@@ -27,6 +27,10 @@ class Config:
         return self.cfg["data"]["num_workers"]
 
     @property
+    def fold(self):
+        return self.cfg["data"].get("fold", 0)
+
+    @property
     def state_dim(self):
         return self.cfg["model"]["state_dim"]
 
@@ -43,6 +47,10 @@ class Config:
         return self.cfg["model"]["num_gru_layers"]
 
     @property
+    def drop_out(self):
+        return self.cfg["model"]["drop_out"]
+
+    @property
     def epochs(self):
         return self.cfg["training"]["epochs"]
 
@@ -53,6 +61,10 @@ class Config:
     @property
     def weight_decay(self):
         return self.cfg["training"]["weight_decay"]
+
+    @property
+    def parameter_loss_weight(self):
+        return self.cfg["training"]["parameter_loss_weight"]
 
     @property
     def trajectory_loss_weight(self):
@@ -95,12 +107,18 @@ class Config:
         return self.cfg["output"]["figures"]
 
     @property
-    def device(self):
-
-        import torch
-
-        return torch.device(
-            "cuda"
-            if torch.cuda.is_available()
-            else "cpu"
+    def history_path(self):
+        return self.cfg["output"].get(
+            "history",
+            "results/history.pt"
         )
+
+    @property
+    def device(self):
+        configured_device = self.cfg.get(
+            "experiment", {}).get("device", "cuda")
+
+        if configured_device == "cuda" and torch.cuda.is_available():
+            return torch.device("cuda")
+
+        return torch.device("cpu")

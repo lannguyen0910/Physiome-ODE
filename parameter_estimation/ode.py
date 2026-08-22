@@ -74,13 +74,19 @@ class PhysiomeODE(nn.Module):
         v2 = (
             VM2
             * Z**n
-            / (KR**n + Z**n)
+            / (K2**n + Z**n)
         )
 
         v3 = (
             VM3
-            * Y**m
-            / (KA**m + Y**m)
+            * (
+                Y**m
+                / (KR**m + Y**m)
+            )
+            * (
+                Z**p
+                / (KA**p + Z**p)
+            )
         )
 
         # ODE equations
