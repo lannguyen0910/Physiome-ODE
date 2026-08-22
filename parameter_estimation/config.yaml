@@ -1,0 +1,62 @@
+experiment:
+  seed: 42
+
+data:
+  path: "data/dupont_1991b/0"
+  batch_size: 32
+  num_workers: 2
+
+model:
+  state_dim: 2
+  parameter_dim: 13
+  hidden_dim: 128
+  num_layers: 2
+  dropout: 0.1
+
+loss:
+  parameter_weight: 1.0
+  trajectory_weight: 1.0
+
+training:
+  epochs: 100
+  patience: 20
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  checkpoint_path: "checkpoints/best_model.pt"
+
+ode:
+  state_names:
+    - "Z"
+    - "Y"
+  parameter_names:
+    - "v0"
+    - "v1"
+    - "beta"
+    - "VM2"
+    - "VM3"
+    - "KR"
+    - "KA"
+    - "kf"
+    - "k"
+    - "K2"
+    - "n"
+    - "m"
+    - "p"
+  base_theta:
+    - 1.0
+    - 7.3
+    - 0.6
+    - 65.0
+    - 500.0
+    - 2.0
+    - 0.9
+    - 1.0
+    - 10.0
+    - 1.0
+    - 2.0
+    - 2.0
+    - 4.0
+  base_y0:
+    - 0.52
+    - 0.93
