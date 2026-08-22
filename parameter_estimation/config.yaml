@@ -3,10 +3,9 @@ experiment:
   device: cuda
 
 data:
-  path: "data/dupont_1991b"
+  path: "data/dupont_1991b/0"
   batch_size: 32
   num_workers: 2
-  fold: 0
 
 model:
   state_dim: 2
