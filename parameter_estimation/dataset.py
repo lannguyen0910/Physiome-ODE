@@ -1,6 +1,18 @@
+import sys
+
 import torch
 
 from torch.utils.data import Dataset, DataLoader
+
+
+class IMTS_dataset:
+    """
+    Dummy compatibility class.
+    """
+    pass
+
+
+sys.modules["__main__"].IMTS_dataset = IMTS_dataset
 
 
 class PhysiomeDataset(Dataset):
@@ -17,39 +29,62 @@ class PhysiomeDataset(Dataset):
     """
 
     def __init__(self, data):
-        self.data = data
+        if isinstance(data, torch.utils.data.Subset):
+            self.data = data
+            base_dataset = data.dataset
+            self.indices = data.indices
+            self.base_dataset = base_dataset
+
+        else:
+            self.data = data
+            self.indices = list(
+                range(len(data))
+            )
+            self.base_dataset = data
+
+        required = [
+            "T",
+            "TY",
+            "X",
+            "Y",
+            "theta",
+            "y0",
+        ]
+
+        for name in required:
+            if not hasattr(
+                self.base_dataset,
+                name,
+            ):
+                raise AttributeError(
+                    f"Stored dataset does not contain "
+                    f"'{name}'."
+                )
 
     def __len__(self):
-        return len(self.data)
+        return len(self.indices)
 
     def __getitem__(self, idx):
-        sample = self.data[idx]
-        T = sample.inputs[0]
-        X = sample.inputs[1]
-        M = sample.inputs[2]
-        TY = sample.inputs[3]
-        MY = sample.inputs[4]
-        Y = sample.targets
-        theta = sample.theta
-        y0 = sample.y0
+        real_idx = self.indices[idx]
+
+        T = self.base_dataset.T[real_idx]
+        X = self.base_dataset.X[real_idx]
+        TY = self.base_dataset.TY[real_idx]
+        Y = self.base_dataset.Y[real_idx]
+        theta = self.base_dataset.theta[real_idx]
+        y0 = self.base_dataset.y0[real_idx]
+        M = (~torch.isnan(X)).float()
+        MY = (~torch.isnan(Y)).float()
 
         return {
-            "key": sample.key,
-
+            "key": real_idx,
             "T": T,
-
             "X": X,
-
             "M": M,
-
             "TY": TY,
-
             "MY": MY,
-
             "Y": Y,
-
             "theta": theta,
-
             "y0": y0,
         }
 
