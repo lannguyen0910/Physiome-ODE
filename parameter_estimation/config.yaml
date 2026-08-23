@@ -25,11 +25,9 @@ training:
 
 ode:
   name: physiome_model
-
   parameters:
     v0: 1.0
     v1: 7.3
-    beta: 0.6
     VM2: 65.0
     VM3: 500.0
     KR: 2.0
@@ -40,6 +38,8 @@ ode:
     n: 2.0
     m: 2.0
     p: 4.0
+    betaf: 0.96
+    tp: 4
 
   initial_state:
     Z: 0.52
@@ -48,7 +48,6 @@ ode:
   parameter_names:
     - v0
     - v1
-    - beta
     - VM2
     - VM3
     - KR
@@ -59,6 +58,8 @@ ode:
     - n
     - m
     - p
+    - betaf
+    - tp
 
   state_names:
     - Z

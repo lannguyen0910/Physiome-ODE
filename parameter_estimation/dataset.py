@@ -46,7 +46,9 @@ class PhysiomeDataset(Dataset):
             "T",
             "TY",
             "X",
+            "M",
             "Y",
+            "MY",
             "theta",
             "y0",
         ]
@@ -73,8 +75,8 @@ class PhysiomeDataset(Dataset):
         Y = self.base_dataset.Y[real_idx]
         theta = self.base_dataset.theta[real_idx]
         y0 = self.base_dataset.y0[real_idx]
-        M = (~torch.isnan(X)).float()
-        MY = (~torch.isnan(Y)).float()
+        M = self.base_dataset.M[real_idx].float()
+        MY = self.base_dataset.MY[real_idx].float()
 
         return {
             "key": real_idx,
