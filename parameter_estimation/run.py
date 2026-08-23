@@ -10,6 +10,7 @@ from model import ParameterEstimator
 from ode import PhysiomeODE, RK4Solver
 from loss import ParameterEstimationLoss
 from trainer import Trainer
+from visualize import plot_training_history, plot_parameter_recovery, plot_trajectory
 
 
 def set_seed(seed):
@@ -119,6 +120,33 @@ def main():
 
     print("\nStarting training...")
     history = trainer.fit()
+
+    print("Training finished.")
+
+    plot_training_history(
+        history,
+        output_path="figures/training.png",
+    )
+
+    trainer.model.eval()
+    with torch.no_grad():
+        batch = next(iter(test_loader))
+        outputs = trainer._forward(batch)
+
+        plot_parameter_recovery(
+            theta_true=outputs["theta_true"],
+            theta_pred=outputs["theta_pred"],
+            parameter_names=config.ode_parameters,
+            output_dir="figures/parameters",
+        )
+
+        plot_trajectory(
+            t=outputs["T"][0],
+            trajectory_true=outputs["trajectory_true"],
+            trajectory_pred=outputs["trajectory_pred"],
+            sample_idx=0,
+            output_path="figures/trajectory_sample_0.png",
+        )
 
     print("\nEvaluating test set...")
     results = trainer.evaluate_test()
