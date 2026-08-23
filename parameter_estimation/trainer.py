@@ -44,19 +44,19 @@ class Trainer:
         self,
         batch,
     ):
-        T = batch.inputs[0].to(
+        T = batch['T'].to(
             self.device
         )
 
-        X = batch.inputs[1].to(
+        X = batch['X'].to(
             self.device
         )
 
-        TY = batch.inputs[2].to(
+        TY = batch['TY'].to(
             self.device
         )
 
-        Y = batch.targets.to(
+        Y = batch['Y'].to(
             self.device
         )
 
@@ -126,16 +126,15 @@ class Trainer:
         if TY.shape[1] > 0:
             t = torch.cat(
                 [
-                    T,
-                    TY,
+                    T[0],
+                    TY[0],
                 ],
-                dim=1,
+                dim=0,
             )
 
-            # remove padded / invalid time values
             t = torch.unique(
                 t,
-                dim=1,
+                sorted=True,
             )
 
         else:
@@ -187,8 +186,6 @@ class Trainer:
         return self.loss_fn(
             theta_pred=outputs["theta_pred"],
             theta_true=outputs["theta_true"],
-            y0_pred=outputs["y0_pred"],
-            y0_true=outputs["y0_true"],
             trajectory_pred=outputs["trajectory_pred"],
             trajectory_true=outputs["trajectory_true"],
         )
