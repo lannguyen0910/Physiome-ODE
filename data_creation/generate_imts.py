@@ -26,7 +26,15 @@ class Sample(NamedTuple):
 
 class IMTS_dataset(Dataset):
     def __init__(
-        self, files, ot, fh, fold, t_drop, c_drop, noise, forecasting_channels
+        self,
+        files,
+        ot,
+        fh,
+        fold,
+        t_drop,
+        c_drop,
+        noise,
+        forecasting_channels,
     ):
         # load files
         torch.manual_seed(fold)
@@ -38,7 +46,7 @@ class IMTS_dataset(Dataset):
         Y = []
 
         # NEW:
-        # Ground-truth ODE parameters and initial states
+        # Store ground-truth ODE parameters and initial states
         THETA = []
         Y0 = []
 
@@ -54,61 +62,55 @@ class IMTS_dataset(Dataset):
 
         value_columns.remove("t")
 
-        # NEW:
-        # Remove ODE metadata from time-series variables
-        theta_columns = [
-            c for c in value_columns
-            if c.startswith("theta_")
-        ]
-
-        y0_columns = [
-            c for c in value_columns
-            if c.startswith("y0_")
-        ]
-
-        value_columns = [
-            c for c in value_columns
-            if not c.startswith("theta_")
-            and not c.startswith("y0_")
-        ]
-
         observation_time = T_max * ot
-
         forecasting_horizon = (
-            observation_time
-            + (T_max * fh)
+            observation_time + (T_max * fh)
         )
 
         # ------------------------------------------------------------
-        # Load all trajectories
+        # Load trajectories
         # ------------------------------------------------------------
 
         for f in files:
 
             raw_TS = pd.read_parquet(f)
 
-            # --------------------------------------------------------
+            # ========================================================
             # NEW:
-            # Read ground-truth theta and y0
-            #
-            # They are repeated as metadata columns in the parquet
-            # file, so we only need the first row.
+            # Load matching .npz file
+            # ========================================================
+
+            npz_file = os.path.splitext(f)[0] + ".npz"
+
+            if not os.path.exists(npz_file):
+                raise FileNotFoundError(
+                    f"Could not find matching metadata file:\n"
+                    f"{npz_file}"
+                )
+
+            metadata = np.load(npz_file)
+
             # --------------------------------------------------------
+            # Print keys once if needed for debugging
+            # --------------------------------------------------------
+            # print(f, metadata.files)
 
-            theta = raw_TS[
-                theta_columns
-            ].iloc[0].values
+            # We expect the npz file to contain:
+            #   theta
+            #   y0
+            #
+            # If your actual keys are different, change these
+            # two lines only.
 
-            y0 = raw_TS[
-                y0_columns
-            ].iloc[0].values
+            theta = metadata["theta"]
+            y0 = metadata["y0"]
 
             THETA.append(theta)
             Y0.append(y0)
 
-            # --------------------------------------------------------
-            # Existing time-series processing
-            # --------------------------------------------------------
+            # ========================================================
+            # Existing trajectory processing
+            # ========================================================
 
             T.append(
                 raw_TS["t"]
@@ -150,34 +152,54 @@ class IMTS_dataset(Dataset):
                 .values
             )
 
-        # ------------------------------------------------------------
+    # ================================================================
         # Convert to tensors
-        # ------------------------------------------------------------
+        # ================================================================
 
         T = torch.tensor(
-            np.stack(T, axis=0)
-        ).type(torch.float32)
+            np.stack(T, axis=0),
+            dtype=torch.float32,
+        )
 
         X = torch.tensor(
-            np.stack(X, axis=0)
-        ).type(torch.float32)
+            np.stack(X, axis=0),
+            dtype=torch.float32,
+        )
 
         TY = torch.tensor(
-            np.stack(TY, axis=0)
-        ).type(torch.float32)
+            np.stack(TY, axis=0),
+            dtype=torch.float32,
+        )
 
         Y = torch.tensor(
-            np.stack(Y, axis=0)
-        ).type(torch.float32)
+            np.stack(Y, axis=0),
+            dtype=torch.float32,
+        )
 
-        # NEW
+        # NEW:
+        # Convert theta and y0 from npz -> torch.Tensor
+
         THETA = torch.tensor(
-            np.stack(THETA, axis=0)
-        ).type(torch.float32)
+            np.stack(THETA, axis=0),
+            dtype=torch.float32,
+        )
 
         Y0 = torch.tensor(
-            np.stack(Y0, axis=0)
-        ).type(torch.float32)
+            np.stack(Y0, axis=0),
+            dtype=torch.float32,
+        )
+
+        print(
+            "Loaded ODE metadata:"
+        )
+        print(
+            "theta:",
+            THETA.shape,
+        )
+        print(
+            "y0:",
+            Y0.shape,
+        )
 
         # ------------------------------------------------------------
         # Normalize time
@@ -192,23 +214,23 @@ class IMTS_dataset(Dataset):
 
         XY = torch.cat(
             [X, Y],
-            axis=1
+            axis=1,
         )
 
         std_V = torch.std(
             XY.reshape(
                 -1,
-                XY.shape[-1]
+                XY.shape[-1],
             ),
-            dim=0
+            dim=0,
         )
 
         mean_V = torch.mean(
             XY.reshape(
                 -1,
-                X.shape[-1]
+                X.shape[-1],
             ),
-            dim=0
+            dim=0,
         )
 
         X = (
@@ -225,12 +247,11 @@ class IMTS_dataset(Dataset):
 
         XY_normed = torch.cat(
             [X, Y],
-            axis=1
+            axis=1,
         )
 
         mask = (
-            np.absolute(XY_normed)
-            > 10
+            torch.abs(XY_normed) > 10
         ).any(
             dim=(1, 2)
         )
@@ -243,6 +264,7 @@ class IMTS_dataset(Dataset):
 
         # NEW:
         # Keep theta and y0 aligned with the remaining samples
+
         THETA = THETA[~mask]
         Y0 = Y0[~mask]
 
@@ -251,12 +273,12 @@ class IMTS_dataset(Dataset):
         # ------------------------------------------------------------
 
         X += (
-            torch.randn(X.shape)
+            torch.randn_like(X)
             * noise
         )
 
         Y += (
-            torch.randn(Y.shape)
+            torch.randn_like(Y)
             * noise
         )
 
@@ -265,50 +287,51 @@ class IMTS_dataset(Dataset):
         # ------------------------------------------------------------
 
         M = (
-            torch.rand(X.shape)
+            torch.rand_like(X)
             > c_drop
-        ).type(torch.bool)
+        )
 
         MY = (
-            torch.rand(Y.shape)
+            torch.rand_like(Y)
             > c_drop
-        ).type(torch.bool)
+        )
 
         # MY2 is created so only the relevant_channels can be MY
 
-        MY2 = np.zeros_like(MY)
+        MY2 = torch.zeros_like(
+            MY,
+            dtype=torch.bool,
+        )
 
         MY2[
             :,
             :,
-            forecasting_channels
-        ] = 1
+            forecasting_channels,
+        ] = True
 
-        MY = MY * MY2
-
-        MY = MY.type(torch.bool)
+        MY = MY & MY2
 
         # ------------------------------------------------------------
         # Time masking
         # ------------------------------------------------------------
 
         T_MASK = (
-            torch.rand(T.shape)
+            torch.rand_like(T)
             > t_drop
-        ).type(torch.bool) & (
+        ) & (
             torch.sum(
                 M,
-                axis=-1
+                axis=-1,
             ) > 0
         )
 
         TY_MASK = (
-            torch.rand(TY.shape)
+            torch.rand_like(TY)
             > t_drop
-        ).type(torch.bool) & (
+        ) & (
             torch.sum(
                 MY,
-                axis=-1
+                axis=-1,
             ) > 0
         )
 
@@ -321,7 +344,7 @@ class IMTS_dataset(Dataset):
                 T[i, T_MASK[i]]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         TY = pad(
@@ -329,7 +352,7 @@ class IMTS_dataset(Dataset):
                 TY[i, TY_MASK[i]]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         X = pad(
@@ -337,7 +360,7 @@ class IMTS_dataset(Dataset):
                 X[i, T_MASK[i], :]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         Y = pad(
@@ -345,7 +368,7 @@ class IMTS_dataset(Dataset):
                 Y[i, TY_MASK[i], :]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         M = pad(
@@ -353,7 +376,7 @@ class IMTS_dataset(Dataset):
                 M[i, T_MASK[i], :]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         MY = pad(
@@ -361,7 +384,7 @@ class IMTS_dataset(Dataset):
                 MY[i, TY_MASK[i], :]
                 for i in range(X.shape[0])
             ],
-            batch_first=True
+            batch_first=True,
         )
 
         # ------------------------------------------------------------
@@ -369,7 +392,6 @@ class IMTS_dataset(Dataset):
         # ------------------------------------------------------------
 
         X[~M] = torch.nan
-
         Y[~MY] = torch.nan
 
         # ------------------------------------------------------------
@@ -385,12 +407,11 @@ class IMTS_dataset(Dataset):
         self.M = M
         self.MY = MY
 
-        # NEW
+        # NEW:
         self.theta = THETA
         self.y0 = Y0
 
     def __len__(self):
-
         return self.X.shape[0]
 
     def __getitem__(self, idx):
@@ -408,16 +429,14 @@ class IMTS_dataset(Dataset):
 
             targets=self.Y[idx],
 
-            # NEW
             theta=self.theta[idx],
-
             y0=self.y0[idx],
         )
 
 
 def get_forecasting_channel(
     model,
-    df_path="resources/Top50_final.csv"
+    df_path="resources/Top50_final.csv",
 ):
 
     df = pd.read_csv(
@@ -427,15 +446,14 @@ def get_forecasting_channel(
     channel_scores_str = (
         df.loc[
             df["model"] == model
-        ]["channel_scores"]
-        .values[0]
+        ]["channel_scores"].values[0]
     )
 
     channel_scores = np.fromstring(
         channel_scores_str
         .replace("[", "")
         .replace("]", ""),
-        sep=","
+        sep=",",
     )
 
     top_10_ind = np.argsort(
@@ -468,24 +486,16 @@ def create_dataloaders(
     )
 
     random.seed(fold)
-
     random.shuffle(files)
 
     the_dataset = IMTS_dataset(
         files=files,
-
         ot=observation_time,
-
         fh=forecasting_horizon,
-
         t_drop=t_drop,
-
         c_drop=c_drop,
-
         fold=fold,
-
         forecasting_channels=forecasting_channels,
-
         noise=noise,
     )
 
@@ -496,19 +506,25 @@ def create_dataloaders(
         )
     )
 
+    # Save complete datasets.
+    #
+    # Because theta and y0 are now torch tensors stored
+    # inside IMTS_dataset, torch.save will serialize them
+    # into train.pt / valid.pt / test.pt.
+
     torch.save(
         train_dataset,
-        f"{out_path}/train.pt"
+        f"{out_path}/train.pt",
     )
 
     torch.save(
         valid_dataset,
-        f"{out_path}/valid.pt"
+        f"{out_path}/valid.pt",
     )
 
     torch.save(
         test_dataset,
-        f"{out_path}/test.pt"
+        f"{out_path}/test.pt",
     )
 
 
@@ -526,7 +542,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--model",
         type=str,
-        required=True
+        required=True,
     )
 
     args = parser.parse_args()
@@ -548,7 +564,6 @@ if __name__ == "__main__":
     if not os.path.isdir(
         "data/final/"
     ):
-
         os.mkdir(
             "data/final/"
         )
@@ -571,23 +586,17 @@ if __name__ == "__main__":
 
         create_dataloaders(
             args.model,
-
             fold,
-
             observation_time=0.5,
-
             forecasting_horizon=0.5,
-
             t_drop=t_drop,
-
             c_drop=c_drop,
-
             out_path=out_path
             + "/"
             + str(fold),
-
-            raw_data_path=f"{raw_data_path}/{args.model}",
-
+            raw_data_path=(
+                f"{raw_data_path}/{args.model}"
+            ),
             noise=0.05,
         )
 
