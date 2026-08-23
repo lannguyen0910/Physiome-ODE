@@ -44,49 +44,14 @@ class Trainer:
         self,
         batch,
     ):
-        T = batch['T'].to(
-            self.device
-        )
-
-        X = batch['X'].to(
-            self.device
-        )
-
-        TY = batch['TY'].to(
-            self.device
-        )
-
-        Y = batch['Y'].to(
-            self.device
-        )
-
-        if hasattr(batch, "M"):
-            M = batch.M.to(
-                self.device
-            )
-        else:
-            M = ~torch.isnan(X)
-
-        if hasattr(batch, "MY"):
-            MY = batch.MY.to(
-                self.device
-            )
-        else:
-            MY = ~torch.isnan(Y)
-
-        if hasattr(batch, "theta"):
-            theta = batch.theta.to(
-                self.device
-            )
-        else:
-            theta = None
-
-        if hasattr(batch, "y0"):
-            y0 = batch.y0.to(
-                self.device
-            )
-        else:
-            y0 = None
+        T = batch['T'].to(self.device)
+        X = batch['X'].to(self.device)
+        M = batch['M'].to(self.device)
+        TY = batch['TY'].to(self.device)
+        MY = batch['MY'].to(self.device)
+        Y = batch['Y'].to(self.device)
+        theta_true = batch['theta'].to(self.device)
+        y0_true = batch['y0'].to(self.device)
 
         return (
             T,
@@ -95,8 +60,8 @@ class Trainer:
             TY,
             Y,
             MY,
-            theta,
-            y0,
+            theta_true,
+            y0_true,
         )
 
     def _forward(
@@ -138,8 +103,7 @@ class Trainer:
             )
 
         else:
-
-            t = T
+            t = T[0]
 
         trajectory_pred = self.ode_solver(
             y0=y0_pred,
@@ -182,6 +146,10 @@ class Trainer:
         self,
         outputs,
     ):
+        print("DEBUG theta_pred:", outputs["theta_pred"].shape)
+        print("DEBUG theta_true:", outputs["theta_true"])
+        print("DEBUG y0_pred:", outputs["y0_pred"].shape)
+        print("DEBUG y0_true:", outputs["y0_true"].shape)
 
         return self.loss_fn(
             theta_pred=outputs["theta_pred"],

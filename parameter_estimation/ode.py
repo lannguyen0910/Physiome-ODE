@@ -7,7 +7,7 @@ class PhysiomeODE(nn.Module):
         super().__init__()
 
         self.state_dim = 2
-        self.parameter_dim = 13
+        self.parameter_dim = 14
 
     def dynamics(
         self,
@@ -16,92 +16,123 @@ class PhysiomeODE(nn.Module):
         theta: torch.Tensor,
     ) -> torch.Tensor:
         """
-        Compute dy/dt.
+        Compute dy/dt for the Physiome Dupont 1991b model.
 
         Parameters
         ----------
         t:
             Current time.
-
-            Shape:
-                scalar
-                or [batch]
+            Scalar tensor.
 
         y:
-            Current state.
+            Current states.
+            Shape: [batch, 2]
 
-            Shape:
-                [batch, 2]
+            y[:, 0] = Z
+            y[:, 1] = Y
 
         theta:
-            ODE parameters.
+            ODE constants.
+            Shape: [batch, 14]
 
-            Shape:
-                [batch, 13]
+            theta[:, 0]  = v0
+            theta[:, 1]  = v1
+            theta[:, 2]  = VM2
+            theta[:, 3]  = VM3
+            theta[:, 4]  = KR
+            theta[:, 5]  = KA
+            theta[:, 6]  = kf
+            theta[:, 7]  = k
+            theta[:, 8]  = K2
+            theta[:, 9]  = n
+            theta[:, 10] = m
+            theta[:, 11] = p
+            theta[:, 12] = betaf
+            theta[:, 13] = tp
 
         Returns
         -------
         dydt:
-            Shape:
-                [batch, 2]
+            Shape [batch, 2]
         """
 
-        # States
         Z = y[:, 0]
         Y = y[:, 1]
 
-        # Parameters
         v0 = theta[:, 0]
         v1 = theta[:, 1]
-        beta = theta[:, 2]
 
-        VM2 = theta[:, 3]
-        VM3 = theta[:, 4]
+        VM2 = theta[:, 2]
+        VM3 = theta[:, 3]
 
-        KR = theta[:, 5]
-        KA = theta[:, 6]
+        KR = theta[:, 4]
+        KA = theta[:, 5]
 
-        kf = theta[:, 7]
-        k = theta[:, 8]
+        kf = theta[:, 6]
+        k = theta[:, 7]
 
-        K2 = theta[:, 9]
+        K2 = theta[:, 8]
 
-        n = theta[:, 10]
-        m = theta[:, 11]
-        p = theta[:, 12]
+        n = theta[:, 9]
+        m = theta[:, 10]
+        p = theta[:, 11]
 
-        # Algebraic variables
+        betaf = theta[:, 12]
+        tp = theta[:, 13]
+
+        # v2
+        Z_n = Z ** n
+        K2_n = K2 ** n
+
         v2 = (
             VM2
-            * Z**n
-            / (K2**n + Z**n)
+            * Z_n
+            / (K2_n + Z_n)
         )
+
+        # v3
+        Y_m = Y ** m
+        KR_m = KR ** m
+
+        Z_p = Z ** p
+        KA_p = KA ** p
 
         v3 = (
             VM3
             * (
-                Y**m
-                / (KR**m + Y**m)
+                Y_m
+                / (KR_m + Y_m)
             )
             * (
-                Z**p
-                / (KA**p + Z**p)
+                Z_p
+                / (KA_p + Z_p)
             )
+        )
+
+        # beta(t) = 0                         if t < tp
+        #           betaf * exp(-0.2(t-tp))   if t >= tp
+        beta = torch.where(
+            t < tp,
+            torch.zeros_like(tp),
+            betaf * torch.exp(
+                -0.2 * (t - tp)
+            ),
         )
 
         # ODE equations
-        dZ = (
-            v0
-            + v1
-            - v2
-            - kf * Z
-            + k * Y
+        dY = (
+            v2
+            - v3
+            - kf * Y
         )
 
-        dY = (
-            beta * v2
-            - v3
-            - k * Y
+        dZ = (
+            v0
+            + v1 * beta
+            - v2
+            + v3
+            + kf * Y
+            - k * Z
         )
 
         return torch.stack(
@@ -113,21 +144,25 @@ class PhysiomeODE(nn.Module):
 class RK4Solver:
     """
     Differentiable fourth-order Runge-Kutta solver.
-    The solver supports batched initial states and parameters.
 
-    Input:
-        y0    [batch, state_dim]
-        t     [time]
-        theta [batch, parameter_dim]
+    Input
+    -----
+    y0:
+        [batch, state_dim]
 
-    Output:
-        trajectory [batch, time, state_dim]
+    t:
+        [time]
+
+    theta:
+        [batch, parameter_dim]
+
+    Output
+    ------
+    trajectory:
+        [batch, time, state_dim]
     """
 
-    def __init__(
-        self,
-        dynamics,
-    ):
+    def __init__(self, dynamics):
         self.dynamics = dynamics
 
     def __call__(
@@ -155,7 +190,6 @@ class RK4Solver:
         trajectory.append(y)
 
         for i in range(len(t) - 1):
-
             t0 = t[i]
             t1 = t[i + 1]
 
@@ -187,8 +221,7 @@ class RK4Solver:
             )
 
             y = y + (
-                dt
-                / 6.0
+                dt / 6.0
                 * (
                     k1
                     + 2.0 * k2
