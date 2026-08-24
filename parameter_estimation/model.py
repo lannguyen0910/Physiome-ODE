@@ -68,16 +68,12 @@ class ParameterEncoder(nn.Module):
 
         log_theta_pred = self.parameter_head(h)
 
-        theta_pred = torch.exp(
-            log_theta_pred
-        )
+        raw_theta = torch.exp(log_theta_pred)
+        theta_pred = torch.nn.functional.softplus(raw_theta)
 
         # Predict initial state
         y0_raw = self.initial_state_head(h)
-
-        y0_pred = torch.nn.functional.softplus(
-            y0_raw
-        )
+        y0_pred = torch.nn.functional.softplus(y0_raw)
 
         return theta_pred, y0_pred
 

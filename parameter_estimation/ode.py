@@ -9,6 +9,17 @@ class PhysiomeODE(nn.Module):
         self.state_dim = 2
         self.parameter_dim = 14
 
+    @staticmethod
+    def hill(x, K, n, eps=1e-8):
+        x = torch.clamp(x, min=eps)
+        K = torch.clamp(K, min=eps)
+
+        log_ratio = n * (
+            torch.log(K) - torch.log(x)
+        )
+
+        return torch.sigmoid(-log_ratio)
+
     def dynamics(
         self,
         t: torch.Tensor,
@@ -59,65 +70,86 @@ class PhysiomeODE(nn.Module):
         Z = y[:, 0]
         Y = y[:, 1]
 
+        # States should be non-negative
+        Z_safe = torch.clamp(Z, min=1e-8)
+        Y_safe = torch.clamp(Y, min=1e-8)
+
+        # Parameters
         v0 = theta[:, 0]
         v1 = theta[:, 1]
-
         VM2 = theta[:, 2]
         VM3 = theta[:, 3]
-
         KR = theta[:, 4]
         KA = theta[:, 5]
-
         kf = theta[:, 6]
         k = theta[:, 7]
-
         K2 = theta[:, 8]
-
         n = theta[:, 9]
         m = theta[:, 10]
         p = theta[:, 11]
-
         betaf = theta[:, 12]
         tp = theta[:, 13]
 
+        eps = 1e-8
+
+        Z_safe = torch.clamp(Z, min=eps)
+        Y_safe = torch.clamp(Y, min=eps)
+
+        VM2 = torch.clamp(VM2, min=eps)
+        VM3 = torch.clamp(VM3, min=eps)
+
+        KR = torch.clamp(KR, min=eps)
+        KA = torch.clamp(KA, min=eps)
+        K2 = torch.clamp(K2, min=eps)
+
+        n = torch.clamp(n, min=eps)
+        m = torch.clamp(m, min=eps)
+        p = torch.clamp(p, min=eps)
+
         # v2
-        Z_n = Z ** n
+        Z_n = Z_safe ** n
         K2_n = K2 ** n
 
-        v2 = (
-            VM2
-            * Z_n
-            / (K2_n + Z_n)
+        v2 = VM2 * Z_n / (
+            K2_n + Z_n + eps
         )
 
         # v3
-        Y_m = Y ** m
+        Y_m = Y_safe ** m
         KR_m = KR ** m
 
-        Z_p = Z ** p
+        Z_p = Z_safe ** p
         KA_p = KA ** p
 
-        v3 = (
-            VM3
-            * (
-                Y_m
-                / (KR_m + Y_m)
-            )
-            * (
-                Z_p
-                / (KA_p + Z_p)
-            )
+        y_activation = Y_m / (
+            KR_m + Y_m + eps
         )
 
-        # beta(t) = 0                         if t < tp
-        #           betaf * exp(-0.2(t-tp))   if t >= tp
-        beta = torch.where(
-            t < tp,
-            torch.zeros_like(tp),
-            betaf * torch.exp(
-                -0.2 * (t - tp)
-            ),
+        z_activation = Z_p / (
+            KA_p + Z_p + eps
         )
+
+        v3 = VM3 * y_activation * z_activation
+
+        # beta(t) =
+        #     0                                  if t < tp
+        #     betaf * exp(-0.2*(t-tp))           if t >= tp
+        if t.ndim == 0:
+            beta = torch.where(
+                t < tp,
+                torch.zeros_like(tp),
+                betaf * torch.exp(
+                    -0.2 * (t - tp)
+                ),
+            )
+        else:
+            beta = torch.where(
+                t.unsqueeze(-1) < tp,
+                torch.zeros_like(tp),
+                betaf * torch.exp(
+                    -0.2 * (t.unsqueeze(-1) - tp)
+                ),
+            )
 
         # ODE equations
         dY = (

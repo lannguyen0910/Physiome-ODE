@@ -49,11 +49,15 @@ class ParameterEstimationLoss(nn.Module):
             theta_true,
         )
 
+        print('Parameter loss: ', parameter_loss)
+
         # 2. Trajectory reconstruction loss
         trajectory_loss = self.trajectory_loss(
             trajectory_pred,
             trajectory_true,
         )
+
+        print('Trajectory loss: ', trajectory_loss)
 
         # 3. Weighted total loss
         total_loss = self.parameter_weight * parameter_loss + \
