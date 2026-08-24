@@ -18,7 +18,7 @@ training:
   epochs: 100
   learning_rate: 0.001
   weight_decay: 0.00001
-  parameter_loss_weight: 1.0
+  parameter_loss_weight: 0.01
   trajectory_loss_weight: 1.0
   patience: 15
   gradient_clip: 1.0
