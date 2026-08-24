@@ -69,14 +69,28 @@ class PhysiomeDataset(Dataset):
     def __getitem__(self, idx):
         real_idx = self.indices[idx]
 
-        T = self.base_dataset.T[real_idx]
-        X = self.base_dataset.X[real_idx]
-        TY = self.base_dataset.TY[real_idx]
-        Y = self.base_dataset.Y[real_idx]
-        theta = self.base_dataset.theta[real_idx]
-        y0 = self.base_dataset.y0[real_idx]
+        T = self.base_dataset.T[real_idx].float()
+        X = self.base_dataset.X[real_idx].float()
+        TY = self.base_dataset.TY[real_idx].float()
+        Y = self.base_dataset.Y[real_idx].float()
+        theta = self.base_dataset.theta[real_idx].float()
+        y0 = self.base_dataset.y0[real_idx].float()
         M = self.base_dataset.M[real_idx].float()
         MY = self.base_dataset.MY[real_idx].float()
+
+        X = torch.nan_to_num(
+            X,
+            nan=0.0,
+            posinf=0.0,
+            neginf=0.0,
+        )
+
+        Y = torch.nan_to_num(
+            Y,
+            nan=0.0,
+            posinf=0.0,
+            neginf=0.0,
+        )
 
         return {
             "key": real_idx,

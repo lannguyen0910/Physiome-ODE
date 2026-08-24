@@ -96,12 +96,6 @@ class Trainer:
                 ],
                 dim=0,
             )
-
-            t = torch.unique(
-                t,
-                sorted=True,
-            )
-
         else:
             t = T[0]
 
@@ -146,11 +140,6 @@ class Trainer:
         self,
         outputs,
     ):
-        print("DEBUG theta_pred:", outputs["theta_pred"].shape)
-        print("DEBUG theta_true:", outputs["theta_true"])
-        print("DEBUG y0_pred:", outputs["y0_pred"].shape)
-        print("DEBUG y0_true:", outputs["y0_true"].shape)
-
         return self.loss_fn(
             theta_pred=outputs["theta_pred"],
             theta_true=outputs["theta_true"],
