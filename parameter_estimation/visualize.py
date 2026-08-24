@@ -127,27 +127,27 @@ def plot_trajectory(
         exist_ok=True,
     )
 
-    # t = t.detach().cpu().numpy()
-    true = (
+    t = t.detach().cpu().numpy()
+    trajectory_true_sample = (
         trajectory_true[sample_idx]
         .detach()
         .cpu()
         .numpy()
     )
 
-    pred = trajectory_pred[sample_idx].detach().cpu().numpy()
+    trajectory_pred_sample = trajectory_pred[sample_idx].detach().cpu().numpy()
     plt.figure(figsize=(10, 5))
 
     # Z
     plt.plot(
         t,
-        true[:, 0],
+        trajectory_true_sample[:, 0],
         label="True Z",
     )
 
     plt.plot(
         t,
-        pred[:, 0],
+        trajectory_pred_sample[:, 0],
         linestyle="--",
         label="Predicted Z",
     )
@@ -155,13 +155,13 @@ def plot_trajectory(
     # Y
     plt.plot(
         t,
-        true[:, 1],
+        trajectory_true_sample[:, 1],
         label="True Y",
     )
 
     plt.plot(
         t,
-        pred[:, 1],
+        trajectory_pred_sample[:, 1],
         linestyle="--",
         label="Predicted Y",
     )
