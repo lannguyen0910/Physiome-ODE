@@ -136,12 +136,12 @@ def main():
         plot_parameter_recovery(
             theta_true=outputs["theta_true"],
             theta_pred=outputs["theta_pred"],
-            parameter_names=config.ode_parameters,
+            parameter_names=config.parameter_names,
             output_dir="figures/parameters",
         )
 
         plot_trajectory(
-            t=outputs["T"][0],
+            t=outputs["t"],
             trajectory_true=outputs["trajectory_true"],
             trajectory_pred=outputs["trajectory_pred"],
             sample_idx=0,

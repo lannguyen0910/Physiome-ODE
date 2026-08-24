@@ -8,9 +8,7 @@ class ParameterMetrics:
         target
     ):
         return torch.mean(
-            torch.abs(
-                prediction - target
-            )
+            torch.abs(prediction - target)
         )
 
     @staticmethod
@@ -20,10 +18,7 @@ class ParameterMetrics:
     ):
         return torch.sqrt(
             torch.mean(
-                (
-                    prediction
-                    - target
-                ) ** 2
+                (prediction - target) ** 2
             )
         )
 
@@ -34,9 +29,7 @@ class ParameterMetrics:
         eps=1e-8
     ):
         return torch.mean(
-            torch.abs(
-                prediction - target
-            )
+            torch.abs(prediction - target)
             /
             (torch.abs(target) + eps)
         )
@@ -48,9 +41,7 @@ class ParameterMetrics:
     ):
         return torch.mean(
             torch.abs(
-                torch.log(prediction)
-                -
-                torch.log(target)
+                torch.log(prediction) - torch.log(target)
             )
         )
 
@@ -63,9 +54,7 @@ class TrajectoryMetrics:
         target
     ):
         return torch.mean(
-            torch.abs(
-                prediction - target
-            )
+            torch.abs(prediction - target)
         )
 
     @staticmethod
@@ -75,9 +64,6 @@ class TrajectoryMetrics:
     ):
         return torch.sqrt(
             torch.mean(
-                (
-                    prediction
-                    - target
-                ) ** 2
+                (prediction - target) ** 2
             )
         )

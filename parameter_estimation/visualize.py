@@ -90,12 +90,12 @@ def plot_training_history(
     plt.figure(figsize=(8, 5))
 
     plt.plot(
-        history["train"],
+        history["train_loss"],
         label="Train",
     )
 
     plt.plot(
-        history["valid"],
+        history["valid_loss"],
         label="Validation",
     )
 
@@ -127,7 +127,7 @@ def plot_trajectory(
         exist_ok=True,
     )
 
-    t = t.detach().cpu().numpy()
+    # t = t.detach().cpu().numpy()
     true = (
         trajectory_true[sample_idx]
         .detach()

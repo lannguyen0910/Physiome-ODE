@@ -134,6 +134,7 @@ class Trainer:
             "y0_pred": y0_pred,
             "trajectory_true": trajectory_true,
             "trajectory_pred": trajectory_pred,
+            "t": t,
         }
 
     def _compute_loss(
