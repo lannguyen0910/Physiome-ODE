@@ -222,6 +222,52 @@ class TrajectoryMetrics:
 
 
 class JGDMetrics:
+    @staticmethod
+    def pointwise_error(
+        prediction,
+        target,
+        eps=1e-8,
+    ):
+        """
+        Stable point-wise trajectory error.
+
+        Instead of dividing every error by the
+        corresponding target value, normalize each
+        state by its overall trajectory range.
+
+        prediction:
+            [B, T, D]
+
+        target:
+            [B, T, D]
+
+        Returns:
+            Scalar normalized point-wise error.
+        """
+
+        absolute_error = torch.abs(
+            prediction - target
+        )
+
+        # MAE for each state variable
+        state_mae = absolute_error.mean(
+            dim=(0, 1)
+        )
+
+        # Range of each state variable
+        state_range = (
+            target.amax(dim=(0, 1))
+            -
+            target.amin(dim=(0, 1))
+        )
+
+        normalized_state_error = (
+            state_mae
+            /
+            (state_range + eps)
+        )
+
+        return normalized_state_error.mean()
 
     @staticmethod
     def trajectory_distribution_error(
@@ -252,15 +298,18 @@ class JGDMetrics:
             dim=(0, 1)
         )
 
+        state_range = (
+            target.amax(dim=(0, 1))
+            -
+            target.amin(dim=(0, 1))
+        )
+
         mean_error = torch.mean(
             torch.abs(
                 pred_mean - target_mean
             )
             /
-            (
-                torch.abs(target_mean)
-                + eps
-            )
+            (state_range + eps)
         )
 
         std_error = torch.mean(
@@ -268,10 +317,7 @@ class JGDMetrics:
                 pred_std - target_std
             )
             /
-            (
-                torch.abs(target_std)
-                + eps
-            )
+            (state_range + eps)
         )
 
         return mean_error + std_error
@@ -331,29 +377,22 @@ class JGDMetrics:
         3. Temporal dynamics error
         """
 
-        point_error = torch.mean(
-            torch.abs(prediction - target)
-            /
-            (
-                torch.abs(target)
-                + eps
-            )
+        point_error = JGDMetrics.pointwise_error(
+            prediction,
+            target,
+            eps,
         )
 
-        distribution_error = (
-            JGDMetrics.trajectory_distribution_error(
-                prediction,
-                target,
-                eps,
-            )
+        distribution_error = JGDMetrics.trajectory_distribution_error(
+            prediction,
+            target,
+            eps,
         )
 
-        dynamics_error = (
-            JGDMetrics.temporal_dynamics_error(
-                prediction,
-                target,
-                eps,
-            )
+        dynamics_error = JGDMetrics.temporal_dynamics_error(
+            prediction,
+            target,
+            eps,
         )
 
         score = (

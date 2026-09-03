@@ -152,39 +152,16 @@ class Trainer:
 
         )
 
-        # ======================================================
-        # CONCATENATE HISTORY AND FUTURE TIMES
-        # ======================================================
-
-        if T.dim() == 3:
-
-            T_history = T.squeeze(-1)
-
+        if TY.shape[1] > 0:
+            t = torch.cat(
+                [
+                    T[0],
+                    TY[0],
+                ],
+                dim=0,
+            )
         else:
-
-            T_history = T
-
-        if TY.dim() == 3:
-
-            T_future = TY.squeeze(-1)
-
-        else:
-
-            T_future = TY
-
-        t = torch.cat(
-
-            [
-
-                T_history,
-
-                T_future,
-
-            ],
-
-            dim=1,
-
-        )
+            t = T[0]
 
         # ======================================================
         # CONCATENATE HISTORY AND FUTURE TRAJECTORY

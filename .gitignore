@@ -5,3 +5,5 @@ experiments/models
 *.log
 *.h5
 *.zip
+content
+results
