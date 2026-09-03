@@ -81,21 +81,10 @@ class ParameterEncoder(nn.Module):
 class ParameterEstimator(nn.Module):
     def __init__(
         self,
-        state_dim,
-        parameter_dim,
-        hidden_dim=128,
-        num_layers=2,
-        dropout=0.1,
+        encoder
     ):
         super().__init__()
-
-        self.encoder = ParameterEncoder(
-            state_dim=state_dim,
-            parameter_dim=parameter_dim,
-            hidden_dim=hidden_dim,
-            num_layers=num_layers,
-            dropout=dropout,
-        )
+        self.encoder = encoder
 
     def forward(
         self,

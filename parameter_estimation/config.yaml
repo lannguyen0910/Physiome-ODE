@@ -8,6 +8,7 @@ data:
   num_workers: 2
 
 model:
+  name: ParameterEncoder
   state_dim: 2
   parameter_dim: 14
   hidden_dim: 128
