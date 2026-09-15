@@ -1,0 +1,4 @@
+name: neural_ode
+
+params:
+  hidden_dim: 128

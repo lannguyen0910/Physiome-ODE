@@ -10,7 +10,7 @@ from config import Config
 
 from dataset import PhysiomeDataModule
 
-from model import ParameterEstimator, ParameterEncoder
+from parameter_estimation.models.model import ParameterEstimator, ParameterEncoder
 
 from ode import PhysiomeODE, RK4Solver
 
