@@ -1,4 +1,4 @@
-name: gru
+name: GRUEncoder
 
 params:
   hidden_dim: 128

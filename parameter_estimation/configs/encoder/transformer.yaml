@@ -1,4 +1,4 @@
-name: transformer
+name: TransformerEncoder
 
 params:
   hidden_dim: 128

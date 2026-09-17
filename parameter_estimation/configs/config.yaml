@@ -13,7 +13,7 @@ defaults:
 # ==========================================================
 
 data:
-  name: physiome
+  name: PhysiomeDataModule
 
   path: "data/dupont_1991b/0"
 
@@ -26,13 +26,15 @@ data:
 # ==========================================================
 
 model:
-  name: parameter_estimator
+  name: ParameterEstimator
   state_dim: 2
   parameter_dim: 14
 
 # ==========================================================
 # TRAINING
 # ==========================================================
+loss:
+  name: ParameterEstimationLoss
 
 training:
   epochs: 100

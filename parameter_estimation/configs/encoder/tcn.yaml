@@ -1,6 +1,7 @@
-name: gru
+name: TCNEncoder
 
 params:
   hidden_dim: 128
-  num_layers: 2
+  num_levels: 4
+  kernel_size: 3
   dropout: 0.1

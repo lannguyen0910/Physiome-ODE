@@ -1,92 +1,53 @@
-import os
+# ==========================================================
+# pipeline.py
+# ==========================================================
+
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 import hydra
 import torch
-
+from omegaconf import DictConfig, OmegaConf
 from hydra.utils import to_absolute_path
 
-from omegaconf import (
-    DictConfig,
-    OmegaConf,
-)
-
 
 # ==========================================================
-# DATASET
+# LOCAL IMPORTS
 # ==========================================================
+
+from registry import Registry
 
 from datasets import (
     DATASET_REGISTRY,
-    DatasetEDA,
 )
-
-
-# ==========================================================
-# ENCODERS
-# ==========================================================
 
 from encoders import (
     ENCODER_REGISTRY,
 )
 
-
-# ==========================================================
-# LOSSES
-# ==========================================================
-
 from losses import (
     LOSS_REGISTRY,
 )
-
-
-# ==========================================================
-# METRICS
-# ==========================================================
 
 from metrics import (
     METRIC_REGISTRY,
 )
 
-
-# ==========================================================
-# MODELS
-# ==========================================================
-
 from models import (
     MODEL_REGISTRY,
 )
-
-
-# ==========================================================
-# ODES
-# ==========================================================
 
 from odes import (
     ODE_REGISTRY,
 )
 
-
-# ==========================================================
-# SOLVERS
-# ==========================================================
-
 from solvers import (
     SOLVER_REGISTRY,
 )
 
-
-# ==========================================================
-# TRAINER
-# ==========================================================
-
 from trainer import (
     TRAINER_REGISTRY,
 )
-
-
-# ==========================================================
-# UTILITIES
-# ==========================================================
 
 from utilities import (
     seed_everything,
@@ -96,372 +57,391 @@ from utilities import (
 )
 
 
-class BasePipeline:
+# ==========================================================
+# BASE PIPELINE
+# ==========================================================
 
-    def __init__(
-        self,
-        config: DictConfig,
-    ):
+
+class BasePipeline:
+    """
+    Main pipeline for Physiome ODE parameter estimation.
+
+    Architecture:
+
+        Hydra config
+            |
+            v
+        Registries
+            |
+            +--> Dataset / DataModule
+            +--> Encoder
+            +--> ODE
+            +--> Solver
+            +--> Model
+            +--> Loss
+            +--> Metrics
+            +--> Optimizer
+            +--> Trainer
+            |
+            v
+        Training
+            |
+            v
+        Evaluation
+            |
+            v
+        Visualization
+
+    All components are selected through configuration.
+    """
+
+    # ======================================================
+    # INITIALIZATION
+    # ======================================================
+
+    def __init__(self, config: DictConfig) -> None:
 
         self.config = config
 
-        self.initialized = False
-
         # --------------------------------------------------
-        # Reproducibility
+        # Initialize registries
         # --------------------------------------------------
 
-        seed_everything(
-            int(
-                config.experiment.seed
-            )
-        )
+        self.init_registry()
 
         # --------------------------------------------------
-        # Global initialization
+        # Global configuration
         # --------------------------------------------------
 
         self.init_globals()
 
-        self.init_registry()
+        print("\n" + "=" * 70)
+        print("CONFIGURATION")
+        print("=" * 70)
+        print(OmegaConf.to_yaml(self.config))
 
     # ======================================================
-    # GLOBALS
+    # GLOBAL CONFIGURATION
     # ======================================================
 
-    def init_globals(self):
+    def init_globals(self) -> None:
+        """
+        Initialize global settings such as random seed,
+        device and output directories.
+        """
+
+        # --------------------------------------------------
+        # Seed
+        # --------------------------------------------------
+
+        seed = int(self.config.experiment.seed)
+
+        seed_everything(seed)
 
         # --------------------------------------------------
         # Device
         # --------------------------------------------------
 
-        requested_device = str(
-            self.config.experiment.device
-        )
+        requested_device = str(self.config.experiment.device)
 
-        if (
-            requested_device == "cuda"
-            and not torch.cuda.is_available()
-        ):
-
+        if requested_device == "cuda" and not torch.cuda.is_available():
             print(
-                "WARNING: CUDA requested "
-                "but is not available."
-            )
-
-            print(
+                "[WARNING] CUDA requested but not available. "
                 "Falling back to CPU."
             )
 
-            self.device = torch.device(
-                "cpu"
-            )
+            self.device = torch.device("cpu")
 
         else:
+            self.device = torch.device(requested_device)
 
-            self.device = torch.device(
-                requested_device
-            )
+        print(f"[INFO] Seed   : {seed}")
+        print(f"[INFO] Device : {self.device}")
 
         # --------------------------------------------------
-        # Output paths
+        # Output directories
         # --------------------------------------------------
 
-        self.checkpoint_path = (
+        self.checkpoint_path = Path(
             to_absolute_path(
                 self.config.output.checkpoint
             )
         )
 
-        self.results_path = (
+        self.results_path = Path(
             to_absolute_path(
                 self.config.output.results
             )
         )
 
-        self.history_path = (
+        self.history_path = Path(
             to_absolute_path(
                 self.config.output.history
             )
         )
 
-        self.figure_dir = (
+        self.figure_dir = Path(
             to_absolute_path(
                 self.config.output.figures
             )
         )
 
-        # --------------------------------------------------
-        # Create directories
-        # --------------------------------------------------
-
-        os.makedirs(
-            self.figure_dir,
+        self.checkpoint_path.parent.mkdir(
+            parents=True,
             exist_ok=True,
         )
 
-        checkpoint_dir = (
-            os.path.dirname(
-                self.checkpoint_path
-            )
+        self.results_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
         )
 
-        results_dir = (
-            os.path.dirname(
-                self.results_path
-            )
+        self.history_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
         )
 
-        history_dir = (
-            os.path.dirname(
-                self.history_path
-            )
-        )
-
-        if checkpoint_dir:
-
-            os.makedirs(
-                checkpoint_dir,
-                exist_ok=True,
-            )
-
-        if results_dir:
-
-            os.makedirs(
-                results_dir,
-                exist_ok=True,
-            )
-
-        if history_dir:
-
-            os.makedirs(
-                history_dir,
-                exist_ok=True,
-            )
-
-        # --------------------------------------------------
-        # Print config
-        # --------------------------------------------------
-
-        print(
-            "\n"
-            + "=" * 70
-        )
-
-        print(
-            "PHYSIOME ODE PIPELINE"
-        )
-
-        print(
-            "=" * 70
-        )
-
-        print(
-            f"Device: {self.device}"
-        )
-
-        print(
-            f"Seed: "
-            f"{self.config.experiment.seed}"
-        )
-
-        print(
-            "\nFinal configuration:"
-        )
-
-        print(
-            OmegaConf.to_yaml(
-                self.config
-            )
+        self.figure_dir.mkdir(
+            parents=True,
+            exist_ok=True,
         )
 
     # ======================================================
     # REGISTRIES
     # ======================================================
 
-    def init_registry(self):
+    def init_registry(self) -> None:
+        """
+        Attach all component registries.
 
-        self.datamodule_registry = (
-            DATASET_REGISTRY
-        )
+        Registry keys are the Python class names because
+        registration is done without explicit names.
 
-        self.encoder_registry = (
-            ENCODER_REGISTRY
-        )
+        Example:
 
-        self.ode_registry = (
-            ODE_REGISTRY
-        )
+            ENCODER_REGISTRY.register(GRUEncoder)
 
-        self.solver_registry = (
-            SOLVER_REGISTRY
-        )
+        gives:
 
-        self.model_registry = (
-            MODEL_REGISTRY
-        )
+            "GRUEncoder" -> GRUEncoder
+        """
 
-        self.loss_registry = (
-            LOSS_REGISTRY
-        )
+        # --------------------------------------------------
+        # Data
+        # --------------------------------------------------
 
-        self.metric_registry = (
-            METRIC_REGISTRY
-        )
+        self.dataset_registry = DATASET_REGISTRY
 
-        self.trainer_registry = (
-            TRAINER_REGISTRY
-        )
+        # --------------------------------------------------
+        # Other components
+        # --------------------------------------------------
+
+        self.encoder_registry = ENCODER_REGISTRY
+        self.loss_registry = LOSS_REGISTRY
+        self.metric_registry = METRIC_REGISTRY
+        self.model_registry = MODEL_REGISTRY
+        self.ode_registry = ODE_REGISTRY
+        self.solver_registry = SOLVER_REGISTRY
+        self.trainer_registry = TRAINER_REGISTRY
 
     # ======================================================
     # DATA
     # ======================================================
 
-    def init_data(self):
+    def init_data(self) -> None:
+        """
+        Initialize the configured DataModule.
+        """
+
+        print("[1/10] DATA")
+
+        # --------------------------------------------------
+        # Read name from config
+        # --------------------------------------------------
+
+        datamodule_name = str(
+            self.config.data.name
+        )
 
         print(
-            "\n[1/10] DATA"
+            f"       DataModule: {datamodule_name}"
         )
 
-        data_config = (
-            self.config.data
-        )
-
-        datamodule_name = (
-            data_config.get(
-                "name",
-                "physiome",
-            )
-        )
+        # --------------------------------------------------
+        # Resolve registry entry
+        # --------------------------------------------------
 
         datamodule_cls = (
-            self.datamodule_registry.get(
+            self.dataset_registry.get(
                 datamodule_name
             )
         )
 
-        data_path = (
-            to_absolute_path(
-                data_config.path
-            )
+        # --------------------------------------------------
+        # Data path
+        # --------------------------------------------------
+
+        data_path = to_absolute_path(
+            str(self.config.data.path)
         )
+
+        # --------------------------------------------------
+        # Instantiate DataModule
+        # --------------------------------------------------
 
         self.datamodule = datamodule_cls(
             data_path=data_path,
-
             batch_size=int(
-                data_config.batch_size
+                self.config.data.batch_size
             ),
-
             num_workers=int(
-                data_config.num_workers
+                self.config.data.num_workers
             ),
         )
+
+        # --------------------------------------------------
+        # Setup
+        # --------------------------------------------------
 
         self.datamodule.setup()
 
+        # --------------------------------------------------
+        # DataLoaders
+        # --------------------------------------------------
+
         self.train_loader = (
-            self.datamodule.train_loader()
+            self.datamodule.train_dataloader()
         )
 
         self.valid_loader = (
-            self.datamodule.valid_loader()
+            self.datamodule.val_dataloader()
         )
 
         self.test_loader = (
-            self.datamodule.test_loader()
+            self.datamodule.test_dataloader()
         )
 
         print(
-            f"Data module: "
-            f"{datamodule_name}"
+            f"       Data path : {data_path}"
         )
 
         print(
-            f"Data path: "
-            f"{data_path}"
+            f"       Batch size: "
+            f"{self.config.data.batch_size}"
         )
+
+        print("       DATA OK")
 
     # ======================================================
-    # DATASET EDA
+    # EDA
     # ======================================================
 
-    def run_eda(self):
+    def run_eda(self) -> None:
+        """
+        Run dataset exploratory data analysis.
 
-        print(
-            "\n[2/10] DATASET EDA"
-        )
+        Visualization/EDA logic stays outside the trainer.
+        """
+
+        print("[2/10] EDA")
+
+        try:
+            from datasets.eda import DatasetEDA
+
+        except ImportError as exc:
+            print(
+                "[WARNING] DatasetEDA could not be imported:"
+            )
+            print(f"          {exc}")
+            print("          Skipping EDA.")
+            return
 
         eda_output_dir = (
-            os.path.join(
-                self.figure_dir,
-                "eda",
-            )
-        )
-
-        os.makedirs(
-            eda_output_dir,
-            exist_ok=True,
+            self.figure_dir / "eda"
         )
 
         eda = DatasetEDA(
-            output_dir=eda_output_dir
+            output_dir=str(eda_output_dir)
         )
+
+        # --------------------------------------------------
+        # Analyze datasets
+        # --------------------------------------------------
+
+        if hasattr(self.datamodule, "train_dataset"):
+            train_dataset = (
+                self.datamodule.train_dataset
+            )
+        else:
+            train_dataset = None
+
+        if hasattr(self.datamodule, "valid_dataset"):
+            valid_dataset = (
+                self.datamodule.valid_dataset
+            )
+        elif hasattr(self.datamodule, "val_dataset"):
+            valid_dataset = (
+                self.datamodule.val_dataset
+            )
+        else:
+            valid_dataset = None
+
+        if hasattr(self.datamodule, "test_dataset"):
+            test_dataset = (
+                self.datamodule.test_dataset
+            )
+        else:
+            test_dataset = None
 
         # --------------------------------------------------
         # Train
         # --------------------------------------------------
 
-        eda.analyze(
-            dataset=(
-                self.datamodule.train_dataset
-            ),
-            dataset_name="train",
-        )
+        if train_dataset is not None:
+            eda.analyze(
+                train_dataset,
+                dataset_name="train",
+            )
 
         # --------------------------------------------------
         # Validation
         # --------------------------------------------------
 
-        eda.analyze(
-            dataset=(
-                self.datamodule.valid_dataset
-            ),
-            dataset_name="validation",
-        )
+        if valid_dataset is not None:
+            eda.analyze(
+                valid_dataset,
+                dataset_name="valid",
+            )
 
         # --------------------------------------------------
         # Test
         # --------------------------------------------------
 
-        eda.analyze(
-            dataset=(
-                self.datamodule.test_dataset
-            ),
-            dataset_name="test",
-        )
+        if test_dataset is not None:
+            eda.analyze(
+                test_dataset,
+                dataset_name="test",
+            )
 
-        print(
-            f"EDA saved to: "
-            f"{eda_output_dir}"
-        )
+        print("       EDA OK")
 
     # ======================================================
     # ENCODER
     # ======================================================
 
-    def init_encoder(self):
+    def init_encoder(self) -> None:
+        """
+        Initialize the selected parameter encoder.
+        """
+
+        print("[3/10] ENCODER")
+
+        encoder_name = str(
+            self.config.encoder.name
+        )
 
         print(
-            "\n[3/10] ENCODER"
-        )
-
-        encoder_config = (
-            self.config.encoder
-        )
-
-        encoder_name = (
-            encoder_config.name
+            f"       Encoder: {encoder_name}"
         )
 
         encoder_cls = (
@@ -470,28 +450,21 @@ class BasePipeline:
             )
         )
 
-        params = dict(
-            encoder_config.get(
-                "params",
-                {},
-            )
-        )
+        # --------------------------------------------------
+        # Input dimension
+        #
+        # Features:
+        #
+        #   time
+        #   state values
+        #   observation mask
+        #
+        # => 1 + D + D
+        # --------------------------------------------------
 
         state_dim = int(
             self.config.model.state_dim
         )
-
-        parameter_dim = int(
-            self.config.model.parameter_dim
-        )
-
-        # Input:
-        #
-        #   time        -> 1
-        #   state       -> D
-        #   mask        -> D
-        #
-        # total = 1 + D + D
 
         input_dim = (
             1
@@ -499,49 +472,54 @@ class BasePipeline:
             + state_dim
         )
 
-        params.update(
-            {
-                "input_dim": input_dim,
-                "state_dim": state_dim,
-                "parameter_dim": parameter_dim,
-            }
+        print(
+            f"       Input dim: {input_dim}"
         )
+
+        # --------------------------------------------------
+        # Encoder parameters
+        # --------------------------------------------------
+
+        encoder_params = OmegaConf.to_container(
+            self.config.encoder.params,
+            resolve=True,
+        )
+
+        if encoder_params is None:
+            encoder_params = {}
+
+        # --------------------------------------------------
+        # Instantiate
+        # --------------------------------------------------
 
         self.encoder = encoder_cls(
-            **params
+            input_dim=input_dim,
+            state_dim=state_dim,
+            parameter_dim=int(
+                self.config.model.parameter_dim
+            ),
+            **encoder_params,
         )
 
-        print(
-            f"Encoder: "
-            f"{encoder_name}"
-        )
-
-        print(
-            f"Input dimension: "
-            f"{input_dim}"
-        )
-
-        print(
-            "Trainable parameters: "
-            f"{sum(p.numel() for p in self.encoder.parameters()):,}"
-        )
+        print("       ENCODER OK")
 
     # ======================================================
     # ODE
     # ======================================================
 
-    def init_ode(self):
+    def init_ode(self) -> None:
+        """
+        Initialize the configured ODE model.
+        """
+
+        print("[4/10] ODE")
+
+        ode_name = str(
+            self.config.ode.name
+        )
 
         print(
-            "\n[4/10] ODE"
-        )
-
-        ode_config = (
-            self.config.ode
-        )
-
-        ode_name = (
-            ode_config.name
+            f"       ODE: {ode_name}"
         )
 
         ode_cls = (
@@ -550,58 +528,58 @@ class BasePipeline:
             )
         )
 
+        # --------------------------------------------------
+        # Convert configuration to Python objects
+        # --------------------------------------------------
+
+        parameters = OmegaConf.to_container(
+            self.config.ode.parameters,
+            resolve=True,
+        )
+
+        initial_state = OmegaConf.to_container(
+            self.config.ode.initial_state,
+            resolve=True,
+        )
+
+        parameter_names = list(
+            self.config.ode.parameter_names
+        )
+
+        state_names = list(
+            self.config.ode.state_names
+        )
+
+        # --------------------------------------------------
+        # Instantiate ODE
+        # --------------------------------------------------
+
         self.ode = ode_cls(
-
-            parameters=dict(
-                ode_config.get(
-                    "parameters",
-                    {},
-                )
-            ),
-
-            initial_state=dict(
-                ode_config.get(
-                    "initial_state",
-                    {},
-                )
-            ),
-
-            parameter_names=list(
-                ode_config.get(
-                    "parameter_names",
-                    [],
-                )
-            ),
-
-            state_names=list(
-                ode_config.get(
-                    "state_names",
-                    [],
-                )
-            ),
+            parameters=parameters,
+            initial_state=initial_state,
+            parameter_names=parameter_names,
+            state_names=state_names,
         )
 
-        print(
-            f"ODE: "
-            f"{ode_name}"
-        )
+        print("       ODE OK")
 
     # ======================================================
     # SOLVER
     # ======================================================
 
-    def init_solver(self):
+    def init_solver(self) -> None:
+        """
+        Initialize the configured ODE solver.
+        """
+
+        print("[5/10] SOLVER")
+
+        solver_name = str(
+            self.config.solver.name
+        )
 
         print(
-            "\n[5/10] SOLVER"
-        )
-
-        solver_config = (
-            self.config.solver
-        )
-
-        solver_name = (
-            solver_config.name
+            f"       Solver: {solver_name}"
         )
 
         solver_cls = (
@@ -610,36 +588,42 @@ class BasePipeline:
             )
         )
 
-        self.solver = solver_cls(
-            **dict(
-                solver_config.get(
-                    "params",
-                    {},
-                )
-            )
+        solver_params = OmegaConf.to_container(
+            self.config.solver.params,
+            resolve=True,
         )
 
-        print(
-            f"Solver: "
-            f"{solver_name}"
+        if solver_params is None:
+            solver_params = {}
+
+        # --------------------------------------------------
+        # Instantiate
+        # --------------------------------------------------
+
+        self.solver = solver_cls(
+            **solver_params
         )
+
+        print("       SOLVER OK")
 
     # ======================================================
     # MODEL
     # ======================================================
 
-    def init_model(self):
+    def init_model(self) -> None:
+        """
+        Build the high-level ParameterEstimator by
+        composing encoder + ODE + solver.
+        """
+
+        print("[6/10] MODEL")
+
+        model_name = str(
+            self.config.model.name
+        )
 
         print(
-            "\n[6/10] MODEL"
-        )
-
-        model_config = (
-            self.config.model
-        )
-
-        model_name = (
-            model_config.name
+            f"       Model: {model_name}"
         )
 
         model_cls = (
@@ -648,42 +632,43 @@ class BasePipeline:
             )
         )
 
+        # --------------------------------------------------
+        # Instantiate
+        # --------------------------------------------------
+
         self.model = model_cls(
-
             encoder=self.encoder,
-
             ode=self.ode,
-
             solver=self.solver,
-
-            # The predicted y0 corresponds to t=0.
             initial_state_time=0.0,
         )
 
+        self.model.to(self.device)
+
         print(
-            f"Model: "
-            f"{model_name}"
+            f"       Parameters: "
+            f"{sum(p.numel() for p in self.model.parameters() if p.requires_grad):,}"
         )
+
+        print("       MODEL OK")
 
     # ======================================================
     # LOSS
     # ======================================================
 
-    def init_loss(self):
+    def init_loss(self) -> None:
+        """
+        Initialize the configured loss function.
+        """
+
+        print("[7/10] LOSS")
+
+        loss_name = str(
+            self.config.loss.name
+        )
 
         print(
-            "\n[7/10] LOSS"
-        )
-
-        loss_config = (
-            self.config.loss
-        )
-
-        loss_name = (
-            loss_config.get(
-                "name",
-                "parameter_estimation",
-            )
+            f"       Loss: {loss_name}"
         )
 
         loss_cls = (
@@ -692,68 +677,71 @@ class BasePipeline:
             )
         )
 
+        # --------------------------------------------------
+        # Loss parameters
+        # --------------------------------------------------
+
+        parameter_loss_weight = float(
+            self.config.training.parameter_loss_weight
+        )
+
+        trajectory_loss_weight = float(
+            self.config.training.trajectory_loss_weight
+        )
+
+        # --------------------------------------------------
+        # Instantiate
+        # --------------------------------------------------
+
         self.loss_fn = loss_cls(
-
-            parameter_loss_weight=float(
-                self.config.training
-                .parameter_loss_weight
+            parameter_loss_weight=(
+                parameter_loss_weight
             ),
-
-            trajectory_loss_weight=float(
-                self.config.training
-                .trajectory_loss_weight
+            trajectory_loss_weight=(
+                trajectory_loss_weight
             ),
         )
 
-        print(
-            f"Loss: "
-            f"{loss_name}"
-        )
+        print("       LOSS OK")
 
     # ======================================================
     # METRICS
     # ======================================================
 
-    def init_metrics(self):
+    def init_metrics(self) -> None:
+        """
+        Initialize parameter, trajectory and JGD metrics.
+        """
 
-        print(
-            "\n[8/10] METRICS"
-        )
-
-        self.parameter_metrics = None
-
-        self.trajectory_metrics = None
-
-        self.jgd_metrics = None
+        print("[8/10] METRICS")
 
         # --------------------------------------------------
         # Parameter metrics
         # --------------------------------------------------
 
-        parameter_config = (
-            self.config.metrics.parameter
-        )
+        self.parameter_metrics = None
 
-        if parameter_config.enabled:
+        if self.config.metrics.parameter.enabled:
 
-            metric_cls = (
+            parameter_metric_methods = list(
+                self.config.metrics.parameter.methods
+            )
+
+            parameter_metric_params = OmegaConf.to_container(
+                self.config.metrics.parameter.params,
+                resolve=True,
+            )
+
+            parameter_metric_cls = (
                 self.metric_registry.get(
-                    "parameter"
+                    "ParameterMetrics"
                 )
             )
 
             self.parameter_metrics = (
-                metric_cls(
-                    methods=list(
-                        parameter_config.methods
-                    ),
-
-                    **dict(
-                        parameter_config.get(
-                            "params",
-                            {},
-                        )
-                    ),
+                parameter_metric_cls(
+                    methods=parameter_metric_methods,
+                    **parameter_metric_params,
                 )
             )
 
@@ -761,176 +749,204 @@ class BasePipeline:
         # Trajectory metrics
         # --------------------------------------------------
 
-        trajectory_config = (
-            self.config.metrics.trajectory
-        )
+        self.trajectory_metrics = None
 
-        if trajectory_config.enabled:
+        if self.config.metrics.trajectory.enabled:
 
-            metric_cls = (
+            trajectory_metric_methods = list(
+                self.config.metrics.trajectory.methods
+            )
+
+            trajectory_metric_params = OmegaConf.to_container(
+                self.config.metrics.trajectory.params,
+                resolve=True,
+            )
+
+            trajectory_metric_cls = (
                 self.metric_registry.get(
-                    "trajectory"
+                    "TrajectoryMetrics"
                 )
             )
 
             self.trajectory_metrics = (
-                metric_cls(
-                    methods=list(
-                        trajectory_config.methods
-                    ),
-
-                    **dict(
-                        trajectory_config.get(
-                            "params",
-                            {},
-                        )
-                    ),
+                trajectory_metric_cls(
+                    methods=trajectory_metric_methods,
+                    **trajectory_metric_params,
                 )
             )
 
         # --------------------------------------------------
-        # JGD
+        # JGD metrics
         # --------------------------------------------------
 
-        jgd_config = (
-            self.config.metrics.jgd
-        )
+        self.jgd_metrics = None
 
-        if jgd_config.enabled:
+        if self.config.metrics.jgd.enabled:
 
-            metric_cls = (
+            jgd_metric_methods = list(
+                self.config.metrics.jgd.methods
+            )
+
+            jgd_metric_params = OmegaConf.to_container(
+                self.config.metrics.jgd.params,
+                resolve=True,
+            )
+
+            jgd_metric_cls = (
                 self.metric_registry.get(
-                    "jgd"
+                    "JGDMetrics"
                 )
             )
 
             self.jgd_metrics = (
-                metric_cls(
-                    methods=list(
-                        jgd_config.methods
-                    ),
-
-                    **dict(
-                        jgd_config.get(
-                            "params",
-                            {},
-                        )
-                    ),
+                jgd_metric_cls(
+                    methods=jgd_metric_methods,
+                    **jgd_metric_params,
                 )
             )
+
+        print("       METRICS OK")
 
     # ======================================================
     # OPTIMIZER
     # ======================================================
 
-    def init_optimizer(self):
+    def init_optimizer(self) -> None:
+        """
+        Initialize the optimizer directly from torch.
 
-        print(
-            "\n[9/10] OPTIMIZER"
+        There is intentionally NO optimizer registry.
+        """
+
+        print("[9/10] OPTIMIZER")
+
+        optimizer_name = str(
+            self.config.optimizer.name
+        ).lower()
+
+        optimizer_params = OmegaConf.to_container(
+            self.config.optimizer.params,
+            resolve=True,
         )
 
-        optimizer_config = (
-            self.config.optimizer
+        if optimizer_params is None:
+            optimizer_params = {}
+
+        learning_rate = float(
+            optimizer_params.pop(
+                "learning_rate",
+                0.001,
+            )
         )
 
-        optimizer_name = (
-            optimizer_config.name
+        weight_decay = float(
+            optimizer_params.pop(
+                "weight_decay",
+                0.0,
+            )
         )
 
-        if optimizer_name.lower() == "adamw":
+        # --------------------------------------------------
+        # AdamW
+        # --------------------------------------------------
 
-            self.optimizer = (
-                torch.optim.AdamW(
-                    self.model.parameters(),
+        if optimizer_name == "adamw":
 
-                    lr=float(
-                        optimizer_config.params
-                        .learning_rate
-                    ),
-
-                    weight_decay=float(
-                        optimizer_config.params
-                        .weight_decay
-                    ),
-                )
+            self.optimizer = torch.optim.AdamW(
+                self.model.parameters(),
+                lr=learning_rate,
+                weight_decay=weight_decay,
+                **optimizer_params,
             )
 
-        elif optimizer_name.lower() == "adam":
+        # --------------------------------------------------
+        # Adam
+        # --------------------------------------------------
 
-            self.optimizer = (
-                torch.optim.Adam(
-                    self.model.parameters(),
+        elif optimizer_name == "adam":
 
-                    lr=float(
-                        optimizer_config.params
-                        .learning_rate
-                    ),
-
-                    weight_decay=float(
-                        optimizer_config.params
-                        .weight_decay
-                    ),
-                )
+            self.optimizer = torch.optim.Adam(
+                self.model.parameters(),
+                lr=learning_rate,
+                weight_decay=weight_decay,
+                **optimizer_params,
             )
 
-        elif optimizer_name.lower() == "sgd":
+        # --------------------------------------------------
+        # SGD
+        # --------------------------------------------------
 
-            self.optimizer = (
-                torch.optim.SGD(
-                    self.model.parameters(),
+        elif optimizer_name == "sgd":
 
-                    lr=float(
-                        optimizer_config.params
-                        .learning_rate
-                    ),
-
-                    weight_decay=float(
-                        optimizer_config.params
-                        .weight_decay
-                    ),
-                )
+            self.optimizer = torch.optim.SGD(
+                self.model.parameters(),
+                lr=learning_rate,
+                weight_decay=weight_decay,
+                **optimizer_params,
             )
 
         else:
 
             raise ValueError(
                 f"Unknown optimizer: "
-                f"{optimizer_name}"
+                f"'{optimizer_name}'. "
+                f"Supported: adamw, adam, sgd."
             )
 
         print(
-            f"Optimizer: "
-            f"{optimizer_name}"
+            f"       Optimizer: {optimizer_name}"
         )
+
+        print(
+            f"       Learning rate: "
+            f"{learning_rate}"
+        )
+
+        print(
+            f"       Weight decay: "
+            f"{weight_decay}"
+        )
+
+        print("       OPTIMIZER OK")
 
     # ======================================================
     # TRAINER
     # ======================================================
 
-    def init_trainer(self):
+    def init_trainer(self) -> None:
+        """
+        Initialize the trainer.
 
-        print(
-            "\n[10/10] TRAINER"
-        )
+        Visualization is deliberately NOT passed to the
+        trainer. The pipeline handles all plotting.
+        """
+
+        print("[10/10] TRAINER")
+
+        # --------------------------------------------------
+        # Trainer class
+        #
+        # IMPORTANT:
+        #
+        # Change "Trainer" below if your actual class is
+        # named differently.
+        # --------------------------------------------------
 
         trainer_cls = (
             self.trainer_registry.get(
-                "default"
+                "Trainer"
             )
         )
 
-        training_config = (
-            self.config.training
-        )
+        # --------------------------------------------------
+        # Instantiate trainer
+        # --------------------------------------------------
 
         self.trainer = trainer_cls(
-
             model=self.model,
 
             train_loader=self.train_loader,
-
             valid_loader=self.valid_loader,
-
             test_loader=self.test_loader,
 
             loss_fn=self.loss_fn,
@@ -940,26 +956,26 @@ class BasePipeline:
             device=self.device,
 
             epochs=int(
-                training_config.epochs
+                self.config.training.epochs
             ),
 
             patience=int(
-                training_config.patience
+                self.config.training.patience
             ),
 
             gradient_clip=float(
-                training_config.gradient_clip
+                self.config.training.gradient_clip
             ),
 
-            checkpoint_path=(
+            checkpoint_path=str(
                 self.checkpoint_path
             ),
 
-            history_path=(
+            history_path=str(
                 self.history_path
             ),
 
-            results_path=(
+            results_path=str(
                 self.results_path
             ),
 
@@ -976,31 +992,21 @@ class BasePipeline:
             ),
         )
 
+        print("       TRAINER OK")
+
     # ======================================================
     # INITIALIZE PIPELINE
     # ======================================================
 
-    def init_pipeline(self):
-
-        if self.initialized:
-
-            return
-
-        # --------------------------------------------------
-        # 1. Load data
-        # --------------------------------------------------
+    def init_pipeline(self) -> None:
+        """
+        Initialize all components in dependency order.
+        """
 
         self.init_data()
 
-        # --------------------------------------------------
-        # 2. EDA BEFORE TRAINING
-        # --------------------------------------------------
-
+        # EDA is optional and independent from training.
         self.run_eda()
-
-        # --------------------------------------------------
-        # 3. Components
-        # --------------------------------------------------
 
         self.init_encoder()
 
@@ -1010,10 +1016,6 @@ class BasePipeline:
 
         self.init_model()
 
-        # --------------------------------------------------
-        # 4. Training components
-        # --------------------------------------------------
-
         self.init_loss()
 
         self.init_metrics()
@@ -1022,174 +1024,215 @@ class BasePipeline:
 
         self.init_trainer()
 
-        self.initialized = True
-
-        print(
-            "\n"
-            + "=" * 70
-        )
-
-        print(
-            "PIPELINE INITIALIZED"
-        )
-
-        print(
-            "=" * 70
-        )
-
     # ======================================================
-    # TRAIN
+    # TRAINING
     # ======================================================
 
-    def fit(self):
+    def fit(self) -> Dict[str, Any]:
+        """
+        Train the model and create training-history plots.
+        """
 
-        self.init_pipeline()
+        print("\n")
+        print("=" * 70)
+        print("TRAINING")
+        print("=" * 70)
 
-        history = (
-            self.trainer.fit()
-        )
+        history = self.trainer.fit()
 
         # --------------------------------------------------
-        # Visualization
+        # Training history visualization
         # --------------------------------------------------
 
-        plot_training_history(
-            history=history,
-            output_dir=self.figure_dir,
-        )
+        try:
 
-        print(
-            f"Training figures saved to: "
-            f"{self.figure_dir}"
-        )
+            plot_training_history(
+                history=history,
+                output_dir=str(
+                    self.figure_dir
+                ),
+            )
+
+            print(
+                "[INFO] Training history plots saved."
+            )
+
+        except Exception as exc:
+
+            print(
+                "[WARNING] Could not create "
+                "training history plots:"
+            )
+
+            print(
+                f"          {exc}"
+            )
 
         return history
 
     # ======================================================
-    # TEST
+    # TEST / EVALUATION
     # ======================================================
 
-    def test(self):
+    def test(self) -> Dict[str, Any]:
+        """
+        Evaluate on the complete test set and create
+        parameter-recovery and trajectory visualizations.
+        """
 
-        self.init_pipeline()
+        print("\n")
+        print("=" * 70)
+        print("TESTING")
+        print("=" * 70)
 
-        results = (
-            self.trainer.test()
-        )
-
-        # --------------------------------------------------
-        # Output folders
-        # --------------------------------------------------
-
-        parameter_output_dir = (
-            os.path.join(
-                self.figure_dir,
-                "parameters",
-            )
-        )
-
-        trajectory_output_dir = (
-            os.path.join(
-                self.figure_dir,
-                "trajectories",
-            )
-        )
+        results = self.trainer.test()
 
         # --------------------------------------------------
         # Parameter recovery
         # --------------------------------------------------
 
-        plot_parameter_recovery(
+        try:
 
-            theta_true=(
-                results[
-                    "theta_true"
-                ]
-            ),
+            parameter_names = list(
+                self.config.ode.parameter_names
+            )
 
-            theta_pred=(
-                results[
-                    "theta_pred"
-                ]
-            ),
+            theta_true = results.get(
+                "theta_true"
+            )
 
-            parameter_names=list(
-                self.config.ode
-                .parameter_names
-            ),
+            theta_pred = results.get(
+                "theta_pred"
+            )
 
-            output_dir=(
-                parameter_output_dir
-            ),
-        )
+            if (
+                theta_true is not None
+                and theta_pred is not None
+            ):
+
+                parameter_output_dir = (
+                    self.figure_dir
+                    / "parameters"
+                )
+
+                parameter_output_dir.mkdir(
+                    parents=True,
+                    exist_ok=True,
+                )
+
+                plot_parameter_recovery(
+                    theta_true=theta_true,
+                    theta_pred=theta_pred,
+                    parameter_names=parameter_names,
+                    output_dir=str(
+                        parameter_output_dir
+                    ),
+                )
+
+                print(
+                    "[INFO] Parameter recovery "
+                    "plots saved."
+                )
+
+        except Exception as exc:
+
+            print(
+                "[WARNING] Could not create "
+                "parameter recovery plots:"
+            )
+
+            print(
+                f"          {exc}"
+            )
 
         # --------------------------------------------------
-        # Trajectory reconstruction
+        # Trajectory visualization
         # --------------------------------------------------
 
-        plot_trajectory_examples(
+        try:
 
-            t=results[
-                "t"
-            ],
+            t = results.get("t")
 
-            trajectory_true=(
-                results[
-                    "trajectory_true"
-                ]
-            ),
+            trajectory_true = results.get(
+                "trajectory_true"
+            )
 
-            trajectory_pred=(
-                results[
-                    "trajectory_pred"
-                ]
-            ),
+            trajectory_pred = results.get(
+                "trajectory_pred"
+            )
 
-            trajectory_mask=(
-                results.get(
-                    "trajectory_mask",
-                    None,
+            trajectory_mask = results.get(
+                "trajectory_mask"
+            )
+
+            if (
+                t is not None
+                and trajectory_true is not None
+                and trajectory_pred is not None
+            ):
+
+                trajectory_output_dir = (
+                    self.figure_dir
+                    / "trajectories"
                 )
-            ),
 
-            state_names=list(
-                self.config.ode
-                .state_names
-            ),
-
-            output_dir=(
-                trajectory_output_dir
-            ),
-
-            num_examples=int(
-                self.config.output.get(
-                    "num_trajectory_examples",
-                    5,
+                trajectory_output_dir.mkdir(
+                    parents=True,
+                    exist_ok=True,
                 )
-            ),
-        )
 
-        print(
-            "\nTest figures saved:"
-        )
+                state_names = list(
+                    self.config.ode.state_names
+                )
 
-        print(
-            f"  Parameters: "
-            f"{parameter_output_dir}"
-        )
+                num_examples = int(
+                    self.config.output.get(
+                        "num_trajectory_examples",
+                        5,
+                    )
+                )
 
-        print(
-            f"  Trajectories: "
-            f"{trajectory_output_dir}"
-        )
+                plot_trajectory_examples(
+                    t=t,
+                    trajectory_true=trajectory_true,
+                    trajectory_pred=trajectory_pred,
+                    trajectory_mask=trajectory_mask,
+                    state_names=state_names,
+                    output_dir=str(
+                        trajectory_output_dir
+                    ),
+                    num_examples=num_examples,
+                )
+
+                print(
+                    "[INFO] Trajectory plots saved."
+                )
+
+        except Exception as exc:
+
+            print(
+                "[WARNING] Could not create "
+                "trajectory plots:"
+            )
+
+            print(
+                f"          {exc}"
+            )
 
         return results
 
     # ======================================================
-    # COMPLETE RUN
+    # RUN
     # ======================================================
 
-    def run(self):
+    def run(self) -> Dict[str, Any]:
+        """
+        Complete experiment:
+
+            1. initialize
+            2. train
+            3. evaluate
+        """
 
         self.init_pipeline()
 
@@ -1203,109 +1246,105 @@ class BasePipeline:
         }
 
     # ======================================================
-    # REGISTRIES
+    # REGISTRY DISPLAY
     # ======================================================
 
-    def print_registries(self):
+    def show_registries(self) -> None:
+        """
+        Print registered components for debugging.
+        """
 
-        print(
-            "\n"
-            + "=" * 70
-        )
+        print("\n")
+        print("=" * 70)
+        print("REGISTRIES")
+        print("=" * 70)
 
-        print(
-            "AVAILABLE COMPONENTS"
-        )
+        print("\nDATASET")
+        print(self.dataset_registry)
 
-        print(
-            "=" * 70
-        )
+        print("\nENCODER")
+        print(self.encoder_registry)
 
-        print(
-            "\nDATA MODULES"
-        )
+        print("\nLOSS")
+        print(self.loss_registry)
 
-        print(
-            self.datamodule_registry
-        )
+        print("\nMETRIC")
+        print(self.metric_registry)
 
-        print(
-            "\nENCODERS"
-        )
+        print("\nMODEL")
+        print(self.model_registry)
 
-        print(
-            self.encoder_registry
-        )
+        print("\nODE")
+        print(self.ode_registry)
 
-        print(
-            "\nODES"
-        )
+        print("\nSOLVER")
+        print(self.solver_registry)
 
-        print(
-            self.ode_registry
-        )
-
-        print(
-            "\nSOLVERS"
-        )
-
-        print(
-            self.solver_registry
-        )
-
-        print(
-            "\nMODELS"
-        )
-
-        print(
-            self.model_registry
-        )
-
-        print(
-            "\nLOSSES"
-        )
-
-        print(
-            self.loss_registry
-        )
-
-        print(
-            "\nMETRICS"
-        )
-
-        print(
-            self.metric_registry
-        )
-
-        print(
-            "\nTRAINERS"
-        )
-
-        print(
-            self.trainer_registry
-        )
+        print("\nTRAINER")
+        print(self.trainer_registry)
 
 
 # ==========================================================
 # HYDRA ENTRY POINT
 # ==========================================================
 
+
 @hydra.main(
     version_base=None,
     config_path="configs",
     config_name="config",
 )
-def main(
-    config: DictConfig,
-):
+def main(config: DictConfig) -> None:
+    """
+    Hydra entry point.
+    """
 
-    pipeline = BasePipeline(
-        config
+    print("=" * 70)
+    print("PHYSIOME ODE PARAMETER ESTIMATION")
+    print("=" * 70)
+
+    # ------------------------------------------------------
+    # Print current working directory
+    # ------------------------------------------------------
+
+    print(
+        f"Working directory: {Path.cwd()}"
     )
+
+    # ------------------------------------------------------
+    # Print selected Hydra components
+    # ------------------------------------------------------
+
+    print(
+        f"Encoder: {config.encoder.name}"
+    )
+
+    print(
+        f"ODE:     {config.ode.name}"
+    )
+
+    print(
+        f"Solver:  {config.solver.name}"
+    )
+
+    print(
+        f"Device:  {config.experiment.device}"
+    )
+
+    print("=" * 70)
+
+    # ------------------------------------------------------
+    # Build and run pipeline
+    # ------------------------------------------------------
+
+    pipeline = BasePipeline(config)
 
     pipeline.run()
 
 
-if __name__ == "__main__":
+# ==========================================================
+# SCRIPT ENTRY
+# ==========================================================
 
+if __name__ == "__main__":
     main()

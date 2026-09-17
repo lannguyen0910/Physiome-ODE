@@ -1,4 +1,4 @@
 solver:
-  name: rk4
+  name: RK4Solver
 
   params: {}
