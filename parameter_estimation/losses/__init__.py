@@ -6,10 +6,7 @@ from .loss import ParameterEstimationLoss
 LOSS_REGISTRY = Registry("LOSS")
 
 
-LOSS_REGISTRY.register(
-    ParameterEstimationLoss,
-    name="parameter_estimation_loss",
-)
+LOSS_REGISTRY.register(ParameterEstimationLoss)
 
 
 __all__ = [

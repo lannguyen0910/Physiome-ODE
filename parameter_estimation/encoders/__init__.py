@@ -9,25 +9,10 @@ from .neural_ode import NeuralODEEncoder
 ENCODER_REGISTRY = Registry("ENCODER")
 
 
-ENCODER_REGISTRY.register(
-    GRUEncoder,
-    name="gru",
-)
-
-ENCODER_REGISTRY.register(
-    TCNEncoder,
-    name="tcn",
-)
-
-ENCODER_REGISTRY.register(
-    TransformerEncoder,
-    name="transformer",
-)
-
-ENCODER_REGISTRY.register(
-    NeuralODEEncoder,
-    name="neural_ode",
-)
+ENCODER_REGISTRY.register(GRUEncoder)
+ENCODER_REGISTRY.register(TCNEncoder)
+ENCODER_REGISTRY.register(TransformerEncoder)
+ENCODER_REGISTRY.register(NeuralODEEncoder)
 
 
 __all__ = [

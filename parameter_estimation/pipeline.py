@@ -16,7 +16,7 @@ from omegaconf import (
 # ==========================================================
 
 from datasets import (
-    DATAMODULE_REGISTRY,
+    DATASET_REGISTRY,
     DatasetEDA,
 )
 
@@ -282,7 +282,7 @@ class BasePipeline:
     def init_registry(self):
 
         self.datamodule_registry = (
-            DATAMODULE_REGISTRY
+            DATASET_REGISTRY
         )
 
         self.encoder_registry = (

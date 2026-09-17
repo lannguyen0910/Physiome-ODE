@@ -6,10 +6,7 @@ from .trainer import Trainer
 TRAINER_REGISTRY = Registry("TRAINER")
 
 
-TRAINER_REGISTRY.register(
-    Trainer,
-    name="default",
-)
+TRAINER_REGISTRY.register(Trainer)
 
 
 __all__ = [

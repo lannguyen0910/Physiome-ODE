@@ -8,20 +8,9 @@ from .jgd import JGDMetrics
 METRIC_REGISTRY = Registry("METRIC")
 
 
-METRIC_REGISTRY.register(
-    ParameterMetrics,
-    name="parameter",
-)
-
-METRIC_REGISTRY.register(
-    TrajectoryMetrics,
-    name="trajectory",
-)
-
-METRIC_REGISTRY.register(
-    JGDMetrics,
-    name="jgd",
-)
+METRIC_REGISTRY.register(ParameterMetrics)
+METRIC_REGISTRY.register(TrajectoryMetrics)
+METRIC_REGISTRY.register(JGDMetrics)
 
 
 __all__ = [

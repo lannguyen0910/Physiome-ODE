@@ -6,10 +6,7 @@ from .dupont1991_ode import Dupont1991_ODE
 ODE_REGISTRY = Registry("ODE")
 
 
-ODE_REGISTRY.register(
-    Dupont1991_ODE,
-    name="physiome_model",
-)
+ODE_REGISTRY.register(Dupont1991_ODE)
 
 
 __all__ = [

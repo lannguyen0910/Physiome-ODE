@@ -6,10 +6,7 @@ from .rk4 import RK4Solver
 SOLVER_REGISTRY = Registry("SOLVER")
 
 
-SOLVER_REGISTRY.register(
-    RK4Solver,
-    name="rk4",
-)
+SOLVER_REGISTRY.register(RK4Solver)
 
 
 __all__ = [

@@ -7,15 +7,8 @@ from .eda import DatasetEDA
 DATASET_REGISTRY = Registry("DATASET")
 
 
-DATASET_REGISTRY.register(
-    PhysiomeDataset,
-    name="physiome_dataset",
-)
-
-DATASET_REGISTRY.register(
-    PhysiomeDataModule,
-    name="physiome_datamodule",
-)
+DATASET_REGISTRY.register(PhysiomeDataset)
+DATASET_REGISTRY.register(PhysiomeDataModule)
 
 
 __all__ = [

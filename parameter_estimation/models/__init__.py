@@ -6,10 +6,7 @@ from .parameter_estimator import ParameterEstimator
 MODEL_REGISTRY = Registry("MODEL")
 
 
-MODEL_REGISTRY.register(
-    ParameterEstimator,
-    name="parameter_estimator",
-)
+MODEL_REGISTRY.register(ParameterEstimator)
 
 
 __all__ = [
