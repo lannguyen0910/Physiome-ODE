@@ -1,4 +1,6 @@
 defaults:
+  - base/hydra@_here_
+  - base/globals@_here_
   - encoder: gru
   - ode: dupont_1991b
   - solver: rk4
