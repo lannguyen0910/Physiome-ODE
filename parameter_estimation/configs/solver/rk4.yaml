@@ -1,4 +1,3 @@
-solver:
-  name: RK4Solver
+name: RK4Solver
 
-  params: {}
+params: {}
