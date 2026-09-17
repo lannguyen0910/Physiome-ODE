@@ -54,6 +54,7 @@ from utilities import (
     plot_parameter_recovery,
     plot_training_history,
     plot_trajectory_examples,
+    build_optimizer
 )
 
 
@@ -639,8 +640,7 @@ class BasePipeline:
         self.model = model_cls(
             encoder=self.encoder,
             ode=self.ode,
-            solver=self.solver,
-            initial_state_time=0.0,
+            solver=self.solver
         )
 
         self.model.to(self.device)
@@ -813,16 +813,24 @@ class BasePipeline:
 
     def init_optimizer(self) -> None:
         """
-        Initialize the optimizer directly from torch.
+        Initialize the optimizer directly from configuration.
 
-        There is intentionally NO optimizer registry.
+        There is intentionally no optimizer registry.
         """
 
         print("[9/10] OPTIMIZER")
 
+        # ------------------------------------------------------
+        # Optimizer name
+        # ------------------------------------------------------
+
         optimizer_name = str(
             self.config.optimizer.name
-        ).lower()
+        )
+
+        # ------------------------------------------------------
+        # Optimizer parameters
+        # ------------------------------------------------------
 
         optimizer_params = OmegaConf.to_container(
             self.config.optimizer.params,
@@ -832,79 +840,30 @@ class BasePipeline:
         if optimizer_params is None:
             optimizer_params = {}
 
-        learning_rate = float(
-            optimizer_params.pop(
-                "learning_rate",
-                0.001,
-            )
+        optimizer_params = dict(
+            optimizer_params
         )
 
-        weight_decay = float(
-            optimizer_params.pop(
-                "weight_decay",
-                0.0,
-            )
+        # ------------------------------------------------------
+        # Build optimizer
+        # ------------------------------------------------------
+
+        self.optimizer = build_optimizer(
+            model=self.model,
+            name=optimizer_name,
+            **optimizer_params,
         )
 
-        # --------------------------------------------------
-        # AdamW
-        # --------------------------------------------------
-
-        if optimizer_name == "adamw":
-
-            self.optimizer = torch.optim.AdamW(
-                self.model.parameters(),
-                lr=learning_rate,
-                weight_decay=weight_decay,
-                **optimizer_params,
-            )
-
-        # --------------------------------------------------
-        # Adam
-        # --------------------------------------------------
-
-        elif optimizer_name == "adam":
-
-            self.optimizer = torch.optim.Adam(
-                self.model.parameters(),
-                lr=learning_rate,
-                weight_decay=weight_decay,
-                **optimizer_params,
-            )
-
-        # --------------------------------------------------
-        # SGD
-        # --------------------------------------------------
-
-        elif optimizer_name == "sgd":
-
-            self.optimizer = torch.optim.SGD(
-                self.model.parameters(),
-                lr=learning_rate,
-                weight_decay=weight_decay,
-                **optimizer_params,
-            )
-
-        else:
-
-            raise ValueError(
-                f"Unknown optimizer: "
-                f"'{optimizer_name}'. "
-                f"Supported: adamw, adam, sgd."
-            )
+        # ------------------------------------------------------
+        # Print information
+        # ------------------------------------------------------
 
         print(
             f"       Optimizer: {optimizer_name}"
         )
 
         print(
-            f"       Learning rate: "
-            f"{learning_rate}"
-        )
-
-        print(
-            f"       Weight decay: "
-            f"{weight_decay}"
+            f"       Parameters: {optimizer_params}"
         )
 
         print("       OPTIMIZER OK")
