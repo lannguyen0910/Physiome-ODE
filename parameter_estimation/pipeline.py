@@ -310,15 +310,15 @@ class BasePipeline:
         # --------------------------------------------------
 
         self.train_loader = (
-            self.datamodule.train_dataloader()
+            self.datamodule.train_loader()
         )
 
         self.valid_loader = (
-            self.datamodule.val_dataloader()
+            self.datamodule.valid_loader()
         )
 
         self.test_loader = (
-            self.datamodule.test_dataloader()
+            self.datamodule.test_loader()
         )
 
         print(
