@@ -27,6 +27,9 @@ def plot_parameter_recovery(
 
     parameter_names:
         List[str] of length P
+
+    output_dir:
+        Directory for output PNG files.
     """
 
     os.makedirs(
@@ -115,7 +118,6 @@ def plot_parameter_recovery(
             minimum,
             maximum,
         ):
-
             padding = (
                 abs(minimum) * 0.05
                 + 1e-3
@@ -172,15 +174,12 @@ def plot_training_history(
     Plot training and validation losses.
 
     Expected keys:
-
         train_loss
         valid_loss
 
     Optional:
-
         train_parameter_loss
         valid_parameter_loss
-
         train_trajectory_loss
         valid_trajectory_loss
     """
@@ -375,16 +374,24 @@ def plot_trajectory(
     Parameters
     ----------
     t:
+        Either:
+
         [T]
+            shared time vector
+
+        or:
+
+        [B, T]
+            sample-specific padded time vectors
 
     trajectory_true:
-        [B, T, D]
+        Tensor [B, T, D]
 
     trajectory_pred:
-        [B, T, D]
+        Tensor [B, T, D]
 
     trajectory_mask:
-        [B, T, D], optional.
+        Tensor [B, T, D], optional.
         1 = observed
         0 = missing
 
@@ -409,14 +416,23 @@ def plot_trajectory(
         )
 
     # ------------------------------------------------------
-    # Convert to numpy
+    # Check sample index
     # ------------------------------------------------------
 
-    t = (
-        t.detach()
-        .cpu()
-        .numpy()
-    )
+    if sample_idx < 0:
+        raise ValueError(
+            "sample_idx must be non-negative."
+        )
+
+    if sample_idx >= trajectory_true.shape[0]:
+        raise IndexError(
+            f"sample_idx={sample_idx} is out of range. "
+            f"Number of samples={trajectory_true.shape[0]}."
+        )
+
+    # ------------------------------------------------------
+    # Convert trajectory tensors to numpy
+    # ------------------------------------------------------
 
     trajectory_true_sample = (
         trajectory_true[
@@ -436,10 +452,62 @@ def plot_trajectory(
         .numpy()
     )
 
+    # ------------------------------------------------------
+    # Select the correct time vector
+    # ------------------------------------------------------
+    #
+    # Old format:
+    #     t.shape == [T]
+    #
+    # New format:
+    #     t.shape == [B, T]
+    #
+    # The current trainer saves sample-specific
+    # time vectors, so we must use t[sample_idx].
+    # ------------------------------------------------------
+
+    t = (
+        t.detach()
+        .cpu()
+    )
+
+    if t.ndim == 1:
+
+        t_sample = (
+            t
+            .numpy()
+        )
+
+    elif t.ndim == 2:
+
+        if sample_idx >= t.shape[0]:
+            raise IndexError(
+                f"sample_idx={sample_idx} is out of range "
+                f"for time tensor with shape {tuple(t.shape)}."
+            )
+
+        t_sample = (
+            t[
+                sample_idx
+            ]
+            .numpy()
+        )
+
+    else:
+
+        raise ValueError(
+            "Time tensor must have shape [T] "
+            "or [B, T]. "
+            f"Got {tuple(t.shape)}."
+        )
+
+    # ------------------------------------------------------
+    # Check true/predicted trajectory shapes
+    # ------------------------------------------------------
+
     if trajectory_true_sample.shape != (
         trajectory_pred_sample.shape
     ):
-
         raise ValueError(
             "True and predicted trajectories "
             "must have the same shape. "
@@ -447,30 +515,65 @@ def plot_trajectory(
             f"and {trajectory_pred_sample.shape}."
         )
 
-    if len(t) != (
+    # ------------------------------------------------------
+    # Remove padding from the time vector
+    # ------------------------------------------------------
+    #
+    # The current trainer pads shorter trajectories
+    # with NaN.
+    # ------------------------------------------------------
+
+    valid_time = np.isfinite(
+        t_sample
+    )
+
+    t_sample = (
+        t_sample[
+            valid_time
+        ]
+    )
+
+    trajectory_true_sample = (
+        trajectory_true_sample[
+            valid_time
+        ]
+    )
+
+    trajectory_pred_sample = (
+        trajectory_pred_sample[
+            valid_time
+        ]
+    )
+
+    # ------------------------------------------------------
+    # Time/trajectory length check
+    # ------------------------------------------------------
+
+    if len(t_sample) != (
         trajectory_true_sample.shape[0]
     ):
-
         raise ValueError(
             "Time vector length does not match "
             "trajectory length. "
-            f"t={len(t)}, "
+            f"t={len(t_sample)}, "
             f"trajectory={trajectory_true_sample.shape[0]}."
         )
+
+    # ------------------------------------------------------
+    # State dimension
+    # ------------------------------------------------------
 
     state_dim = (
         trajectory_true_sample.shape[-1]
     )
 
     if state_names is None:
-
         state_names = [
             f"State {i}"
             for i in range(state_dim)
         ]
 
     if len(state_names) != state_dim:
-
         raise ValueError(
             "Number of state names does not "
             "match state dimension."
@@ -492,14 +595,27 @@ def plot_trajectory(
             .astype(bool)
         )
 
-        if mask_sample.shape != (
-            trajectory_true_sample.shape
-        ):
+        original_trajectory_shape = (
+            trajectory_true[
+                sample_idx
+            ]
+            .shape
+        )
 
+        if mask_sample.shape != (
+            original_trajectory_shape
+        ):
             raise ValueError(
                 "trajectory_mask must have the "
                 "same shape as trajectory_true."
             )
+
+        # Remove the same padded positions
+        mask_sample = (
+            mask_sample[
+                valid_time
+            ]
+        )
 
     else:
 
@@ -508,6 +624,20 @@ def plot_trajectory(
         mask_sample = np.ones(
             trajectory_true_sample.shape,
             dtype=bool,
+        )
+
+    # ------------------------------------------------------
+    # Check mask after padding removal
+    # ------------------------------------------------------
+
+    if mask_sample.shape != (
+        trajectory_true_sample.shape
+    ):
+        raise ValueError(
+            "Mask shape does not match the "
+            "unpadded trajectory shape. "
+            f"Mask={mask_sample.shape}, "
+            f"trajectory={trajectory_true_sample.shape}."
         )
 
     # ------------------------------------------------------
@@ -522,6 +652,10 @@ def plot_trajectory(
         state_dim
     ):
 
+        # --------------------------------------------------
+        # True values
+        # --------------------------------------------------
+
         true_values = (
             trajectory_true_sample[
                 :,
@@ -530,6 +664,10 @@ def plot_trajectory(
             .astype(float)
         )
 
+        # --------------------------------------------------
+        # Predicted values
+        # --------------------------------------------------
+
         pred_values = (
             trajectory_pred_sample[
                 :,
@@ -537,6 +675,10 @@ def plot_trajectory(
             ]
             .astype(float)
         )
+
+        # --------------------------------------------------
+        # State-specific observation mask
+        # --------------------------------------------------
 
         valid_mask = (
             mask_sample[
@@ -559,13 +701,19 @@ def plot_trajectory(
         )
 
         plt.plot(
-            t,
+            t_sample,
             true_plot,
             linewidth=1.8,
-            label=f"True {state_names[state_idx]}",
+            label=(
+                f"True "
+                f"{state_names[state_idx]}"
+            ),
         )
 
-        # Also emphasize actual observations
+        # --------------------------------------------------
+        # Emphasize actual observations
+        # --------------------------------------------------
+
         valid_indices = np.where(
             valid_mask
         )[0]
@@ -573,7 +721,9 @@ def plot_trajectory(
         if len(valid_indices) > 0:
 
             plt.scatter(
-                t[valid_indices],
+                t_sample[
+                    valid_indices
+                ],
                 true_values[
                     valid_indices
                 ],
@@ -585,7 +735,7 @@ def plot_trajectory(
         # --------------------------------------------------
 
         plt.plot(
-            t,
+            t_sample,
             pred_values,
             linestyle="--",
             linewidth=2.0,
@@ -606,6 +756,10 @@ def plot_trajectory(
         label="Initial state t=0",
     )
 
+    # ------------------------------------------------------
+    # Labels
+    # ------------------------------------------------------
+
     plt.xlabel(
         "Time"
     )
@@ -624,6 +778,10 @@ def plot_trajectory(
     )
 
     plt.tight_layout()
+
+    # ------------------------------------------------------
+    # Save
+    # ------------------------------------------------------
 
     plt.savefig(
         output_path,
@@ -648,6 +806,29 @@ def plot_trajectory_examples(
 ):
     """
     Save trajectory plots for several test samples.
+
+    Parameters
+    ----------
+    t:
+        [T] or [B, T]
+
+    trajectory_true:
+        [B, T, D]
+
+    trajectory_pred:
+        [B, T, D]
+
+    trajectory_mask:
+        [B, T, D], optional
+
+    state_names:
+        State names such as ["Z", "Y"]
+
+    output_dir:
+        Output directory
+
+    num_examples:
+        Number of samples to plot
     """
 
     os.makedirs(
