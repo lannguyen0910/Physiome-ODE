@@ -359,70 +359,60 @@ def plot_trajectory(
     trajectory_mask=None,
     state_names=None,
     output_path="figures/trajectory.png",
+    connect_true_observations=True,
+    interpolate_true=False,
 ):
     """
     Plot ODE trajectory reconstruction.
 
-    The predicted trajectory is plotted as a continuous
-    line.
+    The predicted trajectory is plotted as a continuous line.
 
-    The target trajectory is plotted only where the target
-    is actually observed. Missing values are represented
-    by NaN so matplotlib leaves gaps instead of connecting
-    through artificial zero-filled values.
+    Ground-truth observations are plotted as scatter points. For a
+    cleaner visualization of irregular / sparse data, the observed
+    points can also be connected directly (without inventing values at
+    missing timestamps). Optionally, a linear interpolation can be
+    drawn between observed points for visualization only.
+
+    IMPORTANT
+    ---------
+    Connecting observed points does NOT mean the system was observed
+    continuously between them. It is only a visual connection between
+    successive valid measurements.
 
     Parameters
     ----------
     t:
-        Either:
-
-        [T]
-            shared time vector
-
-        or:
-
-        [B, T]
-            sample-specific padded time vectors
+        Either [T] or [B, T].
 
     trajectory_true:
-        Tensor [B, T, D]
+        Tensor [B, T, D]. Ground-truth target values.
 
     trajectory_pred:
-        Tensor [B, T, D]
+        Tensor [B, T, D]. ODE-predicted trajectory.
 
     trajectory_mask:
         Tensor [B, T, D], optional.
-        1 = observed
-        0 = missing
+        1 = observed / valid target, 0 = missing / invalid.
 
-    sample_idx:
-        Which sample to plot.
+    connect_true_observations:
+        If True, connect the valid observed true points with a solid
+        line. This removes the visual gaps caused by missing entries
+        without fabricating missing values.
 
-    state_names:
-        Names such as ["Z", "Y"].
-
-    output_path:
-        Output PNG path.
+    interpolate_true:
+        If True, linearly interpolate the observed true values over
+        the valid time range for visualization. This should be used
+        only when explicitly desired because the interpolated values
+        are not actual measurements.
     """
 
-    output_dir = os.path.dirname(
-        output_path
-    )
+    output_dir = os.path.dirname(output_path)
 
     if output_dir:
-        os.makedirs(
-            output_dir,
-            exist_ok=True,
-        )
-
-    # ------------------------------------------------------
-    # Check sample index
-    # ------------------------------------------------------
+        os.makedirs(output_dir, exist_ok=True)
 
     if sample_idx < 0:
-        raise ValueError(
-            "sample_idx must be non-negative."
-        )
+        raise ValueError("sample_idx must be non-negative.")
 
     if sample_idx >= trajectory_true.shape[0]:
         raise IndexError(
@@ -431,22 +421,18 @@ def plot_trajectory(
         )
 
     # ------------------------------------------------------
-    # Convert trajectory tensors to numpy
+    # Convert trajectories to numpy
     # ------------------------------------------------------
 
     trajectory_true_sample = (
-        trajectory_true[
-            sample_idx
-        ]
+        trajectory_true[sample_idx]
         .detach()
         .cpu()
         .numpy()
     )
 
     trajectory_pred_sample = (
-        trajectory_pred[
-            sample_idx
-        ]
+        trajectory_pred[sample_idx]
         .detach()
         .cpu()
         .numpy()
@@ -455,339 +441,221 @@ def plot_trajectory(
     # ------------------------------------------------------
     # Select the correct time vector
     # ------------------------------------------------------
-    #
-    # Old format:
-    #     t.shape == [T]
-    #
-    # New format:
-    #     t.shape == [B, T]
-    #
-    # The current trainer saves sample-specific
-    # time vectors, so we must use t[sample_idx].
-    # ------------------------------------------------------
 
-    t = (
-        t.detach()
-        .cpu()
-    )
+    t_tensor = t.detach().cpu()
 
-    if t.ndim == 1:
+    if t_tensor.ndim == 1:
+        t_sample = t_tensor.numpy()
 
-        t_sample = (
-            t
-            .numpy()
-        )
-
-    elif t.ndim == 2:
-
-        if sample_idx >= t.shape[0]:
+    elif t_tensor.ndim == 2:
+        if sample_idx >= t_tensor.shape[0]:
             raise IndexError(
                 f"sample_idx={sample_idx} is out of range "
-                f"for time tensor with shape {tuple(t.shape)}."
+                f"for time tensor with shape {tuple(t_tensor.shape)}."
             )
-
-        t_sample = (
-            t[
-                sample_idx
-            ]
-            .numpy()
-        )
+        t_sample = t_tensor[sample_idx].numpy()
 
     else:
-
         raise ValueError(
-            "Time tensor must have shape [T] "
-            "or [B, T]. "
-            f"Got {tuple(t.shape)}."
+            "Time tensor must have shape [T] or [B, T]. "
+            f"Got {tuple(t_tensor.shape)}."
         )
 
     # ------------------------------------------------------
-    # Check true/predicted trajectory shapes
-    # ------------------------------------------------------
-
-    if trajectory_true_sample.shape != (
-        trajectory_pred_sample.shape
-    ):
-        raise ValueError(
-            "True and predicted trajectories "
-            "must have the same shape. "
-            f"Got {trajectory_true_sample.shape} "
-            f"and {trajectory_pred_sample.shape}."
-        )
-
-    # ------------------------------------------------------
-    # Remove padding from the time vector
-    # ------------------------------------------------------
-    #
-    # The current trainer pads shorter trajectories
-    # with NaN.
-    # ------------------------------------------------------
-
-    valid_time = np.isfinite(
-        t_sample
-    )
-
-    t_sample = (
-        t_sample[
-            valid_time
-        ]
-    )
-
-    trajectory_true_sample = (
-        trajectory_true_sample[
-            valid_time
-        ]
-    )
-
-    trajectory_pred_sample = (
-        trajectory_pred_sample[
-            valid_time
-        ]
-    )
-
-    # ------------------------------------------------------
-    # Time/trajectory length check
-    # ------------------------------------------------------
-
-    if len(t_sample) != (
-        trajectory_true_sample.shape[0]
-    ):
-        raise ValueError(
-            "Time vector length does not match "
-            "trajectory length. "
-            f"t={len(t_sample)}, "
-            f"trajectory={trajectory_true_sample.shape[0]}."
-        )
-
-    # ------------------------------------------------------
-    # State dimension
-    # ------------------------------------------------------
-
-    state_dim = (
-        trajectory_true_sample.shape[-1]
-    )
-
-    if state_names is None:
-        state_names = [
-            f"State {i}"
-            for i in range(state_dim)
-        ]
-
-    if len(state_names) != state_dim:
-        raise ValueError(
-            "Number of state names does not "
-            "match state dimension."
-        )
-
-    # ------------------------------------------------------
-    # Mask
+    # Prepare / validate mask
     # ------------------------------------------------------
 
     if trajectory_mask is not None:
-
         mask_sample = (
-            trajectory_mask[
-                sample_idx
-            ]
+            trajectory_mask[sample_idx]
             .detach()
             .cpu()
             .numpy()
             .astype(bool)
         )
 
-        original_trajectory_shape = (
-            trajectory_true[
-                sample_idx
-            ]
-            .shape
-        )
-
-        if mask_sample.shape != (
-            original_trajectory_shape
-        ):
+        if mask_sample.shape != trajectory_true_sample.shape:
             raise ValueError(
-                "trajectory_mask must have the "
-                "same shape as trajectory_true."
+                "trajectory_mask must have the same shape as "
+                "trajectory_true for the selected sample. "
+                f"Got mask={mask_sample.shape}, "
+                f"trajectory={trajectory_true_sample.shape}."
             )
-
-        # Remove the same padded positions
-        mask_sample = (
-            mask_sample[
-                valid_time
-            ]
-        )
 
     else:
-
-        # If no mask is supplied, assume all target
-        # values are valid.
-        mask_sample = np.ones(
-            trajectory_true_sample.shape,
-            dtype=bool,
-        )
+        # Without a mask, treat finite true values as valid observations.
+        mask_sample = np.isfinite(trajectory_true_sample)
 
     # ------------------------------------------------------
-    # Check mask after padding removal
+    # Remove padded / invalid event slots
     # ------------------------------------------------------
+    # A padded event is typically represented by t=0 and all mask values
+    # equal to zero, or by NaN time in the trainer output.
 
-    if mask_sample.shape != (
-        trajectory_true_sample.shape
-    ):
+    finite_time = np.isfinite(t_sample)
+    event_has_target = np.any(mask_sample, axis=-1)
+    event_valid = finite_time & event_has_target
+
+    if not np.any(event_valid):
         raise ValueError(
-            "Mask shape does not match the "
-            "unpadded trajectory shape. "
-            f"Mask={mask_sample.shape}, "
-            f"trajectory={trajectory_true_sample.shape}."
+            "No valid observation events remain after removing padding."
+        )
+
+    t_sample = t_sample[event_valid]
+    trajectory_true_sample = trajectory_true_sample[event_valid]
+    trajectory_pred_sample = trajectory_pred_sample[event_valid]
+    mask_sample = mask_sample[event_valid]
+
+    # ------------------------------------------------------
+    # Ensure time is ordered for visualization
+    # ------------------------------------------------------
+
+    order = np.argsort(t_sample, kind="stable")
+
+    t_sample = t_sample[order]
+    trajectory_true_sample = trajectory_true_sample[order]
+    trajectory_pred_sample = trajectory_pred_sample[order]
+    mask_sample = mask_sample[order]
+
+    # ------------------------------------------------------
+    # State dimension
+    # ------------------------------------------------------
+
+    state_dim = trajectory_true_sample.shape[-1]
+
+    if state_names is None:
+        state_names = [f"State {i}" for i in range(state_dim)]
+
+    if len(state_names) != state_dim:
+        raise ValueError(
+            "Number of state names does not match state dimension."
         )
 
     # ------------------------------------------------------
-    # One figure containing all states
+    # Plot
     # ------------------------------------------------------
 
-    plt.figure(
-        figsize=(10, 6)
-    )
+    plt.figure(figsize=(10, 6))
 
-    for state_idx in range(
-        state_dim
-    ):
+    for state_idx in range(state_dim):
 
-        # --------------------------------------------------
-        # True values
-        # --------------------------------------------------
+        true_values = trajectory_true_sample[:, state_idx].astype(float)
+        pred_values = trajectory_pred_sample[:, state_idx].astype(float)
+        valid_mask = mask_sample[:, state_idx]
 
-        true_values = (
-            trajectory_true_sample[
-                :,
-                state_idx,
-            ]
-            .astype(float)
-        )
+        # Additional finite-value filtering for the selected state.
+        valid_true = valid_mask & np.isfinite(true_values)
 
         # --------------------------------------------------
-        # Predicted values
+        # Ground truth: actual observed points
         # --------------------------------------------------
 
-        pred_values = (
-            trajectory_pred_sample[
-                :,
-                state_idx,
-            ]
-            .astype(float)
-        )
+        t_true = t_sample[valid_true]
+        y_true = true_values[valid_true]
 
-        # --------------------------------------------------
-        # State-specific observation mask
-        # --------------------------------------------------
-
-        valid_mask = (
-            mask_sample[
-                :,
-                state_idx,
-            ]
-        )
-
-        # --------------------------------------------------
-        # Target
-        #
-        # Missing target values become NaN.
-        # Matplotlib automatically breaks the line.
-        # --------------------------------------------------
-
-        true_plot = np.where(
-            valid_mask,
-            true_values,
-            np.nan,
-        )
-
-        plt.plot(
-            t_sample,
-            true_plot,
-            linewidth=1.8,
-            label=(
-                f"True "
-                f"{state_names[state_idx]}"
-            ),
-        )
-
-        # --------------------------------------------------
-        # Emphasize actual observations
-        # --------------------------------------------------
-
-        valid_indices = np.where(
-            valid_mask
-        )[0]
-
-        if len(valid_indices) > 0:
-
+        if len(t_true) > 0:
             plt.scatter(
-                t_sample[
-                    valid_indices
-                ],
-                true_values[
-                    valid_indices
-                ],
-                s=18,
+                t_true,
+                y_true,
+                s=22,
+                label=f"True {state_names[state_idx]} observations",
             )
 
         # --------------------------------------------------
-        # Prediction
+        # Ground truth: connect observed points
+        # --------------------------------------------------
+        # This is the requested seamless visual. It connects only the
+        # measurements that actually exist; no missing values are
+        # invented.
+
+        if connect_true_observations and len(t_true) >= 2:
+            plt.plot(
+                t_true,
+                y_true,
+                linewidth=1.8,
+                label=f"True {state_names[state_idx]} connected",
+            )
+
+        # --------------------------------------------------
+        # Optional linear interpolation for visualization only
         # --------------------------------------------------
 
-        plt.plot(
-            t_sample,
-            pred_values,
-            linestyle="--",
-            linewidth=2.0,
-            label=(
-                f"Predicted "
-                f"{state_names[state_idx]}"
-            ),
+        if interpolate_true and len(t_true) >= 2:
+            finite_pred_time = np.isfinite(t_sample)
+            interp_time = t_sample[finite_pred_time]
+
+            # Only interpolate inside the range of observed values.
+            inside = (
+                (interp_time >= t_true.min())
+                & (interp_time <= t_true.max())
+            )
+            interp_time = interp_time[inside]
+
+            if len(interp_time) >= 2:
+                interp_values = np.interp(
+                    interp_time,
+                    t_true,
+                    y_true,
+                )
+
+                plt.plot(
+                    interp_time,
+                    interp_values,
+                    linewidth=1.2,
+                    linestyle=":",
+                    alpha=0.8,
+                    label=(
+                        f"True {state_names[state_idx]} "
+                        "linear interpolation"
+                    ),
+                )
+
+        # --------------------------------------------------
+        # ODE prediction: continuous reconstruction
+        # --------------------------------------------------
+
+        finite_pred = np.isfinite(pred_values)
+
+        if np.count_nonzero(finite_pred) >= 2:
+            plt.plot(
+                t_sample[finite_pred],
+                pred_values[finite_pred],
+                linestyle="--",
+                linewidth=2.0,
+                label=f"Predicted {state_names[state_idx]}",
+            )
+
+    # ------------------------------------------------------
+    # Initial reference time
+    # ------------------------------------------------------
+
+    if t_sample.min() <= 0.0 <= t_sample.max():
+        plt.axvline(
+            0.0,
+            linestyle=":",
+            linewidth=1.2,
+            label="Initial state t=0",
         )
 
-    # ------------------------------------------------------
-    # Initial state time
-    # ------------------------------------------------------
-
-    plt.axvline(
-        0.0,
-        linestyle=":",
-        linewidth=1.2,
-        label="Initial state t=0",
-    )
-
-    # ------------------------------------------------------
-    # Labels
-    # ------------------------------------------------------
-
-    plt.xlabel(
-        "Time"
-    )
-
-    plt.ylabel(
-        "State value"
-    )
-
+    plt.xlabel("Time")
+    plt.ylabel("State value")
     plt.title(
         "ODE trajectory reconstruction "
         f"(sample {sample_idx})"
     )
 
+    # Remove duplicate legend labels while preserving order.
+    handles, labels = plt.gca().get_legend_handles_labels()
+    unique = dict(zip(labels, handles))
+
     plt.legend(
-        ncol=2
+        unique.values(),
+        unique.keys(),
+        ncol=2,
     )
 
     plt.tight_layout()
-
-    # ------------------------------------------------------
-    # Save
-    # ------------------------------------------------------
-
-    plt.savefig(
-        output_path,
-        dpi=200,
-    )
-
+    plt.savefig(output_path, dpi=200)
     plt.close()
 
 
