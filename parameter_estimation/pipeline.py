@@ -4,6 +4,12 @@
 
 from pathlib import Path
 from typing import Any, Dict, Optional
+from datetime import datetime
+import json
+import os
+
+
+from utilities.loggers import LoggerObserver, FileLogger, ImageWriter, WandbLogger
 
 import hydra
 import torch
@@ -45,7 +51,7 @@ from solvers import (
     SOLVER_REGISTRY,
 )
 
-from trainer import (
+from parameter_estimation.trainer.trainer import (
     TRAINER_REGISTRY,
 )
 
@@ -116,10 +122,32 @@ class BasePipeline:
 
         self.init_globals()
 
-        print("\n" + "=" * 70)
-        print("CONFIGURATION")
-        print("=" * 70)
-        print(OmegaConf.to_yaml(self.config))
+        self.log("\n" + "=" * 70)
+        self.log("CONFIGURATION")
+        self.log("=" * 70)
+        self.log(OmegaConf.to_yaml(self.config))
+
+    def log(self, *values, level=None) -> None:
+        """Send a message to the configured observer subscribers."""
+        message = " ".join(str(value) for value in values)
+        if level is None:
+            level = LoggerObserver.INFO
+        self.logger.text(message, level=level)
+
+    def log_metrics(self, values: Dict[str, Any], prefix: str = "test") -> None:
+        """Send scalar metrics to FileLogger/W&B through LoggerObserver."""
+        events = []
+
+        def flatten(obj, name):
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    flatten(value, f"{name}/{key}" if name else str(key))
+            elif isinstance(obj, (int, float)) and not isinstance(obj, bool):
+                events.append({"type": LoggerObserver.SCALAR,
+                              "tag": f"{prefix}/{name}", "value": float(obj), "step": 0})
+        flatten(values, "")
+        if events:
+            self.logger.log(events)
 
     # ======================================================
     # GLOBAL CONFIGURATION
@@ -130,6 +158,61 @@ class BasePipeline:
         Initialize global settings such as random seed,
         device and output directories.
         """
+        # One folder per run; all output paths are redirected there.
+        self.logger = LoggerObserver.getLogger("main")
+        configured_root = self.config.output.get("run_dir", "runs")
+        run_root = Path(to_absolute_path(str(configured_root)))
+        run_name = str(self.config.get("run_name", "physiome_ode"))
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.run_dir = run_root / f"{run_name}_{timestamp}"
+        self.run_dir.mkdir(parents=True, exist_ok=True)
+        self.figure_dir = self.run_dir / "figures"
+        self.figure_dir.mkdir(parents=True, exist_ok=True)
+
+        # Logger configuration is controlled by the YAML `logging` section.
+        # Keep FileLogger and ImageWriter from the existing project utilities.
+        logging_cfg = self.config.get("logging", {})
+        file_cfg = logging_cfg.get("file", {})
+        image_cfg = logging_cfg.get("image", {})
+        wandb_cfg = logging_cfg.get("wandb", {})
+
+        if bool(file_cfg.get("enabled", True)):
+            self.logger.subscribe(
+                FileLogger(
+                    __name__,
+                    str(self.run_dir),
+                    debug=bool(file_cfg.get("debug", False)),
+                )
+            )
+
+        if bool(image_cfg.get("enabled", True)):
+            self.logger.subscribe(ImageWriter(str(self.run_dir)))
+
+        config_dict = OmegaConf.to_container(self.config, resolve=True)
+        (self.run_dir / "config.json").write_text(
+            json.dumps(config_dict, indent=2, default=str), encoding="utf-8"
+        )
+
+        # Do not start a W&B run unless it is explicitly enabled and a project
+        # name is configured. API keys should be supplied via WANDB_API_KEY.
+        wandb_project = wandb_cfg.get(
+            "project_name") or os.getenv("WANDB_PROJECT")
+        if bool(wandb_cfg.get("enabled", False)) and wandb_project:
+            wandb_run_name = wandb_cfg.get("run_name") or run_name
+            wandb_logger = WandbLogger(
+                unique_id=wandb_cfg.get("unique_id", None),
+                username=wandb_cfg.get("entity") or os.getenv("WANDB_ENTITY"),
+                project_name=str(wandb_project),
+                run_name=str(wandb_run_name),
+                group_name=wandb_cfg.get("group_name", None),
+                save_dir=str(self.run_dir),
+                config_dict=config_dict,
+                tags=wandb_cfg.get("tags", None),
+                reinit=bool(wandb_cfg.get("reinit", True)),
+            )
+            self.logger.subscribe(wandb_logger)
+
+        self.log(f"Run directory: {self.run_dir}")
 
         # --------------------------------------------------
         # Seed
@@ -146,7 +229,7 @@ class BasePipeline:
         requested_device = str(self.config.experiment.device)
 
         if requested_device == "cuda" and not torch.cuda.is_available():
-            print(
+            self.log(
                 "[WARNING] CUDA requested but not available. "
                 "Falling back to CPU."
             )
@@ -156,36 +239,16 @@ class BasePipeline:
         else:
             self.device = torch.device(requested_device)
 
-        print(f"[INFO] Seed   : {seed}")
-        print(f"[INFO] Device : {self.device}")
+        self.log(f"[INFO] Seed   : {seed}")
+        self.log(f"[INFO] Device : {self.device}")
 
-        # --------------------------------------------------
-        # Output directories
-        # --------------------------------------------------
-
-        self.checkpoint_path = Path(
-            to_absolute_path(
-                self.config.output.checkpoint
-            )
-        )
-
-        self.results_path = Path(
-            to_absolute_path(
-                self.config.output.results
-            )
-        )
-
-        self.history_path = Path(
-            to_absolute_path(
-                self.config.output.history
-            )
-        )
-
-        self.figure_dir = Path(
-            to_absolute_path(
-                self.config.output.figures
-            )
-        )
+        # All artifacts live in this run's directory, avoiding overwrites.
+        self.checkpoint_path = self.run_dir / \
+            Path(str(self.config.output.checkpoint)).name
+        self.results_path = self.run_dir / \
+            Path(str(self.config.output.results)).name
+        self.history_path = self.run_dir / \
+            Path(str(self.config.output.history)).name
 
         self.checkpoint_path.parent.mkdir(
             parents=True,
@@ -254,7 +317,7 @@ class BasePipeline:
         Initialize the configured DataModule.
         """
 
-        print("[1/10] DATA")
+        self.log("[1/10] DATA")
 
         # --------------------------------------------------
         # Read name from config
@@ -264,7 +327,7 @@ class BasePipeline:
             self.config.data.name
         )
 
-        print(
+        self.log(
             f"       DataModule: {datamodule_name}"
         )
 
@@ -322,16 +385,16 @@ class BasePipeline:
             self.datamodule.test_loader()
         )
 
-        print(
+        self.log(
             f"       Data path : {data_path}"
         )
 
-        print(
+        self.log(
             f"       Batch size: "
             f"{self.config.data.batch_size}"
         )
 
-        print("       DATA OK")
+        self.log("       DATA OK")
 
     # ======================================================
     # EDA
@@ -344,17 +407,17 @@ class BasePipeline:
         Visualization/EDA logic stays outside the trainer.
         """
 
-        print("[2/10] EDA")
+        self.log("[2/10] EDA")
 
         try:
             from datasets.eda import DatasetEDA
 
         except ImportError as exc:
-            print(
+            self.log(
                 "[WARNING] DatasetEDA could not be imported:"
             )
-            print(f"          {exc}")
-            print("          Skipping EDA.")
+            self.log(f"          {exc}")
+            self.log("          Skipping EDA.")
             return
 
         eda_output_dir = (
@@ -424,7 +487,7 @@ class BasePipeline:
                 dataset_name="test",
             )
 
-        print("       EDA OK")
+        self.log("       EDA OK")
 
     # ======================================================
     # ENCODER
@@ -435,13 +498,13 @@ class BasePipeline:
         Initialize the selected parameter encoder.
         """
 
-        print("[3/10] ENCODER")
+        self.log("[3/10] ENCODER")
 
         encoder_name = str(
             self.config.encoder.name
         )
 
-        print(
+        self.log(
             f"       Encoder: {encoder_name}"
         )
 
@@ -473,7 +536,7 @@ class BasePipeline:
             + state_dim
         )
 
-        print(
+        self.log(
             f"       Input dim: {input_dim}"
         )
 
@@ -502,7 +565,7 @@ class BasePipeline:
             **encoder_params,
         )
 
-        print("       ENCODER OK")
+        self.log("       ENCODER OK")
 
     # ======================================================
     # ODE
@@ -513,13 +576,13 @@ class BasePipeline:
         Initialize the configured ODE model.
         """
 
-        print("[4/10] ODE")
+        self.log("[4/10] ODE")
 
         ode_name = str(
             self.config.ode.name
         )
 
-        print(
+        self.log(
             f"       ODE: {ode_name}"
         )
 
@@ -562,7 +625,7 @@ class BasePipeline:
             state_names=state_names,
         )
 
-        print("       ODE OK")
+        self.log("       ODE OK")
 
     # ======================================================
     # SOLVER
@@ -573,13 +636,13 @@ class BasePipeline:
         Initialize the configured ODE solver.
         """
 
-        print("[5/10] SOLVER")
+        self.log("[5/10] SOLVER")
 
         solver_name = str(
             self.config.solver.name
         )
 
-        print(
+        self.log(
             f"       Solver: {solver_name}"
         )
 
@@ -605,7 +668,7 @@ class BasePipeline:
             **solver_params
         )
 
-        print("       SOLVER OK")
+        self.log("       SOLVER OK")
 
     # ======================================================
     # MODEL
@@ -617,13 +680,13 @@ class BasePipeline:
         composing encoder + ODE + solver.
         """
 
-        print("[6/10] MODEL")
+        self.log("[6/10] MODEL")
 
         model_name = str(
             self.config.model.name
         )
 
-        print(
+        self.log(
             f"       Model: {model_name}"
         )
 
@@ -645,12 +708,12 @@ class BasePipeline:
 
         self.model.to(self.device)
 
-        print(
+        self.log(
             f"       Parameters: "
             f"{sum(p.numel() for p in self.model.parameters() if p.requires_grad):,}"
         )
 
-        print("       MODEL OK")
+        self.log("       MODEL OK")
 
     # ======================================================
     # LOSS
@@ -661,13 +724,13 @@ class BasePipeline:
         Initialize the configured loss function.
         """
 
-        print("[7/10] LOSS")
+        self.log("[7/10] LOSS")
 
         loss_name = str(
             self.config.loss.name
         )
 
-        print(
+        self.log(
             f"       Loss: {loss_name}"
         )
 
@@ -702,7 +765,7 @@ class BasePipeline:
             ),
         )
 
-        print("       LOSS OK")
+        self.log("       LOSS OK")
 
     # ======================================================
     # METRICS
@@ -713,7 +776,7 @@ class BasePipeline:
         Initialize parameter, trajectory and JGD metrics.
         """
 
-        print("[8/10] METRICS")
+        self.log("[8/10] METRICS")
 
         # --------------------------------------------------
         # Parameter metrics
@@ -805,7 +868,7 @@ class BasePipeline:
                 )
             )
 
-        print("       METRICS OK")
+        self.log("       METRICS OK")
 
     # ======================================================
     # OPTIMIZER
@@ -818,7 +881,7 @@ class BasePipeline:
         There is intentionally no optimizer registry.
         """
 
-        print("[9/10] OPTIMIZER")
+        self.log("[9/10] OPTIMIZER")
 
         # ------------------------------------------------------
         # Optimizer name
@@ -858,15 +921,15 @@ class BasePipeline:
         # Print information
         # ------------------------------------------------------
 
-        print(
+        self.log(
             f"       Optimizer: {optimizer_name}"
         )
 
-        print(
+        self.log(
             f"       Parameters: {optimizer_params}"
         )
 
-        print("       OPTIMIZER OK")
+        self.log("       OPTIMIZER OK")
 
     # ======================================================
     # TRAINER
@@ -880,7 +943,7 @@ class BasePipeline:
         trainer. The pipeline handles all plotting.
         """
 
-        print("[10/10] TRAINER")
+        self.log("[10/10] TRAINER")
 
         # --------------------------------------------------
         # Trainer class
@@ -949,9 +1012,12 @@ class BasePipeline:
             jgd_metrics=(
                 self.jgd_metrics
             ),
+            run_dir=str(self.run_dir),
+            config=OmegaConf.to_container(self.config, resolve=True),
+            logger=self.logger,
         )
 
-        print("       TRAINER OK")
+        self.log("       TRAINER OK")
 
     # ======================================================
     # INITIALIZE PIPELINE
@@ -992,10 +1058,10 @@ class BasePipeline:
         Train the model and create training-history plots.
         """
 
-        print("\n")
-        print("=" * 70)
-        print("TRAINING")
-        print("=" * 70)
+        self.log("\n")
+        self.log("=" * 70)
+        self.log("TRAINING")
+        self.log("=" * 70)
 
         history = self.trainer.fit()
 
@@ -1012,18 +1078,18 @@ class BasePipeline:
                 ),
             )
 
-            print(
+            self.log(
                 "[INFO] Training history plots saved."
             )
 
         except Exception as exc:
 
-            print(
+            self.log(
                 "[WARNING] Could not create "
                 "training history plots:"
             )
 
-            print(
+            self.log(
                 f"          {exc}"
             )
 
@@ -1039,12 +1105,30 @@ class BasePipeline:
         parameter-recovery and trajectory visualizations.
         """
 
-        print("\n")
-        print("=" * 70)
-        print("TESTING")
-        print("=" * 70)
+        self.log("\n")
+        self.log("=" * 70)
+        self.log("TESTING")
+        self.log("=" * 70)
 
         results = self.trainer.test()
+        # Persist complete test output and scalar metrics for run comparison.
+        try:
+            torch.save(results, self.results_path)
+        except Exception as exc:
+            self.log("[WARNING] Could not save test results:", exc)
+        if isinstance(results, dict):
+            self.log_metrics(results, prefix="test")
+            summary = {
+                "run_name": self.run_dir.name,
+                "log_filename": "log.txt",
+                "config": OmegaConf.to_container(self.config, resolve=True),
+                "metrics": results,
+            }
+            (self.run_dir / "summary.json").write_text(
+                json.dumps(summary, indent=2, default=lambda x: x.detach(
+                ).cpu().tolist() if torch.is_tensor(x) else str(x)),
+                encoding="utf-8",
+            )
 
         # --------------------------------------------------
         # Parameter recovery
@@ -1088,19 +1172,19 @@ class BasePipeline:
                     ),
                 )
 
-                print(
+                self.log(
                     "[INFO] Parameter recovery "
                     "plots saved."
                 )
 
         except Exception as exc:
 
-            print(
+            self.log(
                 "[WARNING] Could not create "
                 "parameter recovery plots:"
             )
 
-            print(
+            self.log(
                 f"          {exc}"
             )
 
@@ -1163,18 +1247,18 @@ class BasePipeline:
                     num_examples=num_examples,
                 )
 
-                print(
+                self.log(
                     "[INFO] Trajectory plots saved."
                 )
 
         except Exception as exc:
 
-            print(
+            self.log(
                 "[WARNING] Could not create "
                 "trajectory plots:"
             )
 
-            print(
+            self.log(
                 f"          {exc}"
             )
 
@@ -1213,39 +1297,46 @@ class BasePipeline:
         Print registered components for debugging.
         """
 
-        print("\n")
-        print("=" * 70)
-        print("REGISTRIES")
-        print("=" * 70)
+        self.log("\n")
+        self.log("=" * 70)
+        self.log("REGISTRIES")
+        self.log("=" * 70)
 
-        print("\nDATASET")
-        print(self.dataset_registry)
+        self.log("\nDATASET")
+        self.log(self.dataset_registry)
 
-        print("\nENCODER")
-        print(self.encoder_registry)
+        self.log("\nENCODER")
+        self.log(self.encoder_registry)
 
-        print("\nLOSS")
-        print(self.loss_registry)
+        self.log("\nLOSS")
+        self.log(self.loss_registry)
 
-        print("\nMETRIC")
-        print(self.metric_registry)
+        self.log("\nMETRIC")
+        self.log(self.metric_registry)
 
-        print("\nMODEL")
-        print(self.model_registry)
+        self.log("\nMODEL")
+        self.log(self.model_registry)
 
-        print("\nODE")
-        print(self.ode_registry)
+        self.log("\nODE")
+        self.log(self.ode_registry)
 
-        print("\nSOLVER")
-        print(self.solver_registry)
+        self.log("\nSOLVER")
+        self.log(self.solver_registry)
 
-        print("\nTRAINER")
-        print(self.trainer_registry)
+        self.log("\nTRAINER")
+        self.log(self.trainer_registry)
 
 
 # ==========================================================
 # HYDRA ENTRY POINT
 # ==========================================================
+
+
+def log_message(*values, level=None):
+    """Module-level logging for the Hydra entry point."""
+    logger = LoggerObserver.getLogger("main")
+    logger.text(" ".join(str(value) for value in values),
+                level=LoggerObserver.INFO if level is None else level)
 
 
 @hydra.main(
@@ -1258,15 +1349,15 @@ def main(config: DictConfig) -> None:
     Hydra entry point.
     """
 
-    print("=" * 70)
-    print("PHYSIOME ODE PARAMETER ESTIMATION")
-    print("=" * 70)
+    log_message("=" * 70)
+    log_message("PHYSIOME ODE PARAMETER ESTIMATION")
+    log_message("=" * 70)
 
     # ------------------------------------------------------
     # Print current working directory
     # ------------------------------------------------------
 
-    print(
+    log_message(
         f"Working directory: {Path.cwd()}"
     )
 
@@ -1274,23 +1365,23 @@ def main(config: DictConfig) -> None:
     # Print selected Hydra components
     # ------------------------------------------------------
 
-    print(
+    log_message(
         f"Encoder: {config.encoder.name}"
     )
 
-    print(
+    log_message(
         f"ODE:     {config.ode.name}"
     )
 
-    print(
+    log_message(
         f"Solver:  {config.solver.name}"
     )
 
-    print(
+    log_message(
         f"Device:  {config.experiment.device}"
     )
 
-    print("=" * 70)
+    log_message("=" * 70)
 
     # ------------------------------------------------------
     # Build and run pipeline

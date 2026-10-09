@@ -92,15 +92,43 @@ metrics:
     params:
       eps: 1.0e-8
 
-# ==========================================================
-# OUTPUT
-# ==========================================================
+run_name: physiome_ode
+
+debug: false
 
 output:
-  checkpoint: "checkpoints/best_model.pt"
+  # Root folder for unique timestamped run folders.
+  run_dir: runs
+  # These filenames are saved inside each unique run folder.
+  checkpoint: best_model.pt
+  results: test_results.json
+  history: training_history.pt
+  figures: figures
+  num_trajectory_examples: 5
 
-  results: "results/test_results.pt"
+logging:
+  file:
+    enabled: true
+    debug: false
 
-  history: "results/training_history.pt"
+  image:
+    enabled: true
 
-  figures: "figures"
+  wandb:
+    # Set true to enable Weights & Biases. Keep false for local-only runs.
+    enabled: false
+    # Can also be supplied through the WANDB_PROJECT environment variable.
+    project_name: null
+    # Optional W&B entity/team; can also use WANDB_ENTITY.
+    entity: null
+    # Optional grouping for comparing related experiments.
+    group_name: physiome-ode
+    # Optional W&B run display name; defaults to run_name above.
+    run_name: null
+    # Optional unique id for resuming a specific W&B run; normally leave null.
+    unique_id: null
+    # W&B tags attached to the run.
+    tags:
+      - physiome-ode
+    # W&B logger initialization behavior.
+    reinit: true

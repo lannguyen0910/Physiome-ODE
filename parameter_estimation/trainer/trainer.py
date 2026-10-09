@@ -1,7 +1,33 @@
 import os
+import json
+import math
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import torch
+from utilities.loggers import LoggerObserver
+
+LOGGER = LoggerObserver.getLogger("main")
+
+
+def _log_print(*values, level=None):
+    LOGGER.text(" ".join(str(value) for value in values),
+                level=LoggerObserver.INFO if level is None else level)
+
+
+def _jsonable(value):
+    if torch.is_tensor(value):
+        value = value.detach().cpu()
+        return value.item() if value.numel() == 1 else value.tolist()
+    if isinstance(value, dict):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    return str(value)
 
 
 class Trainer:
@@ -23,6 +49,9 @@ class Trainer:
         parameter_metrics=None,
         trajectory_metrics=None,
         jgd_metrics=None,
+        run_dir=None,
+        config=None,
+        logger=None,
     ):
         """
         Trainer for ODE parameter estimation.
@@ -85,6 +114,12 @@ class Trainer:
         self.parameter_metrics = parameter_metrics
         self.trajectory_metrics = trajectory_metrics
         self.jgd_metrics = jgd_metrics
+        self.logger = logger or LOGGER
+        self.run_dir = Path(run_dir) if run_dir is not None else (
+            Path(results_path).parent if results_path else None)
+        self.config = config or {}
+        if self.run_dir is not None:
+            self.run_dir.mkdir(parents=True, exist_ok=True)
 
         self.model.to(self.device)
 
@@ -690,7 +725,7 @@ class Trainer:
                 TypeError,
             ) as error:
 
-                print(
+                _log_print(
                     "WARNING: "
                     f"Skipping invalid training batch {batch_idx}: "
                     f"{error}"
@@ -763,7 +798,7 @@ class Trainer:
                 or (batch_idx + 1) % 10 == 0
                 or (batch_idx + 1) == len(self.train_loader)
             ):
-                print(
+                _log_print(
                     f"       Train batch {batch_idx + 1}/"
                     f"{len(self.train_loader)}",
                     flush=True,
@@ -1002,6 +1037,35 @@ class Trainer:
     # FIT
     # ======================================================
 
+    def _log_epoch_metrics(self, epoch, train_metrics, valid_metrics):
+        """Persist epoch metrics in append-only JSONL and CSV-friendly history."""
+        record = {"epoch": int(epoch), "train": _jsonable(
+            train_metrics), "valid": _jsonable(valid_metrics)}
+        if self.run_dir is not None:
+            with (self.run_dir / "epoch_metrics.jsonl").open("a", encoding="utf-8") as f:
+                f.write(json.dumps(record, allow_nan=False) + "\n")
+        events = []
+
+        def flatten(values, prefix):
+            if isinstance(values, dict):
+                for key, value in values.items():
+                    flatten(value, f"{prefix}/{key}" if prefix else str(key))
+            elif isinstance(values, (int, float)) and not isinstance(values, bool):
+                events.append({"type": LoggerObserver.SCALAR, "tag": prefix, "value": float(
+                    values), "step": int(epoch)})
+        flatten(train_metrics, "train")
+        flatten(valid_metrics, "valid")
+        if events:
+            self.logger.log(events)
+
+    def _save_summary(self, metrics):
+        if self.run_dir is None:
+            return
+        payload = {"run_name": self.run_dir.name, "log_filename": "log.txt",
+                   "config": _jsonable(self.config), "metrics": _jsonable(metrics)}
+        (self.run_dir / "summary.json").write_text(json.dumps(payload,
+                                                              indent=2, allow_nan=False), encoding="utf-8")
+
     def fit(self):
         history = {
             "train": [],
@@ -1037,6 +1101,7 @@ class Trainer:
 
             history["train"].append(train_result)
             history["valid"].append(valid_result)
+            self._log_epoch_metrics(epoch, train_result, valid_result)
 
             # --------------------------------------------------
             # Basic loss history
@@ -1104,41 +1169,41 @@ class Trainer:
             # Logging
             # --------------------------------------------------
 
-            print("\n" + "=" * 60, flush=True)
-            print(f"Epoch {epoch:04d}", flush=True)
-            print("=" * 60)
+            _log_print("\n" + "=" * 60, flush=True)
+            _log_print(f"Epoch {epoch:04d}", flush=True)
+            _log_print("=" * 60)
 
-            print(
+            _log_print(
                 f"Train Loss: "
                 f"{train_result['loss']:.6f}"
             )
 
-            print(
+            _log_print(
                 f"Valid Loss: "
                 f"{valid_result['loss']:.6f}"
             )
 
-            print(
+            _log_print(
                 f"Train Parameter Loss: "
                 f"{train_result['parameter_loss']:.6f}"
             )
 
-            print(
+            _log_print(
                 f"Valid Parameter Loss: "
                 f"{valid_result['parameter_loss']:.6f}"
             )
 
-            print(
+            _log_print(
                 f"Train Trajectory Loss: "
                 f"{train_result['trajectory_loss']:.6f}"
             )
 
-            print(
+            _log_print(
                 f"Valid Trajectory Loss: "
                 f"{valid_result['trajectory_loss']:.6f}"
             )
 
-            print("\nValidation metrics:")
+            _log_print("\nValidation metrics:")
 
             for name, value in valid_result.items():
                 if name in {
@@ -1148,7 +1213,7 @@ class Trainer:
                 }:
                     continue
 
-                print(f"{name}: {value:.6f}")
+                _log_print(f"{name}: {value:.6f}")
 
             # --------------------------------------------------
             # Early stopping
@@ -1181,20 +1246,20 @@ class Trainer:
                     self.checkpoint_path,
                 )
 
-                print("Best model saved.")
+                _log_print("Best model saved.")
 
             else:
 
                 patience_counter += 1
 
-                print(
+                _log_print(
                     f"No improvement: "
                     f"{patience_counter}/"
                     f"{self.patience}"
                 )
 
             if patience_counter >= self.patience:
-                print("\nEarly stopping triggered.")
+                _log_print("\nEarly stopping triggered.")
                 break
 
         # --------------------------------------------------
@@ -1213,11 +1278,11 @@ class Trainer:
                 checkpoint["model_state_dict"]
             )
 
-            print("\nLoaded best model:")
-            print(
+            _log_print("\nLoaded best model:")
+            _log_print(
                 f"Epoch: {checkpoint['epoch']}"
             )
-            print(
+            _log_print(
                 f"Validation loss: "
                 f"{checkpoint['valid_loss']:.6f}"
             )
@@ -1243,7 +1308,7 @@ class Trainer:
                 self.history_path,
             )
 
-            print(
+            _log_print(
                 f"Training history saved to: "
                 f"{self.history_path}"
             )
@@ -1437,11 +1502,12 @@ class Trainer:
                 self.results_path,
             )
 
-            print(
+            _log_print(
                 f"\nTest results saved to: "
                 f"{self.results_path}"
             )
 
+        self._save_summary(results)
         return results
 
     # ======================================================
