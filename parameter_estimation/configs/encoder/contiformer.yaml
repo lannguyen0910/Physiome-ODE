@@ -1,0 +1,43 @@
+# Continuous-time Transformer encoder using the uploaded PhysioPro modules.
+#
+# Thesis pipeline interface:
+#   T, X, M -> ContiFormer -> theta_pred, y0_pred
+
+name: contiformer
+
+params:
+  state_dim: 2
+
+  # ContiFormer backbone
+  hidden_dim: 128
+  d_inner: 256
+  n_layers: 2
+  n_head: 4
+  d_k: 32
+  d_v: 32
+  dropout: 0.1
+
+  # PhysioPro continuous-time / ODE attention settings
+  actfn_ode: softplus
+  layer_type_ode: concatnorm
+  zero_init_ode: true
+  atol_ode: 0.01
+  rtol_ode: 0.01
+  method_ode: rk4
+  regularize: false
+  approximate_method: bilinear
+  nlinspace: 1
+  interpolate_ode: linear
+  itol_ode: 0.01
+
+  # PhysioPro transformer settings
+  add_pe: false
+  normalize_before: true
+
+  # Outputs
+  theta_dim: 14
+  y0_dim: 2
+
+  # Representation used before the two prediction heads
+  # mean_last = concatenate masked mean + last valid event
+  pool: mean_last
