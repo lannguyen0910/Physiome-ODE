@@ -118,9 +118,9 @@ logging:
     # Set true to enable Weights & Biases. Keep false for local-only runs.
     enabled: false
     # Can also be supplied through the WANDB_PROJECT environment variable.
-    project_name: null
+    project_name: physiome
     # Optional W&B entity/team; can also use WANDB_ENTITY.
-    entity: null
+    username: lannguyen
     # Optional grouping for comparing related experiments.
     group_name: physiome-ode
     # Optional W&B run display name; defaults to run_name above.
