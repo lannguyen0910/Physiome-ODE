@@ -51,7 +51,7 @@ from solvers import (
     SOLVER_REGISTRY,
 )
 
-from parameter_estimation.trainer.trainer import (
+from trainer import (
     TRAINER_REGISTRY,
 )
 
