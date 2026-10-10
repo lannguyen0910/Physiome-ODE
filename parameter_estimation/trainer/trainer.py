@@ -10,7 +10,7 @@ from utilities.loggers import LoggerObserver
 LOGGER = LoggerObserver.getLogger("main")
 
 
-def _log_print(*values, level=None):
+def _log_print(*values, level=None, flush=False):
     LOGGER.text(" ".join(str(value) for value in values),
                 level=LoggerObserver.INFO if level is None else level)
 
