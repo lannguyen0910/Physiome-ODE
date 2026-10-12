@@ -237,7 +237,8 @@ class BasePipeline:
             self.device = torch.device("cpu")
 
         else:
-            self.device = torch.device(requested_device)
+            # self.device = torch.device(requested_device)
+            self.device = torch.device("cuda:0")
 
         self.log(f"[INFO] Seed   : {seed}")
         self.log(f"[INFO] Device : {self.device}")
