@@ -71,7 +71,7 @@ class WandbLogger(LoggerSubscriber):
         """
         wandb_logger.save(value, base_path=base_folder)
 
-    def log_scalar(self, tag, value, step, **kwargs):
+    def log_scalar(self, tag, value, step=None, **kwargs):
         """
         Write a log to specified directory
         :param tags: (str) tag for log
@@ -156,7 +156,8 @@ class WandbLogger(LoggerSubscriber):
         :param fps: int
         """
         # axes are
-        wandb_logger.log({tag: wandb_logger.Video(value, fps=fps), "iterations": step})
+        wandb_logger.log({tag: wandb_logger.Video(
+            value, fps=fps), "iterations": step})
 
     def log_html(self, tag, value, step=0, **kwargs):
         """
@@ -195,11 +196,13 @@ class WandbLogger(LoggerSubscriber):
                         df_dict[metadata_header[idx]] = []
                     df_dict[metadata_header[idx]].append(item)
         if label_img is not None:
-            df_dict["images"] = [wandb_logger.Image(i.values) for i in label_img]
+            df_dict["images"] = [wandb_logger.Image(
+                i.values) for i in label_img]
 
         df = pd.DataFrame(df_dict)
 
-        table = wandb_logger.Table(columns=df.columns.to_list(), data=df.values)
+        table = wandb_logger.Table(
+            columns=df.columns.to_list(), data=df.values)
         wandb_logger.log({tag: table, "iterations": step})
 
     def __del__(self):
