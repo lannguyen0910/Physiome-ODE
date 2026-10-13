@@ -9,7 +9,7 @@ import json
 import os
 
 
-from utilities.loggers import LoggerObserver, FileLogger, ImageWriter, WandbLogger
+from utilities.loggers import LoggerObserver, FileLogger, ImageWriter, WandbLogger, WandbFigureLogger
 
 import hydra
 import torch
@@ -149,6 +149,21 @@ class BasePipeline:
         if events:
             self.logger.log(events)
 
+    def upload_figures_to_wandb(self, directory=None):
+        """
+        Upload every locally saved image in the figure directory.
+
+        Calling this method multiple times is safe: already-uploaded
+        unchanged files are skipped.
+        """
+        if not hasattr(self, "figure_logger"):
+            self.log(
+                "[WARNING] Figure logger has not been initialized."
+            )
+            return 0
+
+        return self.figure_logger.upload_all(directory=directory)
+
     # ======================================================
     # GLOBAL CONFIGURATION
     # ======================================================
@@ -160,6 +175,10 @@ class BasePipeline:
         """
         # One folder per run; all output paths are redirected there.
         self.logger = LoggerObserver.getLogger("main")
+        self.figure_logger = WandbFigureLogger(
+            figure_dir=self.figure_dir,
+            logger=self.logger,
+        )
         configured_root = self.config.output.get("run_dir", "runs")
         run_root = Path(to_absolute_path(str(configured_root)))
         run_name = str(self.config.get("run_name", "physiome_ode"))
@@ -426,7 +445,8 @@ class BasePipeline:
         )
 
         eda = DatasetEDA(
-            output_dir=str(eda_output_dir)
+            output_dir=str(eda_output_dir),
+            logger=self.logger,
         )
 
         # --------------------------------------------------
@@ -487,6 +507,10 @@ class BasePipeline:
                 test_dataset,
                 dataset_name="test",
             )
+
+        self.upload_figures_to_wandb(
+            directory=eda_output_dir
+        )
 
         self.log("       EDA OK")
 
@@ -1093,6 +1117,7 @@ class BasePipeline:
             self.log(
                 f"          {exc}"
             )
+        self.upload_figures_to_wandb()
 
         return history
 
@@ -1263,6 +1288,8 @@ class BasePipeline:
                 f"          {exc}"
             )
 
+        self.upload_figures_to_wandb()
+
         return results
 
     # ======================================================
@@ -1283,6 +1310,10 @@ class BasePipeline:
         history = self.fit()
 
         results = self.test()
+
+        self.upload_figures_to_wandb()
+
+        self.log("Experiment completed.")
 
         return {
             "history": history,

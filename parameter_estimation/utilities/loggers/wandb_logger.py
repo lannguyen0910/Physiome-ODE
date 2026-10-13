@@ -1,3 +1,5 @@
+from typing import Optional, Set
+from pathlib import Path
 from typing import Dict
 
 try:
@@ -216,6 +218,125 @@ class WandbLogger(LoggerSubscriber):
 
     def __del__(self):
         wandb_logger.finish()
+
+
+class WandbFigureLogger:
+    """
+    Upload locally saved figures to the active Weights & Biases run.
+
+    Local figures are kept unchanged. Each image is uploaded using a
+    key based on its path relative to the figures directory.
+
+    Example:
+        figures/eda/train/missing_values.png
+        -> figures/eda/train/missing_values.png
+
+        figures/training_loss.png
+        -> figures/training_loss.png
+    """
+
+    SUPPORTED_EXTENSIONS = {
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".webp",
+        ".bmp",
+        ".gif",
+    }
+
+    def __init__(self, figure_dir, logger=None):
+        self.figure_dir = Path(figure_dir)
+        self.logger = logger
+        self._uploaded_files: Set[str] = set()
+
+    def _log(self, message):
+        """Use the existing project logger when available."""
+        if self.logger is not None:
+            try:
+                self.logger.text(message)
+                return
+            except Exception:
+                pass
+
+        print(message)
+
+    def upload_all(self, directory: Optional[str] = None):
+        """
+        Scan a directory recursively and upload all supported image files.
+
+        Args:
+            directory:
+                Directory to scan. Defaults to the complete figure directory.
+
+        Returns:
+            Number of newly uploaded images.
+        """
+        try:
+            import wandb
+        except ImportError:
+            self._log(
+                "[W&B FIGURES] wandb is not installed; "
+                "skipping figure upload."
+            )
+            return 0
+
+        # W&B must have an active run, normally created by WandbLogger.
+        if wandb.run is None:
+            self._log(
+                "[W&B FIGURES] No active W&B run. "
+                "Figures remain saved locally."
+            )
+            return 0
+
+        root = Path(directory) if directory is not None else self.figure_dir
+
+        if not root.exists():
+            return 0
+
+        uploaded_count = 0
+
+        for path in sorted(root.rglob("*")):
+            if not path.is_file():
+                continue
+
+            if path.suffix.lower() not in self.SUPPORTED_EXTENSIONS:
+                continue
+
+            # Do not upload the same unchanged file repeatedly.
+            resolved_path = str(path.resolve())
+
+            if resolved_path in self._uploaded_files:
+                continue
+
+            try:
+                relative_path = path.relative_to(self.figure_dir).as_posix()
+
+                # Keep folder structure in W&B so figures remain organized.
+                wandb_key = f"figures/{relative_path}"
+
+                wandb.log({
+                    wandb_key: wandb.Image(str(path))
+                })
+
+                self._uploaded_files.add(resolved_path)
+                uploaded_count += 1
+
+                self._log(
+                    f"[W&B FIGURES] Uploaded: {relative_path}"
+                )
+
+            except Exception as exc:
+                self._log(
+                    f"[W&B FIGURES] Failed to upload "
+                    f"{path}: {exc}"
+                )
+
+        if uploaded_count:
+            self._log(
+                f"[W&B FIGURES] Uploaded {uploaded_count} new figure(s)."
+            )
+
+        return uploaded_count
 
 
 def find_run_id(dirname):
