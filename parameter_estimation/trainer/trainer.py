@@ -16,17 +16,30 @@ def _log_print(*values, level=None, flush=False):
 
 
 def _jsonable(value):
+    """Convert nested values to strict JSON-compatible Python values."""
+
     if torch.is_tensor(value):
         value = value.detach().cpu()
-        return value.item() if value.numel() == 1 else value.tolist()
+        if value.numel() == 1:
+            return _jsonable(value.item())
+
+        return _jsonable(value.tolist())
+
     if isinstance(value, dict):
-        return {str(k): _jsonable(v) for k, v in value.items()}
+        return {
+            str(key): _jsonable(item)
+            for key, item in value.items()
+        }
+
     if isinstance(value, (list, tuple)):
-        return [_jsonable(v) for v in value]
+        return [_jsonable(item) for item in value]
+
     if isinstance(value, float) and not math.isfinite(value):
         return None
+
     if isinstance(value, (str, int, float, bool)) or value is None:
         return value
+
     return str(value)
 
 
@@ -1050,21 +1063,49 @@ class Trainer:
             if isinstance(values, dict):
                 for key, value in values.items():
                     flatten(value, f"{prefix}/{key}" if prefix else str(key))
-            elif isinstance(values, (int, float)) and not isinstance(values, bool):
-                events.append({"type": LoggerObserver.SCALAR, "tag": prefix, "value": float(
-                    values), "step": int(epoch)})
+            # elif isinstance(values, (int, float)) and not isinstance(values, bool):
+            #     events.append({"type": LoggerObserver.SCALAR, "tag": prefix, "value": float(
+            #         values), "step": int(epoch)})
+            elif (
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+            ):
+                value = float(value)
+
+                if math.isfinite(value):
+                    events.append({
+                        "type": LoggerObserver.SCALAR,
+                        "tag": prefix,
+                        "value": value,
+                        "step": int(epoch),
+                    })
+
         flatten(train_metrics, "train")
         flatten(valid_metrics, "valid")
         if events:
             self.logger.log(events)
 
     def _save_summary(self, metrics):
+        """Save a strict JSON summary, sanitizing nested non-finite values."""
+
         if self.run_dir is None:
             return
-        payload = {"run_name": self.run_dir.name, "log_filename": "log.txt",
-                   "config": _jsonable(self.config), "metrics": _jsonable(metrics)}
-        (self.run_dir / "summary.json").write_text(json.dumps(payload,
-                                                              indent=2, allow_nan=False), encoding="utf-8")
+
+        payload = {
+            "run_name": self.run_dir.name,
+            "log_filename": "log.txt",
+            "config": self.config,
+            "metrics": metrics,
+        }
+
+        # Sanitize the entire payload, including tensors and nested lists.
+        payload = _jsonable(payload)
+
+        summary_path = self.run_dir / "summary.json"
+        summary_path.write_text(
+            json.dumps(payload, indent=2, allow_nan=False),
+            encoding="utf-8",
+        )
 
     def fit(self):
         history = {
