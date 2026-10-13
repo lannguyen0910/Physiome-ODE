@@ -1059,24 +1059,31 @@ class Trainer:
                 f.write(json.dumps(record, allow_nan=False) + "\n")
         events = []
 
-        def flatten(values, prefix):
-            if isinstance(values, dict):
-                for key, value in values.items():
-                    flatten(value, f"{prefix}/{key}" if prefix else str(key))
-            # elif isinstance(values, (int, float)) and not isinstance(values, bool):
-            #     events.append({"type": LoggerObserver.SCALAR, "tag": prefix, "value": float(
-            #         values), "step": int(epoch)})
-            elif (
-                isinstance(value, (int, float))
-                and not isinstance(value, bool)
-            ):
-                value = float(value)
+        def flatten(obj, prefix=""):
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    new_prefix = f"{prefix}/{key}" if prefix else str(key)
+                    flatten(value, new_prefix)
 
-                if math.isfinite(value):
+            elif isinstance(obj, (list, tuple)):
+                for index, value in enumerate(obj):
+                    flatten(value, f"{prefix}/{index}")
+
+            elif isinstance(obj, torch.Tensor):
+                if obj.numel() == 1:
+                    flatten(obj.detach().cpu().item(), prefix)
+
+            elif (
+                isinstance(obj, (int, float))
+                and not isinstance(obj, bool)
+            ):
+                scalar = float(obj)
+
+                if math.isfinite(scalar):
                     events.append({
                         "type": LoggerObserver.SCALAR,
                         "tag": prefix,
-                        "value": value,
+                        "value": scalar,
                         "step": int(epoch),
                     })
 
