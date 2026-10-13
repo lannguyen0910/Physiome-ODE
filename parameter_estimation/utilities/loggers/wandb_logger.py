@@ -71,7 +71,7 @@ class WandbLogger(LoggerSubscriber):
         """
         wandb_logger.save(value, base_path=base_folder)
 
-    def log_scalar(self, tag, value, step=None, **kwargs):
+    def log_scalar(self, tag, value, step=0, **kwargs):
         """
         Write a log to specified directory
         :param tags: (str) tag for log
@@ -79,12 +79,21 @@ class WandbLogger(LoggerSubscriber):
         :param step: (int) logging step
         """
 
-        # define our custom x axis metric
-        wandb_logger.define_metric("iterations")
-        # define which metrics will be plotted against it
-        wandb_logger.define_metric(tag, step_metric="iterations")
+        if step is None:
+            step = 0
 
-        wandb_logger.log({tag: value, "iterations": step})
+        wandb_logger.define_metric("iterations")
+        wandb_logger.define_metric(
+            tag,
+            step_metric="iterations",
+        )
+
+        wandb_logger.log(
+            {
+                tag: float(value),
+                "iterations": int(step),
+            }
+        )
 
     def log_figure(self, tag, value, step=0, **kwargs):
         """

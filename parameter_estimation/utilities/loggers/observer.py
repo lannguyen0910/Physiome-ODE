@@ -1,3 +1,7 @@
+from .subscriber import LoggerSubscriber
+from tabulate import tabulate
+from typing import Dict, List
+from inspect import getframeinfo, stack
 import logging
 
 import matplotlib as mpl
@@ -7,13 +11,6 @@ import plotly.graph_objs as go
 import torch
 
 mpl.use("Agg")
-
-from inspect import getframeinfo, stack
-from typing import Dict, List
-
-from tabulate import tabulate
-
-from .subscriber import LoggerSubscriber
 
 
 def get_type(value):
@@ -101,11 +98,21 @@ class LoggerObserver(object):
             for log in logs:
                 tag = log["tag"]
                 value = log["value"]
-                log_type = log["type"] if "type" in log.keys() else get_type(value)
+                log_type = log["type"] if "type" in log.keys(
+                ) else get_type(value)
                 kwargs = log["kwargs"] if "kwargs" in log.keys() else {}
 
                 if log_type == LoggerObserver.SCALAR:
-                    subscriber.log_scalar(tag=tag, value=value, **kwargs)
+                    step = log.get("step", kwargs.pop("step", 0))
+
+                    subscriber.log_scalar(
+                        tag=tag,
+                        value=value,
+                        step=step,
+                        **kwargs,
+                    )
+
+                    # subscriber.log_scalar(tag=tag, value=value, **kwargs)
 
                 if log_type == LoggerObserver.FIGURE:
                     subscriber.log_figure(tag=tag, value=value, **kwargs)
