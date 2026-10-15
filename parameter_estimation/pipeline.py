@@ -508,9 +508,9 @@ class BasePipeline:
                 dataset_name="test",
             )
 
-        self.upload_figures_to_wandb(
-            directory=eda_output_dir
-        )
+        # self.upload_figures_to_wandb(
+        #     directory=eda_output_dir
+        # )
 
         self.log("       EDA OK")
 
