@@ -3,11 +3,9 @@
 # Thesis pipeline interface:
 #   T, X, M -> ContiFormer -> theta_pred, y0_pred
 
-name: contiformer
+name: ContiFormerEncoder
 
 params:
-  state_dim: 2
-
   # ContiFormer backbone
   hidden_dim: 128
   d_inner: 256
