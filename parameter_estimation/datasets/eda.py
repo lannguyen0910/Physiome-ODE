@@ -23,17 +23,19 @@ class DatasetEDA:
         dataset_name="train",
     ):
 
-        self.logger.log("\n" + "=" * 40)
-        self.logger.log(f"EDA: {dataset_name.upper()} DATASET")
-        self.logger.log("=" * 40)
+        self.logger.text("\n" + "=" * 40, level=LoggerObserver.INFO)
+        self.logger.text(
+            f"EDA: {dataset_name.upper()} DATASET", level=LoggerObserver.INFO)
+        self.logger.text("=" * 40, level=LoggerObserver.INFO)
 
-        self.logger.log(f"Number of samples: {len(dataset)}")
+        self.logger.text(
+            f"Number of samples: {len(dataset)}", level=LoggerObserver.INFO)
 
         sample = dataset[0]
 
         if isinstance(sample, dict):
-            self.logger.log("\nAvailable keys:")
-            self.logger.log(list(sample.keys()))
+            self.logger.text("\nAvailable keys:", level=LoggerObserver.INFO)
+            self.logger.text(list(sample.keys()), level=LoggerObserver.INFO)
 
             self._analyze_dict_dataset(
                 dataset=dataset,
@@ -42,14 +44,14 @@ class DatasetEDA:
 
         else:
 
-            self.logger.log(
-                "\nWARNING: Dataset sample is not a dictionary."
+            self.logger.text(
+                "\nWARNING: Dataset sample is not a dictionary.", level=LoggerObserver.INFO
             )
-            self.logger.log(
-                "Please adapt EDA to your dataset format."
+            self.logger.text(
+                "Please adapt EDA to your dataset format.", level=LoggerObserver.INFO
             )
 
-        self.logger.log("=" * 40 + "\n")
+        self.logger.text("=" * 40 + "\n", level=LoggerObserver.INFO)
 
     def _collect_data(
         self,
@@ -128,8 +130,8 @@ class DatasetEDA:
         # Basic shapes
         # --------------------------------------------------
 
-        self.logger.log("\n1. DATA SHAPES")
-        self.logger.log("-" * 40)
+        self.logger.text("\n1. DATA SHAPES", level=LoggerObserver.INFO)
+        self.logger.text("-" * 40, level=LoggerObserver.INFO)
 
         for name, value in {
             "T": T,
@@ -142,8 +144,8 @@ class DatasetEDA:
 
             if value is not None and torch.is_tensor(value):
 
-                self.logger.log(
-                    f"{name}: {tuple(value.shape)}"
+                self.logger.text(
+                    f"{name}: {tuple(value.shape)}", level=LoggerObserver.INFO
                 )
 
         # --------------------------------------------------
@@ -231,8 +233,9 @@ class DatasetEDA:
         time_type,
     ):
 
-        self.logger.log(f"\n2. TIME ANALYSIS ({time_type})")
-        self.logger.log("-" * 40)
+        self.logger.text(
+            f"\n2. TIME ANALYSIS ({time_type})", level=LoggerObserver.INFO)
+        self.logger.text("-" * 40, level=LoggerObserver.INFO)
 
         if T.dim() == 3:
 
@@ -269,24 +272,24 @@ class DatasetEDA:
 
                 all_gaps.append(gaps)
 
-        self.logger.log(
-            f"Total duplicate timestamps: {total_duplicates}"
+        self.logger.text(
+            f"Total duplicate timestamps: {total_duplicates}", level=LoggerObserver.INFO
         )
 
         if len(all_gaps) > 0:
 
             all_gaps = torch.cat(all_gaps)
 
-            self.logger.log(
-                f"Time gap min: {all_gaps.min().item():.6f}"
+            self.logger.text(
+                f"Time gap min: {all_gaps.min().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Time gap mean: {all_gaps.mean().item():.6f}"
+            self.logger.text(
+                f"Time gap mean: {all_gaps.mean().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Time gap max: {all_gaps.max().item():.6f}"
+            self.logger.text(
+                f"Time gap max: {all_gaps.max().item():.6f}", level=LoggerObserver.INFO
             )
 
             self.plot_time_gaps(
@@ -306,8 +309,8 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.logger.log(f"\n3. {name.upper()}")
-        self.logger.log("-" * 40)
+        self.logger.text(f"\n3. {name.upper()}", level=LoggerObserver.INFO)
+        self.logger.text("-" * 40, level=LoggerObserver.INFO)
 
         state_dim = states.shape[-1]
 
@@ -323,22 +326,22 @@ class DatasetEDA:
 
                 continue
 
-            self.logger.log(f"\nState {state_idx}")
+            self.logger.text(f"\nState {state_idx}", level=LoggerObserver.INFO)
 
-            self.logger.log(
-                f"Min: {finite.min().item():.6f}"
+            self.logger.text(
+                f"Min: {finite.min().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Max: {finite.max().item():.6f}"
+            self.logger.text(
+                f"Max: {finite.max().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Mean: {finite.mean().item():.6f}"
+            self.logger.text(
+                f"Mean: {finite.mean().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Std: {finite.std().item():.6f}"
+            self.logger.text(
+                f"Std: {finite.std().item():.6f}", level=LoggerObserver.INFO
             )
 
             self.plot_distribution(
@@ -364,8 +367,9 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.logger.log("\n4. OBSERVATION MASK ANALYSIS")
-        self.logger.log("-" * 40)
+        self.logger.text("\n4. OBSERVATION MASK ANALYSIS",
+                         level=LoggerObserver.INFO)
+        self.logger.text("-" * 40, level=LoggerObserver.INFO)
 
         total = M.numel()
 
@@ -373,17 +377,17 @@ class DatasetEDA:
 
         observation_ratio = observed / total
 
-        self.logger.log(
-            f"Total entries: {total}"
+        self.logger.text(
+            f"Total entries: {total}", level=LoggerObserver.INFO
         )
 
-        self.logger.log(
-            f"Observed entries: {observed}"
+        self.logger.text(
+            f"Observed entries: {observed}", level=LoggerObserver.INFO
         )
 
-        self.logger.log(
+        self.logger.text(
             f"Observation ratio: "
-            f"{observation_ratio:.4f}"
+            f"{observation_ratio:.4f}", level=LoggerObserver.INFO
         )
 
         state_dim = M.shape[-1]
@@ -397,9 +401,9 @@ class DatasetEDA:
                 .item()
             )
 
-            self.logger.log(
+            self.logger.text(
                 f"State {state_idx} observation ratio: "
-                f"{ratio:.4f}"
+                f"{ratio:.4f}", level=LoggerObserver.INFO
             )
 
     # ======================================================
@@ -412,8 +416,8 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.logger.log("\n5. PARAMETER ANALYSIS")
-        self.logger.log("-" * 40)
+        self.logger.text("\n5. PARAMETER ANALYSIS", level=LoggerObserver.INFO)
+        self.logger.text("-" * 40, level=LoggerObserver.INFO)
 
         if theta.dim() == 1:
             theta = theta.unsqueeze(0)
@@ -431,22 +435,23 @@ class DatasetEDA:
 
                 continue
 
-            self.logger.log(f"\nParameter {param_idx}")
+            self.logger.text(
+                f"\nParameter {param_idx}", level=LoggerObserver.INFO)
 
-            self.logger.log(
-                f"Min: {finite.min().item():.6f}"
+            self.logger.text(
+                f"Min: {finite.min().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Max: {finite.max().item():.6f}"
+            self.logger.text(
+                f"Max: {finite.max().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Mean: {finite.mean().item():.6f}"
+            self.logger.text(
+                f"Mean: {finite.mean().item():.6f}", level=LoggerObserver.INFO
             )
 
-            self.logger.log(
-                f"Std: {finite.std().item():.6f}"
+            self.logger.text(
+                f"Std: {finite.std().item():.6f}", level=LoggerObserver.INFO
             )
 
             self.plot_distribution(
