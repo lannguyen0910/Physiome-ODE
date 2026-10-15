@@ -175,10 +175,7 @@ class BasePipeline:
         """
         # One folder per run; all output paths are redirected there.
         self.logger = LoggerObserver.getLogger("main")
-        self.figure_logger = WandbFigureLogger(
-            figure_dir=self.figure_dir,
-            logger=self.logger,
-        )
+
         configured_root = self.config.output.get("run_dir", "runs")
         run_root = Path(to_absolute_path(str(configured_root)))
         run_name = str(self.config.get("run_name", "physiome_ode"))
@@ -187,6 +184,11 @@ class BasePipeline:
         self.run_dir.mkdir(parents=True, exist_ok=True)
         self.figure_dir = self.run_dir / "figures"
         self.figure_dir.mkdir(parents=True, exist_ok=True)
+
+        self.figure_logger = WandbFigureLogger(
+            figure_dir=self.figure_dir,
+            logger=self.logger,
+        )
 
         # Logger configuration is controlled by the YAML `logging` section.
         # Keep FileLogger and ImageWriter from the existing project utilities.

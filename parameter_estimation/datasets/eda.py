@@ -23,17 +23,17 @@ class DatasetEDA:
         dataset_name="train",
     ):
 
-        self.log("\n" + "=" * 40)
-        self.log(f"EDA: {dataset_name.upper()} DATASET")
-        self.log("=" * 40)
+        self.logger.log("\n" + "=" * 40)
+        self.logger.log(f"EDA: {dataset_name.upper()} DATASET")
+        self.logger.log("=" * 40)
 
-        self.log(f"Number of samples: {len(dataset)}")
+        self.logger.log(f"Number of samples: {len(dataset)}")
 
         sample = dataset[0]
 
         if isinstance(sample, dict):
-            self.log("\nAvailable keys:")
-            self.log(list(sample.keys()))
+            self.logger.log("\nAvailable keys:")
+            self.logger.log(list(sample.keys()))
 
             self._analyze_dict_dataset(
                 dataset=dataset,
@@ -42,14 +42,14 @@ class DatasetEDA:
 
         else:
 
-            self.log(
+            self.logger.log(
                 "\nWARNING: Dataset sample is not a dictionary."
             )
-            self.log(
+            self.logger.log(
                 "Please adapt EDA to your dataset format."
             )
 
-        self.log("=" * 40 + "\n")
+        self.logger.log("=" * 40 + "\n")
 
     def _collect_data(
         self,
@@ -128,8 +128,8 @@ class DatasetEDA:
         # Basic shapes
         # --------------------------------------------------
 
-        self.log("\n1. DATA SHAPES")
-        self.log("-" * 40)
+        self.logger.log("\n1. DATA SHAPES")
+        self.logger.log("-" * 40)
 
         for name, value in {
             "T": T,
@@ -142,7 +142,7 @@ class DatasetEDA:
 
             if value is not None and torch.is_tensor(value):
 
-                self.log(
+                self.logger.log(
                     f"{name}: {tuple(value.shape)}"
                 )
 
@@ -231,8 +231,8 @@ class DatasetEDA:
         time_type,
     ):
 
-        self.log(f"\n2. TIME ANALYSIS ({time_type})")
-        self.log("-" * 40)
+        self.logger.log(f"\n2. TIME ANALYSIS ({time_type})")
+        self.logger.log("-" * 40)
 
         if T.dim() == 3:
 
@@ -269,7 +269,7 @@ class DatasetEDA:
 
                 all_gaps.append(gaps)
 
-        self.log(
+        self.logger.log(
             f"Total duplicate timestamps: {total_duplicates}"
         )
 
@@ -277,15 +277,15 @@ class DatasetEDA:
 
             all_gaps = torch.cat(all_gaps)
 
-            self.log(
+            self.logger.log(
                 f"Time gap min: {all_gaps.min().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Time gap mean: {all_gaps.mean().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Time gap max: {all_gaps.max().item():.6f}"
             )
 
@@ -306,8 +306,8 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.log(f"\n3. {name.upper()}")
-        self.log("-" * 40)
+        self.logger.log(f"\n3. {name.upper()}")
+        self.logger.log("-" * 40)
 
         state_dim = states.shape[-1]
 
@@ -323,21 +323,21 @@ class DatasetEDA:
 
                 continue
 
-            self.log(f"\nState {state_idx}")
+            self.logger.log(f"\nState {state_idx}")
 
-            self.log(
+            self.logger.log(
                 f"Min: {finite.min().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Max: {finite.max().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Mean: {finite.mean().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Std: {finite.std().item():.6f}"
             )
 
@@ -364,8 +364,8 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.log("\n4. OBSERVATION MASK ANALYSIS")
-        self.log("-" * 40)
+        self.logger.log("\n4. OBSERVATION MASK ANALYSIS")
+        self.logger.log("-" * 40)
 
         total = M.numel()
 
@@ -373,15 +373,15 @@ class DatasetEDA:
 
         observation_ratio = observed / total
 
-        self.log(
+        self.logger.log(
             f"Total entries: {total}"
         )
 
-        self.log(
+        self.logger.log(
             f"Observed entries: {observed}"
         )
 
-        self.log(
+        self.logger.log(
             f"Observation ratio: "
             f"{observation_ratio:.4f}"
         )
@@ -397,7 +397,7 @@ class DatasetEDA:
                 .item()
             )
 
-            self.log(
+            self.logger.log(
                 f"State {state_idx} observation ratio: "
                 f"{ratio:.4f}"
             )
@@ -412,8 +412,8 @@ class DatasetEDA:
         dataset_name,
     ):
 
-        self.log("\n5. PARAMETER ANALYSIS")
-        self.log("-" * 40)
+        self.logger.log("\n5. PARAMETER ANALYSIS")
+        self.logger.log("-" * 40)
 
         if theta.dim() == 1:
             theta = theta.unsqueeze(0)
@@ -431,21 +431,21 @@ class DatasetEDA:
 
                 continue
 
-            self.log(f"\nParameter {param_idx}")
+            self.logger.log(f"\nParameter {param_idx}")
 
-            self.log(
+            self.logger.log(
                 f"Min: {finite.min().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Max: {finite.max().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Mean: {finite.mean().item():.6f}"
             )
 
-            self.log(
+            self.logger.log(
                 f"Std: {finite.std().item():.6f}"
             )
 
