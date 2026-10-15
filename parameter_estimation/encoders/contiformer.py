@@ -39,7 +39,7 @@ import torch.nn.functional as F
 from .contiformer import ContiFormer
 
 
-class ContiFormerParameterEncoder(nn.Module):
+class ContiFormerEncoder(nn.Module):
     """Continuous-time Transformer encoder for per-sample ODE identification."""
 
     def __init__(
