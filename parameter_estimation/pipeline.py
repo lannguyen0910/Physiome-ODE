@@ -582,15 +582,17 @@ class BasePipeline:
         # --------------------------------------------------
         # Instantiate
         # --------------------------------------------------
-
-        self.encoder = encoder_cls(
-            input_dim=input_dim,
-            state_dim=state_dim,
-            parameter_dim=int(
-                self.config.model.parameter_dim
-            ),
-            **encoder_params,
-        )
+        if encoder_cls.__name__ == "ContiFormerEncoder":
+            self.encoder = encoder_cls(state_dim=state_dim, **encoder_params)
+        else:
+            self.encoder = encoder_cls(
+                input_dim=input_dim,
+                state_dim=state_dim,
+                parameter_dim=int(
+                    self.config.model.parameter_dim
+                ),
+                **encoder_params,
+            )
 
         self.log("       ENCODER OK")
 
