@@ -4,7 +4,7 @@ from .gru import GRUEncoder
 from .tcn import TCNEncoder
 from .transformer import TransformerEncoder
 from .neural_ode import NeuralODEEncoder
-from .contiformer import ContiFormerEncoder
+from .contiformer_encoder import ContiFormerEncoder
 
 ENCODER_REGISTRY = Registry("ENCODER")
 
