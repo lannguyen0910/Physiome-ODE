@@ -23,22 +23,18 @@ class ParameterEstimator(nn.Module):
         integration_times,
     ):
 
-        theta_pred, y0_pred = (
-            self.encoder(
-                T,
-                X,
-                M,
-            )
+        theta_pred, y0_pred = self.encoder(T, X, M)
+
+        trajectory_pred = self.solver(
+            ode=self.ode,
+            y0=y0_pred,
+            theta=theta_pred,
+            t=integration_times,
         )
 
-        trajectory_pred = (
-            self.solver(
-                ode=self.ode,
-                y0=y0_pred,
-                theta=theta_pred,
-                t=integration_times,
-            )
-        )
+
+        if trajectory_pred.ndim == 3:
+            trajectory_pred = trajectory_pred.transpose(0, 1)
 
         return {
             "theta_pred": theta_pred,

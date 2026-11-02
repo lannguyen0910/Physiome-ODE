@@ -4,7 +4,7 @@ defaults:
   - base/optimizer@_here_
   - encoder: gru
   - ode: dupont_1991b
-  - solver: rk4
+  - solver: torch_diffeq
 
   # Keep values below in this file
   - _self_
