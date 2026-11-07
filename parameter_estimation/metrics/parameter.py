@@ -26,6 +26,7 @@ class ParameterMetrics:
 
             methods = [
                 "mae",
+                "mse",
                 "rmse",
                 "relative_error",
                 "per_parameter_relative_error",
@@ -52,6 +53,18 @@ class ParameterMetrics:
             torch.abs(
                 prediction - target
             )
+        )
+
+    @staticmethod
+    def mse(
+        prediction,
+        target,
+    ):
+
+        return torch.mean(
+            (
+                prediction - target
+            ) ** 2
         )
 
     @staticmethod

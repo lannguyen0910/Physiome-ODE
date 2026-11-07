@@ -11,16 +11,14 @@ class TrajectoryMetrics:
         self.eps = float(eps)
 
         if methods is None:
-
             methods = [
                 "mae",
+                "mse",
                 "rmse",
                 "normalized_rmse",
             ]
 
-        self.methods = list(
-            methods
-        )
+        self.methods = list(methods)
 
     @staticmethod
     def mae(
@@ -32,6 +30,18 @@ class TrajectoryMetrics:
             torch.abs(
                 prediction - target
             )
+        )
+
+    @staticmethod
+    def mse(
+        prediction,
+        target,
+    ):
+
+        return torch.mean(
+            (
+                prediction - target
+            ) ** 2
         )
 
     @staticmethod
