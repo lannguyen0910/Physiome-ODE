@@ -50,11 +50,11 @@ create(
         "domain": args.domain,
         "model": args.model,
         "total_samples": 2000,
-        "T": args.T / 2,
+        "T": args.T,
         "N_t": 100,
         "d_constants": args.dc,
         "d_states": args.ds,
-        "rand_start": True,
+        "rand_start": False,
         "final": True,
     }
 )
