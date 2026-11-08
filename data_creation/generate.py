@@ -290,7 +290,7 @@ def create(args):
         f"data/raw_data/{domain}/"
     ):
 
-        os.mkdir(
+        os.makedirs(
             f"data/raw_data/{domain}/"
         )
 
@@ -298,7 +298,7 @@ def create(args):
         f"data/raw_data/{domain}/{model}"
     ):
 
-        os.mkdir(
+        os.makedirs(
             f"data/raw_data/{domain}/{model}"
         )
 
@@ -306,7 +306,7 @@ def create(args):
 
         shutil.rmtree(out_path)
 
-    os.mkdir(out_path)
+    os.makedirs(out_path)
 
     iters = range(
         args["total_samples"]
