@@ -58,6 +58,7 @@ metrics:
 
     methods:
       - mae
+      - mse
       - rmse
       - relative_error
       - per_parameter_relative_error
@@ -74,6 +75,7 @@ metrics:
 
     methods:
       - mae
+      - mse
       - rmse
       - normalized_rmse
 
