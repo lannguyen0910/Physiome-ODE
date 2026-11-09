@@ -1,0 +1,25 @@
+name: ExcitationContractionCouplingSternSongShamYangBohelerRios1999ODE
+state_dim: 4
+parameter_dim: 5
+parameters:
+  ki: 0.5
+  ko: 35
+  kim: 0.005
+  kom: 0.06
+  Ca: 0.0001
+initial_state:
+  R: 1
+  RI: 1
+  O: 1
+  I: 1
+parameter_names:
+- ki
+- ko
+- kim
+- kom
+- Ca
+state_names:
+- R
+- RI
+- O
+- I

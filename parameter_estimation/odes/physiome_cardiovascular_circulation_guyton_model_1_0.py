@@ -1,0 +1,66 @@
+import torch
+import torch.nn as nn
+import math
+
+
+class CardiovascularCirculationGuytonModel10ODE(nn.Module):
+    """
+    PyTorch translation of cardiovascular_circulation/Guyton_Model_1-0/model.py.
+    Dynamic states: 43; independent constants: 206; derived constants used by rates: 3.
+    Original constant slots: 210; algebraic slots: 325.
+    """
+    source_file = 'cardiovascular_circulation/Guyton_Model_1-0/model.py'
+    source_state_dim = 43
+    source_constant_dim = 210
+    algebraic_dim = 325
+    requires_dae_solver = True
+
+    def __init__(
+        self,
+        parameters=None,
+        initial_state=None,
+        parameter_names=None,
+        state_names=None,
+    ):
+        super().__init__()
+
+        self.state_dim = 43
+        self.parameter_dim = 206
+
+        self.parameters = (
+            parameters
+            if parameters is not None
+            else {'MYOGRS': 1, 'PAMK': 1, 'PAMKRN': 1, 'ANMALD': 2.5, 'AMKMUL': 12, 'ALDINF': 0, 'ALDKNS': 0, 'AMT': 60, 'AM1UL': 5, 'AM1LL': 0, 'AMCSNS': 0.65, 'ALDMM': 2.5, 'AMKM': 0.5, 'AMNAM': 0.8, 'AMNAUL': 15, 'AMNALL': 0.04, 'ANXM': 0, 'ANV': 5000, 'REK': 1, 'ANGKNS': 0, 'ANGINF': 0, 'ANT': 12, 'ANMUL': 1.8, 'ANMLL': 0.7, 'ANCSNS': 0.4, 'ANUM': 6, 'ANULL': 0.8, 'ANUVM': 0, 'Z12': 5, 'CNR': 139, 'ADHPUL': 85, 'ADHPAM': 0.3, 'ADHINF': 0, 'ADHTC': 15, 'ADHVUL': 2.5, 'ADHVLL': 0.93617, 'ADHKLL': 0.2, 'ADHKUL': 5, 'ANPKNS': 0, 'ANPINF': 0, 'ANPTC': 4, 'ANPXUL': 10, 'CRRFLX': 0, 'EXE': 0, 'AUC1': 0.3, 'O2CHMO': 0.01, 'AUX': 1, 'AUK': 0.004, 'BAROTC': 0.16, 'AU4': -0.060024, 'AUN1': 0.5, 'AULPM': 0, 'EXC': 1, 'EXCXP': 1, 'EXCML': 0.01, 'AUDMP': 0.3, 'AUMAX': 5, 'AUMIN': 0.4, 'AUSLP': 1.5, 'VV9': 2.51, 'AUL': 1.5, 'AUV': 0.55, 'AUS': 1, 'O2A': 0.1, 'AUM1': 3, 'AUM2': 1, 'AUY': 0, 'MDMP': 0, 'CFC': 0.01167, 'TRPL': 0, 'CPR': 40, 'LPPR': 0.03, 'LPDE': 8, 'LPK': 2.728e-14, 'PCR': 15, 'CPK': 0.000253, 'PCE': 1, 'TSSLML': 0.15, 'TSSLTC': 0.005, 'HYL': 60, 'CMPTSS': 2, 'PGHF': -2, 'GCOPF': 0.8092, 'VTSF': 6, 'PLDF': 4.2, 'HTAUML': 0.4, 'QRF': 0.15, 'HSR': 1, 'HSL': 1, 'ANY': -0.2, 'CV': 0.1, 'PR1LL': 0, 'CN7': 0.2, 'CN2': 0.0212, 'RVSM': 1, 'PAEX': 2, 'RAR': 30.52, 'RMULT1': 1, 'RAM': 96.3, 'FIS': 0, 'NID': 0.1, 'TRPL_2': 0, 'ALCLK': 0.3, 'KID': 0.08, 'VIDML': 0.01, 'HSL_2': 1, 'Z13': 0.625, 'HSR_2': 1, 'DHDTR': 0.05, 'PR1LL_2': 0, 'POM': 0.04, 'A4K': 0.1, 'AMM4': 0.005, 'POM2': 2, 'A4K2': 40000, 'EXC_2': 1, 'EXCXP2': 0.17, 'OMM': 57.1, 'PM5': 30, 'PK2': 0.79167, 'POR': 35, 'POK': 0.1, 'A1K': 0.5, 'PON': 0.1, 'A2K': 60, 'POZ': 2, 'A3K': 40000, 'AUTOSN': 0.9, 'O2M': 164, 'CPF': 0.0003, 'VNTSTM': 1, 'PO2AMB': 150, 'PL2': 1.8, 'VPTISS': 0.0175, 'HMK': 90, 'HKM': 0.53333, 'PO2AMB_2': 150, 'HM6': 1850, 'HM8': 4.714e-08, 'REK_2': 1, 'RKC': 5.8e-06, 'TRRBC': 0, 'SR': 1, 'SRK': 5, 'SR2': 1, 'SRK2': 10000, 'ANMSLT': 2, 'Z10': 45, 'Z11': 0.01, 'AHTHM': 2, 'ANMTM': 1.5, 'DR': 0, 'TVDDL': 30, 'AH10': 0.333, 'AH9': 1, 'AH11': 1000, 'ATRFBM': 0, 'ATRVM': 0, 'GBL': 0, 'RAPRSP': 0, 'RFCDFT': 0, 'RCDFPC': 0, 'RCDFDP': 2000, 'RNAUGN': 0.6, 'RNAULL': 0.3, 'RNAUUL': 10, 'RNAUAD': 0, 'ARF': 0.5, 'ANMAM': 1.4, 'ANMARL': 0.86, 'AARK': 1, 'ANPXAF': 1.5, 'AARLL': 4, 'AUMK1': 0.3, 'ANMEM': 1.6, 'EFAFR': 0, 'EARK': 1, 'EARLL': 24, 'REK_3': 1, 'GPPD': 1, 'GLPCA': 1, 'PXTP': 8, 'GFLC': 0.0208333, 'GFNLL': 0.001, 'MDFL1': 10, 'RTPPR': 0.9, 'RTPPRS': 15.2, 'URFORM': 0.24, 'RFABX': 0.8, 'RVRS': 19.167, 'RTSPRS': 6, 'RABSC': 0.5, 'RFABDP': 1, 'RFABDM': 0.3, 'DTNAR': 0.675, 'DIURET': 1, 'AHMNAR': 0.3, 'DTNARL': 1e-06, 'ANMNAM': 1, 'RFABKM': 0.03, 'MDFLKM': 0.667, 'ANMKEM': 2, 'ANMKEL': 0.3, 'CKEEX': 4, 'RNAGTC': 15, 'GFNDMP': 3}
+        )
+
+        self.initial_state = (
+            initial_state
+            if initial_state is not None
+            else {'AMC': 1, 'ANX1': 0, 'ANC': 0.859476, 'ADHC': 1, 'ANPC': 1, 'AU6': 1.00132, 'AU1': 1.00007, 'VP': 3.00449, 'PRP': 216.243, 'VTS2': 0, 'TSP': 279.945, 'HPL': 1.00163, 'HPR': 1.00237, 'VRC': 2.00439, 'VV6': 0.0101913, 'VV7': 0.00366525, 'VVS1': 3.28246, 'VAS1': 0.862514, 'VLA1': 0.379883, 'VPA1': 0.38131, 'VRA1': 0.100043, 'TVD': 0.000980838, 'VTW': 39.8952, 'NAE': 2109.91, 'KTOT': 3622.54, 'VIC': 25.0404, 'HMD1': 1, 'AMM1T': 1.00269, 'AMM2': 1.09071, 'OVA': 204.497, 'QOM1': 48.0839, 'AR1T': 1.02127, 'AR2T': 1.01179, 'AR3T': 1.1448, 'QO2T': 72.2362, 'VPF1': 0.0123238, 'PPR1': 0.419998, 'O2VAD1': 2.368e-07, 'AHY': 0.301963, 'PAR1': 103.525, 'RNAUG3': 0, 'PLUR': 159.549, 'DTKA': 0.0367573}
+        )
+
+        self.parameter_names = (
+            list(parameter_names)
+            if parameter_names is not None
+            else ['MYOGRS', 'PAMK', 'PAMKRN', 'ANMALD', 'AMKMUL', 'ALDINF', 'ALDKNS', 'AMT', 'AM1UL', 'AM1LL', 'AMCSNS', 'ALDMM', 'AMKM', 'AMNAM', 'AMNAUL', 'AMNALL', 'ANXM', 'ANV', 'REK', 'ANGKNS', 'ANGINF', 'ANT', 'ANMUL', 'ANMLL', 'ANCSNS', 'ANUM', 'ANULL', 'ANUVM', 'Z12', 'CNR', 'ADHPUL', 'ADHPAM', 'ADHINF', 'ADHTC', 'ADHVUL', 'ADHVLL', 'ADHKLL', 'ADHKUL', 'ANPKNS', 'ANPINF', 'ANPTC', 'ANPXUL', 'CRRFLX', 'EXE', 'AUC1', 'O2CHMO', 'AUX', 'AUK', 'BAROTC', 'AU4', 'AUN1', 'AULPM', 'EXC', 'EXCXP', 'EXCML', 'AUDMP', 'AUMAX', 'AUMIN', 'AUSLP', 'VV9', 'AUL', 'AUV', 'AUS', 'O2A', 'AUM1', 'AUM2', 'AUY', 'MDMP', 'CFC', 'TRPL', 'CPR', 'LPPR', 'LPDE', 'LPK', 'PCR', 'CPK', 'PCE', 'TSSLML', 'TSSLTC', 'HYL', 'CMPTSS', 'PGHF', 'GCOPF', 'VTSF', 'PLDF', 'HTAUML', 'QRF', 'HSR', 'HSL', 'ANY', 'CV', 'PR1LL', 'CN7', 'CN2', 'RVSM', 'PAEX', 'RAR', 'RMULT1', 'RAM', 'FIS', 'NID', 'TRPL_2', 'ALCLK', 'KID', 'VIDML', 'HSL_2', 'Z13', 'HSR_2', 'DHDTR', 'PR1LL_2', 'POM', 'A4K', 'AMM4', 'POM2', 'A4K2', 'EXC_2', 'EXCXP2', 'OMM', 'PM5', 'PK2', 'POR', 'POK', 'A1K', 'PON', 'A2K', 'POZ', 'A3K', 'AUTOSN', 'O2M', 'CPF', 'VNTSTM', 'PO2AMB', 'PL2', 'VPTISS', 'HMK', 'HKM', 'PO2AMB_2', 'HM6', 'HM8', 'REK_2', 'RKC', 'TRRBC', 'SR', 'SRK', 'SR2', 'SRK2', 'ANMSLT', 'Z10', 'Z11', 'AHTHM', 'ANMTM', 'DR', 'TVDDL', 'AH10', 'AH9', 'AH11', 'ATRFBM', 'ATRVM', 'GBL', 'RAPRSP', 'RFCDFT', 'RCDFPC', 'RCDFDP', 'RNAUGN', 'RNAULL', 'RNAUUL', 'RNAUAD', 'ARF', 'ANMAM', 'ANMARL', 'AARK', 'ANPXAF', 'AARLL', 'AUMK1', 'ANMEM', 'EFAFR', 'EARK', 'EARLL', 'REK_3', 'GPPD', 'GLPCA', 'PXTP', 'GFLC', 'GFNLL', 'MDFL1', 'RTPPR', 'RTPPRS', 'URFORM', 'RFABX', 'RVRS', 'RTSPRS', 'RABSC', 'RFABDP', 'RFABDM', 'DTNAR', 'DIURET', 'AHMNAR', 'DTNARL', 'ANMNAM', 'RFABKM', 'MDFLKM', 'ANMKEM', 'ANMKEL', 'CKEEX', 'RNAGTC', 'GFNDMP']
+        )
+
+        self.state_names = (
+            list(state_names)
+            if state_names is not None
+            else ['AMC', 'ANX1', 'ANC', 'ADHC', 'ANPC', 'AU6', 'AU1', 'VP', 'PRP', 'VTS2', 'TSP', 'HPL', 'HPR', 'VRC', 'VV6', 'VV7', 'VVS1', 'VAS1', 'VLA1', 'VPA1', 'VRA1', 'TVD', 'VTW', 'NAE', 'KTOT', 'VIC', 'HMD1', 'AMM1T', 'AMM2', 'OVA', 'QOM1', 'AR1T', 'AR2T', 'AR3T', 'QO2T', 'VPF1', 'PPR1', 'O2VAD1', 'AHY', 'PAR1', 'RNAUG3', 'PLUR', 'DTKA']
+        )
+
+    def dynamics(
+        self,
+        t: torch.Tensor,
+        y: torch.Tensor,
+        theta: torch.Tensor,
+    ):
+
+        raise NotImplementedError(
+            'This model requires a differentiable algebraic/DAE solve: computeRates() calls an implicit rootfind function'
+        )
+
+    def forward(self, t, y, theta):
+        return self.dynamics(t, y, theta)

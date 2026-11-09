@@ -1,0 +1,27 @@
+name: ImmunologyWodarzHamer2007BODE
+state_dim: 3
+parameter_dim: 7
+parameters:
+  r: 1
+  k: 10
+  d: 0.1
+  beta: 0.2
+  a: 0.2
+  u: 0.5
+  eta: 1
+initial_state:
+  x: 0.1
+  v: 1
+  y: 0
+parameter_names:
+- r
+- k
+- d
+- beta
+- a
+- u
+- eta
+state_names:
+- x
+- v
+- y

@@ -1,0 +1,58 @@
+name: MechanicalConstitutiveLawsMcleanSuVandenbogert2003ODE
+state_dim: 1
+parameter_dim: 24
+parameters:
+  a: 0.8
+  F_min: 10
+  F_max: 7000
+  L_CE_opt: 0.093
+  W: 0.63
+  V_max: 0.93
+  A: 0.25
+  g_max: 1.5
+  gamma: 5.67
+  V_max_2: 0.93
+  A_2: 0.25
+  g_max_2: 1.5
+  S: 2
+  S_2: 2
+  A_3: 0.25
+  V_max_3: 0.93
+  gamma_2: 5.67
+  g_max_3: 1.5
+  gamma_3: 5.67
+  k_SEE: 1000000
+  L_slack: 0.0025
+  L_slack_2: 0.0025
+  W_2: 0.63
+  L_CE_opt_2: 0.01
+initial_state:
+  L_CE: 0.038
+parameter_names:
+- a
+- F_min
+- F_max
+- L_CE_opt
+- W
+- V_max
+- A
+- g_max
+- gamma
+- V_max_2
+- A_2
+- g_max_2
+- S
+- S_2
+- A_3
+- V_max_3
+- gamma_2
+- g_max_3
+- gamma_3
+- k_SEE
+- L_slack
+- L_slack_2
+- W_2
+- L_CE_opt_2
+state_names:
+- L_CE
+requires_dae_solver: true

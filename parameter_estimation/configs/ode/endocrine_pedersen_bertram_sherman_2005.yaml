@@ -1,0 +1,131 @@
+name: EndocrinePedersenBertramSherman2005ODE
+state_dim: 9
+parameter_dim: 53
+parameters:
+  gluper: 7
+  gluamp: 0
+  glubasa1: 7
+  glustep: 0
+  steptime: 480000
+  kappa: 0.005
+  Kglut: 7
+  Vglut: 8
+  Kgk: 7
+  Vgk: 0.8
+  ngk: 4
+  pfkbas: 0.06
+  cat: 2
+  famp: 0.02
+  ffbp: 0.2
+  fmt: 20
+  fbt: 20
+  fatp: 20
+  K1: 30
+  K2: 1
+  K3: 50000
+  K4: 1000
+  Atot: 3000
+  tau_a: 300000
+  r: 0.5
+  r1: 0.35
+  autoadp: 1
+  adpknot: 800
+  ky: 2.2
+  kg: 0.1
+  cm: 5300
+  gK: 2700
+  vK: -75
+  gCa: 1000
+  vCa: 25
+  gkCa: 400
+  KD: 0.5
+  nh: 2
+  gkATP_bar: 2000
+  fcyt: 0.01
+  fer: 0.01
+  sigmav: 31
+  kPMCA: 0.18
+  alpha: 4.5e-06
+  kSERCA: 0.4
+  pleak: 0.0002
+  tau_I: 10000
+  I_max: 20
+  delta: 8
+  ki: 0.1
+  topa1: 0
+  weight1: 1
+  bottom1: 1
+initial_state:
+  Gi: 6.0637
+  G6P: 525.97
+  FBP: 0.2088
+  ADP: 537.6
+  Ca: 0.05626
+  v: -66.7
+  n: 0.00012
+  Caer: 121.8
+  I: 0.316
+parameter_names:
+- gluper
+- gluamp
+- glubasa1
+- glustep
+- steptime
+- kappa
+- Kglut
+- Vglut
+- Kgk
+- Vgk
+- ngk
+- pfkbas
+- cat
+- famp
+- ffbp
+- fmt
+- fbt
+- fatp
+- K1
+- K2
+- K3
+- K4
+- Atot
+- tau_a
+- r
+- r1
+- autoadp
+- adpknot
+- ky
+- kg
+- cm
+- gK
+- vK
+- gCa
+- vCa
+- gkCa
+- KD
+- nh
+- gkATP_bar
+- fcyt
+- fer
+- sigmav
+- kPMCA
+- alpha
+- kSERCA
+- pleak
+- tau_I
+- I_max
+- delta
+- ki
+- topa1
+- weight1
+- bottom1
+state_names:
+- Gi
+- G6P
+- FBP
+- ADP
+- Ca
+- v
+- n
+- Caer
+- I

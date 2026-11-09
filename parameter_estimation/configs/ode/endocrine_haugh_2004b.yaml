@@ -1,0 +1,34 @@
+name: EndocrineHaugh2004bODE
+state_dim: 1
+parameter_dim: 12
+parameters:
+  kf1: 0.1
+  kt: 0.005
+  ke: 0.1
+  L: 0.01
+  kx2: 4.83
+  k_x2: 0.016
+  R_initial: 2000
+  krec: 0
+  kdeg: 0.05
+  kappaE: 0.2
+  Vs: 10
+  KD: 1
+initial_state:
+  Ri: 200
+parameter_names:
+- kf1
+- kt
+- ke
+- L
+- kx2
+- k_x2
+- R_initial
+- krec
+- kdeg
+- kappaE
+- Vs
+- KD
+state_names:
+- Ri
+requires_dae_solver: true

@@ -1,0 +1,81 @@
+name: IonTransportMackenzie1996ODE
+state_dim: 7
+parameter_dim: 30
+parameters:
+  k0_12: 20000
+  k0_21: 400
+  k0_23: 10000
+  k0_32: 20
+  k0_34: 50
+  k0_43: 50
+  k0_45: 800
+  k0_54: 6700000
+  k0_25: 0.01
+  k0_52: 0.17
+  k0_56: 48
+  k0_65: 50
+  k0_61: 35
+  k0_16: 100
+  delta: 0.7
+  alpha_pp: 0
+  N_C: 84000000000
+  N_Avo: 6.022e+23
+  area: 1000000
+  n: 1
+  z_c: -1
+  z_Na: 1
+  F: 96485.34
+  R: 8.314
+  T: 310
+  Na_i: 0.01
+  Na_o: 0.1
+  glucose_i: 0
+  glucose_o: 0.001
+  constant_34: 0.0001
+initial_state:
+  V: -0.15
+  C_1: 3.923e-09
+  C_2: 1.016e-07
+  C_3: 1.515e-08
+  C_4: 8.912e-10
+  C_5: 1.485e-08
+  C_6_temp: 3.06798e-09
+parameter_names:
+- k0_12
+- k0_21
+- k0_23
+- k0_32
+- k0_34
+- k0_43
+- k0_45
+- k0_54
+- k0_25
+- k0_52
+- k0_56
+- k0_65
+- k0_61
+- k0_16
+- delta
+- alpha_pp
+- N_C
+- N_Avo
+- area
+- n
+- z_c
+- z_Na
+- F
+- R
+- T
+- Na_i
+- Na_o
+- glucose_i
+- glucose_o
+- constant_34
+state_names:
+- V
+- C_1
+- C_2
+- C_3
+- C_4
+- C_5
+- C_6_temp

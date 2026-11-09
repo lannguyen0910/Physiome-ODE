@@ -1,0 +1,69 @@
+name: CellCycleSriramBernotKepes2007ODE
+state_dim: 6
+parameter_dim: 25
+parameters:
+  j_1: 0.9
+  j_2: 0.5
+  j_3: 0.6
+  v_d1: 6
+  v_d2: 1.052
+  v_d3: 3
+  k_d1: 0.8
+  k_d2: 0.9
+  k_d3: 0.8
+  k_c1: 0.2
+  k_c2: 0.22
+  k_c3: 0.6
+  k_m1: 5
+  k_m2: 5
+  k_m3: 5
+  v_12: 15
+  v_11: 15
+  v_10: 15
+  k_120: 10
+  k_110: 10
+  k_100: 10
+  k_d4: 0.16
+  k_d5: 0.16
+  k_d6: 0.16
+  n: 2
+initial_state:
+  C_1: 0
+  C_2: 0
+  T_1: 6
+  C_3: 0
+  T_2: 5
+  T_3: 1
+parameter_names:
+- j_1
+- j_2
+- j_3
+- v_d1
+- v_d2
+- v_d3
+- k_d1
+- k_d2
+- k_d3
+- k_c1
+- k_c2
+- k_c3
+- k_m1
+- k_m2
+- k_m3
+- v_12
+- v_11
+- v_10
+- k_120
+- k_110
+- k_100
+- k_d4
+- k_d5
+- k_d6
+- n
+state_names:
+- C_1
+- C_2
+- T_1
+- C_3
+- T_2
+- T_3

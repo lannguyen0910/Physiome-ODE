@@ -1,0 +1,163 @@
+name: ElectrophysiologyNygrenFisetFirekClarkLindbladClarkGiles1998ODE
+state_dim: 29
+parameter_dim: 49
+parameters:
+  R: 8314
+  T: 306.15
+  F: 96487
+  Cm: 0.05
+  stim_start: 0.1
+  stim_end: 100000000
+  stim_period: 1
+  stim_duration: 0.006
+  stim_amplitude: -280
+  P_Na: 0.0016
+  g_Ca_L: 6.75
+  E_Ca_app: 60
+  k_Ca: 0.025
+  g_t: 7.5
+  g_sus: 2.75
+  g_Ks: 1
+  g_Kr: 0.5
+  g_K1: 3
+  g_B_Na: 0.060599
+  g_B_Ca: 0.078681
+  k_NaK_K: 1
+  k_NaK_Na: 11
+  i_NaK_max: 70.8253
+  i_CaP_max: 4
+  k_CaP: 0.0002
+  k_NaCa: 0.0374842
+  d_NaCa: 0.0003
+  gamma: 0.45
+  phi_Na_en: -1.68
+  Vol_i: 0.005884
+  tau_di: 0.01
+  Mg_i: 2.5
+  tau_Na: 14.3
+  tau_K: 10
+  tau_Ca: 24.7
+  Na_b: 130
+  Ca_b: 1.8
+  K_b: 5.4
+  I_up_max: 2800
+  k_cyca: 0.0003
+  k_srca: 0.5
+  k_xcs: 0.4
+  alpha_rel: 200000
+  Vol_up: 0.0003969
+  Vol_rel: 4.41e-05
+  r_recov: 0.815
+  tau_tr: 0.01
+  k_rel_i: 0.0003
+  k_rel_d: 0.003
+initial_state:
+  V: -74.2525
+  Na_c: 130.011
+  Na_i: 8.5547
+  m: 0.0032017
+  h1: 0.8814
+  h2: 0.8742
+  Ca_d: 7.2495e-05
+  d_L: 1.3005e-05
+  f_L_1: 0.9986
+  f_L_2: 0.9986
+  K_c: 5.3581
+  K_i: 129.435
+  r: 0.0010678
+  s: 0.949
+  r_sus: 0.00015949
+  s_sus: 0.9912
+  n: 0.0048357
+  p_a: 0.0001
+  Ca_c: 1.8147
+  Ca_i: 6.729e-05
+  O_C: 0.0275
+  O_TC: 0.0133
+  O_TMgC: 0.1961
+  O_TMgMg: 0.7094
+  Ca_rel: 0.6465
+  Ca_up: 0.6646
+  O_Calse: 0.4369
+  F1: 0.4284
+  F2: 0.0028
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- P_Na
+- g_Ca_L
+- E_Ca_app
+- k_Ca
+- g_t
+- g_sus
+- g_Ks
+- g_Kr
+- g_K1
+- g_B_Na
+- g_B_Ca
+- k_NaK_K
+- k_NaK_Na
+- i_NaK_max
+- i_CaP_max
+- k_CaP
+- k_NaCa
+- d_NaCa
+- gamma
+- phi_Na_en
+- Vol_i
+- tau_di
+- Mg_i
+- tau_Na
+- tau_K
+- tau_Ca
+- Na_b
+- Ca_b
+- K_b
+- I_up_max
+- k_cyca
+- k_srca
+- k_xcs
+- alpha_rel
+- Vol_up
+- Vol_rel
+- r_recov
+- tau_tr
+- k_rel_i
+- k_rel_d
+state_names:
+- V
+- Na_c
+- Na_i
+- m
+- h1
+- h2
+- Ca_d
+- d_L
+- f_L_1
+- f_L_2
+- K_c
+- K_i
+- r
+- s
+- r_sus
+- s_sus
+- n
+- p_a
+- Ca_c
+- Ca_i
+- O_C
+- O_TC
+- O_TMgC
+- O_TMgMg
+- Ca_rel
+- Ca_up
+- O_Calse
+- F1
+- F2

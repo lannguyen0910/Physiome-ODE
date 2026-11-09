@@ -1,0 +1,103 @@
+name: NeurobiologyLi1996ComplexODE
+state_dim: 12
+parameter_dim: 36
+parameters:
+  V_Na: 55
+  g_Na_s: 3.2
+  g_K_DR_s: 6.4
+  g_Ca_T: 1.5
+  g_K_Ca: 1.2
+  g_A: 2
+  g_h: 0.1
+  k_Ca: 1
+  K_Ca: 0.0004
+  V_h: -30
+  beta: 0.104
+  I_APP: -6.7
+  V_Ca: 120
+  V_K: -85
+  g_c: 0.1
+  p: 0.5
+  C_m: 1
+  K_p: 15
+  R_pump: 18
+  Na_eq: 8
+  alpha: 0.173
+  g_NMDA: 25
+  g_Na_NMDA: 5
+  g_L: 0.18
+  Mg_o: 1.4
+  K_Mg: 10
+  q: 12.5
+  V_NMDA: 0
+  V_L: -50
+  g_Ca_L: 0.19
+  g_K_DR_D: 0.14
+  tau_m_T: 1
+  tau_h_T: 10
+  tau_a: 0.5
+  tau_b: 10
+  tau_m_h: 190
+initial_state:
+  V_s: -64
+  Ca: 0
+  n: 0.002
+  h: 1
+  V_D: -77
+  m_T: 0.1
+  h_T: 0.1
+  a: 0.1
+  b: 0.1
+  m_h: 0.1
+  Na: 5.09
+  m_L: 0.1
+parameter_names:
+- V_Na
+- g_Na_s
+- g_K_DR_s
+- g_Ca_T
+- g_K_Ca
+- g_A
+- g_h
+- k_Ca
+- K_Ca
+- V_h
+- beta
+- I_APP
+- V_Ca
+- V_K
+- g_c
+- p
+- C_m
+- K_p
+- R_pump
+- Na_eq
+- alpha
+- g_NMDA
+- g_Na_NMDA
+- g_L
+- Mg_o
+- K_Mg
+- q
+- V_NMDA
+- V_L
+- g_Ca_L
+- g_K_DR_D
+- tau_m_T
+- tau_h_T
+- tau_a
+- tau_b
+- tau_m_h
+state_names:
+- V_s
+- Ca
+- n
+- h
+- V_D
+- m_T
+- h_T
+- a
+- b
+- m_h
+- Na
+- m_L

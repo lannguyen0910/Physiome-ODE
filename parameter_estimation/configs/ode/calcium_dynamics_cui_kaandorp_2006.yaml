@@ -1,0 +1,57 @@
+name: CalciumDynamicsCuiKaandorp2006ODE
+state_dim: 4
+parameter_dim: 21
+parameters:
+  kM_plus: 500
+  kM_minus: 100
+  CaMtotal: 25
+  kN_plus: 5
+  kN_minus: 5
+  CaNtotal: 25
+  d: 0.4
+  f: 0.1
+  lamda: 5
+  N: 13
+  Vx: 1000
+  Kx: 500
+  V1: 30000
+  K1: 4.3
+  V2: 100
+  K2: 0.1
+  V3: 10000
+  K3: 100
+  kc: 10
+  alpha: 0.006
+  Caex: 1
+initial_state:
+  m: 0
+  x: 0
+  z: 1.0e-08
+  h: 0
+parameter_names:
+- kM_plus
+- kM_minus
+- CaMtotal
+- kN_plus
+- kN_minus
+- CaNtotal
+- d
+- f
+- lamda
+- N
+- Vx
+- Kx
+- V1
+- K1
+- V2
+- K2
+- V3
+- K3
+- kc
+- alpha
+- Caex
+state_names:
+- m
+- x
+- z
+- h

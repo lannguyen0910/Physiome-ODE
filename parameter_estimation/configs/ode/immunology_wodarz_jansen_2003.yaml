@@ -1,0 +1,39 @@
+name: ImmunologyWodarzJansen2003ODE
+state_dim: 4
+parameter_dim: 12
+parameters:
+  k: 10
+  r: 0.5
+  d: 0.1
+  gamma: 1
+  lambda_var: 1
+  delta_1: 0.1
+  alpha: 0.05
+  delta_2: 1.5
+  eta: 2
+  epsilon: 1
+  q: 0.5
+  mu: 0.1
+initial_state:
+  T: 0.1
+  C: 0.015
+  A: 1
+  A_star: 2
+parameter_names:
+- k
+- r
+- d
+- gamma
+- lambda_var
+- delta_1
+- alpha
+- delta_2
+- eta
+- epsilon
+- q
+- mu
+state_names:
+- T
+- C
+- A
+- A_star

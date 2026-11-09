@@ -1,0 +1,125 @@
+name: ElectrophysiologyKatsnelson2004aODE
+state_dim: 9
+parameter_dim: 50
+parameters:
+  isotonic: 0
+  alpha_1: 19
+  beta_1: 0.29
+  alpha_2: 14.6
+  beta_2: 0.000924
+  alpha_3: 48
+  beta_3: 0.01
+  lambda_var: 96
+  A_half: 0.6
+  mu: 3
+  chi: 0.705
+  chi_0: 3
+  m_0: 0.9
+  v_max: 0.0056
+  a: 0.25
+  d_h: 0.5
+  alpha_P: 4
+  F_afterload: 2
+  l_0: 0.527
+  S_0: 1.14
+  q_1: 0.0173
+  q_2: 0.259
+  q_3: 0.0173
+  q_4: 0.015
+  v_star: 0.0053035675
+  alpha_G: 1
+  a_on: 2.3
+  a_off: 0.29
+  k_A: 2.8
+  alpha_Q: 10
+  beta_Q: 5000
+  v_0: 0.0056
+  q_star: 1
+  alpha_P_lengthening: 16
+  beta_P_lengthening: 1.5
+  alpha_P_shortening: 16
+  beta_P_shortening: 1.5
+  alpha_S_lengthening: 39
+  beta_S_lengthening: 8
+  alpha_S_shortening: 46
+  beta_S_shortening: 6
+  A_tot: 1
+  B_tot: 0.4
+  b_on: 2.6
+  b_off: 0.182
+  a_c: 0.0052
+  r_Ca: 0.65
+  q_Ca: 50
+  t_d: 33
+  Ca_m: 0.03
+initial_state:
+  v: 0
+  N: 0.0001
+  w: 0
+  l_1: 0.437
+  l_2: 0.439
+  l_3: 0.089
+  A: 0.01
+  B: 0
+  Ca_C: 0
+parameter_names:
+- isotonic
+- alpha_1
+- beta_1
+- alpha_2
+- beta_2
+- alpha_3
+- beta_3
+- lambda_var
+- A_half
+- mu
+- chi
+- chi_0
+- m_0
+- v_max
+- a
+- d_h
+- alpha_P
+- F_afterload
+- l_0
+- S_0
+- q_1
+- q_2
+- q_3
+- q_4
+- v_star
+- alpha_G
+- a_on
+- a_off
+- k_A
+- alpha_Q
+- beta_Q
+- v_0
+- q_star
+- alpha_P_lengthening
+- beta_P_lengthening
+- alpha_P_shortening
+- beta_P_shortening
+- alpha_S_lengthening
+- beta_S_lengthening
+- alpha_S_shortening
+- beta_S_shortening
+- A_tot
+- B_tot
+- b_on
+- b_off
+- a_c
+- r_Ca
+- q_Ca
+- t_d
+- Ca_m
+state_names:
+- v
+- N
+- w
+- l_1
+- l_2
+- l_3
+- A
+- B
+- Ca_C

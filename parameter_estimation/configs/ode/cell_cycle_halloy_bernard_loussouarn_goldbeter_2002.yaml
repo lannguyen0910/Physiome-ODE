@@ -1,0 +1,23 @@
+name: CellCycleHalloyBernardLoussouarnGoldbeter2002ODE
+state_dim: 4
+parameter_dim: 4
+parameters:
+  mu_T: 2.4
+  mu_L: 2
+  mu_A: 3.6
+  epsilon: 0
+initial_state:
+  L: 0.33
+  M: 0
+  T: 0.33
+  A: 0.34
+parameter_names:
+- mu_T
+- mu_L
+- mu_A
+- epsilon
+state_names:
+- L
+- M
+- T
+- A

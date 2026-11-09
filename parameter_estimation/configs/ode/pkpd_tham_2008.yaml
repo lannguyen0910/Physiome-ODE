@@ -1,0 +1,35 @@
+name: PKPDTham2008ODE
+state_dim: 2
+parameter_dim: 12
+parameters:
+  Dose: 5203.84
+  Dose_Int1: 0
+  Dose_Int2: 1
+  Dose_Length: 0.44359
+  Cycle_Int: 3
+  N_Cycle: 6
+  conversion_factor: 604800
+  E_max: 1
+  Amt_50: 10600
+  t_half_eq: 7.67
+  Size_0: 6.66
+  T_Turnover: 21.8
+initial_state:
+  Ce: 0
+  Size: 6.66
+parameter_names:
+- Dose
+- Dose_Int1
+- Dose_Int2
+- Dose_Length
+- Cycle_Int
+- N_Cycle
+- conversion_factor
+- E_max
+- Amt_50
+- t_half_eq
+- Size_0
+- T_Turnover
+state_names:
+- Ce
+- Size

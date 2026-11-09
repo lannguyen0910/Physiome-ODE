@@ -1,0 +1,215 @@
+name: ElectrophysiologyAslanidi2009ODE
+state_dim: 30
+parameter_dim: 74
+parameters:
+  stim_start: 0
+  stim_end: 1
+  stim_amplitude: -80
+  r_NaK: 0.01833
+  Na_o: 140
+  Ca_o: 1.8
+  K_o: 5.4
+  Cl_o: 100
+  R: 8314
+  F: 96485
+  T: 310
+  g_Na: 8
+  g_Na_L: 0.037375
+  g_Ca_L: 0.3392328
+  p_Ca: 0.000243
+  z_Ca: 2
+  gamma_Cai: 1
+  gamma_Cao: 0.341
+  km_Ca_MK: 0.15
+  Cm: 1
+  g_Ca_T: 0.13
+  g_to_1: 0.14135944
+  g_K_p: 0.00276
+  p_Cl: 4.0e-07
+  z_Cl: -1
+  km_to_2: 0.1502
+  X_NaCa: 0.4
+  i_NaCa_max: 4.5
+  km_Na_i_1: 12.3
+  km_Na_o: 87.5
+  km_Ca_i: 0.0036
+  km_Ca_o: 1.3
+  km_Ca_act: 0.000125
+  k_sat: 0.27
+  g_NaK: 0.61875
+  km_Na_i_2: 10
+  km_K_o: 1.5
+  i_Ca_p_max: 0.0575
+  km_Ca_p: 0.0005
+  CT_K_Cl_max: 7.0756e-06
+  CT_Na_Cl_max: 9.8443e-06
+  g_Na_b: 0.0025
+  g_K_b: 0.005
+  p_Ca_b: 1.995084e-07
+  g_Cl_b: 0.000225
+  km_TRPN: 0.0005
+  km_CMDN: 0.00238
+  TRPN_max: 0.07
+  CMDN_max: 0.05
+  alpha_Ca_MK: 0.05
+  beta_Ca_MK: 0.00068
+  Ca_MK_0: 0.05
+  CSQN_max: 10
+  km_CSQN: 0.8
+  km_b_SR: 0.00087
+  km_b_SL: 0.0087
+  b_SR_max: 0.047
+  b_SL_max: 1.124
+  tau_ss: 0.2
+  tau_Ca_MK_max: 10
+  tau_ro: 3
+  q_leak_max: 0.004375
+  NSR_max: 15
+  X_q_up: 0.5
+  q_up_max: 0.004375
+  dq_up_Ca_MK_max: 0.75
+  dkm_plb_max: 0.00017
+  km_up: 0.00092
+  tau_tr: 120
+  Vol_cell: 0.3454
+  radius: 0.0011
+  length: 0.01
+  rcg: 2
+  tau_a: 1
+initial_state:
+  V: -83.43812846286808
+  Na_i: 9.927155552932733
+  Ca_i: 0.00022355433459434943
+  K_i: 141.9670801746057
+  Cl_i: 18.904682470140408
+  m: 0.002003390432234504
+  h: 0.9786390933308567
+  j: 0.09866447258167589
+  m_L: 0.002003390432234504
+  h_L: 0.8946968372659203
+  Ca_r: 0.00022418117117903934
+  d: 2.322223865147363e-06
+  f: 0.9985607329462358
+  f2: 0.8173435436674658
+  f_Ca: 0.9610551285529658
+  f_Ca2: 0.868690796671854
+  b: 0.0002563937630984438
+  g: 0.9720432601848331
+  a: 0.0004238729429342389
+  i: 0.9990935802459496
+  i2: 0.9777368439681764
+  xr: 0.07084939408222911
+  xs1: 0.0011737654433043125
+  xs2: 0.001179442867470093
+  a_2: 0.0014909437525000811
+  Ca_MK_trap: 8.789168284782809e-06
+  Ca_NSR: 1.2132524695849454
+  Ca_JSR: 1.1433050636518596
+  ri: 0.7802870066567904
+  ro: 1.2785734760674763e-09
+parameter_names:
+- stim_start
+- stim_end
+- stim_amplitude
+- r_NaK
+- Na_o
+- Ca_o
+- K_o
+- Cl_o
+- R
+- F
+- T
+- g_Na
+- g_Na_L
+- g_Ca_L
+- p_Ca
+- z_Ca
+- gamma_Cai
+- gamma_Cao
+- km_Ca_MK
+- Cm
+- g_Ca_T
+- g_to_1
+- g_K_p
+- p_Cl
+- z_Cl
+- km_to_2
+- X_NaCa
+- i_NaCa_max
+- km_Na_i_1
+- km_Na_o
+- km_Ca_i
+- km_Ca_o
+- km_Ca_act
+- k_sat
+- g_NaK
+- km_Na_i_2
+- km_K_o
+- i_Ca_p_max
+- km_Ca_p
+- CT_K_Cl_max
+- CT_Na_Cl_max
+- g_Na_b
+- g_K_b
+- p_Ca_b
+- g_Cl_b
+- km_TRPN
+- km_CMDN
+- TRPN_max
+- CMDN_max
+- alpha_Ca_MK
+- beta_Ca_MK
+- Ca_MK_0
+- CSQN_max
+- km_CSQN
+- km_b_SR
+- km_b_SL
+- b_SR_max
+- b_SL_max
+- tau_ss
+- tau_Ca_MK_max
+- tau_ro
+- q_leak_max
+- NSR_max
+- X_q_up
+- q_up_max
+- dq_up_Ca_MK_max
+- dkm_plb_max
+- km_up
+- tau_tr
+- Vol_cell
+- radius
+- length
+- rcg
+- tau_a
+state_names:
+- V
+- Na_i
+- Ca_i
+- K_i
+- Cl_i
+- m
+- h
+- j
+- m_L
+- h_L
+- Ca_r
+- d
+- f
+- f2
+- f_Ca
+- f_Ca2
+- b
+- g
+- a
+- i
+- i2
+- xr
+- xs1
+- xs2
+- a_2
+- Ca_MK_trap
+- Ca_NSR
+- Ca_JSR
+- ri
+- ro

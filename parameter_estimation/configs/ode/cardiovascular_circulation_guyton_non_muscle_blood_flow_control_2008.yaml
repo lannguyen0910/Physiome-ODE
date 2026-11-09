@@ -1,0 +1,31 @@
+name: CardiovascularCirculationGuytonNonMuscleBloodFlowControl2008ODE
+state_dim: 3
+parameter_dim: 9
+parameters:
+  POT: 35.1148
+  POR: 35
+  POK: 0.1
+  A1K: 0.5
+  PON: 0.1
+  A2K: 60
+  POZ: 2
+  A3K: 40000
+  AUTOSN: 0.9
+initial_state:
+  AR1T: 1.02127
+  AR2T: 1.01179
+  AR3T: 1.1448
+parameter_names:
+- POT
+- POR
+- POK
+- A1K
+- PON
+- A2K
+- POZ
+- A3K
+- AUTOSN
+state_names:
+- AR1T
+- AR2T
+- AR3T

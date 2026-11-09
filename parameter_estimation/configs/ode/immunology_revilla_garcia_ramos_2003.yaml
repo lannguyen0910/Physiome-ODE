@@ -1,0 +1,37 @@
+name: ImmunologyRevillaGarciaRamos2003ODE
+state_dim: 5
+parameter_dim: 10
+parameters:
+  lamda: 2
+  d: 0.01
+  beta: 0.004
+  a: 0.33
+  alpha: 0.004
+  b: 2
+  k: 50
+  u: 2
+  c: 2000
+  q: 2
+initial_state:
+  x: 3
+  v: 149
+  y: 6
+  w: 1
+  z: 0
+parameter_names:
+- lamda
+- d
+- beta
+- a
+- alpha
+- b
+- k
+- u
+- c
+- q
+state_names:
+- x
+- v
+- y
+- w
+- z

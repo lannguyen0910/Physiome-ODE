@@ -1,0 +1,55 @@
+name: NeurobiologyPurvisSmithKoizumiButera2007NpcODE
+state_dim: 3
+parameter_dim: 21
+parameters:
+  C: 0.021
+  i_app: 0
+  E_Na: 50
+  g_Na: 28
+  theta_m: -34
+  omega_m: -5
+  g_K: 11.2
+  E_K: -85
+  tau_n_max: 10
+  theta_n: -29
+  omega_n: -4
+  g_NaP: 1.5
+  theta_m_2: -45.1
+  omega_m_2: -6
+  tau_h_max: 10000
+  theta_h: -53
+  omega_h: 6
+  g_leak: 2.2
+  E_leak: -57.5
+  g_tonic_e: 0.2
+  E_syn_e: 0
+initial_state:
+  V: -50
+  n: 0.01
+  h: 0.92
+parameter_names:
+- C
+- i_app
+- E_Na
+- g_Na
+- theta_m
+- omega_m
+- g_K
+- E_K
+- tau_n_max
+- theta_n
+- omega_n
+- g_NaP
+- theta_m_2
+- omega_m_2
+- tau_h_max
+- theta_h
+- omega_h
+- g_leak
+- E_leak
+- g_tonic_e
+- E_syn_e
+state_names:
+- V
+- n
+- h

@@ -1,0 +1,459 @@
+name: MetabolismVinnakotaKempKushmeric2006Exp29frA02ODE
+state_dim: 25
+parameter_dim: 201
+parameters:
+  R: 0.008314
+  T1: 298.15
+  Par_97: 1
+  Par_98: 7.4
+  Par_1: 0.05
+  Par_2: 0.002
+  Par_3: 0.0017
+  Par_6: 0.0047
+  Par_8: 0.0027
+  Par_11: 0.0046
+  Par_14: 0.0074
+  Par_16: 0.00266055
+  Par_17: 0.02
+  Par_18: 1.75052
+  Par_31: 0.00402
+  Par_33: 0.0027
+  Par_34: 0.00087
+  Par_35: 6.0e-05
+  Par_36: 0.01
+  Par_37: 0.01
+  Par_38: 13
+  Par_82: 0.0039
+  Par_88: 0
+  Par_89: 0.0001
+  Par_95: 0.005
+  Par_100: 29
+  dNavgCRdmg: 0
+  dNavgG6Pdmg: 0
+  dNavgF6Pdmg: 0
+  dNavgGAPdmg: 0
+  dNavg13DPGdmg: 0
+  dNavg3PGdmg: 0
+  dNavgPYRdmg: 0
+  fixmg: 1
+  Par_4: 0.004
+  Par_5: 0.002
+  Par_7: 0.00015
+  Par_9: 0.0101
+  Par_10: 0.0002
+  Par_12: 0.015
+  Par_13: 0.0015
+  Par_15: 0.0044
+  Par_19: 0.48
+  Par_20: 6.3e-05
+  Par_21: 3.0e-05
+  Par_22: 0.88
+  Par_23: 0.00048
+  Par_24: 0.000119
+  Par_25: 0.056
+  Par_26: 0.00018
+  Par_27: 0.02
+  Par_28: 8.0e-05
+  Par_29: 0.00025
+  Par_30: 0.00402
+  Par_32: 0.0027
+  Par_39: 0.0106591
+  Par_40: 5.0e-05
+  Par_41: 0.002
+  Par_42: 0.001
+  Par_43: 12
+  Par_44: 0.00032
+  Par_45: 0.00061
+  Par_46: 0.0825
+  Par_47: 0.00018
+  Par_48: 1.2e-05
+  Par_49: 0.00022
+  Par_50: 8.0e-06
+  Par_51: 1.265
+  Par_52: 2.5e-06
+  Par_53: 9.0e-05
+  Par_54: 0.00029
+  Par_55: 8.0e-07
+  Par_56: 3.3e-06
+  Par_57: 1.12
+  Par_58: 0.002
+  Par_59: 8.0e-06
+  Par_60: 0.0012
+  Par_61: 0.00035
+  Par_62: 1.12
+  Par_63: 0.0002
+  Par_64: 1.4e-05
+  Par_65: 0.192
+  Par_66: 0.0001
+  Par_67: 0.00037
+  Par_68: 1.44
+  Par_69: 8.0e-05
+  Par_70: 0.0003
+  Par_71: 0.00705
+  Par_72: 0.00113
+  Par_73: 1.92
+  Par_74: 0.000335
+  Par_75: 2.0e-06
+  Par_76: 0.017
+  Par_77: 0.000849
+  Par_78: 0.5
+  Par_79: 0.00111
+  Par_80: 0.0035
+  Par_81: 0.000135
+  Par_83: 0.0038
+  Par_84: 0.88
+  Par_85: 0.00032
+  Par_86: 0.00027
+  Par_87: 0.00035
+  Par_90: 0.1
+  Par_91: 0.015
+  Par_92: 0.025
+  Par_93: 0.01
+  Par_94: 303.15
+  Par_96: 0.08
+  Par_99: 1
+  c0: 1
+  RT2dadT: 1.4775
+  B: 1.6
+  I1: 0.1
+  alphadebye: 1.17582
+  RTalpha: 2.91482
+  pKak_Pi: 0.5
+  deltaH1o_Pi: 3
+  deltaHmgo_Pi: -2.9
+  NH_HPi2: 1
+  deltaGof_HPi2: -1096.1
+  deltaH1o_ATP: -5
+  deltaHmgo_ATP: -18
+  deltaHko_ATP: -1
+  NH_ATP4: 12
+  deltaGof_ATP4: -2768.1
+  pKak_ADP: 1
+  deltaH1o_ADP: -3
+  deltaHmgo_ADP: -15
+  NH_ADP3: 12
+  deltaGof_ADP3: -1906.13
+  deltaH1o_AMP: -3
+  deltaHmgo_AMP: -7.5
+  NH_AMP2: 12
+  deltaGof_AMP2: -1040.45
+  pKak_PCR: 0.31
+  deltaH1o_PCR: 2.66
+  deltaHmgo_PCR: 8.19
+  NH_HPCR: 8
+  pKa1_CR: 2.3
+  NH_HCR: 9
+  deltaH1o_G1P: -1.7
+  deltaHmgo_G1P: -12
+  NH_UG1P: 11
+  deltaGof_UG1P: -1756.87
+  pKa1_G6P: 6.11
+  NH_UG6P: 11
+  deltaGof_UG6P: -1763.94
+  pKa1_F6P: 5.89
+  NH_UF6P: 11
+  deltaGof_UF6P: -1760.8
+  pKa1_FDP: 6.4
+  pKa2_FDP: 5.92
+  pKamg_FDP: 2.7
+  NH_UFDP: 10
+  deltaGof_UFDP: -2601.4
+  pKa1_GAP: 6.45
+  NH_UGAP: 5
+  deltaGof_UGAP: -1288.6
+  pKamg_G3P: 1.63
+  deltaH1o_G3P: -3.1
+  NH_UG3P: 7
+  deltaGof_UG3P: -1339.25
+  pKa1_DHAP: 5.9
+  pKamg_DHAP: 1.57
+  NH_UDHAP: 5
+  deltaGof_UDHAP: -1296.26
+  pKa1_13DPG: 7.5
+  NH_U13DPG: 4
+  deltaGof_U13DPG: -2356.14
+  pKa1_3PG: 6.21
+  NH_U3PG: 4
+  deltaGof_U3PG: -1502.54
+  pKa1_2PG: 7
+  pKamg_2PG: 2.45
+  pKak_2PG: 1.18
+  NH_U2PG: 4
+  deltaGof_U2PG: -1496.38
+  pKa1_PEP: 6.35
+  pKamg_PEP: 2.26
+  pKak_PEP: 1.08
+  NH_UPEP: 2
+  deltaGof_UPEP: -1263.65
+  pKa1_PYR: 2.49
+  NH_UPYR: 3
+  deltaGof_UPYR: -472.27
+  pKamg_LAC: 0.98
+  deltaH1o_LAC: -0.33
+  NH_ULAC: 5
+  deltaGof_ULAC: -516.72
+  dNH_GLY: -10
+  NH_NAD: 26
+  deltaGof_NAD: 0
+  NH_NADH: 27
+  deltaGof_NADH: 22.65
+  NH_H2O: 2
+  deltaGof_H2O: -237.19
+  NH_H: 1
+  deltaGof_H: 0
+  Kref_CK: 258000000
+  deltaHo_CKo: -17.55
+initial_state:
+  pH_calc: 7.8
+  Mg: 0.0005132658807
+  G1P: 1.0e-09
+  Pi: 0.03
+  Gly: 0.04
+  AMP: 1.0e-09
+  G6P: 1.0e-09
+  F6P: 1.0e-09
+  FBP: 1.0e-09
+  ADP: 1.0e-09
+  ATP: 0.005
+  DHAP: 1.0e-09
+  GAP: 1.0e-09
+  G3P: 1.0e-09
+  NAD: 0.0005
+  NADH: 1.0e-09
+  BPG: 1.0e-09
+  P3G: 1.0e-09
+  P2G: 1.0e-09
+  PEP: 1.0e-09
+  PYR: 1.0e-09
+  LAC: 1.0e-09
+  Cr: 0.029999999
+  PCr: 1.0e-09
+  protonload: 0
+parameter_names:
+- R
+- T1
+- Par_97
+- Par_98
+- Par_1
+- Par_2
+- Par_3
+- Par_6
+- Par_8
+- Par_11
+- Par_14
+- Par_16
+- Par_17
+- Par_18
+- Par_31
+- Par_33
+- Par_34
+- Par_35
+- Par_36
+- Par_37
+- Par_38
+- Par_82
+- Par_88
+- Par_89
+- Par_95
+- Par_100
+- dNavgCRdmg
+- dNavgG6Pdmg
+- dNavgF6Pdmg
+- dNavgGAPdmg
+- dNavg13DPGdmg
+- dNavg3PGdmg
+- dNavgPYRdmg
+- fixmg
+- Par_4
+- Par_5
+- Par_7
+- Par_9
+- Par_10
+- Par_12
+- Par_13
+- Par_15
+- Par_19
+- Par_20
+- Par_21
+- Par_22
+- Par_23
+- Par_24
+- Par_25
+- Par_26
+- Par_27
+- Par_28
+- Par_29
+- Par_30
+- Par_32
+- Par_39
+- Par_40
+- Par_41
+- Par_42
+- Par_43
+- Par_44
+- Par_45
+- Par_46
+- Par_47
+- Par_48
+- Par_49
+- Par_50
+- Par_51
+- Par_52
+- Par_53
+- Par_54
+- Par_55
+- Par_56
+- Par_57
+- Par_58
+- Par_59
+- Par_60
+- Par_61
+- Par_62
+- Par_63
+- Par_64
+- Par_65
+- Par_66
+- Par_67
+- Par_68
+- Par_69
+- Par_70
+- Par_71
+- Par_72
+- Par_73
+- Par_74
+- Par_75
+- Par_76
+- Par_77
+- Par_78
+- Par_79
+- Par_80
+- Par_81
+- Par_83
+- Par_84
+- Par_85
+- Par_86
+- Par_87
+- Par_90
+- Par_91
+- Par_92
+- Par_93
+- Par_94
+- Par_96
+- Par_99
+- c0
+- RT2dadT
+- B
+- I1
+- alphadebye
+- RTalpha
+- pKak_Pi
+- deltaH1o_Pi
+- deltaHmgo_Pi
+- NH_HPi2
+- deltaGof_HPi2
+- deltaH1o_ATP
+- deltaHmgo_ATP
+- deltaHko_ATP
+- NH_ATP4
+- deltaGof_ATP4
+- pKak_ADP
+- deltaH1o_ADP
+- deltaHmgo_ADP
+- NH_ADP3
+- deltaGof_ADP3
+- deltaH1o_AMP
+- deltaHmgo_AMP
+- NH_AMP2
+- deltaGof_AMP2
+- pKak_PCR
+- deltaH1o_PCR
+- deltaHmgo_PCR
+- NH_HPCR
+- pKa1_CR
+- NH_HCR
+- deltaH1o_G1P
+- deltaHmgo_G1P
+- NH_UG1P
+- deltaGof_UG1P
+- pKa1_G6P
+- NH_UG6P
+- deltaGof_UG6P
+- pKa1_F6P
+- NH_UF6P
+- deltaGof_UF6P
+- pKa1_FDP
+- pKa2_FDP
+- pKamg_FDP
+- NH_UFDP
+- deltaGof_UFDP
+- pKa1_GAP
+- NH_UGAP
+- deltaGof_UGAP
+- pKamg_G3P
+- deltaH1o_G3P
+- NH_UG3P
+- deltaGof_UG3P
+- pKa1_DHAP
+- pKamg_DHAP
+- NH_UDHAP
+- deltaGof_UDHAP
+- pKa1_13DPG
+- NH_U13DPG
+- deltaGof_U13DPG
+- pKa1_3PG
+- NH_U3PG
+- deltaGof_U3PG
+- pKa1_2PG
+- pKamg_2PG
+- pKak_2PG
+- NH_U2PG
+- deltaGof_U2PG
+- pKa1_PEP
+- pKamg_PEP
+- pKak_PEP
+- NH_UPEP
+- deltaGof_UPEP
+- pKa1_PYR
+- NH_UPYR
+- deltaGof_UPYR
+- pKamg_LAC
+- deltaH1o_LAC
+- NH_ULAC
+- deltaGof_ULAC
+- dNH_GLY
+- NH_NAD
+- deltaGof_NAD
+- NH_NADH
+- deltaGof_NADH
+- NH_H2O
+- deltaGof_H2O
+- NH_H
+- deltaGof_H
+- Kref_CK
+- deltaHo_CKo
+state_names:
+- pH_calc
+- Mg
+- G1P
+- Pi
+- Gly
+- AMP
+- G6P
+- F6P
+- FBP
+- ADP
+- ATP
+- DHAP
+- GAP
+- G3P
+- NAD
+- NADH
+- BPG
+- P3G
+- P2G
+- PEP
+- PYR
+- LAC
+- Cr
+- PCr
+- protonload

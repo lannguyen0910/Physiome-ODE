@@ -1,0 +1,47 @@
+name: EndocrineLenburyRuktamatakulAmornsamarnkul2001BODE
+state_dim: 5
+parameter_dim: 15
+parameters:
+  r1: 0.15
+  r2: 0.12
+  c1: 0.1
+  r3: 0.05
+  r4: 0.03
+  c2: 0.1
+  c3: 0.005
+  epsilon: 0.1
+  r5: 0.09
+  r6: 0.1
+  r7: 0.05
+  z: 1.01
+  y: 1.08
+  delta: 0.01
+  omega: 0.05
+initial_state:
+  x: 5
+  z: 1
+  y: 0
+  u: 1
+  v: 0
+parameter_names:
+- r1
+- r2
+- c1
+- r3
+- r4
+- c2
+- c3
+- epsilon
+- r5
+- r6
+- r7
+- z
+- y
+- delta
+- omega
+state_names:
+- x
+- z
+- y
+- u
+- v

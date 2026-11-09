@@ -1,0 +1,87 @@
+name: CellCycleNovakTyson1993BODE
+state_dim: 9
+parameter_dim: 31
+parameters:
+  k1AA: 1
+  k3: 0.01
+  kinh: 0.025
+  kcak: 0.25
+  kbPPase: 0.125
+  kfPPase: 0.1
+  khPPase: 0.087
+  kd_antiIE: 0.095
+  ka: 0.01
+  kc: 0.1
+  ke: 0.0133
+  kg: 0.0065
+  V2: 0.015
+  V2_2: 1
+  V25: 0.1
+  V25_2: 2
+  Vwee: 0.1
+  Vwee_2: 1
+  K_a: 0.1
+  K_b: 0.1
+  K_c: 0.01
+  K_d: 0.01
+  K_e: 0.3
+  K_f: 0.3
+  K_g: 0.01
+  K_h: 0.01
+  Cdc25_T: 1
+  Wee1_T: 1
+  UbE_T: 1
+  Cdc2_T: 100
+  IE_T: 1
+initial_state:
+  Cdc25_P: 0
+  Wee1_P: 0
+  UbE: 0
+  cyclin: 1
+  cyclin_Cdc2: 0
+  MPF_active: 0
+  Tyr15P_dimer: 0
+  MPF_pre: 0
+  IE_P: 0
+parameter_names:
+- k1AA
+- k3
+- kinh
+- kcak
+- kbPPase
+- kfPPase
+- khPPase
+- kd_antiIE
+- ka
+- kc
+- ke
+- kg
+- V2
+- V2_2
+- V25
+- V25_2
+- Vwee
+- Vwee_2
+- K_a
+- K_b
+- K_c
+- K_d
+- K_e
+- K_f
+- K_g
+- K_h
+- Cdc25_T
+- Wee1_T
+- UbE_T
+- Cdc2_T
+- IE_T
+state_names:
+- Cdc25_P
+- Wee1_P
+- UbE
+- cyclin
+- cyclin_Cdc2
+- MPF_active
+- Tyr15P_dimer
+- MPF_pre
+- IE_P

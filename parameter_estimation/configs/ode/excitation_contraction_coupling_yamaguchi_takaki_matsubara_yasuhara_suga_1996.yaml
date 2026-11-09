@@ -1,0 +1,47 @@
+name: ExcitationContractionCouplingYamaguchiTakakiMatsubaraYasuharaSuga1996ODE
+state_dim: 5
+parameter_dim: 15
+parameters:
+  D_Ca: 0.1
+  k_1: 40
+  k_2: 20
+  f: 10
+  g: 10
+  Ca_max: 1
+  Total_Tn: 1
+  Total_CB: 1
+  phi: 1
+  s: 1
+  L: 1
+  L_0: 0
+  F_max: 0.228
+  epsilon: 1
+  CumCB_on_end: 1
+initial_state:
+  TnCa: 0
+  CB_on: 0
+  CumCB_on: 0
+  CumCB_off: 0
+  FTI: 0
+parameter_names:
+- D_Ca
+- k_1
+- k_2
+- f
+- g
+- Ca_max
+- Total_Tn
+- Total_CB
+- phi
+- s
+- L
+- L_0
+- F_max
+- epsilon
+- CumCB_on_end
+state_names:
+- TnCa
+- CB_on
+- CumCB_on
+- CumCB_off
+- FTI

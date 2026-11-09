@@ -1,0 +1,73 @@
+name: MetabolismOvergaardPharmacodynamic2007ODE
+state_dim: 3
+parameter_dim: 30
+parameters:
+  T_a: 21
+  T_b: 38
+  delta_T: 1.57
+  kinc: 0.0258
+  tdose1: 24
+  tdose2: 72
+  tdose3: 120
+  t_day: 17.5
+  t_night: 6.73
+  day_length: 86400
+  km: 1.1375
+  c: 3.47
+  pEtot: 0.144
+  kR: 5.35
+  AMT_dose: 3
+  pEf1: 1
+  pEs1: 0.2
+  pEf2: 3.57
+  pEs2: 2.43
+  pEf3: 8
+  pEs3: 50
+  M_b: 3
+  t_prime: 45.12
+  alpha: 0.2229166
+  delta_high_dose: 1
+  Ns: 4
+  Nf: 4
+  Ts: 2.45
+  Tf: 0.368
+  f2_drug: 0
+initial_state:
+  M: 3.5
+  T: 38.785
+  BR: 0
+parameter_names:
+- T_a
+- T_b
+- delta_T
+- kinc
+- tdose1
+- tdose2
+- tdose3
+- t_day
+- t_night
+- day_length
+- km
+- c
+- pEtot
+- kR
+- AMT_dose
+- pEf1
+- pEs1
+- pEf2
+- pEs2
+- pEf3
+- pEs3
+- M_b
+- t_prime
+- alpha
+- delta_high_dose
+- Ns
+- Nf
+- Ts
+- Tf
+- f2_drug
+state_names:
+- M
+- T
+- BR

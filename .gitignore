@@ -11,3 +11,4 @@ weights
 physiome_explicit_ode_modules
 physiome_corrected_parameterized_odes
 physiome_odes_simple_classes
+parameter_estimation/data

@@ -1,0 +1,45 @@
+name: ElectrophysiologyMiftakhovAbdushevaChristensen1999ODE
+state_dim: 5
+parameter_dim: 14
+parameters:
+  alpha: 0.12
+  lamda: 12.5
+  Cm: 2.5
+  E_Ca: 80
+  g_Ca_T: 0.51
+  g_Ca_L: 0.004
+  tau_x_Ca: 500
+  E_K: -75
+  g_K: 0.3
+  g_Ca_K: 0.03
+  rho: 125
+  K_c: 0.00425
+  g_Cl: 0.003
+  E_Cl: -40
+initial_state:
+  V: -55
+  h: 0.01
+  x_Ca: 0.01
+  n: 0.01
+  Ca: 0.0001
+parameter_names:
+- alpha
+- lamda
+- Cm
+- E_Ca
+- g_Ca_T
+- g_Ca_L
+- tau_x_Ca
+- E_K
+- g_K
+- g_Ca_K
+- rho
+- K_c
+- g_Cl
+- E_Cl
+state_names:
+- V
+- h
+- x_Ca
+- n
+- Ca

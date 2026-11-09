@@ -1,0 +1,63 @@
+name: CardiovascularCirculationGuytonCapillaryDynamics2008ODE
+state_dim: 4
+parameter_dim: 24
+parameters:
+  VEC: 14.8548
+  PPD: 4.4805e-06
+  RVS: 2.77751
+  DFP: -4.078e-07
+  VPF: 0.0123238
+  BFN: 2.79521
+  PVS: 3.71612
+  CFC: 0.01167
+  TRPL: 0
+  CPR: 40
+  LPPR: 0.03
+  LPDE: 8
+  LPK: 2.728e-14
+  PCR: 15
+  CPK: 0.000253
+  PCE: 1
+  TSSLML: 0.15
+  TSSLTC: 0.005
+  HYL: 60
+  CMPTSS: 2
+  PGHF: -2
+  GCOPF: 0.8092
+  VTSF: 6
+  PLDF: 4.2
+initial_state:
+  VP: 3.00449
+  PRP: 216.243
+  VTS2: 0
+  TSP: 279.945
+parameter_names:
+- VEC
+- PPD
+- RVS
+- DFP
+- VPF
+- BFN
+- PVS
+- CFC
+- TRPL
+- CPR
+- LPPR
+- LPDE
+- LPK
+- PCR
+- CPK
+- PCE
+- TSSLML
+- TSSLTC
+- HYL
+- CMPTSS
+- PGHF
+- GCOPF
+- VTSF
+- PLDF
+state_names:
+- VP
+- PRP
+- VTS2
+- TSP

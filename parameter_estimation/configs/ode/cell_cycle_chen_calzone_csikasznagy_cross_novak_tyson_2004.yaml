@@ -1,0 +1,351 @@
+name: CellCycleChenCalzoneCsikasznagyCrossNovakTyson2004ODE
+state_dim: 36
+parameter_dim: 136
+parameters:
+  kg: 0.007702
+  ks_n2: 0
+  ks_n2_2: 0.15
+  kd_n2: 0.12
+  ks_b5: 0.0008
+  ks_b5_2: 0.005
+  kdi_f5: 0.01
+  kdi_b5: 0.06
+  kas_b5: 50
+  kas_f5: 0.01
+  kd3_f6: 1
+  kd3_c1: 1
+  ks_b2: 0.001
+  ks_b2_2: 0.04
+  kdi_b2: 0.05
+  kdi_f2: 0.5
+  kas_b2: 50
+  kas_f2: 15
+  ks_c1: 0.012
+  ks_c1_2: 0.12
+  kpp_c1: 4
+  ks_f6: 0.024
+  ks_f6_2: 0.12
+  ks_f6_3: 0.004
+  kpp_f6: 4
+  ks_pds: 0
+  ks1_pds: 0.03
+  ks2_pds: 0.055
+  kdi_esp: 0.5
+  kas_esp: 50
+  ks_ori: 2
+  kd_ori: 0.06
+  epsilon_ori_b5: 0.9
+  epsilon_ori_b2: 0.45
+  ks_bud: 0.2
+  kd_bud: 0.06
+  epsilon_bud_n2: 0.25
+  epsilon_bud_n3: 0.05
+  epsilon_bud_b5: 1
+  ks_spn: 0.1
+  kd_spn: 0.06
+  Jspn: 0.14
+  Ji_sbf: 0.01
+  Ja_sbf: 0.01
+  Ji_mcm: 0.1
+  Ja_mcm: 0.1
+  ki_mcm: 0.15
+  ka_mcm: 1
+  C0: 0.4
+  Dn3: 1
+  Jn3: 6
+  B0: 0.054
+  ks_swi: 0.005
+  ks_swi_2: 0.08
+  kd_swi: 0.08
+  ka_swi: 2
+  ki_swi: 0.05
+  ka_apc: 0.1
+  ki_apc: 0.15
+  Ja_apc: 0.1
+  Ji_apc: 0.1
+  ks_20: 0.006
+  ks_20_2: 0.6
+  kd_20: 0.3
+  ka_20: 0.05
+  ka_20_2: 0.2
+  ks_cdh: 0.01
+  kd_cdh: 0.01
+  Ja_cdh: 0.03
+  Ji_cdh: 0.03
+  Ja_tem: 0.1
+  Ji_tem: 0.1
+  Tem1_T: 1
+  ka_15: 0.002
+  ka_15_2: 1
+  ka_15_3: 0.001
+  ki_15: 0.5
+  Cdc15_T: 1
+  ks_14: 0.2
+  kd_14: 0.1
+  kd_net: 0.03
+  kdi_rent: 1
+  kdi_rentp: 2
+  kas_rent: 200
+  kas_rentp: 1
+  ks_net: 0.084
+  Esp1_T: 1
+  kd_b5: 0.01
+  kd_b5_2: 0.16
+  kd_b2: 0.003
+  kd_b2_2: 0.4
+  kd_b2p: 0.15
+  ka_sbf: 0.38
+  epsilon_sbf_n2: 2
+  epsilon_sbf_n3: 10
+  epsilon_sbf_b5: 2
+  ki_sbf: 0.6
+  ki_sbf_2: 8
+  kd1_c1: 0.01
+  kd2_c1: 1
+  Jd2_c1: 0.05
+  epsilon_c1_n2: 0.06
+  epsilon_c1_n3: 0.3
+  epsilon_c1_k2: 0.03
+  epsilon_c1_b5: 0.1
+  epsilon_c1_b2: 0.45
+  Jd2_f6: 0.05
+  kd1_f6: 0.01
+  kd2_f6: 1
+  epsilon_f6_n2: 0.06
+  epsilon_f6_n3: 0.3
+  epsilon_f6_k2: 0.03
+  epsilon_f6_b5: 0.1
+  epsilon_f6_b2: 0.55
+  ka_cdh: 0.01
+  ka_cdh_2: 0.8
+  ki_cdh: 0.001
+  ki_cdh_2: 0.08
+  epsilon_cdh_n2: 0.4
+  epsilon_cdh_n3: 0.25
+  epsilon_cdh_b5: 8
+  epsilon_cdh_b2: 1.2
+  kpp_net: 0.05
+  kpp_net_2: 3
+  kkp_net: 0.01
+  kkp_net_2: 0.6
+  ks_ppx: 0.1
+  kd_ppx: 0.17
+  kd_ppx_2: 2
+  Jpds: 0.04
+  J20_ppx: 0.15
+  kd1_pds: 0.01
+  kd2_pds: 0.2
+  kd3_pds: 0.04
+  Kez: 0.3
+  Kez2: 0.2
+initial_state:
+  mass: 1.206
+  Cln2: 0.0652
+  Clb5: 0.0518
+  C5P: 0.0069
+  C5: 0.0701
+  F5P: 7.9e-06
+  F5: 7.2e-05
+  Sic1: 0.0229
+  Cdc6: 0.1076
+  Clb2: 0.1469
+  C2P: 0.024
+  C2: 0.2384
+  F2P: 0.0274
+  F2: 0.2361
+  Swi5: 0.9562
+  Cdc14: 0.4683
+  Sic1P: 0.0064
+  Cdc6P: 0.0155
+  Pds1: 0.0256
+  Esp1: 0.3013
+  ORI: 0.0009
+  BUD: 0.0085
+  SPN: 0.0305
+  Swi5_T: 0.9765
+  APC_P: 0.1015
+  Cdc20_T: 1.9163
+  Cdc20_A: 0.4443
+  Cdh1_T: 1
+  Cdh1: 0.9305
+  Tem1: 0.9039
+  Cdc15: 0.6565
+  Cdc14_T: 2
+  RENT: 1.0495
+  Net1: 0.0186
+  Net1_T: 2.8
+  PPX: 0.1232
+parameter_names:
+- kg
+- ks_n2
+- ks_n2_2
+- kd_n2
+- ks_b5
+- ks_b5_2
+- kdi_f5
+- kdi_b5
+- kas_b5
+- kas_f5
+- kd3_f6
+- kd3_c1
+- ks_b2
+- ks_b2_2
+- kdi_b2
+- kdi_f2
+- kas_b2
+- kas_f2
+- ks_c1
+- ks_c1_2
+- kpp_c1
+- ks_f6
+- ks_f6_2
+- ks_f6_3
+- kpp_f6
+- ks_pds
+- ks1_pds
+- ks2_pds
+- kdi_esp
+- kas_esp
+- ks_ori
+- kd_ori
+- epsilon_ori_b5
+- epsilon_ori_b2
+- ks_bud
+- kd_bud
+- epsilon_bud_n2
+- epsilon_bud_n3
+- epsilon_bud_b5
+- ks_spn
+- kd_spn
+- Jspn
+- Ji_sbf
+- Ja_sbf
+- Ji_mcm
+- Ja_mcm
+- ki_mcm
+- ka_mcm
+- C0
+- Dn3
+- Jn3
+- B0
+- ks_swi
+- ks_swi_2
+- kd_swi
+- ka_swi
+- ki_swi
+- ka_apc
+- ki_apc
+- Ja_apc
+- Ji_apc
+- ks_20
+- ks_20_2
+- kd_20
+- ka_20
+- ka_20_2
+- ks_cdh
+- kd_cdh
+- Ja_cdh
+- Ji_cdh
+- Ja_tem
+- Ji_tem
+- Tem1_T
+- ka_15
+- ka_15_2
+- ka_15_3
+- ki_15
+- Cdc15_T
+- ks_14
+- kd_14
+- kd_net
+- kdi_rent
+- kdi_rentp
+- kas_rent
+- kas_rentp
+- ks_net
+- Esp1_T
+- kd_b5
+- kd_b5_2
+- kd_b2
+- kd_b2_2
+- kd_b2p
+- ka_sbf
+- epsilon_sbf_n2
+- epsilon_sbf_n3
+- epsilon_sbf_b5
+- ki_sbf
+- ki_sbf_2
+- kd1_c1
+- kd2_c1
+- Jd2_c1
+- epsilon_c1_n2
+- epsilon_c1_n3
+- epsilon_c1_k2
+- epsilon_c1_b5
+- epsilon_c1_b2
+- Jd2_f6
+- kd1_f6
+- kd2_f6
+- epsilon_f6_n2
+- epsilon_f6_n3
+- epsilon_f6_k2
+- epsilon_f6_b5
+- epsilon_f6_b2
+- ka_cdh
+- ka_cdh_2
+- ki_cdh
+- ki_cdh_2
+- epsilon_cdh_n2
+- epsilon_cdh_n3
+- epsilon_cdh_b5
+- epsilon_cdh_b2
+- kpp_net
+- kpp_net_2
+- kkp_net
+- kkp_net_2
+- ks_ppx
+- kd_ppx
+- kd_ppx_2
+- Jpds
+- J20_ppx
+- kd1_pds
+- kd2_pds
+- kd3_pds
+- Kez
+- Kez2
+state_names:
+- mass
+- Cln2
+- Clb5
+- C5P
+- C5
+- F5P
+- F5
+- Sic1
+- Cdc6
+- Clb2
+- C2P
+- C2
+- F2P
+- F2
+- Swi5
+- Cdc14
+- Sic1P
+- Cdc6P
+- Pds1
+- Esp1
+- ORI
+- BUD
+- SPN
+- Swi5_T
+- APC_P
+- Cdc20_T
+- Cdc20_A
+- Cdh1_T
+- Cdh1
+- Tem1
+- Cdc15
+- Cdc14_T
+- RENT
+- Net1
+- Net1_T
+- PPX

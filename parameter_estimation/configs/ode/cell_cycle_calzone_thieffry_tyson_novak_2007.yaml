@@ -1,0 +1,127 @@
+name: CellCycleCalzoneThieffryTysonNovak2007ODE
+state_dim: 17
+parameter_dim: 43
+parameters:
+  k_in: 0.15
+  k_out: 0
+  k_dn: 0.01
+  k_dn_2: 1.5
+  k_wee: 0.005
+  k_wee_2: 1
+  k_stg: 0.2
+  k_stg_2: 2
+  k_sc: 0.01
+  k_dc: 0.01
+  epsilon: 7.0e-05
+  j_aie: 0.01
+  j_iie: 0.01
+  k_aie: 1
+  k_iie: 0.4
+  j_afz: 0.01
+  j_ifz: 0.01
+  k_afz: 1
+  k_ifz: 0.2
+  k_dm: 0.002
+  k_dm_2: 0.2
+  j_m: 0.05
+  k_sxm: 0.0005
+  k_sxp: 0.001
+  k_ins: 0.08
+  k_outs: 0.02
+  k_astg: 0
+  k_astg_2: 1
+  k_istg: 0.3
+  k_dstg: 0.015
+  j_astg: 0.05
+  j_istg: 0.05
+  k_sstg: 0.02
+  k_inw: 0.04
+  k_outw: 0.01
+  k_awee: 0.3
+  k_iwee: 0.01
+  k_iwee_2: 1
+  j_awee: 0.05
+  j_iwee: 0.05
+  Wee1_T: 0.8
+  k_ez: 0.5
+  constant_42: 0
+initial_state:
+  MPF_n: 0
+  MPF_c: 1
+  FZY: 0
+  Wee1_n: 0
+  StgP_n: 0
+  preMPF_n: 0
+  preMPF_c: 0
+  N: 1
+  StgP_c: 0
+  Wee1_c: 0
+  IE: 0
+  Stg_m: 1
+  Xp: 0
+  Xm: 0
+  Stg_n: 0
+  Stg_c: 1
+  Wee1P_n: 0
+parameter_names:
+- k_in
+- k_out
+- k_dn
+- k_dn_2
+- k_wee
+- k_wee_2
+- k_stg
+- k_stg_2
+- k_sc
+- k_dc
+- epsilon
+- j_aie
+- j_iie
+- k_aie
+- k_iie
+- j_afz
+- j_ifz
+- k_afz
+- k_ifz
+- k_dm
+- k_dm_2
+- j_m
+- k_sxm
+- k_sxp
+- k_ins
+- k_outs
+- k_astg
+- k_astg_2
+- k_istg
+- k_dstg
+- j_astg
+- j_istg
+- k_sstg
+- k_inw
+- k_outw
+- k_awee
+- k_iwee
+- k_iwee_2
+- j_awee
+- j_iwee
+- Wee1_T
+- k_ez
+- constant_42
+state_names:
+- MPF_n
+- MPF_c
+- FZY
+- Wee1_n
+- StgP_n
+- preMPF_n
+- preMPF_c
+- N
+- StgP_c
+- Wee1_c
+- IE
+- Stg_m
+- Xp
+- Xm
+- Stg_n
+- Stg_c
+- Wee1P_n

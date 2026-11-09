@@ -1,0 +1,101 @@
+name: ElectrophysiologyCorriasBuist2007ODE
+state_dim: 14
+parameter_dim: 33
+parameters:
+  Ach: 1.0e-05
+  Gcouple: 1.3
+  T: 310
+  T_exp: 297
+  F: 96486
+  R: 8314.4
+  Q10Ca: 2.1
+  Q10K: 1.365
+  Q10Na: 2.45
+  Ca_o: 2.5
+  Na_o: 137
+  K_o: 5.9
+  Cl_o: 134
+  Cm_SM: 77
+  Vol_SM: 3500
+  Na_i: 10
+  K_i: 164
+  period: 20000
+  delta_VICC: 59
+  t_ICCpeak: 98
+  t_ICCplateau: 7582
+  t_ICC_stimulus: 10000
+  V_decay: 37.25
+  G_max_Ltype: 65
+  J_max_CaSR: 0.31705
+  G_max_LVA: 0.18
+  G_max_BK: 45.7
+  G_max_bk: 0.0144
+  G_max_kr_SM: 35
+  G_max_Na_SM: 3
+  G_max_ka_SM: 9
+  E_NSCC: -28
+  G_max_NSCC_SM: 50
+initial_state:
+  Vm_SM: -69.75
+  Ca_i: 8.0e-05
+  d_Ltype_SM: 0
+  f_Ltype_SM: 0.95
+  f_ca_Ltype_SM: 1
+  d_LVA_SM: 0.02
+  f_LVA_SM: 0.99
+  xr1_SM: 0
+  xr2_SM: 0.82
+  m_Na_SM: 0.005
+  h_Na_SM: 0.05787
+  xa1_SM: 0.00414
+  xa2_SM: 0.72
+  m_NSCC_SM: 0
+parameter_names:
+- Ach
+- Gcouple
+- T
+- T_exp
+- F
+- R
+- Q10Ca
+- Q10K
+- Q10Na
+- Ca_o
+- Na_o
+- K_o
+- Cl_o
+- Cm_SM
+- Vol_SM
+- Na_i
+- K_i
+- period
+- delta_VICC
+- t_ICCpeak
+- t_ICCplateau
+- t_ICC_stimulus
+- V_decay
+- G_max_Ltype
+- J_max_CaSR
+- G_max_LVA
+- G_max_BK
+- G_max_bk
+- G_max_kr_SM
+- G_max_Na_SM
+- G_max_ka_SM
+- E_NSCC
+- G_max_NSCC_SM
+state_names:
+- Vm_SM
+- Ca_i
+- d_Ltype_SM
+- f_Ltype_SM
+- f_ca_Ltype_SM
+- d_LVA_SM
+- f_LVA_SM
+- xr1_SM
+- xr2_SM
+- m_Na_SM
+- h_Na_SM
+- xa1_SM
+- xa2_SM
+- m_NSCC_SM

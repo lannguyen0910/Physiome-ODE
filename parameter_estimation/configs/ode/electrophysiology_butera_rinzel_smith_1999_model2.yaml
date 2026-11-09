@@ -1,0 +1,65 @@
+name: ElectrophysiologyButeraRinzelSmith1999Model2ODE
+state_dim: 4
+parameter_dim: 25
+parameters:
+  C: 21
+  i_app: 0
+  E_Na: 50
+  g_Na: 28
+  theta_m: -34
+  sigma_m: -5
+  tau_n_max: 10
+  theta_n: -29
+  sigma_n: -4
+  E_K: -85
+  g_K: 11.2
+  tau_n_max_2: 10
+  theta_n_2: -29
+  sigma_n_2: -4
+  g_KS: 5.6
+  tau_k_max: 10000
+  theta_k: -38
+  sigma_k: -6
+  g_NaP: 2.8
+  theta_m_2: -40
+  sigma_m_2: -6
+  g_L: 2.8
+  E_L: -50
+  g_tonic_e: 0
+  E_syn_e: 0
+initial_state:
+  V: -55
+  n: 0.01
+  n_2: 0.01
+  k: 0.22
+parameter_names:
+- C
+- i_app
+- E_Na
+- g_Na
+- theta_m
+- sigma_m
+- tau_n_max
+- theta_n
+- sigma_n
+- E_K
+- g_K
+- tau_n_max_2
+- theta_n_2
+- sigma_n_2
+- g_KS
+- tau_k_max
+- theta_k
+- sigma_k
+- g_NaP
+- theta_m_2
+- sigma_m_2
+- g_L
+- E_L
+- g_tonic_e
+- E_syn_e
+state_names:
+- V
+- n
+- n_2
+- k

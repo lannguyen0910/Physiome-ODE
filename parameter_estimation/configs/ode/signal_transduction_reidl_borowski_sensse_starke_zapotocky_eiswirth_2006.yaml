@@ -1,0 +1,37 @@
+name: SignalTransductionReidlBorowskiSensseStarkeZapotockyEiswirth2006ODE
+state_dim: 4
+parameter_dim: 11
+parameters:
+  sigma: 5.0e-07
+  CNG_tot: 1.3e-13
+  CaM_tot: 2.0e-05
+  km_CNG_0: 0.01
+  km_CaM4: 2.5
+  kp_CaM4: 1100000000
+  kp_CNG_i: 2100000
+  km_CNG_i: 0.34
+  i_Ca: 20000
+  k_Ca: 1.0e-10
+  K_Ca: 1.2e-07
+initial_state:
+  CNG_o: 0
+  CNG_i: 0
+  CaM4: 0
+  Ca: 0
+parameter_names:
+- sigma
+- CNG_tot
+- CaM_tot
+- km_CNG_0
+- km_CaM4
+- kp_CaM4
+- kp_CNG_i
+- km_CNG_i
+- i_Ca
+- k_Ca
+- K_Ca
+state_names:
+- CNG_o
+- CNG_i
+- CaM4
+- Ca

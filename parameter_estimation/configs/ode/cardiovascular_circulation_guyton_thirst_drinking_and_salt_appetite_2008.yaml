@@ -1,0 +1,29 @@
+name: CardiovascularCirculationGuytonThirstDrinkingAndSaltAppetite2008ODE
+state_dim: 1
+parameter_dim: 10
+parameters:
+  ADHC: 1
+  ANM: 0.987545
+  POT: 35.1148
+  ANMSLT: 2
+  Z10: 45
+  Z11: 0.01
+  AHTHM: 2
+  ANMTM: 1.5
+  DR: 0
+  TVDDL: 30
+initial_state:
+  TVD: 0.000980838
+parameter_names:
+- ADHC
+- ANM
+- POT
+- ANMSLT
+- Z10
+- Z11
+- AHTHM
+- ANMTM
+- DR
+- TVDDL
+state_names:
+- TVD

@@ -1,0 +1,27 @@
+name: ImmunologyBonhoefferRembiszewskiOrtizNixon2000CODE
+state_dim: 3
+parameter_dim: 7
+parameters:
+  s: 10
+  dT: 0.01
+  b: 0.001
+  p: 0.05
+  dI: 0.3
+  c: 0.3
+  dE: 0.1
+initial_state:
+  T: 1
+  I: 1
+  E: 1
+parameter_names:
+- s
+- dT
+- b
+- p
+- dI
+- c
+- dE
+state_names:
+- T
+- I
+- E

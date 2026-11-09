@@ -1,0 +1,177 @@
+name: CalciumDynamicsNobleNoble2001ODE
+state_dim: 20
+parameter_dim: 65
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  Cm: 9.5e-05
+  stim_start: 0.1
+  stim_end: 600
+  stim_period: 1
+  stim_duration: 0.002
+  stim_amplitude: -6
+  P_kna: 0.03
+  K_o: 4
+  Na_o: 140
+  Ca_o: 2
+  K_mk1: 10
+  g_K1: 0.5
+  g_Kr1: 0.0028
+  g_Kr2: 0.0017
+  g_Ks: 0.0016
+  g_Na: 0.5
+  delta_m: 1.0e-05
+  shift_h: 0
+  g_pna: 0.0027
+  g_bna: 0.0006
+  P_Ca_L: 1
+  P_CaK: 0.002
+  P_CaNa: 0.01
+  KCaChoff: 0.01
+  Kmdsinact: 0.001
+  FrICa: 0.7
+  speed_d: 3
+  speed_f: 0.3
+  delta_f: 0.0001
+  g_bca: 0.00025
+  g_to: 0.005
+  g_tos: 0
+  i_NaK_max: 0.7
+  K_mK: 1
+  K_mNa: 40
+  k_NaCa: 0.0005
+  n_NaCa: 3
+  d_NaCa: 0
+  gamma: 0.2
+  FRiNaCa: 0.001
+  K_cyca: 0.0003
+  K_xcs: 0.4
+  K_srca: 0.5
+  alpha_up: 0.4
+  beta_up: 0.03
+  K_leak_rate: 0.05
+  K_m_rel: 250
+  K_m_Ca_cyt: 0.0005
+  K_m_Ca_ds: 0.01
+  Calmod: 0.02
+  Trop: 0.05
+  alpha_Calmod: 100000
+  beta_Calmod: 50
+  alpha_Trop: 100000
+  beta_Trop: 200
+  radius: 12
+  length: 74
+  V_ds_ratio: 0.1
+  V_rel_ratio: 0.1
+  V_e_ratio: 0.4
+  V_up_ratio: 0.01
+  Kdecay: 10
+initial_state:
+  V: -93.0550060340878
+  K_i: 138.49601832864
+  Na_i: 5.68929064089788
+  Ca_i: 5.60867201979414e-06
+  xr1: 9.88715446781661e-06
+  xr2: 2.15138346929839e-07
+  xs: 6.72192033116639e-07
+  m: 0.00157541794600382
+  h: 0.99465397024286
+  Ca_ds: 2.15623822848619e-07
+  d: 2.27643784381792e-08
+  f: 4.03082807230434e-09
+  s: 0.999870016703514
+  r: 1.8398417043009e-08
+  Ca_up: 0.187470810108547
+  Ca_rel: 0.185609773872992
+  ActFrac: 0.000183030061767109
+  ProdFrac: 0.0109931117325847
+  Ca_Calmod: 0.000221858224298955
+  Ca_Trop: 0.00013982468565579
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- P_kna
+- K_o
+- Na_o
+- Ca_o
+- K_mk1
+- g_K1
+- g_Kr1
+- g_Kr2
+- g_Ks
+- g_Na
+- delta_m
+- shift_h
+- g_pna
+- g_bna
+- P_Ca_L
+- P_CaK
+- P_CaNa
+- KCaChoff
+- Kmdsinact
+- FrICa
+- speed_d
+- speed_f
+- delta_f
+- g_bca
+- g_to
+- g_tos
+- i_NaK_max
+- K_mK
+- K_mNa
+- k_NaCa
+- n_NaCa
+- d_NaCa
+- gamma
+- FRiNaCa
+- K_cyca
+- K_xcs
+- K_srca
+- alpha_up
+- beta_up
+- K_leak_rate
+- K_m_rel
+- K_m_Ca_cyt
+- K_m_Ca_ds
+- Calmod
+- Trop
+- alpha_Calmod
+- beta_Calmod
+- alpha_Trop
+- beta_Trop
+- radius
+- length
+- V_ds_ratio
+- V_rel_ratio
+- V_e_ratio
+- V_up_ratio
+- Kdecay
+state_names:
+- V
+- K_i
+- Na_i
+- Ca_i
+- xr1
+- xr2
+- xs
+- m
+- h
+- Ca_ds
+- d
+- f
+- s
+- r
+- Ca_up
+- Ca_rel
+- ActFrac
+- ProdFrac
+- Ca_Calmod
+- Ca_Trop

@@ -1,0 +1,63 @@
+name: ElectrophysiologyNiedererHunterSmith2006ODE
+state_dim: 5
+parameter_dim: 23
+parameters:
+  Ca_TRPN_Max: 0.07
+  k_on: 100
+  k_Ref_off: 0.2
+  gamma_trpn: 2
+  alpha_0: 0.008
+  alpha_r1: 0.002
+  alpha_r2: 0.00175
+  n_Rel: 3
+  K_z: 0.15
+  n_Hill: 3
+  Ca_50ref: 0.00105
+  z_p: 0.85
+  beta_1: -4
+  beta_0: 4.9
+  T_ref: 56.2
+  a: 0.35
+  A_1: -29
+  A_2: 138
+  A_3: 129
+  alpha_1: 0.03
+  alpha_2: 0.13
+  alpha_3: 0.625
+  dExtensionRatiodt: 0
+initial_state:
+  TRPN: 0.067593139865
+  z: 0.014417937837
+  Q_1: 0
+  Q_2: 0
+  Q_3: 0
+parameter_names:
+- Ca_TRPN_Max
+- k_on
+- k_Ref_off
+- gamma_trpn
+- alpha_0
+- alpha_r1
+- alpha_r2
+- n_Rel
+- K_z
+- n_Hill
+- Ca_50ref
+- z_p
+- beta_1
+- beta_0
+- T_ref
+- a
+- A_1
+- A_2
+- A_3
+- alpha_1
+- alpha_2
+- alpha_3
+- dExtensionRatiodt
+state_names:
+- TRPN
+- z
+- Q_1
+- Q_2
+- Q_3

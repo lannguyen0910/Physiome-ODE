@@ -1,0 +1,39 @@
+name: ImmunologyMittlerSulzerNeumannPerelson1998ODE
+state_dim: 7
+parameter_dim: 9
+parameters:
+  k: 2.4e-05
+  p: 774
+  c: 3
+  delta: 0.5
+  VI_0: 200000
+  tau_p: 0
+  b: 0.25
+  m: 0.01
+  n: 4
+initial_state:
+  I: 0.1
+  E4: 0
+  VI: 200000
+  VNI: 0
+  E1: 0
+  E2: 0
+  E3: 0
+parameter_names:
+- k
+- p
+- c
+- delta
+- VI_0
+- tau_p
+- b
+- m
+- n
+state_names:
+- I
+- E4
+- VI
+- VNI
+- E1
+- E2
+- E3

@@ -1,0 +1,35 @@
+name: EndocrineJelicCupicKolaranic2005Fig5ODE
+state_dim: 2
+parameter_dim: 12
+parameters:
+  alpha: 0.008
+  beta: 1.485
+  gamma: 11.385
+  L: 0.1
+  k2: 0.0006
+  k3: 4.8e-06
+  k6: 0.000891
+  k7: 0.006831
+  k0: 8.7831e-11
+  k4: 2100000000000
+  km: 6.9001e-14
+  K: 30
+initial_state:
+  a: 4.39927
+  g: 1.96477
+parameter_names:
+- alpha
+- beta
+- gamma
+- L
+- k2
+- k3
+- k6
+- k7
+- k0
+- k4
+- km
+- K
+state_names:
+- a
+- g

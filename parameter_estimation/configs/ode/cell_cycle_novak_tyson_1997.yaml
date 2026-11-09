@@ -1,0 +1,119 @@
+name: CellCycleNovakTyson1997ODE
+state_dim: 13
+parameter_dim: 43
+parameters:
+  k1: 0.015
+  k2: 0.05
+  k3: 0.09375
+  k4: 0.1875
+  k5: 0.00175
+  k6: 0
+  k7: 100
+  k7r: 0.1
+  k8: 10
+  k8r: 0.1
+  ku: 0.2
+  kp: 3.25
+  kur: 0.1
+  ku2: 1
+  kur2: 0.3
+  kc: 1
+  kcr: 0.25
+  kw: 1
+  kwr: 0.25
+  ki: 0.4
+  kir: 0.1
+  mu: 0.00495
+  Kmu2: 0.05
+  Kmur2: 0.05
+  Kmi: 0.01
+  Kmir: 0.01
+  Kmw: 0.1
+  Kmwr: 0.1
+  Kmu: 0.01
+  Kmur: 0.01
+  Kmc: 0.1
+  Kmcr: 0.1
+  Kmp: 0.001
+  V2: 0.25
+  V2_2: 0.0075
+  V6: 7.5
+  V6_2: 0.0375
+  V25: 0.5
+  V25_2: 0.025
+  Vw: 0.35
+  Vw_2: 0.035
+  alpha: 0.25
+  beta: 0.05
+initial_state:
+  Cdc25: 0
+  UbE: 1
+  UbE2: 0
+  Wee1: 0
+  G1K: 0
+  G2K: 0
+  PG2: 0
+  G2R: 0
+  R: 0.4
+  G1R: 0
+  PG2R: 0
+  mass: 0.5
+  IE: 0
+parameter_names:
+- k1
+- k2
+- k3
+- k4
+- k5
+- k6
+- k7
+- k7r
+- k8
+- k8r
+- ku
+- kp
+- kur
+- ku2
+- kur2
+- kc
+- kcr
+- kw
+- kwr
+- ki
+- kir
+- mu
+- Kmu2
+- Kmur2
+- Kmi
+- Kmir
+- Kmw
+- Kmwr
+- Kmu
+- Kmur
+- Kmc
+- Kmcr
+- Kmp
+- V2
+- V2_2
+- V6
+- V6_2
+- V25
+- V25_2
+- Vw
+- Vw_2
+- alpha
+- beta
+state_names:
+- Cdc25
+- UbE
+- UbE2
+- Wee1
+- G1K
+- G2K
+- PG2
+- G2R
+- R
+- G1R
+- PG2R
+- mass
+- IE

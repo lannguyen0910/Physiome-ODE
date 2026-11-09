@@ -1,0 +1,179 @@
+name: ElectrophysiologyEspinosa1998HypertrophicODE
+state_dim: 21
+parameter_dim: 65
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  Cm: 9.5e-05
+  stim_start: 0.02
+  stim_end: 9
+  stim_period: 0.5
+  stim_duration: 0.002
+  stim_amplitude: -1.8
+  Na_o: 148.5
+  Ca_o: 2.5
+  K_mk1: 10
+  g_K1: 0.12
+  i_K_max: 1.5
+  delta_x: 0.0001
+  g_Na: 0.6
+  delta_m: 1.0e-05
+  shift_h: 0
+  g_bna: 0.0001
+  g_bk: 0.004
+  P_Ca_L: 0.045
+  P_CaK: 0.003
+  P_CaNa: 0.01
+  Km_f2: 100000
+  Km_f2ds: 0.001
+  R_decay: 20
+  FrICa: 1
+  speed_d: 10
+  speed_f: 2
+  delta_f: 0.0001
+  g_bca: 0.00025
+  g_to: 0.048
+  g_tos: 0.15
+  i_NaK_max: 0.7
+  K_mK: 1
+  K_mNa: 40
+  k_NaCa: 0.0002
+  n_NaCa: 3
+  d_NaCa: 0.001
+  gamma: 0.5
+  FRiNaCa: 0.001
+  K_cyca: 0.0003
+  K_xcs: 0.4
+  K_srca: 0.5
+  alpha_up: 0.4
+  beta_up: 0.03
+  K_leak_rate: 0.05
+  K_m_rel: 250
+  K_m_Ca_cyt: 0.0005
+  K_m_Ca_ds: 0.01
+  K_b: 5.4
+  pf: 0.7
+  Calmod: 0.02
+  Trop: 0.05
+  alpha_Calmod: 100000
+  beta_Calmod: 50
+  alpha_Trop: 100000
+  beta_Trop: 200
+  radius: 12
+  length: 74
+  V_ds_ratio: 0.1
+  V_rel_ratio: 0.1
+  V_e_ratio: 0.4
+  V_up_ratio: 0.01
+  Kdecay: 10
+initial_state:
+  V: -85.35765
+  K_o: 5.3367
+  K_i: 140.096
+  Na_i: 6.9366
+  Ca_i: 3.792e-05
+  x: 3.5095e-06
+  m: 0.00448
+  h: 0.9704
+  Ca_ds: 0.00077
+  d: 4.171e-12
+  f: 0.999997
+  f2: 0.99279
+  f2ds: 0.459
+  s: 0.9379
+  r: 2.6578e-05
+  Ca_up: 0.3342
+  Ca_rel: 0.31007
+  ActFrac: 0.0112
+  ProdFrac: 0.9059
+  Ca_Calmod: 0.001419
+  Ca_Trop: 0.000932
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- Na_o
+- Ca_o
+- K_mk1
+- g_K1
+- i_K_max
+- delta_x
+- g_Na
+- delta_m
+- shift_h
+- g_bna
+- g_bk
+- P_Ca_L
+- P_CaK
+- P_CaNa
+- Km_f2
+- Km_f2ds
+- R_decay
+- FrICa
+- speed_d
+- speed_f
+- delta_f
+- g_bca
+- g_to
+- g_tos
+- i_NaK_max
+- K_mK
+- K_mNa
+- k_NaCa
+- n_NaCa
+- d_NaCa
+- gamma
+- FRiNaCa
+- K_cyca
+- K_xcs
+- K_srca
+- alpha_up
+- beta_up
+- K_leak_rate
+- K_m_rel
+- K_m_Ca_cyt
+- K_m_Ca_ds
+- K_b
+- pf
+- Calmod
+- Trop
+- alpha_Calmod
+- beta_Calmod
+- alpha_Trop
+- beta_Trop
+- radius
+- length
+- V_ds_ratio
+- V_rel_ratio
+- V_e_ratio
+- V_up_ratio
+- Kdecay
+state_names:
+- V
+- K_o
+- K_i
+- Na_i
+- Ca_i
+- x
+- m
+- h
+- Ca_ds
+- d
+- f
+- f2
+- f2ds
+- s
+- r
+- Ca_up
+- Ca_rel
+- ActFrac
+- ProdFrac
+- Ca_Calmod
+- Ca_Trop

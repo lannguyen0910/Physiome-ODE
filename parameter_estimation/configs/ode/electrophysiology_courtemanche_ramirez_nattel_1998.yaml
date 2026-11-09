@@ -1,0 +1,139 @@
+name: ElectrophysiologyCourtemancheRamirezNattel1998ODE
+state_dim: 21
+parameter_dim: 45
+parameters:
+  R: 8.3143
+  T: 310
+  F: 96.4867
+  Cm: 100
+  stim_start: 50
+  stim_end: 50000
+  stim_period: 1000
+  stim_duration: 2
+  stim_amplitude: -2000
+  g_Na: 7.8
+  Na_o: 140
+  g_K1: 0.09
+  K_o: 5.4
+  K_Q10: 3
+  g_to: 0.1652
+  g_Kr: 0.029411765
+  g_Ks: 0.12941176
+  g_Ca_L: 0.12375
+  Km_Na_i: 10
+  Km_K_o: 1.5
+  i_NaK_max: 0.59933874
+  g_B_Na: 0.0006744375
+  g_B_Ca: 0.001131
+  g_B_K: 0
+  Ca_o: 1.8
+  I_NaCa_max: 1600
+  K_mNa: 87.5
+  K_mCa: 1.38
+  K_sat: 0.1
+  gamma: 0.35
+  i_CaP_max: 0.275
+  K_rel: 30
+  tau_tr: 180
+  I_up_max: 0.005
+  K_up: 0.00092
+  Ca_up_max: 15
+  CMDN_max: 0.05
+  TRPN_max: 0.07
+  CSQN_max: 10
+  Km_CMDN: 0.00238
+  Km_TRPN: 0.0005
+  Km_CSQN: 0.8
+  V_cell: 20100
+  tau_f_Ca: 2
+  tau_u: 8
+initial_state:
+  V: -81.18
+  Na_i: 11.17
+  m: 0.002908
+  h: 0.9649
+  j: 0.9775
+  K_i: 139
+  oa: 0.03043
+  oi: 0.9992
+  ua: 0.004966
+  ui: 0.9986
+  xr: 3.296e-05
+  xs: 0.01869
+  Ca_i: 0.0001013
+  d: 0.0001367
+  f: 0.9996
+  f_Ca: 0.7755
+  Ca_rel: 1.488
+  u: 2.35e-112
+  v: 1
+  w: 0.9992
+  Ca_up: 1.488
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- g_Na
+- Na_o
+- g_K1
+- K_o
+- K_Q10
+- g_to
+- g_Kr
+- g_Ks
+- g_Ca_L
+- Km_Na_i
+- Km_K_o
+- i_NaK_max
+- g_B_Na
+- g_B_Ca
+- g_B_K
+- Ca_o
+- I_NaCa_max
+- K_mNa
+- K_mCa
+- K_sat
+- gamma
+- i_CaP_max
+- K_rel
+- tau_tr
+- I_up_max
+- K_up
+- Ca_up_max
+- CMDN_max
+- TRPN_max
+- CSQN_max
+- Km_CMDN
+- Km_TRPN
+- Km_CSQN
+- V_cell
+- tau_f_Ca
+- tau_u
+state_names:
+- V
+- Na_i
+- m
+- h
+- j
+- K_i
+- oa
+- oi
+- ua
+- ui
+- xr
+- xs
+- Ca_i
+- d
+- f
+- f_Ca
+- Ca_rel
+- u
+- v
+- w
+- Ca_up

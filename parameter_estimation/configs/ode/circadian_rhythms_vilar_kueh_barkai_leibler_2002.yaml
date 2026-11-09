@@ -1,0 +1,57 @@
+name: CircadianRhythmsVilarKuehBarkaiLeibler2002ODE
+state_dim: 9
+parameter_dim: 16
+parameters:
+  Gamma_1: 2
+  Delta_1: 1
+  Delta_2: 1
+  Delta_3: 0.2
+  Gamma_2: 1
+  Thetha_1: 50
+  Alpha_1: 50
+  Alpha_2: 500
+  Delta_4: 10
+  BetaA_1: 50
+  Gamma_3: 1
+  Theta_2: 100
+  Alpha_3: 0.01
+  Alpha_4: 50
+  Delta_5: 0.5
+  BetaR_1: 5
+initial_state:
+  A: 0
+  C: 0
+  DA: 1
+  DAp: 0
+  DR: 1
+  DRP: 1
+  MA: 0
+  MR: 0
+  R: 0
+parameter_names:
+- Gamma_1
+- Delta_1
+- Delta_2
+- Delta_3
+- Gamma_2
+- Thetha_1
+- Alpha_1
+- Alpha_2
+- Delta_4
+- BetaA_1
+- Gamma_3
+- Theta_2
+- Alpha_3
+- Alpha_4
+- Delta_5
+- BetaR_1
+state_names:
+- A
+- C
+- DA
+- DAp
+- DR
+- DRP
+- MA
+- MR
+- R

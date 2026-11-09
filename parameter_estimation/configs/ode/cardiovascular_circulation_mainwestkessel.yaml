@@ -1,0 +1,56 @@
+name: CardiovascularCirculationMainWestkesselODE
+state_dim: 3
+parameter_dim: 21
+parameters:
+  CVao: 350
+  PlvIni: 1
+  VlvIni: 5
+  Vlv0: 500
+  CVmi: 400
+  PlaIni: 1
+  VlaIni: 4
+  Vla0: 20
+  ElvMax: 2.5
+  ElvMin: 0.1
+  T: 1
+  Ts1: 0.3
+  Ts2: 0.45
+  ElaMax: 0.25
+  ElaMin: 0.15
+  Tpwb: 0.92
+  Tpww: 0.09
+  Rc: 0.005
+  Rv: 0.65
+  Cv: 2.6
+  P0v: 0
+initial_state:
+  V: 500
+  V_2: 20
+  Pi: 0
+parameter_names:
+- CVao
+- PlvIni
+- VlvIni
+- Vlv0
+- CVmi
+- PlaIni
+- VlaIni
+- Vla0
+- ElvMax
+- ElvMin
+- T
+- Ts1
+- Ts2
+- ElaMax
+- ElaMin
+- Tpwb
+- Tpww
+- Rc
+- Rv
+- Cv
+- P0v
+state_names:
+- V
+- V_2
+- Pi
+requires_dae_solver: true

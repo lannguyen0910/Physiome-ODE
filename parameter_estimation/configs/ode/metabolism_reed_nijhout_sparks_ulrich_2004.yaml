@@ -1,0 +1,57 @@
+name: MetabolismReedNijhoutSparksUlrich2004ODE
+state_dim: 4
+parameter_dim: 21
+parameters:
+  V_MATImax: 561
+  Km_MATI: 41
+  Ki_MATI: 50
+  V_MATIIImax: 22870
+  Km2_MATIII: 21.1
+  V_GNMTmax: 10600
+  Km_GNMT: 4500
+  Ki_GNMT: 20
+  V_METHmax: 4521
+  Km2_METH_A: 10
+  five_mTHF: 5.2
+  V_MSmax: 500
+  Kd_MS: 1
+  Km_Hcy_MS: 0.1
+  Km_five_mTHF_MS: 25
+  alpha1: 100
+  alpha2: 10
+  beta1: 1.7
+  beta2: 30
+  V_BHMTmax: 2500
+  Km_BHMT: 12
+initial_state:
+  Met: 53.5
+  AdoMet: 137.6
+  AdoHcy: 13.2
+  Hcy: 0.88
+parameter_names:
+- V_MATImax
+- Km_MATI
+- Ki_MATI
+- V_MATIIImax
+- Km2_MATIII
+- V_GNMTmax
+- Km_GNMT
+- Ki_GNMT
+- V_METHmax
+- Km2_METH_A
+- five_mTHF
+- V_MSmax
+- Kd_MS
+- Km_Hcy_MS
+- Km_five_mTHF_MS
+- alpha1
+- alpha2
+- beta1
+- beta2
+- V_BHMTmax
+- Km_BHMT
+state_names:
+- Met
+- AdoMet
+- AdoHcy
+- Hcy

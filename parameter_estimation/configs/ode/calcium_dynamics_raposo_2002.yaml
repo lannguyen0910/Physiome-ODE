@@ -1,0 +1,105 @@
+name: CalciumDynamicsRaposo2002ODE
+state_dim: 11
+parameter_dim: 38
+parameters:
+  J_bp_Ca: 3.3
+  J_pu_Ca: 0.21
+  J_pu_P: 1.27
+  C_PTH_p: 3.85
+  k_PTH: 100
+  S_E: 1
+  k_E: 0.05
+  k_D: 0.1
+  k2_P: 1
+  J_P_ing: 1
+  Stoic_Ca_P: 0.464
+  k_Ca_i: 1
+  C_Ca_i: 1
+  C_Ca_p: 2.4
+  C_P_p: 1.2
+  k_Ca_b: 1
+  k3_P: 1
+  k4_P: 51.8
+  C_D_p: 90
+  Y_Ca_i_2plus_Max: 1
+  Y_PTH_p_2plus_Max: 1
+  Y_PTH_p_2minus_Max: 1
+  Y_Ca_p_1plus_minus_Max: 0.02
+  Y_i_D_p_1plus_minus_Max: 0.02
+  Y_PT_D_p_1plus_minus_Max: 0.01
+  Y_k_Jext_1plus_minus_Max: 0.01
+  X_R_PTH_Ca: 1
+  X_R_i_Ca: 1
+  X_R_PTH_D: 90
+  X_R_E_PTH: 3.85
+  X_R_i_D: 90
+  X_R_P_k_PTH: 90
+  b_PTH_Ca: 0.05
+  b_PTH_D: 0.03
+  b_E_PTH: 0.55
+  b_i_D: 0.03
+  a: 0.85
+  d: 0.15
+initial_state:
+  Q_Ca_p: 1
+  Q_P_p: 1
+  Q_P_c: 3226
+  Q_PTH_p: 1
+  Q_Ca_b: 100
+  Q_P_b: 1
+  Q_E_k: 1
+  Q_D_p: 1
+  Q_TCa_i: 1
+  Q_C_PT: 1
+  Q_TP_k: 1
+parameter_names:
+- J_bp_Ca
+- J_pu_Ca
+- J_pu_P
+- C_PTH_p
+- k_PTH
+- S_E
+- k_E
+- k_D
+- k2_P
+- J_P_ing
+- Stoic_Ca_P
+- k_Ca_i
+- C_Ca_i
+- C_Ca_p
+- C_P_p
+- k_Ca_b
+- k3_P
+- k4_P
+- C_D_p
+- Y_Ca_i_2plus_Max
+- Y_PTH_p_2plus_Max
+- Y_PTH_p_2minus_Max
+- Y_Ca_p_1plus_minus_Max
+- Y_i_D_p_1plus_minus_Max
+- Y_PT_D_p_1plus_minus_Max
+- Y_k_Jext_1plus_minus_Max
+- X_R_PTH_Ca
+- X_R_i_Ca
+- X_R_PTH_D
+- X_R_E_PTH
+- X_R_i_D
+- X_R_P_k_PTH
+- b_PTH_Ca
+- b_PTH_D
+- b_E_PTH
+- b_i_D
+- a
+- d
+state_names:
+- Q_Ca_p
+- Q_P_p
+- Q_P_c
+- Q_PTH_p
+- Q_Ca_b
+- Q_P_b
+- Q_E_k
+- Q_D_p
+- Q_TCa_i
+- Q_C_PT
+- Q_TP_k

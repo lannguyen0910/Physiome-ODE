@@ -1,0 +1,33 @@
+name: SignalTransductionVilarRnx2006ODE
+state_dim: 6
+parameter_dim: 7
+parameters:
+  ka: 1
+  kcd: 0.0277777778
+  klid: 0.25
+  ki: 0.333333333
+  p_RI: 8
+  kr: 0.033333333
+  p_RII: 4
+initial_state:
+  RI: 20
+  RII: 20
+  l_RI_RII: 0
+  RI_endo: 0
+  l_RI_RII_endo: 40
+  RII_endo: 0
+parameter_names:
+- ka
+- kcd
+- klid
+- ki
+- p_RI
+- kr
+- p_RII
+state_names:
+- RI
+- RII
+- l_RI_RII
+- RI_endo
+- l_RI_RII_endo
+- RII_endo

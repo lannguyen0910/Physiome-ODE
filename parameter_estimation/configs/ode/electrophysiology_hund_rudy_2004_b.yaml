@@ -1,0 +1,177 @@
+name: ElectrophysiologyHundRudy2004BODE
+state_dim: 29
+parameter_dim: 56
+parameters:
+  F: 96485
+  K_o: 5.4
+  Ca_o: 1.8
+  Na_o: 140
+  Cl_o: 100
+  FonRT: 0.0374358835078
+  tissue: 0
+  l: 0.01
+  a: 0.0011
+  stim_offset: 0
+  stim_period: 1000
+  stim_duration: 3
+  stim_amplitude: -15
+  pca: 0.000243
+  gacai: 1
+  gacao: 0.341
+  gitodv: 0.19
+  kmnai: 10
+  kmko: 1.5
+  ibarnak: 0.61875
+  KmCa: 0.000125
+  NCXmax: 4.5
+  ksat: 0.27
+  eta: 0.35
+  KmNai: 12.3
+  KmNao: 87.5
+  KmCai: 0.0036
+  KmCao: 1.3
+  ibarpca: 0.0575
+  kmpca: 0.0005
+  PCl: 4.0e-07
+  Kmto2: 0.1502
+  GClb: 0.000225
+  GNaL: 0.0065
+  prnak: 0.01833
+  dtau_rel_max: 10
+  CaMK0: 0.05
+  Km: 0.0015
+  KmCaMK: 0.15
+  dKmPLBmax: 0.00017
+  dJupmax: 0.75
+  iupmax: 0.004375
+  Kmup: 0.00092
+  nsrmax: 15
+  CTNaClmax: 9.8443e-06
+  CTKClmax: 7.0756e-06
+  kmt: 0.0005
+  kmc: 0.00238
+  tbar: 0.07
+  cbar: 0.05
+  kmcsqn: 0.8
+  csqnbar: 10
+  BSRmax: 0.047
+  KmBSR: 0.00087
+  BSLmax: 1.124
+  KmBSL: 0.0087
+initial_state:
+  V: -85.781844107117
+  H: 0.987317750543
+  m: 0.001356538159
+  J: 0.991924983076
+  Ca_ss: 0.00012271265
+  d: 1.64013e-06
+  dp: 8.98230672628
+  f: 0.999961508634
+  fca: 0.97836624923
+  fca2: 0.893052931249
+  f2: 0.992234519148
+  xr: 7.24074e-06
+  Ca_i: 0.00012131666
+  xs1: 0.019883138161
+  xs2: 0.019890650554
+  ydv: 0.013970786703
+  ydv2: 0.99996472752
+  zdv: 0.829206149767
+  Na_i: 12.972433387269
+  Cl_i: 15.59207157178
+  AA: 0.000816605172
+  mL: 0.001356538159
+  hL: 0.26130711759
+  K_i: 135.469546216758
+  Ca_jsr: 1.737580994071
+  CaMKtrap: 0.021123704774
+  ro: 0
+  ri: 0.862666650318
+  Ca_nsr: 1.832822335168
+parameter_names:
+- F
+- K_o
+- Ca_o
+- Na_o
+- Cl_o
+- FonRT
+- tissue
+- l
+- a
+- stim_offset
+- stim_period
+- stim_duration
+- stim_amplitude
+- pca
+- gacai
+- gacao
+- gitodv
+- kmnai
+- kmko
+- ibarnak
+- KmCa
+- NCXmax
+- ksat
+- eta
+- KmNai
+- KmNao
+- KmCai
+- KmCao
+- ibarpca
+- kmpca
+- PCl
+- Kmto2
+- GClb
+- GNaL
+- prnak
+- dtau_rel_max
+- CaMK0
+- Km
+- KmCaMK
+- dKmPLBmax
+- dJupmax
+- iupmax
+- Kmup
+- nsrmax
+- CTNaClmax
+- CTKClmax
+- kmt
+- kmc
+- tbar
+- cbar
+- kmcsqn
+- csqnbar
+- BSRmax
+- KmBSR
+- BSLmax
+- KmBSL
+state_names:
+- V
+- H
+- m
+- J
+- Ca_ss
+- d
+- dp
+- f
+- fca
+- fca2
+- f2
+- xr
+- Ca_i
+- xs1
+- xs2
+- ydv
+- ydv2
+- zdv
+- Na_i
+- Cl_i
+- AA
+- mL
+- hL
+- K_i
+- Ca_jsr
+- CaMKtrap
+- ro
+- ri
+- Ca_nsr

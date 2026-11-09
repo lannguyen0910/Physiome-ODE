@@ -1,0 +1,161 @@
+name: ElectrophysiologyInadaN2009ODE
+state_dim: 29
+parameter_dim: 48
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  C: 4.0e-05
+  g_f: 0.001
+  ACh: 0
+  g_Kr: 0.0035
+  Ki: 140
+  Kc: 5.4
+  g_K1: 0
+  g_b: 0.0012
+  E_b: -22.5
+  I_p: 0.14268
+  Nai: 8
+  kNaCa: 2.14455
+  Qci: 0.1369
+  Qn: 0.4315
+  Qco: 0
+  Kci: 0.0207
+  K1ni: 395.3
+  K2ni: 2.289
+  K3ni: 26.44
+  Kcni: 26.44
+  K3no: 4.663
+  K1no: 1628
+  K2no: 561.4
+  Kco: 3.663
+  Cao: 2
+  Nao: 140
+  g_Na: 0
+  delta_m: 1.0e-05
+  g_CaL: 0.009
+  E_CaL: 62
+  act_shift: -15
+  slope_factor_act: -5
+  inact_shift: -5
+  inact_shift_2: -5
+  g_to: 0
+  E_st: -37.4
+  g_st: 0.0001
+  g_ACh_max: 0.0198
+  K_ACh: 0.00035
+  alpha_achf: 73.1
+  alpha_achs: 3.7
+  V_cell: 3.18872e-06
+  P_rel: 1500
+  K_up: 0.0006
+  tau_tr: 0.06
+initial_state:
+  V: -49.7094187908202
+  y: 0.0462303183096481
+  paf: 0.192515363116553
+  pas: 0.0797182955833868
+  pik: 0.949023698965401
+  Casub: 0.000160310601192365
+  m: 0.143642247226618
+  h1: 0.0243210273637729
+  h2: 0.0157156121147801
+  d: 0.00179250298710316
+  f: 0.975550840189597
+  f2: 0.774394220125623
+  r: 0.0296516611999521
+  q_fast: 0.899732315818241
+  q_slow: 0.190111737767474
+  qa: 0.476404610622697
+  qi: 0.542303657353244
+  achf: 0.550559577208797
+  achs: 0.567277036232041
+  Cai: 0.000184969821581882
+  Ca_up: 1.11092514657408
+  Ca_rel: 0.296249516481577
+  f_TC: 0.0356473236675985
+  f_TMC: 0.443317425115817
+  f_TMM: 0.491718960234865
+  f_CMi: 0.0723007987059414
+  f_CMs: 0.0630771339141488
+  f_CQ: 0.261430602900137
+  f_CSL: 4.1497704886823e-05
+parameter_names:
+- R
+- T
+- F
+- C
+- g_f
+- ACh
+- g_Kr
+- Ki
+- Kc
+- g_K1
+- g_b
+- E_b
+- I_p
+- Nai
+- kNaCa
+- Qci
+- Qn
+- Qco
+- Kci
+- K1ni
+- K2ni
+- K3ni
+- Kcni
+- K3no
+- K1no
+- K2no
+- Kco
+- Cao
+- Nao
+- g_Na
+- delta_m
+- g_CaL
+- E_CaL
+- act_shift
+- slope_factor_act
+- inact_shift
+- inact_shift_2
+- g_to
+- E_st
+- g_st
+- g_ACh_max
+- K_ACh
+- alpha_achf
+- alpha_achs
+- V_cell
+- P_rel
+- K_up
+- tau_tr
+state_names:
+- V
+- y
+- paf
+- pas
+- pik
+- Casub
+- m
+- h1
+- h2
+- d
+- f
+- f2
+- r
+- q_fast
+- q_slow
+- qa
+- qi
+- achf
+- achs
+- Cai
+- Ca_up
+- Ca_rel
+- f_TC
+- f_TMC
+- f_TMM
+- f_CMi
+- f_CMs
+- f_CQ
+- f_CSL

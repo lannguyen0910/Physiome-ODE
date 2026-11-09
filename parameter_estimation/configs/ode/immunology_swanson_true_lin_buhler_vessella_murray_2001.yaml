@@ -1,0 +1,21 @@
+name: ImmunologySwansonTrueLinBuhlerVessellaMurray2001ODE
+state_dim: 1
+parameter_dim: 6
+parameters:
+  Vo: 20
+  Vh: 0
+  beta_h: 0
+  beta_c: 1.721
+  gamma: 1.2896
+  rho: 0.0655
+initial_state:
+  p: 0
+parameter_names:
+- Vo
+- Vh
+- beta_h
+- beta_c
+- gamma
+- rho
+state_names:
+- p

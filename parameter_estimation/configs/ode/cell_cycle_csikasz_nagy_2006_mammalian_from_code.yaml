@@ -1,0 +1,221 @@
+name: CellCycleCsikaszNagy2006MammalianFromCodeODE
+state_dim: 14
+parameter_dim: 93
+parameters:
+  k_assa: 25
+  k_dissa: 1
+  k_assb: 0
+  k_dissb: 0
+  k_disse: 1
+  k_asse: 50
+  CycD_0: 0.05
+  k_a20: 0.5
+  k_i20: 0.25
+  k_d20: 0.15
+  J_a20: 0.005
+  J_i20: 0.005
+  k_s20p: 0
+  k_s20pp: 0.15
+  n20: 1
+  J_20: 1
+  J_a20_2: 0.005
+  J_i20_2: 0.005
+  APC_T: 1
+  k_aie: 0.07
+  k_iie: 0.18
+  J_aie: 0.01
+  J_iie: 0.01
+  Cdh1_T: 1
+  J_ah1: 0.01
+  J_ih1: 0.01
+  mu: 0.004951
+  maxmass: 10000
+  k_atfp: 0
+  k_atfapp: 0.2
+  k_atfepp: 0.5
+  k_atfdpp: 3
+  k_itfp: 0.25
+  k_itfapp: 0.1
+  k_itfbpp: 0.1
+  J_itf: 0.01
+  J_atf: 0.01
+  k_dep: 0.01
+  k_deepp: 0.1
+  k_deapp: 0.5
+  k_debpp: 0.5
+  k_dap: 0.02
+  k_dapp: 2
+  k_dappp: 0
+  k_afi: 88
+  k_ifip: 88
+  k_ifibpp: 88
+  J_ifi: 88
+  J_afi: 88
+  k_ah1p: 0.18
+  k_ah1pp: 3.5
+  k_ih1p: 0
+  k_ih1app: 0.2
+  k_ih1bpp: 1
+  k_ih1epp: 0.1
+  k_ih1dpp: 0
+  k_sip: 1.8
+  k_sipp: 0
+  k_dip: 0.8
+  k_diapp: 5
+  k_diepp: 5
+  k_didpp: 0
+  k_dibpp: 5
+  k_14di: 0
+  k_afb: 1
+  k_ifb: 0.1
+  J_ifb: 0.1
+  J_afb: 0.1
+  k_sbp: 0.01
+  k_sbpp: 0.03
+  k_sap: 0
+  k_sapp: 0.025
+  k_sep: 0.01
+  k_sepp: 0.18
+  k_dbp: 0.005
+  k_dbhpp: 2
+  k_dbcpp: 0.1
+  k_aweep: 0.3
+  k_aweepp: 0
+  k_iweep: 0
+  k_iweepp: 1
+  J_iwee: 0.05
+  J_awee: 0.05
+  k_weep: 0.02
+  k_weepp: 0.2
+  k_a25p: 0
+  k_a25pp: 1
+  k_i25p: 0.3
+  k_i25pp: 0
+  J_i25: 0.1
+  J_a25: 0.1
+  k_25p: 0.01
+  k_25pp: 5
+initial_state:
+  CycA: 0.00994044542312622
+  Tri_A: 0.01715379953384399
+  CKI: 0.2954076826572418
+  CycB: 0.1668413728475571
+  pB: 0.009814870543777943
+  BCKI: 0
+  CycE: 0.07760512828826904
+  Tri_E: 0.3117263317108154
+  mass: 1.174216866493225
+  Cdc20_A: 0.6605867147445679
+  APCP: 0.6716265678405762
+  Cdc20_i: 0.01855352707207203
+  pBCKI: 0
+  Cdh1: 0.9992357492446899
+parameter_names:
+- k_assa
+- k_dissa
+- k_assb
+- k_dissb
+- k_disse
+- k_asse
+- CycD_0
+- k_a20
+- k_i20
+- k_d20
+- J_a20
+- J_i20
+- k_s20p
+- k_s20pp
+- n20
+- J_20
+- J_a20_2
+- J_i20_2
+- APC_T
+- k_aie
+- k_iie
+- J_aie
+- J_iie
+- Cdh1_T
+- J_ah1
+- J_ih1
+- mu
+- maxmass
+- k_atfp
+- k_atfapp
+- k_atfepp
+- k_atfdpp
+- k_itfp
+- k_itfapp
+- k_itfbpp
+- J_itf
+- J_atf
+- k_dep
+- k_deepp
+- k_deapp
+- k_debpp
+- k_dap
+- k_dapp
+- k_dappp
+- k_afi
+- k_ifip
+- k_ifibpp
+- J_ifi
+- J_afi
+- k_ah1p
+- k_ah1pp
+- k_ih1p
+- k_ih1app
+- k_ih1bpp
+- k_ih1epp
+- k_ih1dpp
+- k_sip
+- k_sipp
+- k_dip
+- k_diapp
+- k_diepp
+- k_didpp
+- k_dibpp
+- k_14di
+- k_afb
+- k_ifb
+- J_ifb
+- J_afb
+- k_sbp
+- k_sbpp
+- k_sap
+- k_sapp
+- k_sep
+- k_sepp
+- k_dbp
+- k_dbhpp
+- k_dbcpp
+- k_aweep
+- k_aweepp
+- k_iweep
+- k_iweepp
+- J_iwee
+- J_awee
+- k_weep
+- k_weepp
+- k_a25p
+- k_a25pp
+- k_i25p
+- k_i25pp
+- J_i25
+- J_a25
+- k_25p
+- k_25pp
+state_names:
+- CycA
+- Tri_A
+- CKI
+- CycB
+- pB
+- BCKI
+- CycE
+- Tri_E
+- mass
+- Cdc20_A
+- APCP
+- Cdc20_i
+- pBCKI
+- Cdh1

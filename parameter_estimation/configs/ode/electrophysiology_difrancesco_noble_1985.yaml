@@ -1,0 +1,129 @@
+name: ElectrophysiologyDifrancescoNoble1985ODE
+state_dim: 16
+parameter_dim: 45
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  C: 0.075
+  i_pulse: 0
+  g_f_Na: 3
+  g_f_K: 3
+  Km_f: 45
+  Nao: 140
+  delta_y: 1.0e-05
+  i_K_max: 180
+  g_K1: 920
+  Km_K1: 210
+  Km_to: 10
+  Km_Ca: 0.0005
+  g_to: 0.28
+  g_Nab: 0.18
+  g_Cab: 0.02
+  Cao: 2
+  I_p: 125
+  K_mK: 1
+  K_mNa: 40
+  n_NaCa: 3
+  K_NaCa: 0.02
+  d_NaCa: 0.001
+  gamma: 0.5
+  g_Na: 750
+  delta_m: 1.0e-05
+  P_si: 15
+  delta_d: 0.0001
+  delta_f: 0.0001
+  alpha_f2: 5
+  K_mf2: 0.001
+  radius: 0.05
+  length: 2
+  V_e_ratio: 0.1
+  Ca_up_max: 5
+  K_mCa: 0.001
+  tau_up: 0.025
+  tau_rep: 2
+  tau_rel: 0.05
+  rCa: 2
+  Ve: 0.00157
+  Kb: 4
+  pf: 0.7
+initial_state:
+  V: -87
+  Kc: 4
+  Ki: 140
+  Nai: 8
+  y: 0.2
+  x: 0.01
+  Cai: 5.0e-05
+  s: 1
+  m: 0.01
+  h: 0.8
+  d: 0.005
+  f: 1
+  f2: 1
+  Ca_up: 2
+  Ca_rel: 1
+  p: 1
+parameter_names:
+- R
+- T
+- F
+- C
+- i_pulse
+- g_f_Na
+- g_f_K
+- Km_f
+- Nao
+- delta_y
+- i_K_max
+- g_K1
+- Km_K1
+- Km_to
+- Km_Ca
+- g_to
+- g_Nab
+- g_Cab
+- Cao
+- I_p
+- K_mK
+- K_mNa
+- n_NaCa
+- K_NaCa
+- d_NaCa
+- gamma
+- g_Na
+- delta_m
+- P_si
+- delta_d
+- delta_f
+- alpha_f2
+- K_mf2
+- radius
+- length
+- V_e_ratio
+- Ca_up_max
+- K_mCa
+- tau_up
+- tau_rep
+- tau_rel
+- rCa
+- Ve
+- Kb
+- pf
+state_names:
+- V
+- Kc
+- Ki
+- Nai
+- y
+- x
+- Cai
+- s
+- m
+- h
+- d
+- f
+- f2
+- Ca_up
+- Ca_rel
+- p

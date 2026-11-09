@@ -1,0 +1,53 @@
+name: ImmunologyWodarz2003ODE
+state_dim: 10
+parameter_dim: 13
+parameters:
+  r: 0.5
+  epsilon: 0.1
+  d: 0.01
+  g: 0.01
+  beta_1: 1
+  beta_2: 1
+  a_1: 0.03
+  alpha_1: 0.1
+  a_2: 1
+  alpha_2: 0.1
+  k_1: 1
+  u: 0.5
+  k_2: 1
+initial_state:
+  S: 100
+  R_1: 0
+  R_2: 0
+  R_12: 0
+  P_1: 1
+  P_2: 1
+  I_1: 0
+  I_2: 0
+  I_12: 0
+  I_21: 0
+parameter_names:
+- r
+- epsilon
+- d
+- g
+- beta_1
+- beta_2
+- a_1
+- alpha_1
+- a_2
+- alpha_2
+- k_1
+- u
+- k_2
+state_names:
+- S
+- R_1
+- R_2
+- R_12
+- P_1
+- P_2
+- I_1
+- I_2
+- I_12
+- I_21

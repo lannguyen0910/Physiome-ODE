@@ -1,0 +1,147 @@
+name: MetabolismBeard2005ODE
+state_dim: 19
+parameter_dim: 51
+parameters:
+  Mg_tot: 0.005
+  Pi_e: 0.000125
+  ADP_e: 0
+  RT: 2.4734
+  F: 0.096484
+  n_A: 3
+  dG_C1o: -69.37
+  dG_C3o: -32.53
+  dG_C4o: -122.94
+  dG_F1o: 36.03
+  pH_e: 7.1
+  K_e: 0.15
+  ATP_e: 0
+  AMP_e: 0
+  K_DT: 2.4e-05
+  K_DD: 0.000347
+  K_AK: 0.4331
+  W_m: 0.72376
+  gamma: 5.99
+  Ctot: 0.0027
+  Qtot: 0.00135
+  NADtot: 0.00297
+  k_Pi1: 0.00013413
+  k_Pi2: 0.00067668
+  k_Pi3: 0.00019172
+  k_Pi4: 0.02531
+  k_PiH: 0.00045082
+  r: 4.5807
+  x_DH: 0.09183
+  x_C1: 0.36923
+  x_C3: 0.091737
+  x_C4: 3.2562e-05
+  x_F1: 150.93
+  x_ANT: 0.0079204
+  x_Pi1: 339430
+  x_KH: 29802000
+  x_Hle: 250
+  x_K: 0
+  k_mADP: 3.5e-06
+  x_AK: 0
+  p_A: 85
+  k_O2: 0.00012
+  x_buff: 100
+  x_MgA: 1000000
+  x_Pi2: 327
+  mincond: 1.0e-12
+  C_im: 6.756756756756757e-06
+  k_dHPi: 1.7782794100389227e-07
+  k_dHatp: 3.311311214825908e-07
+  k_dHadp: 5.128613839913648e-07
+  constant_59: 0
+initial_state:
+  dPsi: 160
+  H_x: 6.30957344480193e-08
+  NADH_x: 0.0015
+  Pi_x: 0.001
+  QH2: 0.0008
+  Cred: 0.001
+  O2: 2.6e-05
+  ADP_mx: 0
+  ATP_mx: 0
+  ATP_x: 0
+  Mg_x: 0.005
+  ADP_x: 0.01
+  ATP_i: 0
+  ATP_mi: 0
+  ADP_i: 0
+  ADP_mi: 0
+  AMP_i: 0
+  Pi_i: 0.001
+  K_x: 0.14
+parameter_names:
+- Mg_tot
+- Pi_e
+- ADP_e
+- RT
+- F
+- n_A
+- dG_C1o
+- dG_C3o
+- dG_C4o
+- dG_F1o
+- pH_e
+- K_e
+- ATP_e
+- AMP_e
+- K_DT
+- K_DD
+- K_AK
+- W_m
+- gamma
+- Ctot
+- Qtot
+- NADtot
+- k_Pi1
+- k_Pi2
+- k_Pi3
+- k_Pi4
+- k_PiH
+- r
+- x_DH
+- x_C1
+- x_C3
+- x_C4
+- x_F1
+- x_ANT
+- x_Pi1
+- x_KH
+- x_Hle
+- x_K
+- k_mADP
+- x_AK
+- p_A
+- k_O2
+- x_buff
+- x_MgA
+- x_Pi2
+- mincond
+- C_im
+- k_dHPi
+- k_dHatp
+- k_dHadp
+- constant_59
+state_names:
+- dPsi
+- H_x
+- NADH_x
+- Pi_x
+- QH2
+- Cred
+- O2
+- ADP_mx
+- ATP_mx
+- ATP_x
+- Mg_x
+- ADP_x
+- ATP_i
+- ATP_mi
+- ADP_i
+- ADP_mi
+- AMP_i
+- Pi_i
+- K_x

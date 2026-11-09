@@ -1,0 +1,37 @@
+name: CalciumDynamicsSneyd1995ODE
+state_dim: 3
+parameter_dim: 12
+parameters:
+  V_p: 0.08
+  k_p: 1
+  IPR_3_flux: 0.72
+  k_flux: 3
+  b: 0.11
+  k_1: 0.7
+  gamma: 1
+  k_gamma: 0.27
+  beta: 0.15
+  k_mu: 0.01
+  k_2: 0.7
+  tau_h: 0.2
+initial_state:
+  P: 0
+  c: 0.3
+  h: 1
+parameter_names:
+- V_p
+- k_p
+- IPR_3_flux
+- k_flux
+- b
+- k_1
+- gamma
+- k_gamma
+- beta
+- k_mu
+- k_2
+- tau_h
+state_names:
+- P
+- c
+- h

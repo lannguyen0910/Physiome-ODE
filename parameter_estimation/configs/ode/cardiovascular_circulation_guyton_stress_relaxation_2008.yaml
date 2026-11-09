@@ -1,0 +1,21 @@
+name: CardiovascularCirculationGuytonStressRelaxation2008ODE
+state_dim: 2
+parameter_dim: 5
+parameters:
+  VVE: 0.743224
+  SR: 1
+  SRK: 5
+  SR2: 1
+  SRK2: 10000
+initial_state:
+  VV7: 0.00366525
+  VV6: 0.0101913
+parameter_names:
+- VVE
+- SR
+- SRK
+- SR2
+- SRK2
+state_names:
+- VV7
+- VV6

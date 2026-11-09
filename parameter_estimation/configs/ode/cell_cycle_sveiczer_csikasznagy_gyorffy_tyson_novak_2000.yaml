@@ -1,0 +1,155 @@
+name: CellCycleSveiczerCsikasznagyGyorffyTysonNovak2000ODE
+state_dim: 16
+parameter_dim: 58
+parameters:
+  k1: 0.02
+  kj: 400
+  kjr: 1
+  k6: 0.1
+  k6_2: 5
+  kste9r: 0.03
+  kste9r_2: 8
+  kste9: 5
+  Jste9r: 0.01
+  Jste9: 0.01
+  SK: 0.018
+  ks: 0.1
+  kmr: 0.01
+  kmr_2: 5
+  km: 1
+  Jmikr: 0.15
+  Jmik: 0.15
+  kwr: 0.4
+  kwr_2: 1
+  kw: 2
+  Jweer: 0.2
+  Jwee: 0.2
+  k25: 1
+  k5: 0.1
+  k25r: 0.4
+  k25r_2: 2
+  J25: 0.05
+  J25r: 0.05
+  kas: 0.1
+  kad: 0.1
+  kaa: 0.01
+  kaa_2: 0.1
+  kai: 0.1
+  k3: 0.1
+  ki: 50
+  kir: 0.5
+  kp: 100
+  kpp: 1
+  kpp_2: 100
+  epsilon_p: 0.025
+  mu: 0.00462
+  K: 0.06
+  Y: 0
+  epsilon: 0.05
+  V2: 0.02
+  V2_2: 1
+  V2c: 0.5
+  V2c_2: 0.02
+  Vwee: 10
+  Vwee_2: 0.08
+  Vmik: 2
+  Vmik_2: 0.04
+  V25: 10
+  V25_2: 0.05
+  Vpyp: 0.07
+  V4: 1
+  V4_2: 0.01
+  Pyp3: 1
+initial_state:
+  MPF: 0
+  mass: 1
+  preMPF: 1
+  Rum1: 0
+  Rum1P: 0
+  CR: 0
+  CRP: 0
+  Ste9: 0
+  Mik1: 0
+  Wee1: 0
+  Cdc25: 0
+  Slp1: 0
+  Slp1_a: 0
+  Inh: 0
+  PI: 0.2
+  R_dna: 1
+parameter_names:
+- k1
+- kj
+- kjr
+- k6
+- k6_2
+- kste9r
+- kste9r_2
+- kste9
+- Jste9r
+- Jste9
+- SK
+- ks
+- kmr
+- kmr_2
+- km
+- Jmikr
+- Jmik
+- kwr
+- kwr_2
+- kw
+- Jweer
+- Jwee
+- k25
+- k5
+- k25r
+- k25r_2
+- J25
+- J25r
+- kas
+- kad
+- kaa
+- kaa_2
+- kai
+- k3
+- ki
+- kir
+- kp
+- kpp
+- kpp_2
+- epsilon_p
+- mu
+- K
+- Y
+- epsilon
+- V2
+- V2_2
+- V2c
+- V2c_2
+- Vwee
+- Vwee_2
+- Vmik
+- Vmik_2
+- V25
+- V25_2
+- Vpyp
+- V4
+- V4_2
+- Pyp3
+state_names:
+- MPF
+- mass
+- preMPF
+- Rum1
+- Rum1P
+- CR
+- CRP
+- Ste9
+- Mik1
+- Wee1
+- Cdc25
+- Slp1
+- Slp1_a
+- Inh
+- PI
+- R_dna

@@ -1,0 +1,253 @@
+name: EndocrinePotterZagerBarton2006ODE
+state_dim: 33
+parameter_dim: 90
+parameters:
+  k2T: 0.17
+  Ql: 1.06
+  Qt: 0.061
+  CTbl: 7.6
+  ts: 0.56
+  CDbl: 0.59
+  kTA_on: 0.18
+  kTA_off: 8131
+  kDA_on: 0.15
+  kDA_off: 5407
+  CA: 500000
+  k1T: 87.93
+  km5alpha: 40
+  Vmax1: 3.65
+  PTl: 2.75
+  k1D: 77.2
+  PDl: 2
+  CTl: 9.92
+  CDl: 0.92
+  mu: 1000
+  PTif: 1.96
+  CTif: 307.29
+  CTst: 307.29
+  CLH: 0.104
+  PTst: 1
+  Vmax0: 2.89
+  kTR_on: 0.14
+  kTR_off: 0.069
+  kDR_on: 0.053
+  kDR_off: 0.018
+  kDT_on: 0.14
+  kDT_off: 3.13
+  kDD_on: 0.14
+  kDD_off: 3.13
+  kTT_on: 0.14
+  kTT_off: 3.13
+  kDNA_onDD5a: 0.14
+  kDNA_offDD5a: 0.07
+  kDNA_onDDcd: 0.14
+  kDNA_offDDcd: 0.1
+  kDNA_onDDsec: 0.14
+  kDNA_offDDsec: 0.2
+  kDNA_onDDcp: 0.14
+  kDNA_offDDcp: 0.7
+  kDNA_onDT5a: 0.14
+  kDNA_offDT5a: 0.56
+  kDNA_onDTcd: 0.14
+  kDNA_offDTcd: 0.8
+  kDNA_onDTsec: 0.14
+  kDNA_offDTsec: 1.6
+  kDNA_onDTcp: 0.14
+  kDNA_offDTcp: 5.6
+  kDNA_onTT5a: 0.14
+  kDNA_offTT5a: 0.84
+  kDNA_onTTcd: 0.14
+  kDNA_offTTcd: 1.2
+  kDNA_onTTsec: 0.14
+  kDNA_offTTsec: 2.4
+  kDNA_onTTcp: 0.14
+  kDNA_offTTcp: 8.4
+  NTp: 0.79
+  CTp: 11.38
+  NDp: 1
+  CDp: 52.46
+  CDNAcd: 0.075
+  CDNAsec: 0.075
+  CDNA5a: 0.075
+  CDNAcp: 0.075
+  CTb: 0.6275
+  PTb: 1
+  CDb: 0.019884
+  PDb: 0.62
+  kLH1: 0.13
+  kLH2: 0.026
+  kLH3: 0.000168
+  kLH4: 0.8
+  alpha_T: 0.25
+  alpha_D: 0.75
+  k1R: 68.15
+  keR: 71.9
+  kQp: 73.84
+  VPC2: 5.08e-05
+  k5a: 3.02
+  kcpl: 1.17e-07
+  kcd1: 0.014
+  VPC1b: 0.0001
+  ksec: 8.44e-06
+  kflo: 0.043
+  VPL2: 3.08e-06
+  Qc: 6.08
+initial_state:
+  ATbl: 0
+  ADbl: 0
+  CT_A: 0
+  CD_A: 0
+  ATl: 0
+  ADl: 0
+  ATif: 0
+  ATst: 0
+  ATp: 0
+  ADp: 0
+  CT_R: 0
+  CD_R: 0
+  CDT: 0
+  CDD: 0
+  CTT: 0
+  CDD5a: 0
+  CDDcd: 0
+  CDDsec: 0
+  CDDcp: 0
+  CDT5a: 0
+  CDTcd: 0
+  CDTsec: 0
+  CDTcp: 0
+  CTT5a: 0
+  CTTcd: 0
+  CTTsec: 0
+  CTTcp: 0
+  ATb: 0
+  ADb: 0
+  ALH: 0
+  AR: 0
+  VPC1: 0
+  VPL1: 0
+parameter_names:
+- k2T
+- Ql
+- Qt
+- CTbl
+- ts
+- CDbl
+- kTA_on
+- kTA_off
+- kDA_on
+- kDA_off
+- CA
+- k1T
+- km5alpha
+- Vmax1
+- PTl
+- k1D
+- PDl
+- CTl
+- CDl
+- mu
+- PTif
+- CTif
+- CTst
+- CLH
+- PTst
+- Vmax0
+- kTR_on
+- kTR_off
+- kDR_on
+- kDR_off
+- kDT_on
+- kDT_off
+- kDD_on
+- kDD_off
+- kTT_on
+- kTT_off
+- kDNA_onDD5a
+- kDNA_offDD5a
+- kDNA_onDDcd
+- kDNA_offDDcd
+- kDNA_onDDsec
+- kDNA_offDDsec
+- kDNA_onDDcp
+- kDNA_offDDcp
+- kDNA_onDT5a
+- kDNA_offDT5a
+- kDNA_onDTcd
+- kDNA_offDTcd
+- kDNA_onDTsec
+- kDNA_offDTsec
+- kDNA_onDTcp
+- kDNA_offDTcp
+- kDNA_onTT5a
+- kDNA_offTT5a
+- kDNA_onTTcd
+- kDNA_offTTcd
+- kDNA_onTTsec
+- kDNA_offTTsec
+- kDNA_onTTcp
+- kDNA_offTTcp
+- NTp
+- CTp
+- NDp
+- CDp
+- CDNAcd
+- CDNAsec
+- CDNA5a
+- CDNAcp
+- CTb
+- PTb
+- CDb
+- PDb
+- kLH1
+- kLH2
+- kLH3
+- kLH4
+- alpha_T
+- alpha_D
+- k1R
+- keR
+- kQp
+- VPC2
+- k5a
+- kcpl
+- kcd1
+- VPC1b
+- ksec
+- kflo
+- VPL2
+- Qc
+state_names:
+- ATbl
+- ADbl
+- CT_A
+- CD_A
+- ATl
+- ADl
+- ATif
+- ATst
+- ATp
+- ADp
+- CT_R
+- CD_R
+- CDT
+- CDD
+- CTT
+- CDD5a
+- CDDcd
+- CDDsec
+- CDDcp
+- CDT5a
+- CDTcd
+- CDTsec
+- CDTcp
+- CTT5a
+- CTTcd
+- CTTsec
+- CTTcp
+- ATb
+- ADb
+- ALH
+- AR
+- VPC1
+- VPL1

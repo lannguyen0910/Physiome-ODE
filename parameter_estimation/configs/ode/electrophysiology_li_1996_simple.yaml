@@ -1,0 +1,47 @@
+name: ElectrophysiologyLi1996SimpleODE
+state_dim: 5
+parameter_dim: 15
+parameters:
+  C_m: 1
+  V_Na: 55
+  V_K: -85
+  g_K_DR: 3.2
+  g_Na: 3.2
+  g_c: 0.1
+  g_h: 0.1
+  p: 0.5
+  V_L: -50
+  alpha: 0.173
+  Na_eq: 8
+  K_p: 15
+  K_Na: 15
+  q: 12.5
+  tau_r: 190
+initial_state:
+  V_s: -64
+  V_D: -77
+  n: 0.002
+  h: 1
+  Na: 5.09
+parameter_names:
+- C_m
+- V_Na
+- V_K
+- g_K_DR
+- g_Na
+- g_c
+- g_h
+- p
+- V_L
+- alpha
+- Na_eq
+- K_p
+- K_Na
+- q
+- tau_r
+state_names:
+- V_s
+- V_D
+- n
+- h
+- Na

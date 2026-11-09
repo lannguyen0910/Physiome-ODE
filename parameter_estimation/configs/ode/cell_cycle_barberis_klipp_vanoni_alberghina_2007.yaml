@@ -1,0 +1,185 @@
+name: CellCycleBarberisKlippVanoniAlberghina2007ODE
+state_dim: 34
+parameter_dim: 55
+parameters:
+  k_growth: 0.0051
+  k_50: 0.6
+  k_10: 0.12
+  k_51: 0.6
+  k_11: 0.12
+  k_1: 0.03523
+  k_2: 0.03523
+  k_39: 1
+  k_34: 8.46
+  k_35: 0.0005
+  k_6: 1.0e-05
+  k_43: 0.005
+  k_15: 0.01
+  k_3: 0.32
+  k_26: 2.82
+  k_27: 0.55
+  k_12: 0.1
+  k_4: 0.32
+  k_28: 2.82
+  k_29: 0.55
+  k_13: 0.35
+  k_7: 0.01
+  k_44: 0.005
+  k_49: 0.001
+  k_16: 0.03
+  k_24: 2.82
+  k_25: 0.55
+  k_20: 0.01
+  k_21: 0
+  k_46: 0.1
+  k_53: 0.001
+  k_33: 0.55
+  k_32: 84.6
+  k_48: 0.012
+  k_41: 1
+  k_31: 0.55
+  k_30: 42300
+  k_40: 1
+  k_36: 4363.6
+  k_37: 4363.6
+  k_47: 1
+  k_38: 4363.6
+  k_9: 5.0e-05
+  k_18: 0.0008
+  k_8: 4.0e-05
+  k_45: 0.005
+  k_17: 0.01
+  k_5: 4.2e-05
+  k_42: 0.005
+  k_14: 0.01
+  k_52: 0.005
+  k_22: 0.01
+  k_19: 0.01
+  k_23: 0.01
+  constant_54: 0
+initial_state:
+  v_c: 0.5
+  v_n: 0.5
+  mcln2_c: 0
+  mcln2_n: 0
+  mclb5_c: 0
+  mclb5_n: 0
+  sbf_n: 0
+  sbfwhi5p_n: 0
+  whi5_n: 0
+  sbfwhi5_n: 0.025544
+  cln3_c: 0.000485
+  cln2_c: 0
+  cdk1_c: 0.333333
+  cdk1cln2_c: 0
+  clb5_c: 0
+  cdk1clb5_c: 0
+  cdk1_n: 0.0074127
+  cln3_n: 0
+  cdk1cln3_n: 0
+  cdk1cln2_n: 0
+  cdk1clb5sic1_c: 0
+  sic1_c: 0.039234
+  cdk1clb5_n: 0
+  cdk1clb5sic1p_n: 0
+  cdk1cln3far1_n: 0
+  far1_n: 0
+  cdk1cln3far1p_n: 0
+  cdk1clb5sic1_n: 0
+  whi5_c: 0.073564
+  far1_c: 0.0037926
+  whi5p_c: 0
+  whi5p_n: 0
+  sic1P_n: 0
+  far1P_n: 0
+parameter_names:
+- k_growth
+- k_50
+- k_10
+- k_51
+- k_11
+- k_1
+- k_2
+- k_39
+- k_34
+- k_35
+- k_6
+- k_43
+- k_15
+- k_3
+- k_26
+- k_27
+- k_12
+- k_4
+- k_28
+- k_29
+- k_13
+- k_7
+- k_44
+- k_49
+- k_16
+- k_24
+- k_25
+- k_20
+- k_21
+- k_46
+- k_53
+- k_33
+- k_32
+- k_48
+- k_41
+- k_31
+- k_30
+- k_40
+- k_36
+- k_37
+- k_47
+- k_38
+- k_9
+- k_18
+- k_8
+- k_45
+- k_17
+- k_5
+- k_42
+- k_14
+- k_52
+- k_22
+- k_19
+- k_23
+- constant_54
+state_names:
+- v_c
+- v_n
+- mcln2_c
+- mcln2_n
+- mclb5_c
+- mclb5_n
+- sbf_n
+- sbfwhi5p_n
+- whi5_n
+- sbfwhi5_n
+- cln3_c
+- cln2_c
+- cdk1_c
+- cdk1cln2_c
+- clb5_c
+- cdk1clb5_c
+- cdk1_n
+- cln3_n
+- cdk1cln3_n
+- cdk1cln2_n
+- cdk1clb5sic1_c
+- sic1_c
+- cdk1clb5_n
+- cdk1clb5sic1p_n
+- cdk1cln3far1_n
+- far1_n
+- cdk1cln3far1p_n
+- cdk1clb5sic1_n
+- whi5_c
+- far1_c
+- whi5p_c
+- whi5p_n
+- sic1P_n
+- far1P_n

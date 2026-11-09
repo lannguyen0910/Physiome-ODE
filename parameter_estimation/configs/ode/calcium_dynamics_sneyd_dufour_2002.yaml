@@ -1,0 +1,55 @@
+name: CalciumDynamicsSneydDufour2002ODE
+state_dim: 5
+parameter_dim: 19
+parameters:
+  k_1b: 0.04
+  l_2b: 0.8
+  p: 10
+  k_3b: 29.8
+  k_1a: 0.64
+  k_2a: 37.4
+  k_2b: 1.4
+  k_3a: 0.11
+  k_4a: 4
+  k_4b: 0.54
+  l_2a: 1.7
+  l_4a: 1.7
+  l_4b: 2.5
+  l_6a: 4707
+  l_6b: 11.4
+  L_1: 0.12
+  L_3: 0.025
+  L_5: 54.7
+  c: 1
+initial_state:
+  R: 1
+  I_1: 0
+  O: 0
+  A: 0
+  I_2: 0
+parameter_names:
+- k_1b
+- l_2b
+- p
+- k_3b
+- k_1a
+- k_2a
+- k_2b
+- k_3a
+- k_4a
+- k_4b
+- l_2a
+- l_4a
+- l_4b
+- l_6a
+- l_6b
+- L_1
+- L_3
+- L_5
+- c
+state_names:
+- R
+- I_1
+- O
+- A
+- I_2

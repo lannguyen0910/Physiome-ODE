@@ -1,0 +1,159 @@
+name: ElectrophysiologyIribeKohlNoble2006ODE
+state_dim: 23
+parameter_dim: 53
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  Cm: 9.5e-05
+  v_i: 1.6404e-05
+  v_SR: 3.3477e-06
+  Na_o: 140
+  K_o: 4
+  Ca_o: 2
+  stim_start: 0
+  stim_end: 1000
+  stim_period: 0.5
+  stim_duration: 0.002
+  stim_amplitude: -4
+  g_Na: 2.5
+  delta_m: 1.0e-05
+  shift_h: 0
+  i_Kmax: 1
+  K_mk1: 10
+  g_K1: 1
+  g_to: 0.005
+  P_Ca_L_Ca: 0.25
+  speed_d: 3
+  speed_f: 0.5
+  i_NaCa_max: 0.0005
+  gamma: 0.5
+  i_NaK_max: 1.36
+  K_mK: 1
+  K_mNa: 21.7
+  g_b_Ca: 0.00025
+  g_b_K: 0.0006
+  g_b_Na: 0.0006
+  Tau_CaMK: 0.8
+  K_rel_max: 500
+  Tau_SRCa_RyR: 0.05
+  gain_k1: 1
+  gain_k2: 1
+  gain_k3: 1
+  gain_k4: 1
+  K_leak_rate: 0
+  V_max_f: 0.292
+  V_max_r: 0.391
+  Cmdn_tot: 0.02
+  alpha_cmdn: 10000
+  beta_cmdn: 500
+  Trpn_tot: 0.07
+  alpha_trpn: 80000
+  beta_trpn: 200
+  zeta: 0.1
+  beta_tm: 40
+  SL: 2.15
+  f_XB: 10
+  g_XB: 30
+initial_state:
+  V: -92.849333
+  K_i: 138.22
+  Na_i: 5.8041
+  Ca_i: 9.91e-06
+  m: 0.0013809
+  h: 0.99569
+  x: 0.051127
+  s: 0.95854
+  r: 1.5185e-08
+  d: 1.7908e-08
+  f: 1
+  F_CaMK: 1.028
+  Cmdn_Ca: 3.9636e-06
+  Ca_SR: 0.24886
+  F_SRCa_RyR: 0.25089
+  F_1: 0.5268
+  F_2: 8.7508e-06
+  Trpn_Ca: 0.00027661
+  N_0: 0.99917
+  P_0: 9.8593e-05
+  P_1: 0.00013331
+  P_2: 0.00023505
+  P_3: 0.00015349
+parameter_names:
+- R
+- T
+- F
+- Cm
+- v_i
+- v_SR
+- Na_o
+- K_o
+- Ca_o
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- g_Na
+- delta_m
+- shift_h
+- i_Kmax
+- K_mk1
+- g_K1
+- g_to
+- P_Ca_L_Ca
+- speed_d
+- speed_f
+- i_NaCa_max
+- gamma
+- i_NaK_max
+- K_mK
+- K_mNa
+- g_b_Ca
+- g_b_K
+- g_b_Na
+- Tau_CaMK
+- K_rel_max
+- Tau_SRCa_RyR
+- gain_k1
+- gain_k2
+- gain_k3
+- gain_k4
+- K_leak_rate
+- V_max_f
+- V_max_r
+- Cmdn_tot
+- alpha_cmdn
+- beta_cmdn
+- Trpn_tot
+- alpha_trpn
+- beta_trpn
+- zeta
+- beta_tm
+- SL
+- f_XB
+- g_XB
+state_names:
+- V
+- K_i
+- Na_i
+- Ca_i
+- m
+- h
+- x
+- s
+- r
+- d
+- f
+- F_CaMK
+- Cmdn_Ca
+- Ca_SR
+- F_SRCa_RyR
+- F_1
+- F_2
+- Trpn_Ca
+- N_0
+- P_0
+- P_1
+- P_2
+- P_3

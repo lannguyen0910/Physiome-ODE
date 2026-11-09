@@ -1,0 +1,63 @@
+name: MetabolismWolfPassargeSomsenSnoepHeinrichWesterhoff2000ODE
+state_dim: 9
+parameter_dim: 19
+parameters:
+  Jo: 50
+  phi: 0.1
+  A: 4
+  N: 1
+  K_i: 1
+  k_1: 550
+  n: 4
+  k_2: 9.8
+  k_GAPDH_plus: 323.8
+  k_GAPDH_minus: 57823.1
+  k_PGK_plus: 76411.1
+  k_PGK_minus: 23.7
+  k_4: 80
+  k_5: 9.7
+  k_6: 2000
+  k_7: 28
+  k_8: 85.7
+  k_9: 80
+  k: 375
+initial_state:
+  S1: 1.57981839
+  S2: 4.8279999
+  S3: 0.468657507
+  S4: 0.589391932
+  S5: 8.210114438
+  S6: 0.078042624
+  S6_ex: 0.025277594
+  A3: 1.972814237
+  N2: 0.384873894
+parameter_names:
+- Jo
+- phi
+- A
+- N
+- K_i
+- k_1
+- n
+- k_2
+- k_GAPDH_plus
+- k_GAPDH_minus
+- k_PGK_plus
+- k_PGK_minus
+- k_4
+- k_5
+- k_6
+- k_7
+- k_8
+- k_9
+- k
+state_names:
+- S1
+- S2
+- S3
+- S4
+- S5
+- S6
+- S6_ex
+- A3
+- N2

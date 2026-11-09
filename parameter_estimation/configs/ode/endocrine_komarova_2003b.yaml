@@ -1,0 +1,33 @@
+name: EndocrineKomarova2003bODE
+state_dim: 3
+parameter_dim: 10
+parameters:
+  alpha1: 3
+  beta1: 0.2
+  g11: 1.1
+  g21: -0.5
+  alpha2: 4
+  beta2: 0.02
+  g12: 1
+  g22: 0
+  k1: 0.093
+  k2: 0.0008
+initial_state:
+  x1: 10.06066
+  x2: 212.132
+  z: 100
+parameter_names:
+- alpha1
+- beta1
+- g11
+- g21
+- alpha2
+- beta2
+- g12
+- g22
+- k1
+- k2
+state_names:
+- x1
+- x2
+- z

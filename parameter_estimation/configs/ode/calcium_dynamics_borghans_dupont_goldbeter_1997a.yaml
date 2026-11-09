@@ -1,0 +1,39 @@
+name: CalciumDynamicsBorghansDupontGoldbeter1997aODE
+state_dim: 3
+parameter_dim: 13
+parameters:
+  K_f: 1
+  K: 10
+  beta: 1
+  v_0: 1
+  v_1: 1
+  V_M2: 6.5
+  K_2: 0.1
+  K_y: 0.2
+  V_M3: 50
+  k_d: 5000
+  k_r: 5
+  a: 10000
+  d: 100
+initial_state:
+  Z: 0.3
+  Y: 2.7
+  rho: 0.2
+parameter_names:
+- K_f
+- K
+- beta
+- v_0
+- v_1
+- V_M2
+- K_2
+- K_y
+- V_M3
+- k_d
+- k_r
+- a
+- d
+state_names:
+- Z
+- Y
+- rho

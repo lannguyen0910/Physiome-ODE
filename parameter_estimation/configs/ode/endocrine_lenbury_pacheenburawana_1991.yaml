@@ -1,0 +1,27 @@
+name: EndocrineLenburyPacheenburawana1991ODE
+state_dim: 3
+parameter_dim: 7
+parameters:
+  alpha: 0.5
+  omega: 2
+  D: 0.8228
+  a: 8.1252
+  b: 1.091
+  beta: 0.38
+  gamma: 0.6
+initial_state:
+  x: 1.5
+  z: 1
+  y: 0.95
+parameter_names:
+- alpha
+- omega
+- D
+- a
+- b
+- beta
+- gamma
+state_names:
+- x
+- z
+- y

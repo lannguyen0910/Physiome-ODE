@@ -1,0 +1,29 @@
+name: CardiovascularCirculationGuytonPulmonaryOxygenUptake2008ODE
+state_dim: 2
+parameter_dim: 9
+parameters:
+  VPF: 0.0123238
+  DOB: 163.508
+  QRO: 4.97838
+  RMO: 56.8057
+  HM: 40.0381
+  VNTSTM: 1
+  PO2AMB: 150
+  PL2: 1.8
+  VPTISS: 0.0175
+initial_state:
+  OVA: 204.497
+  O2VAD1: 2.368e-07
+parameter_names:
+- VPF
+- DOB
+- QRO
+- RMO
+- HM
+- VNTSTM
+- PO2AMB
+- PL2
+- VPTISS
+state_names:
+- OVA
+- O2VAD1

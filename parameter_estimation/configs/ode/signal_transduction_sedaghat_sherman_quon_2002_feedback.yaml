@@ -1,0 +1,99 @@
+name: SignalTransductionSedaghatShermanQuon2002FeedbackODE
+state_dim: 21
+parameter_dim: 25
+parameters:
+  k1: 60000000
+  k_minus1: 0.2
+  k_minus4: 0.003
+  k3: 2500
+  k4b: 0.0021
+  k_minus4b: 0.00021
+  k_minus5: 1.67e-18
+  k6: 0.461
+  k7: 4.16
+  IRp: 8.97e-13
+  k_minus8: 10
+  k_minus10: 2.77
+  PTEN: 1
+  SHIP: 1
+  k_minus13: 0.167
+  k_minus14: 0.001155
+  V_max: 20
+  K_d: 12
+  n: 4
+  tau: 1.5
+  k9_stimulated: 1.39
+  APequil: 9.09
+  k7b: 0.34657359027997264
+  k_minus11: 6.931471805599453
+  k_minus12: 6.931471805599453
+initial_state:
+  x2: 9.0e-13
+  x3: 0
+  x5: 0
+  x6: 1.0e-13
+  x4: 0
+  x7: 0
+  x8: 0
+  x9: 1.0e-12
+  x10: 0
+  x10a: 0
+  x11: 1.0e-13
+  x12: 2.54e-15
+  x13: 0.31
+  x14: 99.4
+  x15: 0.29
+  x16: 100
+  x17: 0
+  x18: 100
+  x19: 0
+  x20: 96
+  x21: 4
+parameter_names:
+- k1
+- k_minus1
+- k_minus4
+- k3
+- k4b
+- k_minus4b
+- k_minus5
+- k6
+- k7
+- IRp
+- k_minus8
+- k_minus10
+- PTEN
+- SHIP
+- k_minus13
+- k_minus14
+- V_max
+- K_d
+- n
+- tau
+- k9_stimulated
+- APequil
+- k7b
+- k_minus11
+- k_minus12
+state_names:
+- x2
+- x3
+- x5
+- x6
+- x4
+- x7
+- x8
+- x9
+- x10
+- x10a
+- x11
+- x12
+- x13
+- x14
+- x15
+- x16
+- x17
+- x18
+- x19
+- x20
+- x21

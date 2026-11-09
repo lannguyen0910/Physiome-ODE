@@ -1,0 +1,77 @@
+name: ElectrophysiologyOstbyOyehaugEinevollNagelhusPlahteZeuthenVoipioLloydOttersenOmholt2008ODE
+state_dim: 8
+parameter_dim: 27
+parameters:
+  Lp: 0.00021
+  Xi: 12.41
+  w_tot: 0.0879
+  gNa: 0.0001314
+  F: 96490
+  theta_NKCC1: 1
+  theta_NBC: 1
+  gK: 0.004
+  theta_KCC1: 1
+  kc: 0.0735
+  T: 300
+  R: 8.315
+  gKCC1: 1.0e-06
+  gNBC: 9.03e-05
+  gNKCC1: 5.54e-06
+  zNBC: -1
+  gCl: 8.797e-05
+  Pmax: 1.4207e-10
+  K_Nai: 10
+  K_Ko: 1.5
+  nA: 6.0221415e+23
+  elementary_charge: 1.6e-19
+  t0: 10
+  t1: 20
+  t2: 30
+  alpha: 2
+  beta: 14
+initial_state:
+  wi: 0.061
+  N_Nai: 0.99796
+  N_Ki: 5.52782
+  N_HCO3i: 0.58804
+  N_Cli: 0.32879
+  N_Nao: 4.301041
+  N_Ko: 0.0807
+  N_HCO3o: 0.432552
+parameter_names:
+- Lp
+- Xi
+- w_tot
+- gNa
+- F
+- theta_NKCC1
+- theta_NBC
+- gK
+- theta_KCC1
+- kc
+- T
+- R
+- gKCC1
+- gNBC
+- gNKCC1
+- zNBC
+- gCl
+- Pmax
+- K_Nai
+- K_Ko
+- nA
+- elementary_charge
+- t0
+- t1
+- t2
+- alpha
+- beta
+state_names:
+- wi
+- N_Nai
+- N_Ki
+- N_HCO3i
+- N_Cli
+- N_Nao
+- N_Ko
+- N_HCO3o

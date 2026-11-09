@@ -1,0 +1,89 @@
+name: MetabolismVanbeek2007ODE
+state_dim: 10
+parameter_dim: 31
+parameters:
+  V_cyt: 0.75
+  V_ims: 0.0625
+  Kia: 900
+  Kb: 15500
+  Kib: 34900
+  Kic: 222.4
+  Kd: 1670
+  Kid: 4730
+  Vmax_MM_f: 11440
+  Vmax_MM_b: 48040
+  Kia_2: 750
+  Kb_2: 5200
+  Kib_2: 28800
+  Kic_2: 204.8
+  Kd_2: 500
+  Kid_2: 1600
+  Vmax_Mi_f: 882
+  Vmax_Mi_b: 3704
+  J_hyd_basis_1: 486.5
+  J_hyd_basis_2: 627.6
+  freq_1: 135
+  freq_2: 220
+  nb_of_cycles_1: 5
+  KPi: 800
+  KADP: 25
+  V_max_syn: 15040
+  PS_tot_ATP: 13.3
+  PS_tot_ADP: 13.3
+  PS_tot_PCr: 155
+  PS_tot_Cr: 155
+  PS_tot_Pi: 194
+initial_state:
+  ATP_cyt: 5912.77
+  ADP_cyt: 64
+  PCr_cyt: 5000
+  Cr_cyt: 10500
+  Pi_cyt: 913
+  ATP_ims: 5912.77
+  ADP_ims: 39
+  PCr_ims: 5000
+  Cr_ims: 10500
+  Pi_ims: 910
+parameter_names:
+- V_cyt
+- V_ims
+- Kia
+- Kb
+- Kib
+- Kic
+- Kd
+- Kid
+- Vmax_MM_f
+- Vmax_MM_b
+- Kia_2
+- Kb_2
+- Kib_2
+- Kic_2
+- Kd_2
+- Kid_2
+- Vmax_Mi_f
+- Vmax_Mi_b
+- J_hyd_basis_1
+- J_hyd_basis_2
+- freq_1
+- freq_2
+- nb_of_cycles_1
+- KPi
+- KADP
+- V_max_syn
+- PS_tot_ATP
+- PS_tot_ADP
+- PS_tot_PCr
+- PS_tot_Cr
+- PS_tot_Pi
+state_names:
+- ATP_cyt
+- ADP_cyt
+- PCr_cyt
+- Cr_cyt
+- Pi_cyt
+- ATP_ims
+- ADP_ims
+- PCr_ims
+- Cr_ims
+- Pi_ims

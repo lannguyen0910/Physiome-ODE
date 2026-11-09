@@ -1,0 +1,57 @@
+name: CellCycleGardnerDolnikCollins1998ODE
+state_dim: 5
+parameter_dim: 20
+parameters:
+  vi: 0.1
+  k1: 0.5
+  K5: 0.02
+  kd: 0.02
+  K1: 0.02
+  V2: 0.25
+  K2: 0.02
+  K3: 0.1
+  V4: 0.1
+  K4: 0.1
+  vs: 0.1
+  d1: 0.05
+  a1: 1.5
+  a2: 1.5
+  alpha: 0.1
+  Kd: 1
+  K6: 0.3
+  V1_dash: 0.75
+  V3_dash: 0.3
+  M: -1
+initial_state:
+  C: 0.01
+  X: 0.01
+  Z: 0.28
+  M: 0.01
+  Y: 0.01
+parameter_names:
+- vi
+- k1
+- K5
+- kd
+- K1
+- V2
+- K2
+- K3
+- V4
+- K4
+- vs
+- d1
+- a1
+- a2
+- alpha
+- Kd
+- K6
+- V1_dash
+- V3_dash
+- M
+state_names:
+- C
+- X
+- Z
+- M
+- Y

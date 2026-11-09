@@ -1,0 +1,29 @@
+name: ImmunologyNeumannLamDahariGretchWileyLaydenPerelson1998ODE
+state_dim: 3
+parameter_dim: 8
+parameters:
+  s: 10
+  d: 0.02
+  eta: 0.8
+  beta: 3.0e-07
+  delta: 0.5
+  epsilon: 0.99
+  p: 100
+  c: 5
+initial_state:
+  T: 1000
+  V: 9400000
+  I: 0
+parameter_names:
+- s
+- d
+- eta
+- beta
+- delta
+- epsilon
+- p
+- c
+state_names:
+- T
+- V
+- I

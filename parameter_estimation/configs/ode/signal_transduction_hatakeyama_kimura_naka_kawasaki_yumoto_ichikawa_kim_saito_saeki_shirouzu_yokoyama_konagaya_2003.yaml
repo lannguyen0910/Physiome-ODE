@@ -1,0 +1,233 @@
+name: SignalTransductionHatakeyamaKimuraNakaKawasakiYumotoIchikawaKimSaitoSaekiShirouzuYokoyamaKonagaya2003ODE
+state_dim: 33
+parameter_dim: 80
+parameters:
+  kf1: 0.0012
+  kb1: 0.00076
+  kf2: 0.01
+  kb2: 0.1
+  kf3: 1
+  kb3: 0.01
+  kf34: 0.001
+  kb34: 0
+  V4: 62.5
+  k4: 50
+  kf5: 0.1
+  kb5: 1
+  kf6: 20
+  kb6: 5
+  kf7: 60
+  kb7: 546
+  kf8: 2040
+  kb8: 15700
+  kf9: 40.8
+  kb9: 0
+  V10: 0.0154
+  k10: 340
+  kf23: 0.1
+  kb23: 2
+  kf24: 9.85
+  kb24: 0.0985
+  kf25: 45.8
+  kb25: 0.047
+  V26: 2620
+  k26: 3680
+  two: 2
+  kf11: 0.222
+  k11: 0.181
+  V12: 0.289
+  k12: 0.0571
+  kf13: 1.53
+  k13: 11.7
+  kf14: 0.00673
+  k14: 8.07
+  E: 7
+  kf27: 16.9
+  k27: 39.1
+  V28: 17000
+  k28: 9.02
+  kf29: 507
+  kb29: 234
+  V30: 20000
+  k30: 80000
+  kf31: 0.107
+  k31: 4.35
+  V32: 20000
+  k32: 80000
+  kf33: 0.211
+  k33: 12
+  k16: 2200
+  k18: 60
+  PP2A: 11.4
+  one: 1
+  PP2A_2: 11.4
+  kf15: 3.5
+  k15: 317
+  kf16: 0.058
+  k16_2: 2200
+  kf17: 2.9
+  k17: 317
+  kf18: 0.058
+  k18_2: 60
+  k31_2: 4.35
+  k33_2: 12
+  one_2: 1
+  MKP3: 2.4
+  kf19: 9.5
+  k19: 146000
+  kf20: 0.3
+  k20: 160
+  kf21: 16
+  k21: 146000
+  kf22: 0.27
+  k22: 60
+  one_3: 1
+initial_state:
+  R: 80
+  Shc: 1000
+  PI3K: 10
+  HRG: 10
+  R_HRG: 0
+  R_HRG2: 0
+  Internalisation: 0
+  RP: 0
+  R_Shc: 0
+  R_ShP: 0
+  ShP: 0
+  R_ShGS: 0
+  ShGS: 0
+  GS: 10
+  R_PI3K: 0
+  R_PI3Kstar: 0
+  PI3Kstar: 0
+  RasGTP: 0
+  RasGDP: 120
+  Akt_PIPP: 0
+  RAF_star: 100
+  RAF: 0
+  MEKP: 0
+  MEKPP: 0
+  P: 800
+  PIP3: 0
+  Akt: 10
+  Akt_PIP3: 0
+  Akt_PIP: 0
+  MEK: 120
+  ERK: 1000
+  ERKP: 0
+  ERKPP: 0
+parameter_names:
+- kf1
+- kb1
+- kf2
+- kb2
+- kf3
+- kb3
+- kf34
+- kb34
+- V4
+- k4
+- kf5
+- kb5
+- kf6
+- kb6
+- kf7
+- kb7
+- kf8
+- kb8
+- kf9
+- kb9
+- V10
+- k10
+- kf23
+- kb23
+- kf24
+- kb24
+- kf25
+- kb25
+- V26
+- k26
+- two
+- kf11
+- k11
+- V12
+- k12
+- kf13
+- k13
+- kf14
+- k14
+- E
+- kf27
+- k27
+- V28
+- k28
+- kf29
+- kb29
+- V30
+- k30
+- kf31
+- k31
+- V32
+- k32
+- kf33
+- k33
+- k16
+- k18
+- PP2A
+- one
+- PP2A_2
+- kf15
+- k15
+- kf16
+- k16_2
+- kf17
+- k17
+- kf18
+- k18_2
+- k31_2
+- k33_2
+- one_2
+- MKP3
+- kf19
+- k19
+- kf20
+- k20
+- kf21
+- k21
+- kf22
+- k22
+- one_3
+state_names:
+- R
+- Shc
+- PI3K
+- HRG
+- R_HRG
+- R_HRG2
+- Internalisation
+- RP
+- R_Shc
+- R_ShP
+- ShP
+- R_ShGS
+- ShGS
+- GS
+- R_PI3K
+- R_PI3Kstar
+- PI3Kstar
+- RasGTP
+- RasGDP
+- Akt_PIPP
+- RAF_star
+- RAF
+- MEKP
+- MEKPP
+- P
+- PIP3
+- Akt
+- Akt_PIP3
+- Akt_PIP
+- MEK
+- ERK
+- ERKP
+- ERKPP

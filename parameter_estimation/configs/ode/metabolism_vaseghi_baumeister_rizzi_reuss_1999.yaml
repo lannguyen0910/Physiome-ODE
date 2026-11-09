@@ -1,0 +1,65 @@
+name: MetabolismVaseghiBaumeisterRizziReuss1999ODE
+state_dim: 10
+parameter_dim: 19
+parameters:
+  mu: 1
+  K_NADP_1: 0.116
+  Ki_NADPH_1: 1.702
+  Ki_MgATP_1: 0.33
+  rmax_G6PDH: 44.19
+  K_NADP_2: 1.848
+  Ki_NADPH_2: 0.055
+  Ki_MgATP_2: 0.109
+  rmax_6PGDH: 0.654
+  rmax_R5PI: 0.57
+  rmax_Ru5PE: 0.85
+  rmax_TKL1: 3.24
+  C_GAP: 0.064
+  rmax_TAL: 3
+  rmax_TKL2: 10.5
+  K_PKDA: 0.0032
+  rmax_PKDA: 0.004
+  K_RPPK: 0.0034
+  rmax_RPPK: 0.003
+initial_state:
+  C_6PG: 0.25
+  C_Ru5P: 0.033
+  C_R5P: 0.118
+  C_X5P: 0.041
+  C_S7P: 0.082
+  C_E4P: 0.029
+  C_G6P: 0.9
+  C_NADP: 0.168
+  C_NADPH: 0.168
+  C_MgATP: 2.3
+parameter_names:
+- mu
+- K_NADP_1
+- Ki_NADPH_1
+- Ki_MgATP_1
+- rmax_G6PDH
+- K_NADP_2
+- Ki_NADPH_2
+- Ki_MgATP_2
+- rmax_6PGDH
+- rmax_R5PI
+- rmax_Ru5PE
+- rmax_TKL1
+- C_GAP
+- rmax_TAL
+- rmax_TKL2
+- K_PKDA
+- rmax_PKDA
+- K_RPPK
+- rmax_RPPK
+state_names:
+- C_6PG
+- C_Ru5P
+- C_R5P
+- C_X5P
+- C_S7P
+- C_E4P
+- C_G6P
+- C_NADP
+- C_NADPH
+- C_MgATP

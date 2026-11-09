@@ -1,0 +1,183 @@
+name: CellCycleCilibertoNovakTyson2003ODE
+state_dim: 19
+parameter_dim: 69
+parameters:
+  epsilon: 0.5
+  Jm: 10
+  ks_clb: 0.015
+  kd_clb_1: 0.015
+  kd_clb_2: 1
+  kd_clb_3: 0.1
+  kass: 300
+  kdiss: 0.1
+  kd_sic: 0.01
+  kd_sic_1: 1
+  kd_sic_2: 3
+  Ji_mcm: 0.1
+  Ja_mcm: 0.1
+  ki_mcm: 0.15
+  ka_mcm: 1
+  ks_sic: 0.1
+  Ji_mih: 0.1
+  Ja_mih: 0.1
+  Vi_mih: 0.3
+  Va_mih: 1
+  Ji_ie: 0.01
+  Ja_ie: 0.01
+  ki_ie: 0.04
+  ka_ie: 0.1
+  Ji_cdc20: 0.001
+  Ja_cdc20: 0.001
+  ki_cdc20: 0.25
+  kd_cdc20: 0.1
+  ka_cdc20: 1
+  ks_cdc20_1: 0.005
+  ks_cdc20_2: 0.3
+  Js_cdc20: 0.3
+  Ji_cdh: 0.01
+  Ja_cdh: 0.01
+  ki_cdh: 35
+  ka_cdh_1: 1
+  ki_cdh_1: 2
+  ka_cdh_2: 10
+  ks_cln: 0.1
+  kd_cln: 0.1
+  Ji_sbf: 0.01
+  Ja_sbf: 0.01
+  ki_sbf_1: 1
+  ka_sbf_1: 1
+  ki_sbf_2: 2
+  ka_sbf_2: 0
+  ks_swe: 0.0025
+  ks_sweC: 0
+  khsl1: 1
+  khsl1r: 0.01
+  kd_swe_1: 0.007
+  Ji_wee: 0.05
+  Ja_wee: 0.05
+  Vi_wee: 1
+  Va_wee: 0.3
+  kd_swe_2: 0.05
+  ks_bud: 0.1
+  kd_bud: 0.1
+  mu: 0.005
+  IE_total: 1
+  Cdh1_total: 1
+  Mih1_total: 1
+  Mcm_total: 1
+  SBF_total: 1
+  kswe_1: 2
+  kswe_2: 0.01
+  kswe_3: 0.2
+  kmih_1: 5
+  kmih_2: 0.5
+initial_state:
+  Clb2: 0.184
+  M: 0.802
+  Mcm_a: 0.933
+  Cdh1_a: 0.993
+  Cdc20_a: 1.438
+  Sic1: 0.003
+  PClb2: 0
+  Trim: 0.084
+  Cln: 0.054
+  PTrim: 0
+  Mih1_a: 0.808
+  IE_a: 0.522
+  Cdc20: 1.172
+  SBF_a: 0.124
+  Swe1: 0
+  PSwe1: 0
+  Swe1M: 0.018
+  PSwe1M: 0.013
+  BE: 0
+parameter_names:
+- epsilon
+- Jm
+- ks_clb
+- kd_clb_1
+- kd_clb_2
+- kd_clb_3
+- kass
+- kdiss
+- kd_sic
+- kd_sic_1
+- kd_sic_2
+- Ji_mcm
+- Ja_mcm
+- ki_mcm
+- ka_mcm
+- ks_sic
+- Ji_mih
+- Ja_mih
+- Vi_mih
+- Va_mih
+- Ji_ie
+- Ja_ie
+- ki_ie
+- ka_ie
+- Ji_cdc20
+- Ja_cdc20
+- ki_cdc20
+- kd_cdc20
+- ka_cdc20
+- ks_cdc20_1
+- ks_cdc20_2
+- Js_cdc20
+- Ji_cdh
+- Ja_cdh
+- ki_cdh
+- ka_cdh_1
+- ki_cdh_1
+- ka_cdh_2
+- ks_cln
+- kd_cln
+- Ji_sbf
+- Ja_sbf
+- ki_sbf_1
+- ka_sbf_1
+- ki_sbf_2
+- ka_sbf_2
+- ks_swe
+- ks_sweC
+- khsl1
+- khsl1r
+- kd_swe_1
+- Ji_wee
+- Ja_wee
+- Vi_wee
+- Va_wee
+- kd_swe_2
+- ks_bud
+- kd_bud
+- mu
+- IE_total
+- Cdh1_total
+- Mih1_total
+- Mcm_total
+- SBF_total
+- kswe_1
+- kswe_2
+- kswe_3
+- kmih_1
+- kmih_2
+state_names:
+- Clb2
+- M
+- Mcm_a
+- Cdh1_a
+- Cdc20_a
+- Sic1
+- PClb2
+- Trim
+- Cln
+- PTrim
+- Mih1_a
+- IE_a
+- Cdc20
+- SBF_a
+- Swe1
+- PSwe1
+- Swe1M
+- PSwe1M
+- BE

@@ -1,0 +1,137 @@
+name: CircadianRhythmsUedaHagiwaraKitano2001ODE
+state_dim: 10
+parameter_dim: 55
+parameters:
+  B1: 0
+  C1: 0
+  S1: 1.45
+  D1: 0.94
+  L1: 0.3
+  R1: 1.02
+  A1: 0.45
+  D0: 0.012
+  a: 1
+  r: 4
+  S2: 0.48
+  D2: 0.44
+  L2: 0.2
+  Dbt_c: 1
+  V1: 1.45
+  V2: 1.45
+  B2: 0
+  C2: 0
+  S3: 1.45
+  D3: 0.94
+  L3: 0.3
+  R2: 1.02
+  A2: 0.45
+  S4: 0.48
+  D4: 0.44
+  L4: 0.2
+  D5: 0.44
+  L5: 0.2
+  K1: 2
+  K2: 2
+  T1: 1.73
+  T2: 0.72
+  D6: 0.29
+  L6: 0.2
+  B3: 0.6
+  C3: 0
+  S5: 1.63
+  D7: 0.54
+  L7: 0.13
+  R3: 0.89
+  A3: 0.8
+  S6: 0.47
+  D8: 0.6
+  L8: 0.2
+  V3: 1.63
+  V4: 1.63
+  Cyc_c: 1
+  D9: 0.6
+  L9: 0.2
+  K3: 2
+  K4: 2
+  T3: 1.63
+  T4: 0.52
+  D10: 0.3
+  L10: 0.2
+initial_state:
+  Per_m: 0.5
+  PT_n: 1
+  CC_n: 0.4
+  Per_c: 0.6
+  Tim_c: 0.8
+  PT_c: 0.9
+  Tim_m: 0.7
+  Clk_m: 0.1
+  Clk_c: 0.2
+  CC_c: 0.3
+parameter_names:
+- B1
+- C1
+- S1
+- D1
+- L1
+- R1
+- A1
+- D0
+- a
+- r
+- S2
+- D2
+- L2
+- Dbt_c
+- V1
+- V2
+- B2
+- C2
+- S3
+- D3
+- L3
+- R2
+- A2
+- S4
+- D4
+- L4
+- D5
+- L5
+- K1
+- K2
+- T1
+- T2
+- D6
+- L6
+- B3
+- C3
+- S5
+- D7
+- L7
+- R3
+- A3
+- S6
+- D8
+- L8
+- V3
+- V4
+- Cyc_c
+- D9
+- L9
+- K3
+- K4
+- T3
+- T4
+- D10
+- L10
+state_names:
+- Per_m
+- PT_n
+- CC_n
+- Per_c
+- Tim_c
+- PT_c
+- Tim_m
+- Clk_m
+- Clk_c
+- CC_c

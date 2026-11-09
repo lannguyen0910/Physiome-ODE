@@ -1,0 +1,37 @@
+name: CalciumDynamicsDupont1991aODE
+state_dim: 2
+parameter_dim: 13
+parameters:
+  v0: 1
+  v1: 7.3
+  beta: 0.6
+  VM2: 65
+  VM3: 500
+  KR: 2
+  KA: 0.9
+  kf: 1
+  k: 10
+  K2: 1
+  n: 2
+  m: 2
+  p: 4
+initial_state:
+  Z: 0.52
+  Y: 0.93
+parameter_names:
+- v0
+- v1
+- beta
+- VM2
+- VM3
+- KR
+- KA
+- kf
+- k
+- K2
+- n
+- m
+- p
+state_names:
+- Z
+- Y

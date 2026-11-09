@@ -1,0 +1,39 @@
+name: CardiovascularCirculationGuytonAldosterone2008ODE
+state_dim: 1
+parameter_dim: 15
+parameters:
+  ANM: 0.987545
+  CKE: 4.44092
+  ANMALD: 2.5
+  AMKMUL: 12
+  ALDINF: 0
+  ALDKNS: 0
+  AMT: 60
+  AM1UL: 5
+  AM1LL: 0
+  AMCSNS: 0.65
+  ALDMM: 2.5
+  AMKM: 0.5
+  AMNAM: 0.8
+  AMNAUL: 15
+  AMNALL: 0.04
+initial_state:
+  AMC: 1
+parameter_names:
+- ANM
+- CKE
+- ANMALD
+- AMKMUL
+- ALDINF
+- ALDKNS
+- AMT
+- AM1UL
+- AM1LL
+- AMCSNS
+- ALDMM
+- AMKM
+- AMNAM
+- AMNAUL
+- AMNALL
+state_names:
+- AMC

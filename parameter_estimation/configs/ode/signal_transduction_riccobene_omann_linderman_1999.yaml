@@ -1,0 +1,45 @@
+name: SignalTransductionRiccobeneOmannLinderman1999ODE
+state_dim: 8
+parameter_dim: 11
+parameters:
+  L: 1.0e-12
+  kf: 84000000
+  kr: 0.37
+  kfR: 10
+  Kact: 0.0001
+  alpha: 10
+  kds: 0.0001
+  kf2: 84000000
+  kr2: 0.0046
+  ka: 1.0e-07
+  ki: 0.2
+initial_state:
+  R: 0.01
+  LR: 0.01
+  R_star: 0.01
+  LR_star: 0.01
+  LR_ds: 0.01
+  R_ds: 0.01
+  G_star: 0.01
+  G: 0.01
+parameter_names:
+- L
+- kf
+- kr
+- kfR
+- Kact
+- alpha
+- kds
+- kf2
+- kr2
+- ka
+- ki
+state_names:
+- R
+- LR
+- R_star
+- LR_star
+- LR_ds
+- R_ds
+- G_star
+- G

@@ -1,0 +1,29 @@
+name: EndocrineGuptaAslaksonGurbaxaniVernon2007BODE
+state_dim: 4
+parameter_dim: 7
+parameters:
+  kcd: 1
+  ki1: 0.1
+  kad: 10
+  ki2: 0.1
+  kcr: 0.05
+  krd: 0.9
+  k: 0.001
+initial_state:
+  c: 0.6
+  o: 0.055
+  a: 0.055
+  r: 0.01
+parameter_names:
+- kcd
+- ki1
+- kad
+- ki2
+- kcr
+- krd
+- k
+state_names:
+- c
+- o
+- a
+- r

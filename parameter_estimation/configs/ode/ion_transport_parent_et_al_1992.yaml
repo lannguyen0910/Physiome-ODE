@@ -1,0 +1,81 @@
+name: IonTransportParentEtAl1992ODE
+state_dim: 7
+parameter_dim: 30
+parameters:
+  k0_12: 80000
+  k0_21: 500
+  k0_23: 100000
+  k0_32: 20
+  k0_34: 50
+  k0_43: 50
+  k0_45: 800
+  k0_54: 18300000
+  k0_25: 0.3
+  k0_52: 1.37
+  k0_56: 10
+  k0_65: 50
+  k0_61: 5
+  k0_16: 35
+  delta: 0.7
+  alpha_pp: 0
+  N_C: 60000000000
+  N_Avo: 6.022e+23
+  area: 1000000
+  n: 2
+  z_c: -2
+  z_Na: 1
+  F: 96485.34
+  R: 8.314
+  T: 310
+  Na_i: 0.02
+  Na_o: 0.1
+  glucose_i: 1.0e-05
+  glucose_o: 0
+  constant_34: 0
+initial_state:
+  V: -0.05
+  C_1: 1.505e-08
+  C_2: 7.3976e-08
+  C_3: 2.4603e-10
+  C_4: 3.4444e-10
+  C_5: 1.5338e-09
+  C_6_temp: 8.484e-09
+parameter_names:
+- k0_12
+- k0_21
+- k0_23
+- k0_32
+- k0_34
+- k0_43
+- k0_45
+- k0_54
+- k0_25
+- k0_52
+- k0_56
+- k0_65
+- k0_61
+- k0_16
+- delta
+- alpha_pp
+- N_C
+- N_Avo
+- area
+- n
+- z_c
+- z_Na
+- F
+- R
+- T
+- Na_i
+- Na_o
+- glucose_i
+- glucose_o
+- constant_34
+state_names:
+- V
+- C_1
+- C_2
+- C_3
+- C_4
+- C_5
+- C_6_temp

@@ -1,0 +1,117 @@
+name: EndocrineMaldonado2006ODE
+state_dim: 9
+parameter_dim: 46
+parameters:
+  X_c: 0.0009127
+  X_b: 0.0007282
+  X_y: 0.0073
+  k_rB: 1
+  k_for: 0.001
+  k_res: 0.01
+  X_bss: 0.0007282
+  X_yss: 0.0073
+  k_byp: 0.1
+  k_yd: 1
+  k_Fs: 1
+  k_y: 1
+  X_noe: 0
+  k_yno: 20000
+  k_nod: 1000
+  X_pgex: 0
+  k_pged: 100
+  k_nopge: 1
+  k_ypge: 100
+  k_opgd: 0.35
+  k_nopg: 10
+  Io: 0
+  K_o_p: 200000
+  K_l_p: 3000000
+  K: 10
+  k_nokl: 100
+  Il: 0
+  rl: 1000
+  k1: 0.01
+  k2: 10
+  k3: 0.00058
+  k4: 0.017
+  ko: 0.35
+  D_R: 0.0007
+  k_pger: 0.0001
+  k_B: 0.189
+  D_C: 0.189
+  D_A: 0.7
+  f0: 0.05
+  dB: 0.7
+  C_s: 0.005
+  SP: 250
+  k5: 0.02
+  k6: 3
+  IP: 0
+  kP: 86
+initial_state:
+  r_B: 0.9912
+  xc: 0.0009127
+  xb: 0.0007282
+  xy: 0.0073
+  x_no: 0.02
+  x_pge: 0.01
+  x_opg: 0.01
+  xr: 0.0007734
+  x_kl: 0.01
+parameter_names:
+- X_c
+- X_b
+- X_y
+- k_rB
+- k_for
+- k_res
+- X_bss
+- X_yss
+- k_byp
+- k_yd
+- k_Fs
+- k_y
+- X_noe
+- k_yno
+- k_nod
+- X_pgex
+- k_pged
+- k_nopge
+- k_ypge
+- k_opgd
+- k_nopg
+- Io
+- K_o_p
+- K_l_p
+- K
+- k_nokl
+- Il
+- rl
+- k1
+- k2
+- k3
+- k4
+- ko
+- D_R
+- k_pger
+- k_B
+- D_C
+- D_A
+- f0
+- dB
+- C_s
+- SP
+- k5
+- k6
+- IP
+- kP
+state_names:
+- r_B
+- xc
+- xb
+- xy
+- x_no
+- x_pge
+- x_opg
+- xr
+- x_kl

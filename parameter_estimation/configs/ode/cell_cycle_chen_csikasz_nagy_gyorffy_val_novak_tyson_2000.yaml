@@ -1,0 +1,175 @@
+name: CellCycleChenCsikaszNagyGyorffyValNovakTyson2000ODE
+state_dim: 13
+parameter_dim: 71
+parameters:
+  ks_n2: 0
+  ks_n2_2: 0.05
+  kd_n2: 0.1
+  Hct1_T: 1
+  ks_b2: 0.002
+  ks_b2_2: 0.05
+  kd_b2: 0.01
+  kd_b2_2: 2
+  kd_b2_3: 0.05
+  ks_b5: 0.006
+  ks_b5_2: 0.02
+  kd_b5: 0.1
+  kd_b5_2: 0.25
+  Bck2_0: 0.0027
+  Jn3: 6
+  Dn3: 1
+  Cln3_max: 0.02
+  ks_c1: 0.02
+  ks_c1_2: 0.1
+  kd1_c1: 0.01
+  Jd2_c1: 0.05
+  kas_b2: 50
+  kdi_b2: 0.05
+  kas_b5: 50
+  kdi_b5: 0.05
+  kd2_c1: 0.3
+  epsilonc1_n3: 20
+  epsilonc1_k2: 2
+  epsilonc1_b5: 1
+  epsilonc1_b2: 0.067
+  ks_20: 0.005
+  ks_20_2: 0.06
+  kd_20: 0.08
+  ka_20: 1
+  ki_20: 0.1
+  ki_20_2: 10
+  ka_t1: 0.04
+  ka_t1_2: 2
+  ki_t1: 0
+  ki_t1_2: 0.64
+  Ji_t1: 0.05
+  Ja_t1: 0.05
+  epsiloni_t1_n2: 1
+  epsiloni_t1_b5: 0.5
+  epsiloni_t1_b2: 1
+  mu: 0.005776
+  ks_ori: 2
+  kd_ori: 0.06
+  epsilonori_b2: 0.4
+  ks_bud: 0.3
+  kd_bud: 0.06
+  epsilonbud_b5: 1
+  ks_spn: 0.08
+  kd_spn: 0.06
+  J_spn: 0.2
+  ka_sbf: 1
+  ki_sbf: 0.5
+  ki_sbf_2: 6
+  Ji_sbf: 0.01
+  Ja_sbf: 0.01
+  epsilonsbf_n3: 75
+  epsilonsbf_b5: 0.5
+  ka_mcm: 1
+  ki_mcm: 0.15
+  Ji_mcm: 1
+  Ja_mcm: 1
+  ka_swi: 1
+  ki_swi: 0.3
+  ki_swi_2: 0.2
+  Ji_swi: 0.1
+  Ja_swi: 0.1
+initial_state:
+  Cln2: 0.0078
+  mass: 0.6608
+  Clb2_T: 0.2342
+  Hct1: 0.9946
+  Cdc20: 0.6848
+  Clb2_Sic1: 0.079
+  Clb5_Sic1: 0.0207
+  Clb5_T: 0.0614
+  Sic1_T: 0.1231
+  Cdc20_T: 0.8332
+  ORI: 0
+  SPN: 0
+  BUD: 0
+parameter_names:
+- ks_n2
+- ks_n2_2
+- kd_n2
+- Hct1_T
+- ks_b2
+- ks_b2_2
+- kd_b2
+- kd_b2_2
+- kd_b2_3
+- ks_b5
+- ks_b5_2
+- kd_b5
+- kd_b5_2
+- Bck2_0
+- Jn3
+- Dn3
+- Cln3_max
+- ks_c1
+- ks_c1_2
+- kd1_c1
+- Jd2_c1
+- kas_b2
+- kdi_b2
+- kas_b5
+- kdi_b5
+- kd2_c1
+- epsilonc1_n3
+- epsilonc1_k2
+- epsilonc1_b5
+- epsilonc1_b2
+- ks_20
+- ks_20_2
+- kd_20
+- ka_20
+- ki_20
+- ki_20_2
+- ka_t1
+- ka_t1_2
+- ki_t1
+- ki_t1_2
+- Ji_t1
+- Ja_t1
+- epsiloni_t1_n2
+- epsiloni_t1_b5
+- epsiloni_t1_b2
+- mu
+- ks_ori
+- kd_ori
+- epsilonori_b2
+- ks_bud
+- kd_bud
+- epsilonbud_b5
+- ks_spn
+- kd_spn
+- J_spn
+- ka_sbf
+- ki_sbf
+- ki_sbf_2
+- Ji_sbf
+- Ja_sbf
+- epsilonsbf_n3
+- epsilonsbf_b5
+- ka_mcm
+- ki_mcm
+- Ji_mcm
+- Ja_mcm
+- ka_swi
+- ki_swi
+- ki_swi_2
+- Ji_swi
+- Ja_swi
+state_names:
+- Cln2
+- mass
+- Clb2_T
+- Hct1
+- Cdc20
+- Clb2_Sic1
+- Clb5_Sic1
+- Clb5_T
+- Sic1_T
+- Cdc20_T
+- ORI
+- SPN
+- BUD

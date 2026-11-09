@@ -1,0 +1,25 @@
+name: EndocrineBrownChoeShanahanCzeisler1997ODE
+state_dim: 2
+parameter_dim: 7
+parameters:
+  t_on: 1316
+  t_off: 1792
+  A_max: 6.51
+  tau_I: 2.82
+  tau_C: 23.67
+  tau_alpha: 25.92
+  tau_lamda: 24.04
+initial_state:
+  H1: 0.05
+  H2: 1
+parameter_names:
+- t_on
+- t_off
+- A_max
+- tau_I
+- tau_C
+- tau_alpha
+- tau_lamda
+state_names:
+- H1
+- H2

@@ -1,0 +1,183 @@
+name: CalciumDynamicsBoyettZhangGarnyHolden2001ODE
+state_dim: 22
+parameter_dim: 66
+parameters:
+  dCell: 0
+  R: 8314
+  T: 310
+  F: 96845
+  CmCentre: 2.0e-05
+  CmPeriphery: 6.5e-05
+  g_Na_Centre: 0
+  g_Na_Periphery: 1.2e-06
+  Na_o: 140
+  g_Ca_L_Centre: 0.0058
+  g_Ca_L_Periphery: 0.0659
+  E_Ca_L: 46.4
+  g_Ca_T_Centre: 0.0043
+  g_Ca_T_Periphery: 0.0139
+  E_Ca_T: 45
+  g_to_Centre: 0.00491
+  g_to_Periphery: 0.03649
+  g_sus_Centre: 6.65e-05
+  g_sus_Periphery: 0.0114
+  g_K_r_Centre: 0.000797
+  g_K_r_Periphery: 0.016
+  tau_P_i: 0.002
+  g_K_s_Centre: 0.000518
+  g_K_s_Periphery: 0.0104
+  g_f_Na_Centre: 0.000548
+  g_f_Na_Periphery: 0.0069
+  g_f_K_Centre: 0.000548
+  g_f_K_Periphery: 0.0069
+  g_b_Na_Centre: 5.8e-05
+  g_b_Na_Periphery: 0.000189
+  g_b_K_Centre: 2.52e-05
+  g_b_K_Periphery: 8.19e-05
+  g_b_Ca_Centre: 1.32e-05
+  g_b_Ca_Periphery: 4.3e-05
+  k_NaCa_Centre: 2.7e-06
+  k_NaCa_Periphery: 8.8e-06
+  d_NaCa: 0.0001
+  gamma_NaCa: 0.5
+  Na_i: 8
+  Ca_i: 0.0001
+  Ca_o: 2
+  K_m_Na: 5.64
+  K_m_K: 0.621
+  i_p_max_Centre: 0.0478
+  i_p_max_Periphery: 0.16
+  K_o: 5.4
+  K_i: 140
+  g_st: 0.00214
+  i_Ca_P_max: 0.24
+  J_Ca_P_max: 9.6e-10
+  J_Ca_u_max: 9.6e-10
+  B_d: 0.4
+  B_s: 0.2
+  Vol_c: 8.0e-12
+  K_m_b: 0.002
+  K_m_r: 0.001
+  K_m_u: 0.005
+  f_d: 0.1
+  f_r: 0.3
+  f_u: 0.06
+  alpha_ds: 3300
+  alpha_fR: 6670
+  alpha_1: 0.172
+  alpha_r: 333.5
+  alpha_ur: 533.6
+  beta_fR: 2
+initial_state:
+  V: -39.013558536
+  m: 0.092361701692
+  h1: 0.015905380261
+  h2: 0.01445216109
+  d_L: 0.04804900895
+  f_L: 0.48779845203
+  d_T: 0.42074047435
+  f_T: 0.038968420558
+  q: 0.29760539675
+  r: 0.064402950262
+  P_af: 0.13034201158
+  P_as: 0.46960956028
+  P_i: 0.87993375273
+  xs: 0.082293827208
+  y: 0.03889291759
+  d_s: 0.23
+  f_s: 0.283
+  Ca_d: 0.001544
+  Ca_s: 0.05487
+  Ca_u: 6.983
+  Ca_r: 4.909
+  f_R: 0.188
+parameter_names:
+- dCell
+- R
+- T
+- F
+- CmCentre
+- CmPeriphery
+- g_Na_Centre
+- g_Na_Periphery
+- Na_o
+- g_Ca_L_Centre
+- g_Ca_L_Periphery
+- E_Ca_L
+- g_Ca_T_Centre
+- g_Ca_T_Periphery
+- E_Ca_T
+- g_to_Centre
+- g_to_Periphery
+- g_sus_Centre
+- g_sus_Periphery
+- g_K_r_Centre
+- g_K_r_Periphery
+- tau_P_i
+- g_K_s_Centre
+- g_K_s_Periphery
+- g_f_Na_Centre
+- g_f_Na_Periphery
+- g_f_K_Centre
+- g_f_K_Periphery
+- g_b_Na_Centre
+- g_b_Na_Periphery
+- g_b_K_Centre
+- g_b_K_Periphery
+- g_b_Ca_Centre
+- g_b_Ca_Periphery
+- k_NaCa_Centre
+- k_NaCa_Periphery
+- d_NaCa
+- gamma_NaCa
+- Na_i
+- Ca_i
+- Ca_o
+- K_m_Na
+- K_m_K
+- i_p_max_Centre
+- i_p_max_Periphery
+- K_o
+- K_i
+- g_st
+- i_Ca_P_max
+- J_Ca_P_max
+- J_Ca_u_max
+- B_d
+- B_s
+- Vol_c
+- K_m_b
+- K_m_r
+- K_m_u
+- f_d
+- f_r
+- f_u
+- alpha_ds
+- alpha_fR
+- alpha_1
+- alpha_r
+- alpha_ur
+- beta_fR
+state_names:
+- V
+- m
+- h1
+- h2
+- d_L
+- f_L
+- d_T
+- f_T
+- q
+- r
+- P_af
+- P_as
+- P_i
+- xs
+- y
+- d_s
+- f_s
+- Ca_d
+- Ca_s
+- Ca_u
+- Ca_r
+- f_R

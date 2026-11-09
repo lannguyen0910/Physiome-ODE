@@ -1,0 +1,73 @@
+name: MechanicalConstitutiveLawsBental2006ODE
+state_dim: 7
+parameter_dim: 26
+parameters:
+  P_m: 760
+  omega: 1.256637
+  V_T: 0.41
+  E: 2.5
+  P_m_2: 760
+  E_2: 2.5
+  R: 1
+  D_o: 1.56e-05
+  D_c: 3.16e-05
+  P_w: 47
+  f_om: 0.21
+  f_cm: 0
+  V_D: 0.151
+  V_T_2: 0.41
+  L: 171200000
+  K_T: 10000
+  K_R: 3600000
+  sigma: 1.4e-06
+  V_c: 0.071
+  T_h: 0.002
+  l_2: 164000
+  r_2: 0.12
+  sigma_c: 3.3e-05
+  R_2: 1.2566370614359172
+  delta: 79.43282347242814
+  h: 3.981071705534969e-08
+initial_state:
+  V_A: 1
+  P_A: 760
+  f_o: 0.1368
+  f_c: 0.05263
+  p_o: 40
+  p_c: 46
+  z: 4.4219e-07
+parameter_names:
+- P_m
+- omega
+- V_T
+- E
+- P_m_2
+- E_2
+- R
+- D_o
+- D_c
+- P_w
+- f_om
+- f_cm
+- V_D
+- V_T_2
+- L
+- K_T
+- K_R
+- sigma
+- V_c
+- T_h
+- l_2
+- r_2
+- sigma_c
+- R_2
+- delta
+- h
+state_names:
+- V_A
+- P_A
+- f_o
+- f_c
+- p_o
+- p_c
+- z

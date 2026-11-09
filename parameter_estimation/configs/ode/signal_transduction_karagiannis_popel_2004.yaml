@@ -1,0 +1,63 @@
+name: SignalTransductionKaragiannisPopel2004ODE
+state_dim: 13
+parameter_dim: 15
+parameters:
+  kshed_eff: 2800
+  kon_MT1T2: 3540000
+  ki_MT1T2: 4.9e-09
+  kon_MT1T2M2P: 140000
+  koff_MT1T2M2P: 0.0047
+  kact_eff_m2: 2800
+  kon_M2T2: 5900000
+  ki_M2T2: 1.07e-06
+  kiso_M2T2: 33
+  k_iso_M2T2: 2.0e-08
+  kon_M2C1: 2600
+  koff_M2C1: 0.0021
+  kcat_M2C1: 0.0045
+  kcat_MT1C1: 0.00197
+  km_MT1C1: 2.9e-06
+initial_state:
+  MT1: 1.0e-07
+  MT1cat: 0
+  MT1T2: 0
+  MT1T2M2P: 0
+  M2P: 5.0e-08
+  M2: 0
+  M2T2: 0
+  M2T2star: 0
+  M2C1: 0
+  C1: 1.0e-06
+  C1dmt1: 0
+  C1dm2: 0
+  T2: 5.0e-08
+parameter_names:
+- kshed_eff
+- kon_MT1T2
+- ki_MT1T2
+- kon_MT1T2M2P
+- koff_MT1T2M2P
+- kact_eff_m2
+- kon_M2T2
+- ki_M2T2
+- kiso_M2T2
+- k_iso_M2T2
+- kon_M2C1
+- koff_M2C1
+- kcat_M2C1
+- kcat_MT1C1
+- km_MT1C1
+state_names:
+- MT1
+- MT1cat
+- MT1T2
+- MT1T2M2P
+- M2P
+- M2
+- M2T2
+- M2T2star
+- M2C1
+- C1
+- C1dmt1
+- C1dm2
+- T2
