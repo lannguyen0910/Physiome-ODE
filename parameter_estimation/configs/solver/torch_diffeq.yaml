@@ -1,6 +1,6 @@
 name: TorchDiffEqSolver
 params:
-  method: dopri5
-  rtol: 1.0e-5
-  atol: 1.0e-7
+  method: dopri8
+  rtol: 1.0e-6
+  atol: 1.0e-8
   step_size: null
