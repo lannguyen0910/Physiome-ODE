@@ -732,7 +732,9 @@ class BasePipeline:
         self.model = model_cls(
             encoder=self.encoder,
             ode=self.ode,
-            solver=self.solver
+            solver=self.solver,
+            theta_mean=self.datamodule.theta_mean,
+            theta_std=self.datamodule.theta_std,
         )
 
         self.model.to(self.device)

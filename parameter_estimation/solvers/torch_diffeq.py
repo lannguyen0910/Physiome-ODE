@@ -51,7 +51,7 @@ class TorchDiffEqSolver(nn.Module):
                 )
             options["step_size"] = float(self.step_size)
 
-        return odeint(
+        trajectory = odeint(
             func=dynamics,
             y0=y0,
             t=t,
@@ -60,3 +60,7 @@ class TorchDiffEqSolver(nn.Module):
             atol=self.atol,
             options=options or None,
         )
+
+        trajectory = trajectory.permute(1, 0, 2)
+
+        return trajectory
