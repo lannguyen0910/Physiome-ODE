@@ -3,23 +3,6 @@ import torch.nn as nn
 
 
 class CalciumDynamicsBorghansDupontGoldbeter1997aODE(nn.Module):
-    """
-    PyTorch translation of
-    calcium_dynamics/borghans_dupont_goldbeter_1997a/model.py.
-
-    Dynamic states: 3
-    Source constant slots: 14
-    Algebraic variables: 4
-
-    Note:
-        constants[13] (V_in) is a derived constant in the original
-        initConsts():
-
-            V_in = v_0 + v_1 * beta
-
-        It is nevertheless included in theta because the generated
-        dataset contains all 14 source constant slots.
-    """
 
     source_file = (
         "calcium_dynamics/"
@@ -41,7 +24,7 @@ class CalciumDynamicsBorghansDupontGoldbeter1997aODE(nn.Module):
         super().__init__()
 
         self.state_dim = 3
-        self.parameter_dim = 14
+        self.parameter_dim = 13
 
         self.parameters = (
             parameters
@@ -60,7 +43,6 @@ class CalciumDynamicsBorghansDupontGoldbeter1997aODE(nn.Module):
                 "k_r": 5.0,
                 "a": 10000.0,
                 "d": 100.0,
-                "V_in": 2.0,
             }
         )
 
@@ -78,98 +60,66 @@ class CalciumDynamicsBorghansDupontGoldbeter1997aODE(nn.Module):
             list(parameter_names)
             if parameter_names is not None
             else [
-                "K_f",
-                "K",
-                "beta",
-                "v_0",
-                "v_1",
-                "V_M2",
-                "K_2",
-                "K_y",
-                "V_M3",
-                "k_d",
-                "k_r",
-                "a",
-                "d",
-                "V_in",
+                "K_f", "K", "beta", "v_0", "v_1",
+                "V_M2", "K_2", "K_y", "V_M3",
+                "k_d", "k_r", "a", "d",
             ]
         )
 
         self.state_names = (
             list(state_names)
             if state_names is not None
-            else [
-                "Z",
-                "Y",
-                "rho",
-            ]
+            else ["Z", "Y", "rho"]
         )
 
-    def dynamics(
-        self,
-        t: torch.Tensor,
-        y: torch.Tensor,
-        theta: torch.Tensor,
-    ):
+    def dynamics(self, t, y, theta):
+
         # States
         Z = y[:, 0]
         Y = y[:, 1]
         rho = y[:, 2]
 
-        # Parameters
-        K_f = theta[:, 0]      # constants[0]
-        K = theta[:, 1]        # constants[1]
-        beta = theta[:, 2]     # constants[2]
-        v_0 = theta[:, 3]      # constants[3]
-        v_1 = theta[:, 4]      # constants[4]
-        V_M2 = theta[:, 5]     # constants[5]
-        K_2 = theta[:, 6]      # constants[6]
-        K_y = theta[:, 7]      # constants[7]
-        V_M3 = theta[:, 8]     # constants[8]
-        k_d = theta[:, 9]      # constants[9]
-        k_r = theta[:, 10]     # constants[10]
-        a = theta[:, 11]       # constants[11]
-        d = theta[:, 12]       # constants[12]
-        V_in = theta[:, 13]    # constants[13]
+        # Independent parameters
+        (
+            K_f, K, beta, v_0, v_1,
+            V_M2, K_2, K_y, V_M3,
+            k_d, k_r, a, d, _
+        ) = theta.unbind(dim=-1)
 
-        # ---------------------------------------------------------
+        eps = 1e-8
+
+        # Derived constant from original CellML model
+        V_in = v_0 + v_1 * beta
+
         # Algebraic variables
-        # ---------------------------------------------------------
-
-        # V_2
         V_2 = V_M2 * (
-            Z**2 / (K_2**2 + Z**2)
+            Z.square()
+            / (K_2.square() + Z.square()).clamp_min(eps)
         )
 
-        # gamma
-        gamma = (
-            a / d
-        ) * Z**4
+        gamma = (a / d.clamp_min(eps)) * Z.pow(4)
 
-        # R_plus
         R_plus = (
-            gamma * rho / (1.0 + gamma)
+            gamma * rho
+            / (1.0 + gamma).clamp_min(eps)
         )
 
-        # V_3
         V_3 = (
             beta
             * R_plus
             * V_M3
-            * (Y**2 / (K_y**2 + Y**2))
+            * (
+                Y.square()
+                / (K_y.square() + Y.square()).clamp_min(eps)
+            )
         )
 
-        # ---------------------------------------------------------
         # State derivatives
-        # ---------------------------------------------------------
-
-        # d rho / dt
         d_rho = (
-            -(k_d * Z**4 * rho)
+            -k_d * Z.pow(4) * rho
             + k_r * (1.0 - rho)
         )
 
-        # d Z / dt
         d_Z = (
             V_in
             - V_2
@@ -178,7 +128,6 @@ class CalciumDynamicsBorghansDupontGoldbeter1997aODE(nn.Module):
             - K * Z
         )
 
-        # d Y / dt
         d_Y = (
             V_2
             - V_3
