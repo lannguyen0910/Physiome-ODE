@@ -354,6 +354,7 @@ class Trainer:
         MY = batch["MY"]
         Y = batch["Y"]
         theta_true = batch["theta"]
+        theta_true_norm = batch["theta_norm"]
         y0_true = batch["y0"]
 
         batch_size = T.shape[0]
@@ -429,6 +430,7 @@ class Trainer:
                 )
 
         theta_pred = model_output["theta_pred"]
+        theta_pred_norm = model_output["theta_pred_norm"]
         y0_pred = model_output["y0_pred"]
         trajectory_full = model_output["trajectory_pred"]
 
@@ -496,9 +498,14 @@ class Trainer:
             sample_outputs.append(
                 {
                     "theta_pred": theta_pred[sample_idx],
+                    "theta_pred_norm": theta_pred_norm[sample_idx],
+
                     "theta_true": theta_true[sample_idx],
+                    "theta_true_norm": theta_true_norm[sample_idx],
+
                     "y0_pred": y0_pred[sample_idx],
                     "y0_true": y0_true[sample_idx],
+
                     "trajectory_pred": trajectory_pred_i,
                     "trajectory_true": sample["trajectory_true"],
                     "trajectory_mask": sample["trajectory_mask"],
@@ -548,8 +555,8 @@ class Trainer:
         for sample_idx, sample in enumerate(outputs["samples"]):
 
             losses = self.loss_fn(
-                theta_pred=sample["theta_pred"].unsqueeze(0),
-                theta_true=sample["theta_true"].unsqueeze(0),
+                theta_pred=sample["theta_pred_norm"].unsqueeze(0),
+                theta_true=sample["theta_true_norm"].unsqueeze(0),
                 trajectory_pred=sample["trajectory_pred"].unsqueeze(0),
                 trajectory_true=sample["trajectory_true"].unsqueeze(0),
             )

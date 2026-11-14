@@ -54,9 +54,18 @@ def collate_fn(batch):
             ]
         ),
 
+        # Physical theta.
         "theta": torch.stack(
             [
                 item["theta"]
+                for item in batch
+            ]
+        ),
+
+        # Normalized theta.
+        "theta_norm": torch.stack(
+            [
+                item["theta_norm"]
                 for item in batch
             ]
         ),
