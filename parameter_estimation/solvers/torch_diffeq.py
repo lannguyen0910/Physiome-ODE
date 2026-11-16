@@ -61,6 +61,6 @@ class TorchDiffEqSolver(nn.Module):
             options=options or None,
         )
 
-        trajectory = trajectory.permute(1, 0, 2)
+        trajectory = trajectory.permute(1, 0, 2).contiguous()
 
         return trajectory

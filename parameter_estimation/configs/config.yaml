@@ -63,7 +63,6 @@ metrics:
       - relative_error
       - per_parameter_relative_error
       - per_parameter_accuracy
-      - overall_parameter_accuracy
       - log_mae
 
     params:
