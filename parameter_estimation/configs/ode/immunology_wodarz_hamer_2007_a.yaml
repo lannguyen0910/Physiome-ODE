@@ -1,0 +1,21 @@
+name: ImmunologyWodarzHamer2007AODE
+state_dim: 2
+parameter_dim: 5
+parameters:
+  r: 1
+  a: 0.2
+  k: 10
+  u: 0.5
+  eta: 1
+initial_state:
+  y: 0
+  v: 1
+parameter_names:
+- r
+- a
+- k
+- u
+- eta
+state_names:
+- y
+- v

@@ -1,0 +1,55 @@
+name: NeurobiologyLi1996SimpleFromPaperODE
+state_dim: 5
+parameter_dim: 19
+parameters:
+  V_Na: 55
+  V_K: -85
+  g_K_DR: 3.2
+  g_Na: 3.2
+  g_c: 0
+  C_m: 1
+  p: 0.5
+  V_L: -50
+  V_NMDA: 0
+  R_pump: 18
+  alpha: 0.5
+  g_NMDA: 1.25
+  g_Na_NMDA: 1
+  g_L: 0.18
+  Na_eq: 8
+  K_p: 15
+  Mg_o: 1.4
+  K_Mg: 10
+  q: 12.5
+initial_state:
+  V_s: -64
+  V_D: -25
+  n: 0.002
+  h: 1
+  Na: 5.09
+parameter_names:
+- V_Na
+- V_K
+- g_K_DR
+- g_Na
+- g_c
+- C_m
+- p
+- V_L
+- V_NMDA
+- R_pump
+- alpha
+- g_NMDA
+- g_Na_NMDA
+- g_L
+- Na_eq
+- K_p
+- Mg_o
+- K_Mg
+- q
+state_names:
+- V_s
+- V_D
+- n
+- h
+- Na

@@ -1,0 +1,283 @@
+name: ElectrophysiologyMichailovaMcculloch2001ODE
+state_dim: 43
+parameter_dim: 95
+parameters:
+  R: 8.314472
+  T: 310
+  F: 96.4853415
+  C_sc: 0.001
+  stim_start: 0.1
+  stim_end: 100000000
+  stim_period: 1
+  stim_duration: 0.0005
+  stim_amplitude: -100
+  g_Na: 12.8
+  Na_o: 138
+  g_Kr: 0.0034
+  K_o: 4
+  tau_factor: 1
+  g_Ks: 0.0027134
+  g_to1: 0.23815
+  g_K1: 2.8
+  K_mK1: 13
+  g_Kp: 0.002216
+  K_mCa: 1.38
+  K_mNa: 87.5
+  K_NaCa: 0.3
+  K_sat: 0.2
+  eta: 0.35
+  Ca_o: 2
+  I_NaK: 0.693
+  K_mNa_i: 10
+  K_mK_o: 1.5
+  MgATP_i0: 2.888
+  K_mpCa: 5.0e-05
+  I_pCa: 0.05
+  g_Cab: 0.0003842
+  g_Nab: 0.0031
+  P_Ca: 0.0003125
+  P_K: 5.79e-07
+  i_Ca_half: -0.265
+  a: 2
+  b: 2
+  g: 2000
+  f: 300
+  gprime: 7000
+  fprime: 7
+  omega: 10
+  v1: 1800
+  k_a_plus: 12150000000000
+  k_a_minus: 576
+  k_b_plus: 4050000000
+  k_b_minus: 1930
+  k_c_plus: 100
+  k_c_minus: 0.8
+  n: 4
+  m: 3
+  K_fb: 0.000168
+  K_rb: 3.29
+  Vmaxf: 0.0813
+  Vmaxr: 0.318
+  K_SR: 1
+  N_fb: 1.2
+  N_rb: 1
+  tau_tr: 0.0005747
+  tau_xfer: 0.0267
+  HTRPN_tot: 0.14
+  LTRPN_tot: 0.07
+  k_htrpn_plus: 20000
+  k_htrpn_minus: 0.066
+  k_ltrpn_plus: 40000
+  k_ltrpn_minus: 40
+  A_cap: 0.0001534
+  V_myo: 2.584e-05
+  V_JSR: 1.6e-07
+  V_NSR: 2.1e-06
+  V_ss: 1.2e-09
+  K_mCMDN: 0.00238
+  K_mEGTA: 0.00015
+  K_mCSQN: 0.8
+  CMDN_tot: 0.05
+  EGTA_tot: 0
+  CSQN_tot: 15
+  k_plus_CaATP: 225000
+  k_minus_CaATP: 45000
+  k_plus_CaADP: 125000
+  k_minus_CaADP: 193500
+  ATP_tot: 7
+  k_plus_MgATP: 125000
+  k_minus_MgATP: 10875
+  tau_xfer_CaATP: 0.0534
+  tau_xfer_MgATP: 0.0534
+  tau_xfer_Mg: 0.0267
+  ADP_tot: 0.005
+  k_plus_MgADP: 125000
+  k_minus_MgADP: 84500
+  tau_xfer_CaADP: 0.0534
+  tau_xfer_MgADP: 0.0534
+  V_myo_2: 2.584e-05
+  V_ss_2: 1.2e-09
+initial_state:
+  V: -96.1638
+  Na_i: 10
+  m: 0.0328302
+  h: 0.988354
+  j: 0.99254
+  K_i: 159.48
+  X_kr: 0.51
+  X_ks: 0.264
+  X_to1: 2.63
+  Y_to1: 0.99
+  Ca_i: 8.464e-05
+  MgATP_i: 6.4395
+  O: 9.84546e-21
+  O_Ca: 0
+  C0: 0.997208
+  C1: 6.38897e-05
+  C2: 1.535e-09
+  C3: 1.63909e-14
+  C4: 6.56337e-20
+  C_Ca0: 0.00272826
+  C_Ca1: 6.99215e-07
+  C_Ca2: 6.71989e-11
+  C_Ca3: 2.87031e-15
+  C_Ca4: 4.59752e-20
+  Ca_ss: 0.0001315
+  y: 0.798
+  P_O1: 0
+  P_O2: 0
+  P_C1: 0.47
+  P_C2: 0.53
+  Ca_JSR: 0.2616
+  Ca_NSR: 0.262
+  HTRPNCa: 0.98
+  LTRPNCa: 0.078
+  CaADP_i: 1.1e-07
+  CaADP_ss: 1.3e-07
+  CaATP_ss: 0.00025
+  CaATP_i: 0.000237
+  Mg_ss: 1
+  Mg_i: 1
+  MgADP_i: 0.00298
+  MgADP_ss: 0.00298
+  MgATP_ss: 6.4395
+parameter_names:
+- R
+- T
+- F
+- C_sc
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- g_Na
+- Na_o
+- g_Kr
+- K_o
+- tau_factor
+- g_Ks
+- g_to1
+- g_K1
+- K_mK1
+- g_Kp
+- K_mCa
+- K_mNa
+- K_NaCa
+- K_sat
+- eta
+- Ca_o
+- I_NaK
+- K_mNa_i
+- K_mK_o
+- MgATP_i0
+- K_mpCa
+- I_pCa
+- g_Cab
+- g_Nab
+- P_Ca
+- P_K
+- i_Ca_half
+- a
+- b
+- g
+- f
+- gprime
+- fprime
+- omega
+- v1
+- k_a_plus
+- k_a_minus
+- k_b_plus
+- k_b_minus
+- k_c_plus
+- k_c_minus
+- n
+- m
+- K_fb
+- K_rb
+- Vmaxf
+- Vmaxr
+- K_SR
+- N_fb
+- N_rb
+- tau_tr
+- tau_xfer
+- HTRPN_tot
+- LTRPN_tot
+- k_htrpn_plus
+- k_htrpn_minus
+- k_ltrpn_plus
+- k_ltrpn_minus
+- A_cap
+- V_myo
+- V_JSR
+- V_NSR
+- V_ss
+- K_mCMDN
+- K_mEGTA
+- K_mCSQN
+- CMDN_tot
+- EGTA_tot
+- CSQN_tot
+- k_plus_CaATP
+- k_minus_CaATP
+- k_plus_CaADP
+- k_minus_CaADP
+- ATP_tot
+- k_plus_MgATP
+- k_minus_MgATP
+- tau_xfer_CaATP
+- tau_xfer_MgATP
+- tau_xfer_Mg
+- ADP_tot
+- k_plus_MgADP
+- k_minus_MgADP
+- tau_xfer_CaADP
+- tau_xfer_MgADP
+- V_myo_2
+- V_ss_2
+state_names:
+- V
+- Na_i
+- m
+- h
+- j
+- K_i
+- X_kr
+- X_ks
+- X_to1
+- Y_to1
+- Ca_i
+- MgATP_i
+- O
+- O_Ca
+- C0
+- C1
+- C2
+- C3
+- C4
+- C_Ca0
+- C_Ca1
+- C_Ca2
+- C_Ca3
+- C_Ca4
+- Ca_ss
+- y
+- P_O1
+- P_O2
+- P_C1
+- P_C2
+- Ca_JSR
+- Ca_NSR
+- HTRPNCa
+- LTRPNCa
+- CaADP_i
+- CaADP_ss
+- CaATP_ss
+- CaATP_i
+- Mg_ss
+- Mg_i
+- MgADP_i
+- MgADP_ss
+- MgATP_ss

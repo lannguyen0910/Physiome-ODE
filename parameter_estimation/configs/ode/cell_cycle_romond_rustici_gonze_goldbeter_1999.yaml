@@ -1,0 +1,75 @@
+name: CellCycleRomondRusticiGonzeGoldbeter1999ODE
+state_dim: 6
+parameter_dim: 28
+parameters:
+  H_1: 0.01
+  H_2: 0.01
+  H_3: 0.01
+  H_4: 0.01
+  K_1: 0.01
+  K_2: 0.01
+  K_3: 0.01
+  K_4: 0.01
+  V_M1: 0.3
+  V_M3: 0.1
+  U_M1: 0.3
+  U_M3: 0.1
+  V_2: 0.15
+  V_4: 0.05
+  U_2: 0.15
+  U_4: 0.05
+  K_c1: 0.5
+  K_c2: 0.5
+  K_d1: 0.02
+  K_d2: 0.02
+  v_d1: 0.025
+  v_d2: 0.025
+  v_i1: 0.05
+  v_i2: 0.05
+  k_d1: 0.001
+  k_d2: 0.001
+  K_im1: 0.03
+  K_im2: 0.03
+initial_state:
+  C_1: 2
+  M_2: 0
+  X_1: 0
+  M_1: 1
+  C_2: 0
+  X_2: 0
+parameter_names:
+- H_1
+- H_2
+- H_3
+- H_4
+- K_1
+- K_2
+- K_3
+- K_4
+- V_M1
+- V_M3
+- U_M1
+- U_M3
+- V_2
+- V_4
+- U_2
+- U_4
+- K_c1
+- K_c2
+- K_d1
+- K_d2
+- v_d1
+- v_d2
+- v_i1
+- v_i2
+- k_d1
+- k_d2
+- K_im1
+- K_im2
+state_names:
+- C_1
+- M_2
+- X_1
+- M_1
+- C_2
+- X_2

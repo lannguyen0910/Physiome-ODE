@@ -1,0 +1,183 @@
+name: MyofilamentMechanicsNobleVargheseKohlNoble1998AODE
+state_dim: 22
+parameter_dim: 66
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  Cm: 9.5e-05
+  stim_start: 0.1
+  stim_end: 100000
+  stim_period: 1
+  stim_duration: 0.003
+  stim_amplitude: -3
+  P_kna: 0.03
+  K_o: 4
+  Na_o: 140
+  Ca_o: 2
+  K_mk1: 10
+  g_K1: 0.5
+  g_Kr1: 0.0021
+  g_Kr2: 0.0013
+  g_Ks: 0.0026
+  g_Na: 2.5
+  delta_m: 1.0e-05
+  shift_h: 0
+  g_pna: 0.004
+  g_bna: 0.0006
+  P_Ca_L: 0.1
+  P_CaK: 0.002
+  P_CaNa: 0.01
+  Km_f2: 100000
+  Km_f2ds: 0.001
+  R_decay: 20
+  FrICa: 1
+  speed_d: 3
+  speed_f: 0.3
+  delta_f: 0.0001
+  g_bca: 0.00025
+  g_to: 0.005
+  g_tos: 0
+  i_NaK_max: 0.7
+  K_mK: 1
+  K_mNa: 40
+  k_NaCa: 0.0005
+  n_NaCa: 3
+  d_NaCa: 0
+  gamma: 0.5
+  FRiNaCa: 0.001
+  K_cyca: 0.0003
+  K_xcs: 0.4
+  K_srca: 0.5
+  alpha_up: 0.4
+  beta_up: 0.03
+  K_leak_rate: 0.05
+  K_m_rel: 250
+  K_m_Ca_cyt: 0.0005
+  K_m_Ca_ds: 0.01
+  Calmod: 0.02
+  Trop: 0.05
+  alpha_Calmod: 100000
+  beta_Calmod: 50
+  alpha_Trop: 100000
+  beta_Trop: 200
+  radius: 0.012
+  length: 0.074
+  V_ds_ratio: 0.1
+  V_rel_ratio: 0.1
+  V_e_ratio: 0.4
+  V_up_ratio: 0.01
+  Kdecay: 10
+initial_state:
+  V: -92.849333
+  K_i: 136.5644281
+  Na_i: 7.3321223
+  Ca_i: 1.4e-05
+  xr1: 1.03e-05
+  xr2: 2.0e-07
+  xs: 0.001302
+  m: 0.0016203
+  h: 0.9944036
+  Ca_ds: 1.88e-05
+  d: 0
+  f: 1
+  f2: 0.9349197
+  f2ds: 0.9651958
+  s: 0.9948645
+  r: 0
+  Ca_up: 0.4531889
+  Ca_rel: 0.4481927
+  ActFrac: 0.0042614
+  ProdFrac: 0.4068154
+  Ca_Calmod: 0.0005555
+  Ca_Trop: 0.0003542
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- P_kna
+- K_o
+- Na_o
+- Ca_o
+- K_mk1
+- g_K1
+- g_Kr1
+- g_Kr2
+- g_Ks
+- g_Na
+- delta_m
+- shift_h
+- g_pna
+- g_bna
+- P_Ca_L
+- P_CaK
+- P_CaNa
+- Km_f2
+- Km_f2ds
+- R_decay
+- FrICa
+- speed_d
+- speed_f
+- delta_f
+- g_bca
+- g_to
+- g_tos
+- i_NaK_max
+- K_mK
+- K_mNa
+- k_NaCa
+- n_NaCa
+- d_NaCa
+- gamma
+- FRiNaCa
+- K_cyca
+- K_xcs
+- K_srca
+- alpha_up
+- beta_up
+- K_leak_rate
+- K_m_rel
+- K_m_Ca_cyt
+- K_m_Ca_ds
+- Calmod
+- Trop
+- alpha_Calmod
+- beta_Calmod
+- alpha_Trop
+- beta_Trop
+- radius
+- length
+- V_ds_ratio
+- V_rel_ratio
+- V_e_ratio
+- V_up_ratio
+- Kdecay
+state_names:
+- V
+- K_i
+- Na_i
+- Ca_i
+- xr1
+- xr2
+- xs
+- m
+- h
+- Ca_ds
+- d
+- f
+- f2
+- f2ds
+- s
+- r
+- Ca_up
+- Ca_rel
+- ActFrac
+- ProdFrac
+- Ca_Calmod
+- Ca_Trop

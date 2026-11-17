@@ -1,0 +1,103 @@
+name: SignalTransductionLeloupGonzeGoldbeter1999AODE
+state_dim: 10
+parameter_dim: 38
+parameters:
+  vsP: 1
+  vmP: 0.7
+  KmP: 0.2
+  KIP: 1
+  kd: 0.01
+  n: 4
+  ksP: 0.9
+  V1P: 8
+  V2P: 1
+  K1P: 2
+  K2P: 2
+  V3P: 8
+  V4P: 1
+  K3P: 2
+  K4P: 1
+  vdP: 2
+  KdP: 0.2
+  k3: 1.2
+  k4: 0.6
+  vsT: 1
+  vmT: 0.7
+  KmT: 0.2
+  KIT: 1
+  ksT: 0.9
+  V1T: 8
+  V2T: 1
+  K1T: 2
+  K2T: 2
+  V3T: 8
+  V4T: 1
+  K3T: 2
+  K4T: 1
+  vdT: 2
+  KdT: 0.2
+  kdC: 0.01
+  k1: 0.6
+  k2: 0.2
+  kdN: 0.01
+initial_state:
+  MP: 0.1
+  CN: 1.25
+  P0: 0.1
+  P1: 0.1
+  P2: 0.1
+  T2: 0.1
+  C: 0.1
+  MT: 1.6
+  T0: 0.1
+  T1: 0.1
+parameter_names:
+- vsP
+- vmP
+- KmP
+- KIP
+- kd
+- n
+- ksP
+- V1P
+- V2P
+- K1P
+- K2P
+- V3P
+- V4P
+- K3P
+- K4P
+- vdP
+- KdP
+- k3
+- k4
+- vsT
+- vmT
+- KmT
+- KIT
+- ksT
+- V1T
+- V2T
+- K1T
+- K2T
+- V3T
+- V4T
+- K3T
+- K4T
+- vdT
+- KdT
+- kdC
+- k1
+- k2
+- kdN
+state_names:
+- MP
+- CN
+- P0
+- P1
+- P2
+- T2
+- C
+- MT
+- T0
+- T1

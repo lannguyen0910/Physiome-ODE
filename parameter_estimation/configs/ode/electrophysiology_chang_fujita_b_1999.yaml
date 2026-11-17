@@ -1,0 +1,79 @@
+name: ElectrophysiologyChangFujitaB1999ODE
+state_dim: 9
+parameter_dim: 27
+parameters:
+  C_m_Imp: 0.1033
+  C_c_Imp: 0.1124
+  psi_m: -28
+  psi_c: -86.4
+  RT: 2.579
+  F: 96.48
+  C_s_Imp: 0.04525
+  psi_s: 0
+  P_mc_Na: 3.27e-06
+  J_mc_NaCl_max: 3.21e-05
+  K_mc_Na_NaCl: 0.0511
+  K_mc_Cl_NaCl: 0.0192
+  J_mc_KCl_max: 6.31e-08
+  K_mc_K_KCl: 0.053
+  K_mc_Cl_KCl: 0.0213
+  P_mc_K: 4.9e-07
+  P_mc_Cl: 1.43e-06
+  J_a_max: 2.69e-06
+  K_Na_ATPase: 0.012
+  P_sc_K: 0.000474
+  P_sc_Cl: 9.16e-05
+  P_ms_Na: 4.8e-06
+  P_ms_K: 4.8e-06
+  P_ms_Cl: 2.4e-06
+  L_mc_v: 5.22e-09
+  L_ms_v: 0
+  L_sc_v: 5.22e-07
+initial_state:
+  C_m_Na: 0.05
+  C_m_K: 0.002
+  C_m_Cl: 0.03
+  C_c_Na: 0.0164
+  C_c_K: 0.1637
+  C_c_Cl: 0.0203
+  C_s_Na: 0.1438
+  C_s_K: 0.00425
+  C_s_Cl: 0.112
+parameter_names:
+- C_m_Imp
+- C_c_Imp
+- psi_m
+- psi_c
+- RT
+- F
+- C_s_Imp
+- psi_s
+- P_mc_Na
+- J_mc_NaCl_max
+- K_mc_Na_NaCl
+- K_mc_Cl_NaCl
+- J_mc_KCl_max
+- K_mc_K_KCl
+- K_mc_Cl_KCl
+- P_mc_K
+- P_mc_Cl
+- J_a_max
+- K_Na_ATPase
+- P_sc_K
+- P_sc_Cl
+- P_ms_Na
+- P_ms_K
+- P_ms_Cl
+- L_mc_v
+- L_ms_v
+- L_sc_v
+state_names:
+- C_m_Na
+- C_m_K
+- C_m_Cl
+- C_c_Na
+- C_c_K
+- C_c_Cl
+- C_s_Na
+- C_s_K
+- C_s_Cl

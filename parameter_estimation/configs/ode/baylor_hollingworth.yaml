@@ -1,0 +1,23 @@
+name: BaylorHollingworthODE
+
+params:
+  state_dim: 3
+  parameter_dim: 2
+
+parameters:
+  k1: 1.017e14
+  k1_: 132.0
+
+initial_state:
+  Ca: 0.05
+  Trop: 360.0
+  CaTrop: 0.01
+
+parameter_names:
+  - k1
+  - k1_
+
+state_names:
+  - Ca
+  - Trop
+  - CaTrop

@@ -1,0 +1,107 @@
+name: SignalTransductionVempatiKaragiannisPopel2007ODE
+state_dim: 17
+parameter_dim: 33
+parameters:
+  kon_M3pM9: 10000
+  koff_M3pM9: 0.001
+  kact_M3pM9: 0.0019
+  kon_M3T1: 1900000
+  koff_M3T1: 0.000126
+  kon_pM9T1: 34000
+  koff_pM9T1: 7.48e-05
+  kon_M3pM9T1: 10000
+  koff_M3pM9T1: 0.001
+  kact_M3pM9T1: 0.00057
+  kon_M9T1_star: 5600000
+  koff_M9T1_star: 1.6e-05
+  kon_M9T1: 0.00063
+  koff_M9T1: 0.00025
+  kon_M9_M3T1: 7.48e-05
+  koff_M9_M3T1: 34000
+  kon_M3_pM9T1: 1900000
+  koff_M3_pM9T1: 0.000126
+  kon_pM9T1M3: 34000
+  koff_pM9T1M3: 7.48e-05
+  kon_M3pM9T1M3: 10000
+  koff_M3pM9T1M3: 0.001
+  kact_M3pM9T1M3: 0.00057
+  kact_M9T1M3: 0.000126
+  kon_TrpM9: 10000
+  koff_TrpM9: 0.007
+  kact_TrpM9: 0.002
+  kon_TrpM9T1: 10000
+  koff_TrpM9T1: 0.007
+  kact_TrpM9T1: 0.0006
+  kon_TrpM9T1M3: 10000
+  koff_TrpM9T1M3: 0.007
+  kact_TrpM9T1M3: 0.0006
+initial_state:
+  pM9: 3.0e-07
+  M3: 5.0e-08
+  M3_pM9: 0
+  M3_T1: 0
+  T1: 3.0e-07
+  pM9_T1: 0
+  M3_pM9_T1: 0
+  M9_T1_star: 0
+  M9: 0
+  M9_T1: 0
+  M9_T1_M3: 0
+  pM9_T1_M3: 0
+  M3_pM9_T1_M3: 0
+  Tr: 1.0e-07
+  Tr_pM9: 0
+  Tr_pM9_T1: 0
+  Tr_pM9_T1_M3: 0
+parameter_names:
+- kon_M3pM9
+- koff_M3pM9
+- kact_M3pM9
+- kon_M3T1
+- koff_M3T1
+- kon_pM9T1
+- koff_pM9T1
+- kon_M3pM9T1
+- koff_M3pM9T1
+- kact_M3pM9T1
+- kon_M9T1_star
+- koff_M9T1_star
+- kon_M9T1
+- koff_M9T1
+- kon_M9_M3T1
+- koff_M9_M3T1
+- kon_M3_pM9T1
+- koff_M3_pM9T1
+- kon_pM9T1M3
+- koff_pM9T1M3
+- kon_M3pM9T1M3
+- koff_M3pM9T1M3
+- kact_M3pM9T1M3
+- kact_M9T1M3
+- kon_TrpM9
+- koff_TrpM9
+- kact_TrpM9
+- kon_TrpM9T1
+- koff_TrpM9T1
+- kact_TrpM9T1
+- kon_TrpM9T1M3
+- koff_TrpM9T1M3
+- kact_TrpM9T1M3
+state_names:
+- pM9
+- M3
+- M3_pM9
+- M3_T1
+- T1
+- pM9_T1
+- M3_pM9_T1
+- M9_T1_star
+- M9
+- M9_T1
+- M9_T1_M3
+- pM9_T1_M3
+- M3_pM9_T1_M3
+- Tr
+- Tr_pM9
+- Tr_pM9_T1
+- Tr_pM9_T1_M3

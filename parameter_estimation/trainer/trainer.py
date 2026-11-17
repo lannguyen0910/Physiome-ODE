@@ -1,0 +1,2329 @@
+import os
+import json
+import math
+import gc
+
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
+import torch
+
+from utilities.loggers import LoggerObserver
+
+
+LOGGER = LoggerObserver.getLogger("main")
+
+
+def _log_print(*values, level=None, flush=False):
+    LOGGER.text(
+        " ".join(str(value) for value in values),
+        level=LoggerObserver.INFO if level is None else level,
+    )
+
+
+def _jsonable(value):
+    """Convert nested values to strict JSON-compatible Python values."""
+
+    if torch.is_tensor(value):
+        value = value.detach().cpu()
+
+        if value.numel() == 1:
+            return _jsonable(value.item())
+
+        return _jsonable(value.tolist())
+
+    if isinstance(value, dict):
+        return {
+            str(key): _jsonable(item)
+            for key, item in value.items()
+        }
+
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(item) for item in value]
+
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+
+    return str(value)
+
+
+class Trainer:
+
+    def __init__(
+        self,
+        model,
+        train_loader,
+        valid_loader,
+        test_loader,
+        loss_fn,
+        optimizer,
+        device,
+        epochs,
+        patience,
+        gradient_clip,
+        checkpoint_path,
+        history_path=None,
+        results_path=None,
+        parameter_metrics=None,
+        trajectory_metrics=None,
+        jgd_metrics=None,
+        run_dir=None,
+        config=None,
+        logger=None,
+    ):
+
+        self.model = model
+
+        self.train_loader = train_loader
+        self.valid_loader = valid_loader
+        self.test_loader = test_loader
+
+        self.loss_fn = loss_fn
+        self.optimizer = optimizer
+
+        self.device = torch.device(device)
+
+        self.epochs = int(epochs)
+        self.patience = int(patience)
+
+        self.gradient_clip = (
+            None
+            if gradient_clip is None
+            else float(gradient_clip)
+        )
+
+        self.checkpoint_path = checkpoint_path
+        self.history_path = history_path
+        self.results_path = results_path
+
+        self.parameter_metrics = parameter_metrics
+        self.trajectory_metrics = trajectory_metrics
+        self.jgd_metrics = jgd_metrics
+
+        self.logger = logger or LOGGER
+
+        self.run_dir = (
+            Path(run_dir)
+            if run_dir is not None
+            else (
+                Path(results_path).parent
+                if results_path
+                else None
+            )
+        )
+
+        self.config = config or {}
+
+        if self.run_dir is not None:
+            self.run_dir.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+
+        self.model.to(self.device)
+
+        self._time_grid_checked = False
+
+    # ======================================================
+    # MEMORY
+    # ======================================================
+
+    def _log_memory(self, name):
+
+        try:
+            import psutil
+
+            process = psutil.Process(os.getpid())
+
+            process_ram = (
+                process.memory_info().rss
+                / (1024 ** 3)
+            )
+
+            system = psutil.virtual_memory()
+
+            message = (
+                f"RAM [{name}] | "
+                f"process={process_ram:.2f} GB | "
+                f"system={system.used / (1024 ** 3):.2f}/"
+                f"{system.total / (1024 ** 3):.2f} GB "
+                f"({system.percent:.1f}%)"
+            )
+
+            if torch.cuda.is_available():
+
+                gpu_allocated = (
+                    torch.cuda.memory_allocated()
+                    / (1024 ** 3)
+                )
+
+                gpu_reserved = (
+                    torch.cuda.memory_reserved()
+                    / (1024 ** 3)
+                )
+
+                message += (
+                    f" | GPU allocated={gpu_allocated:.2f} GB"
+                    f" | GPU reserved={gpu_reserved:.2f} GB"
+                )
+
+            _log_print(message)
+
+        except Exception:
+            pass
+
+    # ======================================================
+    # TENSOR / BATCH HELPERS
+    # ======================================================
+
+    def _move_batch_to_device(
+        self,
+        batch: Dict[str, Any],
+    ) -> Dict[str, Any]:
+
+        return {
+            key: (
+                value.to(self.device)
+                if torch.is_tensor(value)
+                else value
+            )
+            for key, value in batch.items()
+        }
+
+    @staticmethod
+    def _valid_time_mask(t):
+
+        return torch.isfinite(t) & (t > 0.0)
+
+    @staticmethod
+    def _validate_strictly_increasing(
+        t,
+        name,
+        sample_idx,
+    ):
+
+        if t.numel() <= 1:
+            return
+
+        dt = torch.diff(t)
+
+        if not torch.all(dt > 0):
+
+            raise RuntimeError(
+                f"{name} timestamps are not strictly increasing "
+                f"for sample {sample_idx}."
+            )
+
+    # ======================================================
+    # SAMPLE TIME GRID
+    # ======================================================
+
+    @classmethod
+    def _build_sample_time_grid(
+        cls,
+        T,
+        TY,
+        X,
+        M,
+        Y,
+        MY,
+        sample_idx,
+        integration_times,
+        validate=False,
+    ):
+
+        obs_valid = cls._valid_time_mask(T)
+
+        T_obs = T[obs_valid]
+        X_obs = X[obs_valid]
+        M_obs = M[obs_valid]
+
+        if T_obs.numel() == 0:
+
+            raise RuntimeError(
+                f"Sample {sample_idx} contains no "
+                f"valid observation timestamps."
+            )
+
+        future_valid = cls._valid_time_mask(TY)
+
+        TY_valid = TY[future_valid]
+        Y_valid = Y[future_valid]
+        MY_valid = MY[future_valid]
+
+        if validate:
+
+            cls._validate_strictly_increasing(
+                T_obs,
+                "Observation",
+                sample_idx,
+            )
+
+            if TY_valid.numel() > 1:
+
+                cls._validate_strictly_increasing(
+                    TY_valid,
+                    "Forecast",
+                    sample_idx,
+                )
+
+        # Remove duplicated boundary.
+        if TY_valid.numel() > 0:
+
+            duplicated_boundary = torch.isclose(
+                T_obs[-1],
+                TY_valid[0],
+                atol=1e-7,
+                rtol=1e-6,
+            )
+
+            if duplicated_boundary:
+
+                TY_valid = TY_valid[1:]
+                Y_valid = Y_valid[1:]
+                MY_valid = MY_valid[1:]
+
+        # Build target trajectory.
+        if TY_valid.numel() > 0:
+
+            t_eval = torch.cat(
+                [T_obs, TY_valid],
+                dim=0,
+            )
+
+            trajectory_true = torch.cat(
+                [X_obs, Y_valid],
+                dim=0,
+            )
+
+            trajectory_mask = torch.cat(
+                [M_obs, MY_valid],
+                dim=0,
+            )
+
+        else:
+
+            t_eval = T_obs
+            trajectory_true = X_obs
+            trajectory_mask = M_obs
+
+        if validate:
+
+            cls._validate_strictly_increasing(
+                t_eval,
+                "Evaluation",
+                sample_idx,
+            )
+
+        if trajectory_true.shape[0] != t_eval.shape[0]:
+
+            raise RuntimeError(
+                f"Trajectory/time mismatch for sample "
+                f"{sample_idx}: "
+                f"{trajectory_true.shape[0]} != "
+                f"{t_eval.shape[0]}"
+            )
+
+        evaluation_indices = torch.searchsorted(
+            integration_times,
+            t_eval,
+        )
+
+        if validate:
+
+            if torch.any(
+                evaluation_indices >= integration_times.numel()
+            ):
+
+                raise RuntimeError(
+                    f"Could not map evaluation timestamps "
+                    f"for sample {sample_idx}."
+                )
+
+            matched_times = (
+                integration_times[evaluation_indices]
+            )
+
+            if not torch.allclose(
+                matched_times,
+                t_eval,
+                atol=1e-6,
+                rtol=1e-5,
+            ):
+
+                raise RuntimeError(
+                    f"Evaluation timestamps could not be "
+                    f"matched for sample {sample_idx}."
+                )
+
+        return {
+            "T_obs": T_obs,
+            "X_obs": X_obs,
+            "M_obs": M_obs,
+            "TY": TY_valid,
+            "Y": Y_valid,
+            "MY": MY_valid,
+            "t_eval": t_eval,
+            "evaluation_indices": evaluation_indices,
+            "trajectory_true": trajectory_true,
+            "trajectory_mask": trajectory_mask,
+        }
+
+    # ======================================================
+    # FORWARD
+    # ======================================================
+
+    def _forward(
+        self,
+        batch,
+        return_samples=False,
+    ):
+
+        batch = self._move_batch_to_device(batch)
+
+        T = batch["T"]
+        X = batch["X"]
+        M = batch["M"]
+
+        TY = batch["TY"]
+        MY = batch["MY"]
+        Y = batch["Y"]
+
+        theta_true = batch["theta"]
+        theta_true_norm = batch["theta_norm"]
+
+        y0_true = batch["y0"]
+
+        batch_size = T.shape[0]
+
+        # --------------------------------------------------
+        # Shared integration grid
+        # --------------------------------------------------
+
+        valid_times = torch.cat(
+            [
+                T[T > 0.0],
+                TY[TY > 0.0],
+            ],
+            dim=0,
+        )
+
+        if valid_times.numel() == 0:
+            raise RuntimeError(
+                "Batch contains no valid timestamps."
+            )
+
+        t_eval_shared = torch.unique(
+            valid_times,
+            sorted=True,
+        )
+
+        zero = torch.zeros(
+            1,
+            dtype=t_eval_shared.dtype,
+            device=t_eval_shared.device,
+        )
+
+        if t_eval_shared[0] > 0.0:
+
+            integration_times = torch.cat(
+                [
+                    zero,
+                    t_eval_shared,
+                ],
+                dim=0,
+            )
+
+        else:
+
+            integration_times = t_eval_shared
+
+        if not self._time_grid_checked:
+
+            self._validate_strictly_increasing(
+                integration_times,
+                "Batch integration",
+                -1,
+            )
+
+        # --------------------------------------------------
+        # Model
+        # --------------------------------------------------
+
+        model_output = self.model(
+            T=T,
+            X=X,
+            M=M,
+            integration_times=integration_times,
+        )
+
+        theta_pred = model_output["theta_pred"]
+        theta_pred_norm = model_output["theta_pred_norm"]
+        y0_pred = model_output["y0_pred"]
+
+        trajectory_full = (
+            model_output["trajectory_pred"]
+        )
+
+        # --------------------------------------------------
+        # Shape checks
+        # --------------------------------------------------
+
+        if trajectory_full.ndim != 3:
+
+            raise RuntimeError(
+                "Expected trajectory_pred with shape "
+                "[B,T,D], received "
+                f"{tuple(trajectory_full.shape)}."
+            )
+
+        if trajectory_full.shape[0] != batch_size:
+
+            raise RuntimeError(
+                "Trajectory batch dimension mismatch: "
+                f"{trajectory_full.shape[0]} != "
+                f"{batch_size}."
+            )
+
+        if (
+            trajectory_full.shape[1]
+            != integration_times.numel()
+        ):
+
+            raise RuntimeError(
+                "Trajectory/integration-time mismatch: "
+                f"{trajectory_full.shape[1]} != "
+                f"{integration_times.numel()}."
+            )
+
+        # --------------------------------------------------
+        # Finite checks
+        # --------------------------------------------------
+
+        if not torch.isfinite(theta_pred).all():
+            raise FloatingPointError(
+                "Non-finite theta prediction."
+            )
+
+        if not torch.isfinite(y0_pred).all():
+            raise FloatingPointError(
+                "Non-finite y0 prediction."
+            )
+
+        if not torch.isfinite(
+            trajectory_full
+        ).all():
+
+            raise FloatingPointError(
+                "Non-finite trajectory prediction."
+            )
+
+        # --------------------------------------------------
+        # IMPORTANT:
+        #
+        # During TRAINING we don't need to return a giant
+        # sample_outputs list.
+        #
+        # During VALIDATION/TEST we do need individual
+        # samples for ragged trajectory metrics.
+        # --------------------------------------------------
+
+        if not return_samples:
+
+            return {
+                "theta_pred": theta_pred,
+                "theta_pred_norm": theta_pred_norm,
+                "theta_true": theta_true,
+                "theta_true_norm": theta_true_norm,
+                "y0_pred": y0_pred,
+                "y0_true": y0_true,
+                "trajectory_full": trajectory_full,
+                "integration_times": integration_times,
+                "t_eval_shared": t_eval_shared,
+                "batch": batch,
+            }
+
+        # --------------------------------------------------
+        # Validation/test only
+        # --------------------------------------------------
+
+        samples = []
+
+        validate_samples = (
+            not self._time_grid_checked
+        )
+
+        for sample_idx in range(batch_size):
+
+            sample = self._build_sample_time_grid(
+                T=T[sample_idx],
+                TY=TY[sample_idx],
+                X=X[sample_idx],
+                M=M[sample_idx],
+                Y=Y[sample_idx],
+                MY=MY[sample_idx],
+                sample_idx=sample_idx,
+                integration_times=integration_times,
+                validate=validate_samples,
+            )
+
+            trajectory_pred_i = (
+                trajectory_full[
+                    sample_idx,
+                    sample["evaluation_indices"],
+                    :,
+                ]
+            )
+
+            # IMPORTANT:
+            # Validation/test are under no_grad().
+            # Move stored data to CPU immediately.
+            samples.append(
+                {
+                    "theta_pred":
+                        theta_pred[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "theta_pred_norm":
+                        theta_pred_norm[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "theta_true":
+                        theta_true[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "theta_true_norm":
+                        theta_true_norm[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "y0_pred":
+                        y0_pred[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "y0_true":
+                        y0_true[sample_idx]
+                        .detach()
+                        .cpu(),
+
+                    "trajectory_pred":
+                        trajectory_pred_i
+                        .detach()
+                        .cpu(),
+
+                    "trajectory_true":
+                        sample["trajectory_true"]
+                        .detach()
+                        .cpu(),
+
+                    "trajectory_mask":
+                        sample["trajectory_mask"]
+                        .detach()
+                        .cpu(),
+
+                    "t_eval":
+                        sample["t_eval"]
+                        .detach()
+                        .cpu(),
+
+                    "integration_times":
+                        integration_times
+                        .detach()
+                        .cpu(),
+
+                    "evaluation_indices":
+                        sample["evaluation_indices"]
+                        .detach()
+                        .cpu(),
+
+                    "T_obs":
+                        sample["T_obs"]
+                        .detach()
+                        .cpu(),
+
+                    "X_obs":
+                        sample["X_obs"]
+                        .detach()
+                        .cpu(),
+
+                    "M_obs":
+                        sample["M_obs"]
+                        .detach()
+                        .cpu(),
+
+                    "TY":
+                        sample["TY"]
+                        .detach()
+                        .cpu(),
+
+                    "Y":
+                        sample["Y"]
+                        .detach()
+                        .cpu(),
+
+                    "MY":
+                        sample["MY"]
+                        .detach()
+                        .cpu(),
+                }
+            )
+
+        self._time_grid_checked = True
+
+        # Also detach the batch-level values because this method is only
+        # used for validation/test.
+        return {
+            "theta_pred":
+                theta_pred.detach().cpu(),
+
+            "theta_true":
+                theta_true.detach().cpu(),
+
+            "y0_pred":
+                y0_pred.detach().cpu(),
+
+            "y0_true":
+                y0_true.detach().cpu(),
+
+            "trajectory_full":
+                trajectory_full.detach().cpu(),
+
+            "integration_times":
+                integration_times.detach().cpu(),
+
+            "t_eval_shared":
+                t_eval_shared.detach().cpu(),
+
+            "samples":
+                samples,
+        }
+
+    # ======================================================
+    # LOSS
+    # ======================================================
+
+    def _compute_loss(self, outputs):
+
+        # --------------------------------------------------
+        # TRAINING
+        #
+        # Do NOT create sample_outputs/sample_losses lists.
+        # --------------------------------------------------
+
+        if "batch" in outputs:
+
+            batch = outputs["batch"]
+
+            T = batch["T"]
+            TY = batch["TY"]
+
+            X = batch["X"]
+            M = batch["M"]
+
+            Y = batch["Y"]
+            MY = batch["MY"]
+
+            theta_pred_norm = (
+                outputs["theta_pred_norm"]
+            )
+
+            theta_true_norm = (
+                outputs["theta_true_norm"]
+            )
+
+            trajectory_full = (
+                outputs["trajectory_full"]
+            )
+
+            integration_times = (
+                outputs["integration_times"]
+            )
+
+            batch_size = T.shape[0]
+
+            total_losses = []
+            parameter_losses = []
+            trajectory_losses = []
+
+            for sample_idx in range(batch_size):
+
+                sample = self._build_sample_time_grid(
+                    T=T[sample_idx],
+                    TY=TY[sample_idx],
+                    X=X[sample_idx],
+                    M=M[sample_idx],
+                    Y=Y[sample_idx],
+                    MY=MY[sample_idx],
+                    sample_idx=sample_idx,
+                    integration_times=integration_times,
+                    validate=False,
+                )
+
+                trajectory_pred = (
+                    trajectory_full[
+                        sample_idx,
+                        sample["evaluation_indices"],
+                        :,
+                    ]
+                )
+
+                losses = self.loss_fn(
+                    theta_pred=(
+                        theta_pred_norm[
+                            sample_idx
+                        ].unsqueeze(0)
+                    ),
+                    theta_true=(
+                        theta_true_norm[
+                            sample_idx
+                        ].unsqueeze(0)
+                    ),
+                    trajectory_pred=(
+                        trajectory_pred.unsqueeze(0)
+                    ),
+                    trajectory_true=(
+                        sample[
+                            "trajectory_true"
+                        ].unsqueeze(0)
+                    ),
+                )
+
+                if not isinstance(
+                    losses,
+                    dict,
+                ):
+
+                    raise TypeError(
+                        "Loss function must return a dict."
+                    )
+
+                for key in (
+                    "total",
+                    "parameter",
+                    "trajectory",
+                ):
+
+                    if key not in losses:
+                        raise KeyError(
+                            f"Missing loss '{key}'."
+                        )
+
+                    if not torch.isfinite(
+                        losses[key]
+                    ).all():
+
+                        raise FloatingPointError(
+                            f"Non-finite {key} loss."
+                        )
+
+                total_losses.append(
+                    losses["total"]
+                )
+
+                parameter_losses.append(
+                    losses["parameter"]
+                )
+
+                trajectory_losses.append(
+                    losses["trajectory"]
+                )
+
+            return {
+                "total": torch.stack(
+                    total_losses
+                ).mean(),
+
+                "parameter": torch.stack(
+                    parameter_losses
+                ).mean(),
+
+                "trajectory": torch.stack(
+                    trajectory_losses
+                ).mean(),
+            }
+
+        # --------------------------------------------------
+        # VALIDATION / TEST
+        # --------------------------------------------------
+
+        sample_losses = []
+
+        for sample in outputs["samples"]:
+
+            losses = self.loss_fn(
+                theta_pred=(
+                    sample[
+                        "theta_pred_norm"
+                    ].unsqueeze(0)
+                ),
+
+                theta_true=(
+                    sample[
+                        "theta_true_norm"
+                    ].unsqueeze(0)
+                ),
+
+                trajectory_pred=(
+                    sample[
+                        "trajectory_pred"
+                    ].unsqueeze(0)
+                ),
+
+                trajectory_true=(
+                    sample[
+                        "trajectory_true"
+                    ].unsqueeze(0)
+                ),
+            )
+
+            sample_losses.append(losses)
+
+        return {
+            key: torch.stack(
+                [
+                    loss[key]
+                    for loss in sample_losses
+                ]
+            ).mean()
+            for key in (
+                "total",
+                "parameter",
+                "trajectory",
+            )
+        }
+
+    # ======================================================
+    # METRICS
+    # ======================================================
+
+    def _compute_parameter_metrics(
+        self,
+        theta_pred,
+        theta_true,
+    ):
+
+        if self.parameter_metrics is None:
+            return {}
+
+        return self.parameter_metrics(
+            prediction=theta_pred,
+            target=theta_true,
+        )
+
+    def _compute_trajectory_metrics_one_sample(
+        self,
+        trajectory_pred,
+        trajectory_true,
+    ):
+
+        if self.trajectory_metrics is None:
+            return {}
+
+        return self.trajectory_metrics(
+            prediction=trajectory_pred.unsqueeze(0),
+            target=trajectory_true.unsqueeze(0),
+        )
+
+    @staticmethod
+    def _average_scalar_metric_dicts(
+        metric_dicts,
+    ):
+
+        totals = {}
+        counts = {}
+
+        for metric_dict in metric_dicts:
+
+            for name, value in metric_dict.items():
+
+                if not torch.is_tensor(value):
+                    value = torch.as_tensor(value)
+
+                if value.numel() != 1:
+                    continue
+
+                value = (
+                    value
+                    .detach()
+                    .float()
+                    .reshape(())
+                )
+
+                if not torch.isfinite(value):
+                    continue
+
+                totals[name] = (
+                    totals.get(name, 0.0)
+                    + value.item()
+                )
+
+                counts[name] = (
+                    counts.get(name, 0)
+                    + 1
+                )
+
+        return {
+            name:
+                totals[name] / counts[name]
+            for name in totals
+            if counts[name] > 0
+        }
+
+    def _compute_trajectory_metrics_ragged(
+        self,
+        samples,
+    ):
+
+        if self.trajectory_metrics is None:
+            return {}
+
+        metric_dicts = []
+
+        for sample in samples:
+
+            metric_dicts.append(
+                self._compute_trajectory_metrics_one_sample(
+                    sample["trajectory_pred"],
+                    sample["trajectory_true"],
+                )
+            )
+
+        return self._average_scalar_metric_dicts(
+            metric_dicts
+        )
+
+    def _compute_jgd_metrics_ragged(
+        self,
+        samples,
+    ):
+
+        if self.jgd_metrics is None:
+            return {}
+
+        metric_dicts = []
+
+        for sample in samples:
+
+            metric_dicts.append(
+                self.jgd_metrics(
+                    prediction=(
+                        sample[
+                            "trajectory_pred"
+                        ].unsqueeze(0)
+                    ),
+                    target=(
+                        sample[
+                            "trajectory_true"
+                        ].unsqueeze(0)
+                    ),
+                )
+            )
+
+        return self._average_scalar_metric_dicts(
+            metric_dicts
+        )
+
+    # ======================================================
+    # TRAIN ONE EPOCH
+    # ======================================================
+
+    def train_epoch(self):
+
+        self.model.train()
+
+        total_loss = 0.0
+        total_parameter_loss = 0.0
+        total_trajectory_loss = 0.0
+
+        metric_totals = {}
+
+        num_batches = 0
+
+        for batch_idx, batch in enumerate(
+            self.train_loader
+        ):
+
+            self.optimizer.zero_grad(
+                set_to_none=True
+            )
+
+            outputs = None
+            losses = None
+            total = None
+
+            try:
+
+                # IMPORTANT:
+                # No sample list is created here.
+                outputs = self._forward(
+                    batch,
+                    return_samples=False,
+                )
+
+                losses = self._compute_loss(
+                    outputs
+                )
+
+                total = losses["total"]
+
+                if not torch.isfinite(
+                    total
+                ).all():
+
+                    raise FloatingPointError(
+                        "Non-finite training loss."
+                    )
+
+            except (
+                FloatingPointError,
+                RuntimeError,
+                ValueError,
+                KeyError,
+                TypeError,
+            ) as error:
+
+                _log_print(
+                    "WARNING: "
+                    f"Skipping invalid training batch "
+                    f"{batch_idx}: {error}"
+                )
+
+                self.optimizer.zero_grad(
+                    set_to_none=True
+                )
+
+                del outputs
+                del losses
+                del total
+
+                gc.collect()
+
+                continue
+
+            # --------------------------------------------------
+            # BACKWARD
+            # --------------------------------------------------
+
+            total.backward()
+
+            # --------------------------------------------------
+            # GRADIENT CLIPPING
+            # --------------------------------------------------
+
+            if self.gradient_clip is not None:
+
+                torch.nn.utils.clip_grad_norm_(
+                    self.model.parameters(),
+                    max_norm=self.gradient_clip,
+                )
+
+            # --------------------------------------------------
+            # OPTIMIZER
+            # --------------------------------------------------
+
+            self.optimizer.step()
+
+            # --------------------------------------------------
+            # SCALAR METRICS
+            # --------------------------------------------------
+
+            total_loss += (
+                total.detach().item()
+            )
+
+            total_parameter_loss += (
+                losses["parameter"]
+                .detach()
+                .item()
+            )
+
+            total_trajectory_loss += (
+                losses["trajectory"]
+                .detach()
+                .item()
+            )
+
+            # --------------------------------------------------
+            # Parameter metrics
+            # --------------------------------------------------
+
+            with torch.no_grad():
+
+                parameter_results = (
+                    self._compute_parameter_metrics(
+                        outputs["theta_pred"],
+                        outputs["theta_true"],
+                    )
+                )
+
+                for name, value in (
+                    parameter_results.items()
+                ):
+
+                    if not torch.is_tensor(
+                        value
+                    ):
+
+                        value = torch.as_tensor(
+                            value
+                        )
+
+                    if (
+                        value.numel() == 1
+                        and torch.isfinite(
+                            value
+                        ).all()
+                    ):
+
+                        metric_name = (
+                            f"parameter_{name}"
+                        )
+
+                        metric_totals[
+                            metric_name
+                        ] = (
+                            metric_totals.get(
+                                metric_name,
+                                0.0,
+                            )
+                            + value.detach()
+                            .float()
+                            .item()
+                        )
+
+            num_batches += 1
+
+            # --------------------------------------------------
+            # IMPORTANT:
+            # Explicitly release batch graph.
+            # --------------------------------------------------
+
+            del outputs
+            del losses
+            del total
+
+            # Don't call gc.collect() every batch.
+            # It is very expensive.
+            #
+            # We do it periodically instead.
+            if (
+                batch_idx + 1
+            ) % 20 == 0:
+
+                gc.collect()
+
+            if (
+                batch_idx == 0
+                or (batch_idx + 1) % 10 == 0
+                or (
+                    batch_idx + 1
+                    == len(self.train_loader)
+                )
+            ):
+
+                _log_print(
+                    f"       Train batch "
+                    f"{batch_idx + 1}/"
+                    f"{len(self.train_loader)}",
+                    flush=True,
+                )
+
+        if num_batches == 0:
+
+            raise RuntimeError(
+                "No valid training batches were processed."
+            )
+
+        results = {
+            "loss":
+                total_loss / num_batches,
+
+            "parameter_loss":
+                total_parameter_loss
+                / num_batches,
+
+            "trajectory_loss":
+                total_trajectory_loss
+                / num_batches,
+        }
+
+        for name, value in (
+            metric_totals.items()
+        ):
+
+            results[name] = (
+                value / num_batches
+            )
+
+        return results
+
+    # ======================================================
+    # VALIDATION
+    # ======================================================
+
+    def validate(self):
+
+        self.model.eval()
+
+        total_loss = 0.0
+        total_parameter_loss = 0.0
+        total_trajectory_loss = 0.0
+
+        all_theta_pred = []
+        all_theta_true = []
+        all_samples = []
+
+        num_batches = 0
+
+        with torch.no_grad():
+
+            for batch in self.valid_loader:
+
+                outputs = self._forward(
+                    batch,
+                    return_samples=True,
+                )
+
+                losses = self._compute_loss(
+                    outputs
+                )
+
+                total_loss += (
+                    losses["total"].item()
+                )
+
+                total_parameter_loss += (
+                    losses[
+                        "parameter"
+                    ].item()
+                )
+
+                total_trajectory_loss += (
+                    losses[
+                        "trajectory"
+                    ].item()
+                )
+
+                # These are already CPU tensors.
+                all_theta_pred.append(
+                    outputs[
+                        "theta_pred"
+                    ]
+                )
+
+                all_theta_true.append(
+                    outputs[
+                        "theta_true"
+                    ]
+                )
+
+                all_samples.extend(
+                    outputs["samples"]
+                )
+
+                num_batches += 1
+
+                del outputs
+                del losses
+
+        if num_batches == 0:
+
+            raise RuntimeError(
+                "Validation loader is empty."
+            )
+
+        theta_pred = torch.cat(
+            all_theta_pred,
+            dim=0,
+        )
+
+        theta_true = torch.cat(
+            all_theta_true,
+            dim=0,
+        )
+
+        results = {
+            "loss":
+                total_loss / num_batches,
+
+            "parameter_loss":
+                total_parameter_loss
+                / num_batches,
+
+            "trajectory_loss":
+                total_trajectory_loss
+                / num_batches,
+        }
+
+        # --------------------------------------------------
+        # Parameter metrics
+        # --------------------------------------------------
+
+        parameter_results = (
+            self._compute_parameter_metrics(
+                theta_pred,
+                theta_true,
+            )
+        )
+
+        for name, value in (
+            parameter_results.items()
+        ):
+
+            if not torch.is_tensor(
+                value
+            ):
+
+                value = torch.as_tensor(
+                    value
+                )
+
+            if (
+                value.numel() == 1
+                and torch.isfinite(
+                    value
+                ).all()
+            ):
+
+                results[
+                    f"parameter_{name}"
+                ] = value.detach().item()
+
+        # --------------------------------------------------
+        # Trajectory metrics
+        # --------------------------------------------------
+
+        trajectory_results = (
+            self._compute_trajectory_metrics_ragged(
+                all_samples
+            )
+        )
+
+        for name, value in (
+            trajectory_results.items()
+        ):
+
+            results[
+                f"trajectory_{name}"
+            ] = float(value)
+
+        # --------------------------------------------------
+        # JGD
+        # --------------------------------------------------
+
+        jgd_results = (
+            self._compute_jgd_metrics_ragged(
+                all_samples
+            )
+        )
+
+        for name, value in (
+            jgd_results.items()
+        ):
+
+            results[
+                f"jgd_{name}"
+            ] = float(value)
+
+        # --------------------------------------------------
+        # Release validation tensors
+        # --------------------------------------------------
+
+        del all_theta_pred
+        del all_theta_true
+        del all_samples
+        del theta_pred
+        del theta_true
+
+        gc.collect()
+
+        return results
+
+    # ======================================================
+    # LOGGING
+    # ======================================================
+
+    def _log_epoch_metrics(
+        self,
+        epoch,
+        train_metrics,
+        valid_metrics,
+    ):
+
+        record = {
+            "epoch": int(epoch),
+            "train": _jsonable(
+                train_metrics
+            ),
+            "valid": _jsonable(
+                valid_metrics
+            ),
+        }
+
+        if self.run_dir is not None:
+
+            with (
+                self.run_dir
+                / "epoch_metrics.jsonl"
+            ).open(
+                "a",
+                encoding="utf-8",
+            ) as f:
+
+                f.write(
+                    json.dumps(
+                        record,
+                        allow_nan=False,
+                    )
+                    + "\n"
+                )
+
+        events = []
+
+        def flatten(
+            obj,
+            prefix="",
+        ):
+
+            if isinstance(
+                obj,
+                dict,
+            ):
+
+                for key, value in (
+                    obj.items()
+                ):
+
+                    new_prefix = (
+                        f"{prefix}/{key}"
+                        if prefix
+                        else str(key)
+                    )
+
+                    flatten(
+                        value,
+                        new_prefix,
+                    )
+
+            elif isinstance(
+                obj,
+                (list, tuple),
+            ):
+
+                for index, value in enumerate(
+                    obj
+                ):
+
+                    flatten(
+                        value,
+                        f"{prefix}/{index}",
+                    )
+
+            elif torch.is_tensor(
+                obj
+            ):
+
+                if obj.numel() == 1:
+
+                    flatten(
+                        obj.detach()
+                        .cpu()
+                        .item(),
+                        prefix,
+                    )
+
+            elif (
+                isinstance(
+                    obj,
+                    (int, float),
+                )
+                and not isinstance(
+                    obj,
+                    bool,
+                )
+            ):
+
+                scalar = float(obj)
+
+                if math.isfinite(
+                    scalar
+                ):
+
+                    events.append(
+                        {
+                            "type":
+                                LoggerObserver.SCALAR,
+                            "tag":
+                                prefix,
+                            "value":
+                                scalar,
+                            "step":
+                                int(epoch),
+                        }
+                    )
+
+        flatten(
+            train_metrics,
+            "train",
+        )
+
+        flatten(
+            valid_metrics,
+            "valid",
+        )
+
+        if events:
+            self.logger.log(events)
+
+    # ======================================================
+    # SUMMARY
+    # ======================================================
+
+    def _save_summary(self, metrics):
+
+        if self.run_dir is None:
+            return
+
+        payload = {
+            "run_name":
+                self.run_dir.name,
+
+            "log_filename":
+                "log.txt",
+
+            "config":
+                self.config,
+
+            "metrics":
+                metrics,
+        }
+
+        payload = _jsonable(
+            payload
+        )
+
+        summary_path = (
+            self.run_dir
+            / "summary.json"
+        )
+
+        summary_path.write_text(
+            json.dumps(
+                payload,
+                indent=2,
+                allow_nan=False,
+            ),
+            encoding="utf-8",
+        )
+
+    # ======================================================
+    # FIT
+    # ======================================================
+
+    def fit(self):
+
+        history = {
+            "train": [],
+            "valid": [],
+            "train_loss": [],
+            "valid_loss": [],
+            "train_parameter_loss": [],
+            "valid_parameter_loss": [],
+            "train_trajectory_loss": [],
+            "valid_trajectory_loss": [],
+        }
+
+        best_valid_loss = float("inf")
+        patience_counter = 0
+
+        self._log_memory("before training")
+
+        for epoch in range(
+            1,
+            self.epochs + 1,
+        ):
+
+            _log_print(
+                "\n"
+                + "=" * 70
+            )
+
+            _log_print(
+                f"TRAINING - EPOCH {epoch}"
+            )
+
+            _log_print(
+                "=" * 70
+            )
+
+            # --------------------------------------------------
+            # Training
+            # --------------------------------------------------
+
+            train_result = (
+                self.train_epoch()
+            )
+
+            self._log_memory(
+                f"after training epoch {epoch}"
+            )
+
+            # --------------------------------------------------
+            # Validation
+            # --------------------------------------------------
+
+            valid_result = (
+                self.validate()
+            )
+
+            self._log_memory(
+                f"after validation epoch {epoch}"
+            )
+
+            # --------------------------------------------------
+            # History
+            # --------------------------------------------------
+
+            history[
+                "train"
+            ].append(
+                train_result
+            )
+
+            history[
+                "valid"
+            ].append(
+                valid_result
+            )
+
+            self._log_epoch_metrics(
+                epoch,
+                train_result,
+                valid_result,
+            )
+
+            history[
+                "train_loss"
+            ].append(
+                train_result["loss"]
+            )
+
+            history[
+                "valid_loss"
+            ].append(
+                valid_result["loss"]
+            )
+
+            history[
+                "train_parameter_loss"
+            ].append(
+                train_result[
+                    "parameter_loss"
+                ]
+            )
+
+            history[
+                "valid_parameter_loss"
+            ].append(
+                valid_result[
+                    "parameter_loss"
+                ]
+            )
+
+            history[
+                "train_trajectory_loss"
+            ].append(
+                train_result[
+                    "trajectory_loss"
+                ]
+            )
+
+            history[
+                "valid_trajectory_loss"
+            ].append(
+                valid_result[
+                    "trajectory_loss"
+                ]
+            )
+
+            for name, value in (
+                train_result.items()
+            ):
+
+                if name in {
+                    "loss",
+                    "parameter_loss",
+                    "trajectory_loss",
+                }:
+                    continue
+
+                history.setdefault(
+                    f"train_{name}",
+                    [],
+                ).append(value)
+
+            for name, value in (
+                valid_result.items()
+            ):
+
+                if name in {
+                    "loss",
+                    "parameter_loss",
+                    "trajectory_loss",
+                }:
+                    continue
+
+                history.setdefault(
+                    f"valid_{name}",
+                    [],
+                ).append(value)
+
+            # --------------------------------------------------
+            # Logging
+            # --------------------------------------------------
+
+            _log_print(
+                f"Train Loss: "
+                f"{train_result['loss']:.6f}"
+            )
+
+            _log_print(
+                f"Valid Loss: "
+                f"{valid_result['loss']:.6f}"
+            )
+
+            _log_print(
+                f"Train Parameter Loss: "
+                f"{train_result['parameter_loss']:.6f}"
+            )
+
+            _log_print(
+                f"Valid Parameter Loss: "
+                f"{valid_result['parameter_loss']:.6f}"
+            )
+
+            _log_print(
+                f"Train Trajectory Loss: "
+                f"{train_result['trajectory_loss']:.6f}"
+            )
+
+            _log_print(
+                f"Valid Trajectory Loss: "
+                f"{valid_result['trajectory_loss']:.6f}"
+            )
+
+            _log_print(
+                "\nValidation metrics:"
+            )
+
+            for name, value in (
+                valid_result.items()
+            ):
+
+                if name in {
+                    "loss",
+                    "parameter_loss",
+                    "trajectory_loss",
+                }:
+                    continue
+
+                _log_print(
+                    f"{name}: {value:.6f}"
+                )
+
+            # --------------------------------------------------
+            # Early stopping
+            # --------------------------------------------------
+
+            valid_loss = (
+                valid_result["loss"]
+            )
+
+            if (
+                valid_loss
+                < best_valid_loss
+            ):
+
+                best_valid_loss = (
+                    valid_loss
+                )
+
+                patience_counter = 0
+
+                checkpoint_dir = (
+                    os.path.dirname(
+                        self.checkpoint_path
+                    )
+                )
+
+                if checkpoint_dir:
+                    os.makedirs(
+                        checkpoint_dir,
+                        exist_ok=True,
+                    )
+
+                torch.save(
+                    {
+                        "model_state_dict":
+                            self.model.state_dict(),
+
+                        "optimizer_state_dict":
+                            self.optimizer.state_dict(),
+
+                        "epoch":
+                            epoch,
+
+                        "valid_loss":
+                            best_valid_loss,
+                    },
+                    self.checkpoint_path,
+                )
+
+                _log_print(
+                    "Best model saved."
+                )
+
+            else:
+
+                patience_counter += 1
+
+                _log_print(
+                    "No improvement: "
+                    f"{patience_counter}/"
+                    f"{self.patience}"
+                )
+
+            # --------------------------------------------------
+            # Save history
+            # --------------------------------------------------
+
+            if self.history_path:
+
+                history_dir = (
+                    os.path.dirname(
+                        self.history_path
+                    )
+                )
+
+                if history_dir:
+
+                    os.makedirs(
+                        history_dir,
+                        exist_ok=True,
+                    )
+
+                torch.save(
+                    history,
+                    self.history_path,
+                )
+
+            # --------------------------------------------------
+            # Explicit cleanup
+            # --------------------------------------------------
+
+            del train_result
+            del valid_result
+
+            gc.collect()
+
+            if torch.cuda.is_available():
+
+                torch.cuda.empty_cache()
+
+            self._log_memory(
+                f"end epoch {epoch}"
+            )
+
+            if (
+                patience_counter
+                >= self.patience
+            ):
+
+                _log_print(
+                    "\nEarly stopping triggered."
+                )
+
+                break
+
+        # ------------------------------------------------------
+        # Restore best model
+        # ------------------------------------------------------
+
+        if os.path.exists(
+            self.checkpoint_path
+        ):
+
+            checkpoint = torch.load(
+                self.checkpoint_path,
+                map_location=self.device,
+                weights_only=False,
+            )
+
+            self.model.load_state_dict(
+                checkpoint[
+                    "model_state_dict"
+                ]
+            )
+
+            _log_print(
+                "\nLoaded best model:"
+            )
+
+            _log_print(
+                f"Epoch: "
+                f"{checkpoint['epoch']}"
+            )
+
+            _log_print(
+                "Validation loss: "
+                f"{checkpoint['valid_loss']:.6f}"
+            )
+
+        return history
+
+    # ======================================================
+    # TEST
+    # ======================================================
+
+    def evaluate_test(self):
+
+        self.model.eval()
+
+        total_loss = 0.0
+        total_parameter_loss = 0.0
+        total_trajectory_loss = 0.0
+
+        all_theta_pred = []
+        all_theta_true = []
+
+        all_y0_pred = []
+        all_y0_true = []
+
+        all_samples = []
+
+        num_batches = 0
+
+        with torch.no_grad():
+
+            for batch in self.test_loader:
+
+                outputs = self._forward(
+                    batch,
+                    return_samples=True,
+                )
+
+                losses = self._compute_loss(
+                    outputs
+                )
+
+                total_loss += (
+                    losses["total"].item()
+                )
+
+                total_parameter_loss += (
+                    losses[
+                        "parameter"
+                    ].item()
+                )
+
+                total_trajectory_loss += (
+                    losses[
+                        "trajectory"
+                    ].item()
+                )
+
+                all_theta_pred.append(
+                    outputs[
+                        "theta_pred"
+                    ]
+                )
+
+                all_theta_true.append(
+                    outputs[
+                        "theta_true"
+                    ]
+                )
+
+                all_y0_pred.append(
+                    outputs[
+                        "y0_pred"
+                    ]
+                )
+
+                all_y0_true.append(
+                    outputs[
+                        "y0_true"
+                    ]
+                )
+
+                all_samples.extend(
+                    outputs["samples"]
+                )
+
+                num_batches += 1
+
+                del outputs
+                del losses
+
+        if num_batches == 0:
+
+            raise RuntimeError(
+                "Test loader is empty."
+            )
+
+        theta_pred = torch.cat(
+            all_theta_pred,
+            dim=0,
+        )
+
+        theta_true = torch.cat(
+            all_theta_true,
+            dim=0,
+        )
+
+        y0_pred = torch.cat(
+            all_y0_pred,
+            dim=0,
+        )
+
+        y0_true = torch.cat(
+            all_y0_true,
+            dim=0,
+        )
+
+        (
+            t_padded,
+            trajectory_pred,
+            trajectory_true,
+            trajectory_mask,
+        ) = self._pad_trajectory_samples(
+            all_samples
+        )
+
+        results = {
+
+            "test_loss":
+                total_loss / num_batches,
+
+            "test_parameter_loss":
+                total_parameter_loss
+                / num_batches,
+
+            "test_trajectory_loss":
+                total_trajectory_loss
+                / num_batches,
+
+            "theta_pred":
+                theta_pred,
+
+            "theta_true":
+                theta_true,
+
+            "y0_pred":
+                y0_pred,
+
+            "y0_true":
+                y0_true,
+
+            "trajectory_pred":
+                trajectory_pred,
+
+            "trajectory_true":
+                trajectory_true,
+
+            "trajectory_mask":
+                trajectory_mask,
+
+            "t":
+                t_padded,
+        }
+
+        parameter_results = (
+            self._compute_parameter_metrics(
+                theta_pred,
+                theta_true,
+            )
+        )
+
+        for name, value in (
+            parameter_results.items()
+        ):
+
+            if not torch.is_tensor(
+                value
+            ):
+
+                value = torch.as_tensor(
+                    value
+                )
+
+            if (
+                value.numel() == 1
+                and torch.isfinite(
+                    value
+                ).all()
+            ):
+
+                results[
+                    f"parameter_{name}"
+                ] = value.item()
+
+        trajectory_results = (
+            self._compute_trajectory_metrics_ragged(
+                all_samples
+            )
+        )
+
+        for name, value in (
+            trajectory_results.items()
+        ):
+
+            results[
+                f"trajectory_{name}"
+            ] = float(value)
+
+        jgd_results = (
+            self._compute_jgd_metrics_ragged(
+                all_samples
+            )
+        )
+
+        for name, value in (
+            jgd_results.items()
+        ):
+
+            results[
+                f"jgd_{name}"
+            ] = float(value)
+
+        return results
+
+    # ======================================================
+    # PAD RAGGED TRAJECTORIES
+    # ======================================================
+
+    @staticmethod
+    def _pad_trajectory_samples(
+        samples,
+    ):
+
+        if not samples:
+
+            raise RuntimeError(
+                "Cannot pad empty trajectory samples."
+            )
+
+        max_length = max(
+            sample["t_eval"].numel()
+            for sample in samples
+        )
+
+        state_dim = (
+            samples[0][
+                "trajectory_pred"
+            ].shape[-1]
+        )
+
+        num_samples = len(
+            samples
+        )
+
+        dtype = samples[0][
+            "trajectory_pred"
+        ].dtype
+
+        t_padded = torch.full(
+            (
+                num_samples,
+                max_length,
+            ),
+            float("nan"),
+            dtype=dtype,
+        )
+
+        trajectory_pred_padded = (
+            torch.full(
+                (
+                    num_samples,
+                    max_length,
+                    state_dim,
+                ),
+                float("nan"),
+                dtype=dtype,
+            )
+        )
+
+        trajectory_true_padded = (
+            torch.full(
+                (
+                    num_samples,
+                    max_length,
+                    state_dim,
+                ),
+                float("nan"),
+                dtype=dtype,
+            )
+        )
+
+        trajectory_mask_padded = (
+            torch.zeros(
+                (
+                    num_samples,
+                    max_length,
+                    state_dim,
+                ),
+                dtype=samples[0][
+                    "trajectory_mask"
+                ].dtype,
+            )
+        )
+
+        for sample_idx, sample in enumerate(
+            samples
+        ):
+
+            length = sample[
+                "t_eval"
+            ].numel()
+
+            t_padded[
+                sample_idx,
+                :length,
+            ] = sample[
+                "t_eval"
+            ]
+
+            trajectory_pred_padded[
+                sample_idx,
+                :length,
+            ] = sample[
+                "trajectory_pred"
+            ]
+
+            trajectory_true_padded[
+                sample_idx,
+                :length,
+            ] = sample[
+                "trajectory_true"
+            ]
+
+            trajectory_mask_padded[
+                sample_idx,
+                :length,
+            ] = sample[
+                "trajectory_mask"
+            ]
+
+        return (
+            t_padded,
+            trajectory_pred_padded,
+            trajectory_true_padded,
+            trajectory_mask_padded,
+        )

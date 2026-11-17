@@ -1,0 +1,4 @@
+name: NeuralODEEncoder
+
+params:
+  hidden_dim: 128

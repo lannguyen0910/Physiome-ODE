@@ -1,0 +1,163 @@
+name: ElectrophysiologyAslanidiAtrialModel2009LindbladCaCorrectedODE
+state_dim: 29
+parameter_dim: 49
+parameters:
+  CT: 1
+  PM: 0
+  R: 8314
+  T: 308
+  F: 96487
+  Cm: 5.0e-05
+  stim_start: 0.01
+  stim_end: 100
+  stim_period: 0.5
+  stim_duration: 0.0002
+  stim_amplitude: -20
+  P_Na: 1.4e-06
+  Na_c: 140
+  g_Ca_L: 0.004
+  E_Ca_app: 50
+  g_Ca_T: 0.006
+  E_Ca_T: 38
+  g_to: 0.050002
+  g_Ks: 0.0025
+  g_Kr: 0.0035
+  g_K1: 0.00508
+  KmK1: 0.59
+  steepK1: 1.393
+  shiftK1: -3.6
+  g_B_Na: 6.4e-05
+  g_B_Ca: 3.1e-05
+  Ca_c: 2.5
+  k_NaK_K: 1
+  k_NaK_Na: 11
+  i_NaK_max: 0.06441
+  i_CaP_max: 0.009509
+  k_CaP: 0.0002
+  k_NaCa: 2.0e-05
+  d_NaCa: 0.0003
+  gamma: 0.45
+  Vol_i: 1.26e-05
+  Vol_Ca: 5.884e-06
+  Mg_i: 2.5
+  Vol_c: 2.5e-06
+  I_up_max: 2.8
+  k_cyca: 0.0003
+  k_srca: 0.5
+  k_xcs: 0.4
+  alpha_rel: 200
+  Vol_up: 3.969e-07
+  Vol_rel: 4.4e-08
+  tau_tr: 0.01
+  k_rel: 0.0003
+  k_F3: 0.815
+initial_state:
+  V: -80
+  Na_i: 8.4
+  m: 0.01309
+  h1: 0.706
+  h2: 0.61493
+  d_L: 3.0e-05
+  f_L: 0.99981
+  d_T: 0.00046
+  f_T: 0.30752
+  K_c: 5
+  K_i: 100
+  r: 6.0e-05
+  s1: 0.5753
+  s2: 0.39871
+  s3: 0.57363
+  z: 0.02032
+  p_a: 0.00016
+  p_i: 0.76898
+  Ca_i: 7.1e-05
+  O_C: 0.029108
+  O_TC: 0.014071
+  O_TMgC: 0.214036
+  O_TMgMg: 0.693565
+  Ca_rel: 0.726776
+  Ca_up: 0.730866
+  O_Calse: 0.465921
+  F1: 0.288039
+  F2: 0.002262
+  F3: 0.612697
+parameter_names:
+- CT
+- PM
+- R
+- T
+- F
+- Cm
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- P_Na
+- Na_c
+- g_Ca_L
+- E_Ca_app
+- g_Ca_T
+- E_Ca_T
+- g_to
+- g_Ks
+- g_Kr
+- g_K1
+- KmK1
+- steepK1
+- shiftK1
+- g_B_Na
+- g_B_Ca
+- Ca_c
+- k_NaK_K
+- k_NaK_Na
+- i_NaK_max
+- i_CaP_max
+- k_CaP
+- k_NaCa
+- d_NaCa
+- gamma
+- Vol_i
+- Vol_Ca
+- Mg_i
+- Vol_c
+- I_up_max
+- k_cyca
+- k_srca
+- k_xcs
+- alpha_rel
+- Vol_up
+- Vol_rel
+- tau_tr
+- k_rel
+- k_F3
+state_names:
+- V
+- Na_i
+- m
+- h1
+- h2
+- d_L
+- f_L
+- d_T
+- f_T
+- K_c
+- K_i
+- r
+- s1
+- s2
+- s3
+- z
+- p_a
+- p_i
+- Ca_i
+- O_C
+- O_TC
+- O_TMgC
+- O_TMgMg
+- Ca_rel
+- Ca_up
+- O_Calse
+- F1
+- F2
+- F3

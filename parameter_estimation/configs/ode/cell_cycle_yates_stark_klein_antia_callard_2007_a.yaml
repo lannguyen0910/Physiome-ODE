@@ -1,0 +1,19 @@
+name: CellCycleYatesStarkKleinAntiaCallard2007AODE
+state_dim: 2
+parameter_dim: 4
+parameters:
+  d1: 0.005
+  a: 0.03333
+  r: 1
+  kappa: 1
+initial_state:
+  x: 1
+  y: 0
+parameter_names:
+- d1
+- a
+- r
+- kappa
+state_names:
+- x
+- y

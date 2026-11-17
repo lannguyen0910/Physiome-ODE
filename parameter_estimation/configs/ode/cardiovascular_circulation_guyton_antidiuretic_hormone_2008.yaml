@@ -1,0 +1,31 @@
+name: CardiovascularCirculationGuytonAntidiureticHormone2008ODE
+state_dim: 1
+parameter_dim: 11
+parameters:
+  CNA: 142.035
+  PA1: 103.525
+  CNR: 139
+  ADHPUL: 85
+  ADHPAM: 0.3
+  ADHINF: 0
+  ADHTC: 15
+  ADHVUL: 2.5
+  ADHVLL: 0.93617
+  ADHKLL: 0.2
+  ADHKUL: 5
+initial_state:
+  ADHC: 1
+parameter_names:
+- CNA
+- PA1
+- CNR
+- ADHPUL
+- ADHPAM
+- ADHINF
+- ADHTC
+- ADHVUL
+- ADHVLL
+- ADHKLL
+- ADHKUL
+state_names:
+- ADHC

@@ -1,0 +1,85 @@
+name: MetabolismNazaret2009ScaledODE
+state_dim: 8
+parameter_dim: 31
+parameters:
+  At: 4.16
+  Nt: 1.07
+  Pyr_bar: 0.161
+  Cit_bar: 0.46
+  AcCoA_bar: 0.105
+  KG_bar: 0.146
+  OAA_bar: 0.004
+  k1: 38
+  k2: 152
+  k3: 57142
+  k4: 53
+  k5: 40
+  k6: 82361
+  k7: 0.0032
+  k8: 3.6
+  kresp: 2.5
+  kATP: 131.9
+  kANT: 0.1
+  kleak: 0.426
+  Keq: 0.3975
+  K: 2
+  alpha: 0.1
+  b: 0.004
+  delta_psi_m: 150
+  R: 8.314
+  T: 298
+  F: 96485
+  C: 6.75e-06
+  Kapp: 4.4e-06
+  Pi: 2.44
+  v1: 1
+initial_state:
+  p: 0.154
+  a: 0.063
+  c: 0.44
+  k: 0.225
+  o: 0.005
+  n: 0.856
+  en: 3.536
+  s: 150
+parameter_names:
+- At
+- Nt
+- Pyr_bar
+- Cit_bar
+- AcCoA_bar
+- KG_bar
+- OAA_bar
+- k1
+- k2
+- k3
+- k4
+- k5
+- k6
+- k7
+- k8
+- kresp
+- kATP
+- kANT
+- kleak
+- Keq
+- K
+- alpha
+- b
+- delta_psi_m
+- R
+- T
+- F
+- C
+- Kapp
+- Pi
+- v1
+state_names:
+- p
+- a
+- c
+- k
+- o
+- n
+- en
+- s

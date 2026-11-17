@@ -1,0 +1,81 @@
+name: SignalTransductionKaragiannisPopel2006ODE
+state_dim: 16
+parameter_dim: 21
+parameters:
+  kM2T2_on: 5900000
+  kM2T2_off: 6.3
+  kM2T2_iso: 33
+  kM2T2_negativeiso: 2.0e-08
+  kM2C1_on: 2600
+  kM2C1_off: 0.0021
+  kM2C1_cat: 0.0045
+  kMT1T2_on: 2980000
+  kMT1T2_off: 0.202
+  kMT1T2M2pro_on: 140000
+  kMT1T2M2pro_off: 0.0047
+  kM2_act: 0.02
+  kMT1_shedeff: 2800
+  kMT1C1_cat: 0.00197
+  kMT1C1_on: 1000
+  kMT1C1_off: 1
+  kMT1T2M2proMT1_on: 3000
+  kMT1T2M2proMT1_off: 0.0009
+  qMT1: 0
+  qT2: 0
+  qpro: 0
+initial_state:
+  M2T2: 7.2e-09
+  M2C1: 8.5e-06
+  MT1T2: 1.39e-09
+  MT1T2M2proMT1: 5.6e-10
+  MT1C1: 2.9e-06
+  M2: 0
+  MT1: 0
+  M2_p: 0
+  T2: 0
+  C1_D: 0
+  C1: 0
+  MT1_cat: 0
+  MT1_t: 0
+  MT1T2M2pro: 0
+  MT1T2_star: 0
+  M2T2_star: 0
+parameter_names:
+- kM2T2_on
+- kM2T2_off
+- kM2T2_iso
+- kM2T2_negativeiso
+- kM2C1_on
+- kM2C1_off
+- kM2C1_cat
+- kMT1T2_on
+- kMT1T2_off
+- kMT1T2M2pro_on
+- kMT1T2M2pro_off
+- kM2_act
+- kMT1_shedeff
+- kMT1C1_cat
+- kMT1C1_on
+- kMT1C1_off
+- kMT1T2M2proMT1_on
+- kMT1T2M2proMT1_off
+- qMT1
+- qT2
+- qpro
+state_names:
+- M2T2
+- M2C1
+- MT1T2
+- MT1T2M2proMT1
+- MT1C1
+- M2
+- MT1
+- M2_p
+- T2
+- C1_D
+- C1
+- MT1_cat
+- MT1_t
+- MT1T2M2pro
+- MT1T2_star
+- M2T2_star

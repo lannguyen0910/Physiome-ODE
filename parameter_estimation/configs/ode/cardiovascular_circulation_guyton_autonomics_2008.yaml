@@ -1,0 +1,73 @@
+name: CardiovascularCirculationGuytonAutonomics2008ODE
+state_dim: 2
+parameter_dim: 31
+parameters:
+  PA: 103.525
+  PO2ART: 97.0439
+  PLA: 2
+  PRA: 0.00852183
+  PPA: 15.6376
+  CRRFLX: 0
+  EXE: 0
+  AUC1: 0.3
+  O2CHMO: 0.01
+  AUX: 1
+  AUK: 0.004
+  BAROTC: 0.16
+  AU4: -0.060024
+  AUN1: 0.5
+  AULPM: 0
+  EXC: 1
+  EXCXP: 1
+  EXCML: 0.01
+  AUDMP: 0.3
+  AUMAX: 5
+  AUMIN: 0.4
+  AUSLP: 1.5
+  VV9: 2.51
+  AUL: 1.5
+  AUV: 0.55
+  AUS: 1
+  O2A: 0.1
+  AUM1: 3
+  AUM2: 1
+  AUY: 0
+  MDMP: 0
+initial_state:
+  AU6: 1.00132
+  AU1: 1.00007
+parameter_names:
+- PA
+- PO2ART
+- PLA
+- PRA
+- PPA
+- CRRFLX
+- EXE
+- AUC1
+- O2CHMO
+- AUX
+- AUK
+- BAROTC
+- AU4
+- AUN1
+- AULPM
+- EXC
+- EXCXP
+- EXCML
+- AUDMP
+- AUMAX
+- AUMIN
+- AUSLP
+- VV9
+- AUL
+- AUV
+- AUS
+- O2A
+- AUM1
+- AUM2
+- AUY
+- MDMP
+state_names:
+- AU6
+- AU1

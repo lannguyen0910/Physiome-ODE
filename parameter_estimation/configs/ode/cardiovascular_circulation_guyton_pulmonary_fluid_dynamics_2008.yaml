@@ -1,0 +1,25 @@
+name: CardiovascularCirculationGuytonPulmonaryFluidDynamics2008ODE
+state_dim: 2
+parameter_dim: 7
+parameters:
+  PPC: 29.9941
+  PPA: 15.6376
+  PLA: 2
+  CPP: 71.9719
+  RPV: 1.55719
+  RPA: 1.5683
+  CPF: 0.0003
+initial_state:
+  VPF1: 0.0123238
+  PPR1: 0.419998
+parameter_names:
+- PPC
+- PPA
+- PLA
+- CPP
+- RPV
+- RPA
+- CPF
+state_names:
+- VPF1
+- PPR1

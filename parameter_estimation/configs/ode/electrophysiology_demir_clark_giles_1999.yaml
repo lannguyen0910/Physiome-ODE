@@ -1,0 +1,155 @@
+name: ElectrophysiologyDemirClarkGiles1999ODE
+state_dim: 29
+parameter_dim: 45
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  Cm: 5.5e-05
+  P_Na: 0.00344
+  ACh: 0
+  g_Ca_L_cont: 0.02115
+  E_Ca_L: 46.4
+  g_Ca_T: 0.02521
+  E_Ca_T: 45
+  K_b: 5.4
+  g_B_Na: 0.00016
+  g_B_Ca: 3.64e-05
+  g_B_K: 6.94e-05
+  g_f_Na: 0.0067478
+  g_f_K: 0.0128821
+  K_m_Na: 5.46
+  K_m_K: 0.621
+  i_NaK_max: 0.2192
+  i_Ca_P_max: 0.02869
+  K_NaCa: 1.248e-05
+  d_NaCa: 0.0001
+  gamma: 0.5
+  g_K_ACh_base: 0.007833
+  f_Vagal: 200
+  Mg_i: 2.5
+  Vol: 3.497e-06
+  Na_b: 140
+  Ca_b: 2
+  tau_p: 0.01
+  alpha_up: 0.08
+  beta_up: 0.072
+  alpha_rel: 0.5
+  k_cyca: 5.0e-05
+  k_xcs: 0.9
+  k_SRCa: 22
+  k_rel: 0.004
+  cGMP: 0.002
+  Iso: 0
+  Km_Iso: 0.00014
+  Km_ACh: 0.00014
+  K_PDE: 6
+  K_ADC: 0.008
+  V_PDE: 20
+  P_M2_ADC: 0.02
+initial_state:
+  V: -49.54105
+  Na_c: 139.9988
+  m: 0.250113
+  h1: 0.001386897
+  h2: 0.002065463
+  cAMP: 0.003
+  d_L: 0.002572773
+  f_L: 0.98651
+  d_T: 0.02012114
+  f_T: 0.1945111
+  P_a: 0.02302278
+  P_i: 0.3777728
+  y: 0.09227776
+  Na_i: 9.701621
+  K_c: 5.389014
+  Ca_i: 0.0003787018
+  Ca_c: 2.00474
+  a: 0
+  K_i: 140.7347
+  Ca_Calmod: 0.1411678
+  Ca_Trop: 0.07331396
+  Ca_Mg_Trop: 0.7618549
+  Mg_Mg_Trop: 0.2097049
+  Ca_up: 16.95311
+  Ca_rel: 16.85024
+  Ca_Calse: 0.9528726
+  F1: 0.1133251
+  F2: 0.0007594214
+  F3: 0.8859153
+parameter_names:
+- R
+- T
+- F
+- Cm
+- P_Na
+- ACh
+- g_Ca_L_cont
+- E_Ca_L
+- g_Ca_T
+- E_Ca_T
+- K_b
+- g_B_Na
+- g_B_Ca
+- g_B_K
+- g_f_Na
+- g_f_K
+- K_m_Na
+- K_m_K
+- i_NaK_max
+- i_Ca_P_max
+- K_NaCa
+- d_NaCa
+- gamma
+- g_K_ACh_base
+- f_Vagal
+- Mg_i
+- Vol
+- Na_b
+- Ca_b
+- tau_p
+- alpha_up
+- beta_up
+- alpha_rel
+- k_cyca
+- k_xcs
+- k_SRCa
+- k_rel
+- cGMP
+- Iso
+- Km_Iso
+- Km_ACh
+- K_PDE
+- K_ADC
+- V_PDE
+- P_M2_ADC
+state_names:
+- V
+- Na_c
+- m
+- h1
+- h2
+- cAMP
+- d_L
+- f_L
+- d_T
+- f_T
+- P_a
+- P_i
+- y
+- Na_i
+- K_c
+- Ca_i
+- Ca_c
+- a
+- K_i
+- Ca_Calmod
+- Ca_Trop
+- Ca_Mg_Trop
+- Mg_Mg_Trop
+- Ca_up
+- Ca_rel
+- Ca_Calse
+- F1
+- F2
+- F3

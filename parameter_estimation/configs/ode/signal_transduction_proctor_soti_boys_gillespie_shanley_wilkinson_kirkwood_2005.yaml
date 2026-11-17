@@ -1,0 +1,79 @@
+name: SignalTransductionProctorSotiBoysGillespieShanleyWilkinsonKirkwood2005ODE
+state_dim: 14
+parameter_dim: 22
+parameters:
+  k1: 10
+  k2: 2.0e-05
+  k3: 50
+  k4: 1.0e-05
+  k5: 4.0e-06
+  k6: 6.0e-07
+  k7: 1.0e-07
+  k7_2: 1.0e-07
+  k8: 500
+  k9: 1
+  k10: 0.01
+  k11: 100
+  k12: 0.5
+  k13: 0.5
+  k14: 0.05
+  k15: 0.08
+  k16: 1000
+  k17: 8.02e-09
+  k18: 12
+  k19: 0.02
+  k20: 0.1
+  k21: 1.0e-05
+initial_state:
+  NatP: 6000000
+  MisP: 0
+  MCom: 0
+  Hsp90: 300000
+  HCom: 5900
+  HSF1: 100
+  DiH: 0
+  TriH: 0
+  HSE_TriH: 0
+  HSE: 1
+  AggP: 0
+  ROS: 100
+  ATP: 10000
+  ADP: 1000
+parameter_names:
+- k1
+- k2
+- k3
+- k4
+- k5
+- k6
+- k7
+- k7_2
+- k8
+- k9
+- k10
+- k11
+- k12
+- k13
+- k14
+- k15
+- k16
+- k17
+- k18
+- k19
+- k20
+- k21
+state_names:
+- NatP
+- MisP
+- MCom
+- Hsp90
+- HCom
+- HSF1
+- DiH
+- TriH
+- HSE_TriH
+- HSE
+- AggP
+- ROS
+- ATP
+- ADP

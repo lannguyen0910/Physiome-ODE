@@ -1,0 +1,59 @@
+name: ExcitationContractionCouplingIzakovKatsnelsonBlyakhmanMarkhasinShkylar1991ODE
+state_dim: 2
+parameter_dim: 24
+parameters:
+  alpha_1: 14.6
+  alpha_2: 14.6
+  beta_1: 1
+  beta_2: 0.0012
+  lambda_var: 30
+  V_max: 0.0043
+  Ca_m: 0.045
+  t_d: 170
+  a_c: 0.00024
+  b_c: 0.0005
+  C_1: 0.029
+  C_20: 0.2
+  q_k: 4
+  a: 0.25
+  m_0: 0.87
+  g_1: 0.4
+  g_2: 0.6
+  pi_min: 0.05
+  S_0: 0.77
+  q_1: 0.017
+  q_2: 0.26
+  q_3: 0.03
+  TnC: 1
+  dl_1_dt: 0
+initial_state:
+  A_1: 0
+  n_2: 0
+parameter_names:
+- alpha_1
+- alpha_2
+- beta_1
+- beta_2
+- lambda_var
+- V_max
+- Ca_m
+- t_d
+- a_c
+- b_c
+- C_1
+- C_20
+- q_k
+- a
+- m_0
+- g_1
+- g_2
+- pi_min
+- S_0
+- q_1
+- q_2
+- q_3
+- TnC
+- dl_1_dt
+state_names:
+- A_1
+- n_2

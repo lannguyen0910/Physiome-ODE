@@ -1,0 +1,117 @@
+name: MetabolismChassagnoleRaisQuentinFellMazat2001ODE
+state_dim: 12
+parameter_dim: 43
+parameters:
+  K_asp: 0.97
+  K_ATP: 0.98
+  K_aspp: 0.017
+  K_ADP: 0.25
+  K_iThr: 0.167
+  alpha: 2.47
+  h_Thr: 4.09
+  K_eq: 0.00064
+  V_max_AK_I: 463
+  K_aspp_2: 0.022
+  K_NADPH: 0.029
+  K_ASA: 0.11
+  K_NADP: 0.144
+  K_Pi: 10.2
+  K_eq_2: 284000
+  V_max_ASD: 598
+  K_ASA_2: 0.24
+  K_NADPH_2: 0.037
+  K_hs: 3.39
+  K_NADP_2: 0.067
+  K_iThr_2: 0.097
+  alpha_2: 3.93
+  h: 1.41
+  K_eq_3: 100000000000
+  V_max_HDH: 2585
+  K_hs_2: 0.11
+  K_ATP_2: 0.072
+  K_iThr_3: 1.09
+  K_iLys: 9.45
+  K_ihs: 4.7
+  K_iATP: 4.35
+  V_max_HK: 483
+  K_hsp: 0.31
+  V_max_TS: 208
+  K_asp_2: 0.32
+  K_ATP_3: 0.22
+  K_aspp_3: 0.017
+  K_ADP_2: 0.25
+  K_iLys_2: 0.391
+  h_Lys: 2.8
+  K_eq_4: 0.00064
+  V_max_AK_III: 299
+  constant_42: 0
+initial_state:
+  Asp: 10
+  aspp: 0
+  ASA: 0
+  hs: 0
+  hsp: 0
+  Thr: 0
+  ATP: 30
+  ADP: 0
+  NADPH: 0
+  NADP: 0
+  Pi: 0
+  Lys: 0
+parameter_names:
+- K_asp
+- K_ATP
+- K_aspp
+- K_ADP
+- K_iThr
+- alpha
+- h_Thr
+- K_eq
+- V_max_AK_I
+- K_aspp_2
+- K_NADPH
+- K_ASA
+- K_NADP
+- K_Pi
+- K_eq_2
+- V_max_ASD
+- K_ASA_2
+- K_NADPH_2
+- K_hs
+- K_NADP_2
+- K_iThr_2
+- alpha_2
+- h
+- K_eq_3
+- V_max_HDH
+- K_hs_2
+- K_ATP_2
+- K_iThr_3
+- K_iLys
+- K_ihs
+- K_iATP
+- V_max_HK
+- K_hsp
+- V_max_TS
+- K_asp_2
+- K_ATP_3
+- K_aspp_3
+- K_ADP_2
+- K_iLys_2
+- h_Lys
+- K_eq_4
+- V_max_AK_III
+- constant_42
+state_names:
+- Asp
+- aspp
+- ASA
+- hs
+- hsp
+- Thr
+- ATP
+- ADP
+- NADPH
+- NADP
+- Pi
+- Lys

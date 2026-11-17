@@ -1,0 +1,149 @@
+name: MetabolismTran2009ODE
+state_dim: 11
+parameter_dim: 60
+parameters:
+  len_thin: 1.2
+  len_thick: 1.65
+  len_hbare: 0.1
+  Qkon: 1.5
+  Qkoff: 1.3
+  Qkn_p: 1.6
+  Qkp_n: 1.6
+  kon: 0.05
+  koffL: 0.25
+  koffH: 0.025
+  perm50: 0.5
+  nperm: 15
+  kn_p: 0.5
+  kp_n: 0.05
+  koffmod: 1
+  pH: 7.15
+  m: 1
+  kdHCa: 0.02
+  TmpC: 22
+  Cai: 200
+  fapp: 0.5
+  gapp: 0.07
+  hf: 2
+  hb: 0.4
+  gxb: 0.07
+  gslmod: 6
+  hfmdc: 5
+  hbmdc: 0
+  sigmap: 8
+  sigman: 1
+  xbmodsp: 0.2
+  Qfapp: 6.25
+  Qgapp: 2.5
+  Qhf: 6.25
+  Qhb: 6.25
+  Qgxb: 6.25
+  x_0: 0.007
+  kMgATP: 15400000000
+  kdADP: 4
+  xPi_cons: 2000
+  MgATP_cons: 5000
+  MgADP_cons: 36
+  xPi: 2000
+  MgATP: 5000
+  MgADP: 36.3
+  xPsi: 2
+  kxb: 120
+  SL_c: 2.25
+  SLrest: 1.85
+  SLset: 1.9
+  PCon_t: 0.002
+  PExp_t: 10
+  PCon_c: 0.02
+  PExp_c: 70
+  KSE: 1
+  SEon: 1
+  kxb_2: 120
+  Trop_conc: 70
+  dSL: 0
+  H_cons: 0.7079457843841372
+initial_state:
+  SL: 2.2
+  TRPNCaL: 0.0147730085063734
+  TRPNCaH: 0.13066096561522
+  xXBpostr: 0.00700005394873882
+  xXBprer: 3.41212828972468e-08
+  XBpostr: 1.81017564383744e-06
+  XBprer: 3.0494964880038e-07
+  N_NoXB: 0.999999959256274
+  P_NoXB: 4.07437173988636e-08
+  P: 0.999997834540066
+  intf: -4.5113452510363e-06
+parameter_names:
+- len_thin
+- len_thick
+- len_hbare
+- Qkon
+- Qkoff
+- Qkn_p
+- Qkp_n
+- kon
+- koffL
+- koffH
+- perm50
+- nperm
+- kn_p
+- kp_n
+- koffmod
+- pH
+- m
+- kdHCa
+- TmpC
+- Cai
+- fapp
+- gapp
+- hf
+- hb
+- gxb
+- gslmod
+- hfmdc
+- hbmdc
+- sigmap
+- sigman
+- xbmodsp
+- Qfapp
+- Qgapp
+- Qhf
+- Qhb
+- Qgxb
+- x_0
+- kMgATP
+- kdADP
+- xPi_cons
+- MgATP_cons
+- MgADP_cons
+- xPi
+- MgATP
+- MgADP
+- xPsi
+- kxb
+- SL_c
+- SLrest
+- SLset
+- PCon_t
+- PExp_t
+- PCon_c
+- PExp_c
+- KSE
+- SEon
+- kxb_2
+- Trop_conc
+- dSL
+- H_cons
+state_names:
+- SL
+- TRPNCaL
+- TRPNCaH
+- xXBpostr
+- xXBprer
+- XBpostr
+- XBprer
+- N_NoXB
+- P_NoXB
+- P
+- intf

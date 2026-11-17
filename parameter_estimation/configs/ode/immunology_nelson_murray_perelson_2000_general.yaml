@@ -1,0 +1,29 @@
+name: ImmunologyNelsonMurrayPerelson2000GeneralODE
+state_dim: 4
+parameter_dim: 7
+parameters:
+  lambda_var: 5
+  delta_1: 0.03
+  delta: 0.5
+  np: 1
+  c: 3
+  k: 3.43e-05
+  N: 480
+initial_state:
+  T: 180
+  VI: 134000
+  T_star: 3.6
+  VNI: 0
+parameter_names:
+- lambda_var
+- delta_1
+- delta
+- np
+- c
+- k
+- N
+state_names:
+- T
+- VI
+- T_star
+- VNI

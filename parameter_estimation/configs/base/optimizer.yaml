@@ -1,0 +1,13 @@
+optimizer:
+  # Supported:
+  #   adamw
+  #   adam
+  #   sgd
+  name: adamw
+
+  params:
+    # Learning rate
+    learning_rate: 0.001
+
+    # Weight decay
+    weight_decay: 0.00001

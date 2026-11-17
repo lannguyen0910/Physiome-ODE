@@ -1,0 +1,39 @@
+name: EndocrinePotterGrellerChoNuttallStroupSuvaTobin2005AODE
+state_dim: 5
+parameter_dim: 11
+parameters:
+  k1: 1.0e-06
+  k1_2: 0.001
+  k2: 1.0e-07
+  k2_2: 0.001
+  kcl: 0.005
+  k3: 0.001
+  k3_2: 0.0001
+  k4: 0.002
+  k4_2: 0.4
+  De: 0
+  Dd: 0.015
+initial_state:
+  P: 3
+  Ca: 0.0004
+  Ci: 0.05
+  Ra: 16.9
+  Ri: 1.7
+parameter_names:
+- k1
+- k1_2
+- k2
+- k2_2
+- kcl
+- k3
+- k3_2
+- k4
+- k4_2
+- De
+- Dd
+state_names:
+- P
+- Ca
+- Ci
+- Ra
+- Ri

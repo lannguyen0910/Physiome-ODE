@@ -1,0 +1,317 @@
+name: ExcitationContractionCouplingShortenOcallaghanDavidsonSoboleva2007Variant01ODE
+state_dim: 56
+parameter_dim: 99
+parameters:
+  C_m: 0.58
+  gam: 2.79
+  R_a: 150
+  tsi: 1.0e-06
+  tsi2: 0.0025
+  tsi3: 0.0005
+  FF: 96485
+  tau_K: 559
+  tau_Na: 559
+  f_T: 0.00174
+  tau_K2: 40229.885
+  tau_Na2: 40229.885
+  I_K_rest: 0.34
+  I_Na_rest: -0.43
+  alpha_h_bar: 0.0081
+  alpha_m_bar: 0.288
+  alpha_n_bar: 0.0131
+  beta_h_bar: 4.38
+  beta_m_bar: 1.38
+  beta_n_bar: 0.067
+  V_m: -46
+  V_n: -40
+  V_h: -45
+  V_a: 70
+  V_S_inf: -68
+  V_h_K_inf: -40
+  A_a: 150
+  A_S_inf: 7.1
+  A_h_K_inf: 7.5
+  K_alpha_h: 14.7
+  K_beta_h: 9
+  K_alpha_m: 10
+  K_alpha_n: 7
+  K_beta_m: 18
+  K_beta_n: 40
+  RR: 8314.41
+  TT: 293
+  g_Cl_bar: 3.275
+  g_K_bar: 10.8
+  g_Na_bar: 134
+  G_K: 1.85
+  del_var: 0.4
+  K_K: 950
+  K_S: 1
+  K_m_K: 1
+  K_m_Na: 13
+  S_i: 10
+  J_NaK_bar: 0.0001656
+  V_tau: 70
+  eta_Cl: 0.1
+  eta_IR: 1
+  eta_DR: 0.45
+  eta_Na: 0.1
+  eta_NaK: 0.1
+  k_L: 0.002
+  k_Lm: 1000
+  f: 0.2
+  alpha1: 0.2
+  K: 4.5
+  Vbar: -20
+  nu_SR: 2.4375
+  K_SR: 1
+  L_e: 4.0e-05
+  tau_R: 0.75
+  tau_SR_R: 0.75
+  L_x: 1.1
+  R_R: 0.5
+  k_T_on: 0.0885
+  k_T_off: 0.115
+  T_tot: 140
+  k_P_on: 0
+  k_P_off: 0
+  P_tot: 1500
+  k_Mg_on: 0
+  k_Mg_off: 0
+  k_Cs_on: 4.0e-06
+  k_Cs_off: 0.005
+  Cs_tot: 31000
+  k_CATP_on: 0.15
+  k_CATP_off: 30
+  k_MATP_on: 0.0015
+  k_MATP_off: 0.15
+  tau_ATP: 0.375
+  tau_Mg: 1.5
+  k_0_on: 0
+  k_0_off: 0.15
+  k_Ca_on: 0.15
+  k_Ca_off: 0.05
+  f_o: 0.5
+  f_p: 5
+  h_o: 0.08
+  h_p: 0.06
+  g_o: 0.04
+  b_p: 3.94e-06
+  k_p: 3.62e-06
+  A_p: 1
+  B_p: 0.0001
+  PP: 6
+  i2: 60
+initial_state:
+  vS: -79.974
+  vT: -80.2
+  K_t: 5.9
+  K_i: 150.9
+  K_e: 5.9
+  Na_i: 12.7
+  Na_t: 133
+  Na_e: 133
+  n: 0.009466
+  h_K: 0.9952
+  m: 0.0358
+  h: 0.4981
+  S: 0.581
+  n_t: 0.009466
+  h_K_t: 0.9952
+  m_t: 0.0358
+  h_t: 0.4981
+  S_t: 0.581
+  O_0: 0
+  O_1: 0
+  O_2: 0
+  O_3: 0
+  O_4: 0
+  C_0: 1
+  C_1: 0
+  C_2: 0
+  C_3: 0
+  C_4: 0
+  Ca_1: 0.1
+  Ca_SR1: 1500
+  Ca_2: 0.1
+  Ca_SR2: 1500
+  Ca_T_2: 25
+  Ca_P1: 615
+  Ca_P2: 615
+  Mg_P1: 811
+  Mg_P2: 811
+  Ca_Cs1: 16900
+  Ca_Cs2: 16900
+  Ca_ATP1: 0.4
+  Ca_ATP2: 0.4
+  Mg_ATP1: 7200
+  Mg_ATP2: 7200
+  ATP1: 799.6
+  ATP2: 799.6
+  Mg1: 1000
+  Mg2: 1000
+  Ca_CaT2: 3
+  D_0: 0.8
+  D_1: 1.2
+  D_2: 3
+  A_1: 0.3
+  A_2: 0.23
+  P: 0.23
+  P_SR: 0.23
+  P_C_SR: 0.23
+parameter_names:
+- C_m
+- gam
+- R_a
+- tsi
+- tsi2
+- tsi3
+- FF
+- tau_K
+- tau_Na
+- f_T
+- tau_K2
+- tau_Na2
+- I_K_rest
+- I_Na_rest
+- alpha_h_bar
+- alpha_m_bar
+- alpha_n_bar
+- beta_h_bar
+- beta_m_bar
+- beta_n_bar
+- V_m
+- V_n
+- V_h
+- V_a
+- V_S_inf
+- V_h_K_inf
+- A_a
+- A_S_inf
+- A_h_K_inf
+- K_alpha_h
+- K_beta_h
+- K_alpha_m
+- K_alpha_n
+- K_beta_m
+- K_beta_n
+- RR
+- TT
+- g_Cl_bar
+- g_K_bar
+- g_Na_bar
+- G_K
+- del_var
+- K_K
+- K_S
+- K_m_K
+- K_m_Na
+- S_i
+- J_NaK_bar
+- V_tau
+- eta_Cl
+- eta_IR
+- eta_DR
+- eta_Na
+- eta_NaK
+- k_L
+- k_Lm
+- f
+- alpha1
+- K
+- Vbar
+- nu_SR
+- K_SR
+- L_e
+- tau_R
+- tau_SR_R
+- L_x
+- R_R
+- k_T_on
+- k_T_off
+- T_tot
+- k_P_on
+- k_P_off
+- P_tot
+- k_Mg_on
+- k_Mg_off
+- k_Cs_on
+- k_Cs_off
+- Cs_tot
+- k_CATP_on
+- k_CATP_off
+- k_MATP_on
+- k_MATP_off
+- tau_ATP
+- tau_Mg
+- k_0_on
+- k_0_off
+- k_Ca_on
+- k_Ca_off
+- f_o
+- f_p
+- h_o
+- h_p
+- g_o
+- b_p
+- k_p
+- A_p
+- B_p
+- PP
+- i2
+state_names:
+- vS
+- vT
+- K_t
+- K_i
+- K_e
+- Na_i
+- Na_t
+- Na_e
+- n
+- h_K
+- m
+- h
+- S
+- n_t
+- h_K_t
+- m_t
+- h_t
+- S_t
+- O_0
+- O_1
+- O_2
+- O_3
+- O_4
+- C_0
+- C_1
+- C_2
+- C_3
+- C_4
+- Ca_1
+- Ca_SR1
+- Ca_2
+- Ca_SR2
+- Ca_T_2
+- Ca_P1
+- Ca_P2
+- Mg_P1
+- Mg_P2
+- Ca_Cs1
+- Ca_Cs2
+- Ca_ATP1
+- Ca_ATP2
+- Mg_ATP1
+- Mg_ATP2
+- ATP1
+- ATP2
+- Mg1
+- Mg2
+- Ca_CaT2
+- D_0
+- D_1
+- D_2
+- A_1
+- A_2
+- P
+- P_SR
+- P_C_SR

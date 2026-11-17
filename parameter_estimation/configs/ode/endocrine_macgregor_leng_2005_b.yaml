@@ -1,0 +1,77 @@
+name: EndocrineMacgregorLeng2005BODE
+state_dim: 7
+parameter_dim: 28
+parameters:
+  k6: 5
+  n1: 4
+  theta_1: 1
+  n3: 5
+  theta_3: 30
+  j1: 10
+  Is2: 50
+  k7: 5
+  Ise: 10
+  k1: 0.1
+  k2: 0.002
+  k3: 0.018
+  sb: 0.029
+  delta_b: 0.3
+  c: 0.01
+  k4: 0.5
+  k5: 71
+  sr: -0.56
+  delta_r: 0.2
+  k8: 0.07
+  g1: 1
+  gmax: 5
+  g2: 0.008
+  n2: 2
+  theta_2: 30
+  Ih: 50
+  delta: 60
+  delta1: 15
+initial_state:
+  r: 0
+  s: 0
+  g: 2
+  se: 0
+  f: 0.3
+  h: 0
+  hh: 0
+parameter_names:
+- k6
+- n1
+- theta_1
+- n3
+- theta_3
+- j1
+- Is2
+- k7
+- Ise
+- k1
+- k2
+- k3
+- sb
+- delta_b
+- c
+- k4
+- k5
+- sr
+- delta_r
+- k8
+- g1
+- gmax
+- g2
+- n2
+- theta_2
+- Ih
+- delta
+- delta1
+state_names:
+- r
+- s
+- g
+- se
+- f
+- h
+- hh

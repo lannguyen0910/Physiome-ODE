@@ -1,0 +1,75 @@
+name: SignalTransductionChenPopel2007BODE
+state_dim: 14
+parameter_dim: 20
+parameters:
+  Arg: 100
+  O2: 100
+  k1: 6.6
+  k_1: 6.6
+  k2: 20.8
+  k13: 39.9
+  k12: 0.01
+  k3: 20.8
+  k_4: 6.6
+  k4: 6.6
+  k5: 8.5
+  k_5: 215.6
+  k6: 175.6
+  k7: 20.8
+  k9: 8.6
+  k_9: 399.2
+  k_8: 13.2
+  k8: 13.2
+  k10: 39.1
+  k11: 20.8
+initial_state:
+  Fe3: 0.6
+  Fe3_Arg: 0
+  Fe3_NO: 0
+  Fe2_NO: 0
+  Fe2: 0
+  Fe2_Arg: 0
+  Fe3_O2_Arg: 0
+  Fe3_NOHA: 0
+  Fe2_NOHA: 0
+  NOHA: 0
+  Fe3_O2_NOHA: 0
+  'NO': 0
+  citrulline: 0
+  NO3: 0
+parameter_names:
+- Arg
+- O2
+- k1
+- k_1
+- k2
+- k13
+- k12
+- k3
+- k_4
+- k4
+- k5
+- k_5
+- k6
+- k7
+- k9
+- k_9
+- k_8
+- k8
+- k10
+- k11
+state_names:
+- Fe3
+- Fe3_Arg
+- Fe3_NO
+- Fe2_NO
+- Fe2
+- Fe2_Arg
+- Fe3_O2_Arg
+- Fe3_NOHA
+- Fe2_NOHA
+- NOHA
+- Fe3_O2_NOHA
+- 'NO'
+- citrulline
+- NO3

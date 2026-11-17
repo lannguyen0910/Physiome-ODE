@@ -1,0 +1,27 @@
+name: CardiovascularCirculationGuytonRedCellsAndViscosity2008ODE
+state_dim: 1
+parameter_dim: 9
+parameters:
+  VP: 3.00449
+  HMK: 90
+  HKM: 0.53333
+  PO2AMB: 150
+  HM6: 1850
+  HM8: 4.714e-08
+  REK: 1
+  RKC: 5.8e-06
+  TRRBC: 0
+initial_state:
+  VRC: 2.00439
+parameter_names:
+- VP
+- HMK
+- HKM
+- PO2AMB
+- HM6
+- HM8
+- REK
+- RKC
+- TRRBC
+state_names:
+- VRC

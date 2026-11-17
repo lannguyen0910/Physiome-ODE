@@ -1,0 +1,277 @@
+name: CardiovascularCirculationCircPbpkODE
+state_dim: 44
+parameter_dim: 91
+parameters:
+  HR: 77
+  Esys: 0.145
+  Edia: 0.131
+  TsK: 0.2
+  P_LA_ext: 0
+  V_LA_0: 15
+  R_LA: 0.01
+  PRint: 0.12
+  Esys_2: 5.6
+  Edia_2: 0.19
+  TsK_2: 0.35
+  pLVPext: 0
+  V_LV_0: 30
+  R_LV: 0.001
+  C_AO: 1.2
+  L_AO: 5.0e-05
+  R_AO: 0.01
+  V_AO_0: 200
+  R_CO: 1
+  R_COV: 0.2
+  V_CO_0: 10
+  C_CO: 0.1
+  R_CR: 5
+  R_CRV: 0.02
+  V_CR_0: 10
+  C_CR: 1
+  D_CRtissue: 1
+  V_CRtissue: 1
+  R_AR: 1.5
+  C_AR: 0.5
+  V_AR_0: 370
+  C_AD: 1.81
+  R_AD: 1
+  R_ADV: 0.33
+  V_AD_0: 75
+  C_MU: 1.81
+  R_MU: 1
+  R_MUV: 0.33
+  V_MU_0: 75
+  C_GI: 1.81
+  R_GI: 1
+  R_GIV: 0.33
+  V_GI_0: 75
+  C_LI: 1.81
+  R_LI: 1
+  R_LIV: 0.33
+  V_LI_0: 75
+  metabolism: 0
+  C_KI: 1.81
+  R_KI: 1
+  V_KI_0: 75
+  R_KIV: 0.33
+  C_SK: 1.81
+  R_SK: 1
+  R_SKV: 0.33
+  V_SK_0: 75
+  C_OT: 1.81
+  R_OT: 1
+  R_OTV: 0.33
+  V_OT_0: 75
+  R_VEV: 0.0223
+  C_VE: 13.24
+  V_VE_0: 596
+  R_VCV: 0.0267
+  V_VC_0: 600
+  C_VC: 73.88
+  Esys_3: 0.11
+  Edia_3: 0.099
+  TsK_3: 0.2
+  P_RA_ext: 0
+  V_RA_0: 15
+  PRinterval: 0.12
+  Esys_4: 0.67
+  Edia_4: 0.104
+  TsK_4: 0.35
+  P_RV_ext: 0
+  V_RV_0: 25
+  R_RV: 0.002
+  R_PA: 0.0227
+  C_PA: 2.222
+  V_PA_0: 50
+  C_Pa: 1.481
+  R_Pa: 0.053
+  V_Pa_0: 30
+  R_SH: 2
+  C_PC: 1.778
+  R_PC: 0.0379
+  R_PCV: 0.0379
+  V_PC_0: 53
+  C_PV: 5
+  V_PV_0: 150
+initial_state:
+  V_LA: 144.038898121062
+  sub_X_LA: 0
+  V_LV: 118.75315693072
+  sub_X_LV: 0
+  V_AO: 302.714548324312
+  F_AOalways: -6898.97886842467
+  sub_X_AO: 0
+  V_CO: 11.4012164759732
+  sub_X_CO: 0
+  V_CR: 27.2147903053333
+  sub_X_CR: 0
+  sub_X_CRtissue: 0
+  V_AR: 383.557125288364
+  sub_X_AR: 0
+  V_AD: 111.639088723426
+  sub_X_AD: 0
+  V_MU: 111.639088723426
+  sub_X_MU: 0
+  V_GI: 111.639088723426
+  sub_X_GI: 0
+  V_LI: 111.639088723426
+  sub_X_LI: 0
+  V_KI: 111.639088723426
+  sub_X_KI: 0
+  V_SK: 111.639088723426
+  sub_X_SK: 0
+  V_OT: 111.639088723426
+  sub_X_OT: 0
+  V_VE: 833.291684587657
+  sub_X_VE: 5
+  V_VC: 1849.93788284599
+  sub_X_VC: 0
+  V_RA: 152.150765432928
+  sub_X_RA: 0
+  V_RV: 154.337916417774
+  sub_X_RV: 0
+  V_PA: 112.059036699839
+  sub_X_PA: 0
+  V_Pa: 66.9910537203609
+  sub_X_Pa: 0
+  V_PC: 91.7784213531534
+  sub_X_PC: 0
+  V_PV: 239.25897115602
+  sub_X_PV: 0
+parameter_names:
+- HR
+- Esys
+- Edia
+- TsK
+- P_LA_ext
+- V_LA_0
+- R_LA
+- PRint
+- Esys_2
+- Edia_2
+- TsK_2
+- pLVPext
+- V_LV_0
+- R_LV
+- C_AO
+- L_AO
+- R_AO
+- V_AO_0
+- R_CO
+- R_COV
+- V_CO_0
+- C_CO
+- R_CR
+- R_CRV
+- V_CR_0
+- C_CR
+- D_CRtissue
+- V_CRtissue
+- R_AR
+- C_AR
+- V_AR_0
+- C_AD
+- R_AD
+- R_ADV
+- V_AD_0
+- C_MU
+- R_MU
+- R_MUV
+- V_MU_0
+- C_GI
+- R_GI
+- R_GIV
+- V_GI_0
+- C_LI
+- R_LI
+- R_LIV
+- V_LI_0
+- metabolism
+- C_KI
+- R_KI
+- V_KI_0
+- R_KIV
+- C_SK
+- R_SK
+- R_SKV
+- V_SK_0
+- C_OT
+- R_OT
+- R_OTV
+- V_OT_0
+- R_VEV
+- C_VE
+- V_VE_0
+- R_VCV
+- V_VC_0
+- C_VC
+- Esys_3
+- Edia_3
+- TsK_3
+- P_RA_ext
+- V_RA_0
+- PRinterval
+- Esys_4
+- Edia_4
+- TsK_4
+- P_RV_ext
+- V_RV_0
+- R_RV
+- R_PA
+- C_PA
+- V_PA_0
+- C_Pa
+- R_Pa
+- V_Pa_0
+- R_SH
+- C_PC
+- R_PC
+- R_PCV
+- V_PC_0
+- C_PV
+- V_PV_0
+state_names:
+- V_LA
+- sub_X_LA
+- V_LV
+- sub_X_LV
+- V_AO
+- F_AOalways
+- sub_X_AO
+- V_CO
+- sub_X_CO
+- V_CR
+- sub_X_CR
+- sub_X_CRtissue
+- V_AR
+- sub_X_AR
+- V_AD
+- sub_X_AD
+- V_MU
+- sub_X_MU
+- V_GI
+- sub_X_GI
+- V_LI
+- sub_X_LI
+- V_KI
+- sub_X_KI
+- V_SK
+- sub_X_SK
+- V_OT
+- sub_X_OT
+- V_VE
+- sub_X_VE
+- V_VC
+- sub_X_VC
+- V_RA
+- sub_X_RA
+- V_RV
+- sub_X_RV
+- V_PA
+- sub_X_PA
+- V_Pa
+- sub_X_Pa
+- V_PC
+- sub_X_PC
+- V_PV
+- sub_X_PV

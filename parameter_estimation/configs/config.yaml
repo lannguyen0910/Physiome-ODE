@@ -1,0 +1,135 @@
+defaults:
+  - base/hydra@_here_
+  - base/globals@_here_
+  - base/optimizer@_here_
+  - encoder: gru
+  - ode: dupont_1991b
+  - solver: torch_diffeq
+
+  # Keep values below in this file
+  - _self_
+
+# ==========================================================
+# DATA
+# ==========================================================
+
+data:
+  name: PhysiomeDataModule
+
+  path: "data/dupont_1991b/0"
+
+  batch_size: 32
+
+  num_workers: 2
+
+# ==========================================================
+# MODEL
+# ==========================================================
+
+model:
+  name: ParameterEstimator
+  state_dim: 2
+  parameter_dim: 14
+
+# ==========================================================
+# TRAINING
+# ==========================================================
+loss:
+  name: ParameterEstimationLoss
+
+training:
+  epochs: 100
+
+  parameter_loss_weight: 0.1
+
+  trajectory_loss_weight: 1.0
+
+  patience: 15
+
+  gradient_clip: 1.0
+
+# ==========================================================
+# METRICS
+# ==========================================================
+
+metrics:
+  parameter:
+    enabled: true
+
+    methods:
+      - mae
+      - mse
+      - rmse
+      - relative_error
+      - per_parameter_relative_error
+      - per_parameter_accuracy
+      - log_mae
+
+    params:
+      tolerance: 0.1
+      eps: 1.0e-8
+
+  trajectory:
+    enabled: true
+
+    methods:
+      - mae
+      - mse
+      - rmse
+      - normalized_rmse
+
+    params:
+      eps: 1.0e-8
+
+  jgd:
+    enabled: true
+
+    methods:
+      - pointwise_error
+      - trajectory_distribution_error
+      - temporal_dynamics_error
+      - jgd_score
+
+    params:
+      eps: 1.0e-8
+
+run_name: physiome_ode
+
+debug: false
+
+output:
+  # Root folder for unique timestamped run folders.
+  run_dir: runs
+  # These filenames are saved inside each unique run folder.
+  checkpoint: best_model.pt
+  results: test_results.json
+  history: training_history.pt
+  figures: figures
+  num_trajectory_examples: 5
+
+logging:
+  file:
+    enabled: true
+    debug: false
+
+  image:
+    enabled: true
+
+  wandb:
+    # Set true to enable Weights & Biases. Keep false for local-only runs.
+    enabled: false
+    # Can also be supplied through the WANDB_PROJECT environment variable.
+    project_name: physiome
+    # Optional W&B entity/team; can also use WANDB_ENTITY.
+    username: lannguyen
+    # Optional grouping for comparing related experiments.
+    group_name: physiome-ode
+    # Optional W&B run display name; defaults to run_name above.
+    run_name: null
+    # Optional unique id for resuming a specific W&B run; normally leave null.
+    unique_id: null
+    # W&B tags attached to the run.
+    tags:
+      - physiome-ode
+    # W&B logger initialization behavior.
+    reinit: true

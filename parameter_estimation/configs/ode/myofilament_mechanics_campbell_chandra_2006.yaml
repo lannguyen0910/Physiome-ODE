@@ -1,0 +1,35 @@
+name: MyofilamentMechanicsCampbellChandra2006ODE
+state_dim: 4
+parameter_dim: 10
+parameters:
+  alpha: 0.1
+  k_a: 0
+  x_0: 1
+  epsilon: 1
+  beta: 2
+  g: 1
+  f: 1
+  k_off: 1
+  k_on: 1
+  L_0: 2.12
+initial_state:
+  R_on: 1
+  A: 0
+  x: 1
+  L: 2.12
+parameter_names:
+- alpha
+- k_a
+- x_0
+- epsilon
+- beta
+- g
+- f
+- k_off
+- k_on
+- L_0
+state_names:
+- R_on
+- A
+- x
+- L

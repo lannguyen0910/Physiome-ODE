@@ -1,0 +1,31 @@
+name: MetabolismMijailovichButlerFredburg2000ODE
+state_dim: 4
+parameter_dim: 8
+parameters:
+  k2: 0.1
+  gx: 0.11
+  fp: 0.44
+  gp: 0.11
+  k5: 0.1
+  fp1: 0.88
+  gp1: 0.22
+  g1: 0.01
+initial_state:
+  M: 1
+  AM: 0
+  Mp: 0
+  AMp: 0
+parameter_names:
+- k2
+- gx
+- fp
+- gp
+- k5
+- fp1
+- gp1
+- g1
+state_names:
+- M
+- AM
+- Mp
+- AMp

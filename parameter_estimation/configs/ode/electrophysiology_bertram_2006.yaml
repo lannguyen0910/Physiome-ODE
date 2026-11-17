@@ -1,0 +1,115 @@
+name: ElectrophysiologyBertram2006ODE
+state_dim: 7
+parameter_dim: 47
+parameters:
+  gamma: 0.001
+  NADtot: 10
+  fm: 0.01
+  Cmito: 1.8
+  Amtot: 15
+  Ac_tot: 2500
+  khyd: 5.0e-05
+  Jhydbas: 5.0e-05
+  Fhold: 1
+  Ftest: 5
+  Fton: 90000
+  Ftoff: 330000
+  Chold: 0.1
+  Ctest: 0.1
+  Cton1: 120000
+  Cton2: 180000
+  Cton3: 240000
+  Ctoff1: 150000
+  Ctoff2: 210000
+  Ctoff3: 270000
+  p1: 400
+  p2: 1
+  p3: 0.01
+  p21: 0.01
+  p22: 1.1
+  p23: 0.001
+  p24: 0.016
+  p4: 0.6
+  p5: 0.1
+  p6: 177
+  p7: 5
+  p8: 7
+  p9: 0.1
+  p10: 177
+  p11: 5
+  p12: 120
+  p13: 10
+  p14: 190
+  p15: 8.5
+  p16: 35
+  p17: 0.002
+  p18: -0.03
+  p19: 0.35
+  p20: 2
+  FRT: 0.037
+  kgpdh: 0.0005
+  delta: 0.07330827067669173
+initial_state:
+  NADHm: 0.6
+  ADPm: 7.4
+  PSIm: 93
+  Cam: 0.1
+  c: 0.1
+  ADPc: 1850
+  FBP: 0.5
+parameter_names:
+- gamma
+- NADtot
+- fm
+- Cmito
+- Amtot
+- Ac_tot
+- khyd
+- Jhydbas
+- Fhold
+- Ftest
+- Fton
+- Ftoff
+- Chold
+- Ctest
+- Cton1
+- Cton2
+- Cton3
+- Ctoff1
+- Ctoff2
+- Ctoff3
+- p1
+- p2
+- p3
+- p21
+- p22
+- p23
+- p24
+- p4
+- p5
+- p6
+- p7
+- p8
+- p9
+- p10
+- p11
+- p12
+- p13
+- p14
+- p15
+- p16
+- p17
+- p18
+- p19
+- p20
+- FRT
+- kgpdh
+- delta
+state_names:
+- NADHm
+- ADPm
+- PSIm
+- Cam
+- c
+- ADPc
+- FBP

@@ -1,0 +1,97 @@
+name: CalciumDynamicsShortenWall2000ODE
+state_dim: 7
+parameter_dim: 38
+parameters:
+  V_cell: 1.77
+  Ca_e: 20
+  K_e: 5.6
+  K_i: 140
+  V_tau: -60
+  k_tau: 22
+  R: 8314
+  T: 310
+  F: 96845
+  Cm: 7
+  g_Ca_L: 9
+  tau_m_L_max: 27
+  V_m_L: -18
+  k_m_L: 12
+  g_Ca_T: 10
+  tau_m_T_max: 10
+  V_m_T: -30
+  k_m_T: 10.5
+  tau_h_T: 15
+  V_h_T: -57
+  k_h_T: 5
+  g_K_DR: 0.1
+  tau_n: 20
+  V_n: -20
+  k_n: 4.5
+  g_K_Ca: 0.09
+  Kc: 0.0004
+  g_L: 0.3
+  V_L: -67
+  K_er: 0.0002
+  f_er: 0.0025
+  P: 0.0012
+  v_er: 5.0e-05
+  K_p: 8.0e-05
+  f_cyt: 0.01
+  v_p: 4.5e-05
+  alpha: 7.4e-06
+  beta: 0.47
+initial_state:
+  V: -70
+  Ca_i: 0.00026
+  m_L: 0
+  m_T: 0
+  h_T: 0
+  n: 0
+  Ca_er: 0.0172
+parameter_names:
+- V_cell
+- Ca_e
+- K_e
+- K_i
+- V_tau
+- k_tau
+- R
+- T
+- F
+- Cm
+- g_Ca_L
+- tau_m_L_max
+- V_m_L
+- k_m_L
+- g_Ca_T
+- tau_m_T_max
+- V_m_T
+- k_m_T
+- tau_h_T
+- V_h_T
+- k_h_T
+- g_K_DR
+- tau_n
+- V_n
+- k_n
+- g_K_Ca
+- Kc
+- g_L
+- V_L
+- K_er
+- f_er
+- P
+- v_er
+- K_p
+- f_cyt
+- v_p
+- alpha
+- beta
+state_names:
+- V
+- Ca_i
+- m_L
+- m_T
+- h_T
+- n
+- Ca_er

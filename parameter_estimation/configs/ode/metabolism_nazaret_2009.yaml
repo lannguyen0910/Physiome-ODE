@@ -1,0 +1,71 @@
+name: MetabolismNazaret2009ODE
+state_dim: 8
+parameter_dim: 24
+parameters:
+  C: 6.75e-06
+  k1: 38
+  k2: 152
+  k3: 57142
+  k4: 53
+  k5: 82361
+  At: 4.16
+  k6: 0.0032
+  k7: 40
+  k8: 3.6
+  kANT: 0.1
+  kleak: 0.426
+  kresp: 2.5
+  K: 2
+  a: 0.1
+  delta_psi_m: 150
+  Nt: 1.07
+  kATP: 131.9
+  b: 4
+  R: 8.314
+  T: 298
+  F: 96485
+  Kapp: 4.4e-06
+  Pi: 2.44
+initial_state:
+  Pyr: 0.154
+  AcCoA: 0.063
+  Cit: 0.44
+  KG: 0.225
+  OAA: 0.005
+  NAD: 0.856
+  ATP: 3.536
+  delta_psi: 150
+parameter_names:
+- C
+- k1
+- k2
+- k3
+- k4
+- k5
+- At
+- k6
+- k7
+- k8
+- kANT
+- kleak
+- kresp
+- K
+- a
+- delta_psi_m
+- Nt
+- kATP
+- b
+- R
+- T
+- F
+- Kapp
+- Pi
+state_names:
+- Pyr
+- AcCoA
+- Cit
+- KG
+- OAA
+- NAD
+- ATP
+- delta_psi

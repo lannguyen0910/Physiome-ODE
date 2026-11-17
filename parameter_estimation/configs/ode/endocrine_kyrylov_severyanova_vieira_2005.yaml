@@ -1,0 +1,65 @@
+name: EndocrineKyrylovSeveryanovaVieira2005ODE
+state_dim: 5
+parameter_dim: 24
+parameters:
+  S0: 0.01
+  a00: -0.00843
+  a02: -0.44
+  c0: 0.443
+  e0: 0
+  epsilon: 0.5
+  S1: 0.01
+  a10: 0.082
+  a12: -0.0668
+  a11: -0.004
+  e1: 0
+  S2: 0.01
+  a23: 0.0576
+  a24: 0.000325
+  a20: 0
+  a21: 0.031
+  a22: -0.0957
+  e2: 0
+  S3: 0.01
+  a32: 0.00869
+  a33: -0.00857
+  S4: 0.01
+  a42: 0.000139
+  a44: -0.000143
+initial_state:
+  y0: 0.4
+  y2: 1.17
+  y1: 1.4
+  y3: 0.95
+  y4: 0.65
+parameter_names:
+- S0
+- a00
+- a02
+- c0
+- e0
+- epsilon
+- S1
+- a10
+- a12
+- a11
+- e1
+- S2
+- a23
+- a24
+- a20
+- a21
+- a22
+- e2
+- S3
+- a32
+- a33
+- S4
+- a42
+- a44
+state_names:
+- y0
+- y2
+- y1
+- y3
+- y4

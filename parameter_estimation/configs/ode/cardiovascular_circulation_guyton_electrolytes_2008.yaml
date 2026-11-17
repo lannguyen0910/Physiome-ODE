@@ -1,0 +1,37 @@
+name: CardiovascularCirculationGuytonElectrolytes2008ODE
+state_dim: 4
+parameter_dim: 11
+parameters:
+  AMK: 1.037
+  TVD: 0.000980838
+  NOD: 0.0959449
+  STH: 0.977181
+  KOD: 0.0804374
+  VUD: 0.000989
+  NID: 0.1
+  TRPL: 0
+  ALCLK: 0.3
+  KID: 0.08
+  VIDML: 0.01
+initial_state:
+  NAE: 2109.91
+  KTOT: 3622.54
+  VIC: 25.0404
+  VTW: 39.8952
+parameter_names:
+- AMK
+- TVD
+- NOD
+- STH
+- KOD
+- VUD
+- NID
+- TRPL
+- ALCLK
+- KID
+- VIDML
+state_names:
+- NAE
+- KTOT
+- VIC
+- VTW

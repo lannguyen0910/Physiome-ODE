@@ -1,0 +1,171 @@
+name: MetabolismHynneDanoSorensen2001ODE
+state_dim: 22
+parameter_dim: 60
+parameters:
+  Glc_x_0: 24
+  CN_x_0: 5.6
+  k0: 0.048
+  K2_Glc: 1.7
+  K2_IG6P: 1.2
+  K2_IIG6P: 7.2
+  V_2m: 1014.96
+  P2: 1
+  y_vol: 59
+  K3_DGlc: 0.37
+  K3_Glc: 0
+  K3_ATP: 0.1
+  V_3m: 51.7547
+  V_4m: 496.042
+  K4_G6P: 0.8
+  K4_F6P: 0.15
+  K4_eq: 0.13
+  K5: 0.021
+  kappa5: 0.15
+  V_5m: 45.4327
+  K6_eq: 0.081
+  K6_FBP: 0.3
+  K6_DHAP: 2
+  K6_GAP: 4
+  K6_IGAP: 10
+  V_6r: 11039.1
+  V_6f: 2207.82
+  K7_eq: 0.055
+  K7_DHAP: 1.23
+  K7_GAP: 1.27
+  V_7m: 116.365
+  K8_NAD: 0.1
+  K8_NADH: 0.06
+  K8_GAP: 0.6
+  K8_BPG: 0.01
+  K8_eq: 0.0055
+  V_8m: 833.858
+  k9f: 443866
+  k9r: 1528.62
+  K10_PEP: 0.2
+  K10_ADP: 0.17
+  V_10m: 343.096
+  K11: 0.3
+  V_11m: 53.1328
+  K12_NADH: 0.1
+  K12_ACA: 0.71
+  V_12m: 89.8023
+  k13: 16.72
+  K15_NADH: 0.13
+  K15_INADH: 0.034
+  K15_INAD: 0.13
+  K15_DHAP: 25
+  V_15m: 81.4797
+  k16: 1.9
+  k18: 24.7
+  k20: 0.00283828
+  k22: 2.25932
+  k23: 3.2076
+  k24f: 432.9
+  k24r: 133.333
+initial_state:
+  Glc_x: 6.7
+  Glc: 0.573074
+  G6P: 4.2
+  F6P: 0.49
+  FBP: 4.64
+  GAP: 0.115
+  DHAP: 2.95
+  BPG: 0.00027
+  PEP: 0.04
+  Pyr: 8.7
+  ATP: 2.1
+  ADP: 1.5
+  AMP: 0.33
+  CN_x: 5.20358
+  ACA: 1.48153
+  ACA_x: 1.28836
+  EtOH: 19.2379
+  EtOH_x: 16.4514
+  Glyc: 4.196
+  Glyc_x: 1.68478
+  NADH: 0.33
+  NAD: 0.65
+parameter_names:
+- Glc_x_0
+- CN_x_0
+- k0
+- K2_Glc
+- K2_IG6P
+- K2_IIG6P
+- V_2m
+- P2
+- y_vol
+- K3_DGlc
+- K3_Glc
+- K3_ATP
+- V_3m
+- V_4m
+- K4_G6P
+- K4_F6P
+- K4_eq
+- K5
+- kappa5
+- V_5m
+- K6_eq
+- K6_FBP
+- K6_DHAP
+- K6_GAP
+- K6_IGAP
+- V_6r
+- V_6f
+- K7_eq
+- K7_DHAP
+- K7_GAP
+- V_7m
+- K8_NAD
+- K8_NADH
+- K8_GAP
+- K8_BPG
+- K8_eq
+- V_8m
+- k9f
+- k9r
+- K10_PEP
+- K10_ADP
+- V_10m
+- K11
+- V_11m
+- K12_NADH
+- K12_ACA
+- V_12m
+- k13
+- K15_NADH
+- K15_INADH
+- K15_INAD
+- K15_DHAP
+- V_15m
+- k16
+- k18
+- k20
+- k22
+- k23
+- k24f
+- k24r
+state_names:
+- Glc_x
+- Glc
+- G6P
+- F6P
+- FBP
+- GAP
+- DHAP
+- BPG
+- PEP
+- Pyr
+- ATP
+- ADP
+- AMP
+- CN_x
+- ACA
+- ACA_x
+- EtOH
+- EtOH_x
+- Glyc
+- Glyc_x
+- NADH
+- NAD

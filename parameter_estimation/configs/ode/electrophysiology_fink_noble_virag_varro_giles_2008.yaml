@@ -1,0 +1,183 @@
+name: ElectrophysiologyFinkNobleViragVarroGiles2008ODE
+state_dim: 27
+parameter_dim: 61
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  K_o: 5.4
+  Ca_o: 2
+  Na_o: 140
+  Cm: 0.115
+  Vol_c: 0.016404
+  stim_Period: 1000
+  P_kna: 0.03
+  g_K1_0: 0.6821
+  Mg_Buf: 0.0356
+  SPM: 0.0014613
+  fac: 1.0648
+  phi: 0.8838
+  g_Kr_0: 0.024
+  T_Base: 310
+  Sotalol_mM: 0
+  kBinding: 0.005
+  kDiss: 0.00125
+  g_Ks: 0.0392
+  g_to: 0.2
+  g_Na: 11
+  shift_INa_inact: 0
+  g_bna: 0.00029
+  g_CaL: 2.0e-05
+  z: 2
+  d_inf_shift: 5
+  g_bca: 0.0004736
+  g_pCa: 0.0619
+  K_pCa: 0.0005
+  g_pK: 0.00973
+  P_NaK: 1.297
+  K_mk: 1
+  K_mNa: 40
+  K_NaCa: 200
+  K_sat: 0.1
+  alpha: 2.5
+  gamma: 0.35
+  Km_Ca: 1.38
+  Km_Nai: 87.5
+  V_sr: 0.001094
+  V_ss: 5.468e-05
+  Vol_xfer: 0.0038
+  K_up: 0.00025
+  Vol_leak: 0.00036
+  Vmax_up: 0.006375
+  k1_prime: 0.15
+  k2_prime: 0.045
+  EC: 1.5
+  max_sr: 2.5
+  min_sr: 1
+  k3: 0.06
+  k4: 0.005
+  Vol_rel: 0.306
+  Buf_c: 0.2
+  K_buf_c: 0.001
+  Buf_sr: 10
+  K_buf_sr: 0.3
+  Buf_ss: 0.4
+  K_buf_ss: 0.00025
+initial_state:
+  V: -86.45
+  K_i: 141.0167
+  Na_i: 7.940167
+  Ca_i: 0.0001092
+  Or4: 0.014
+  Cr1: 0.9786
+  Cr2: 0.0031
+  Cr3: 0.0029
+  Ir5: 0.0014
+  BCr1: 0
+  BCr2: 0
+  BCr3: 0
+  BOr4: 0
+  BIr5: 0
+  Xs: 0.00303
+  s: 1
+  r: 2.11e-08
+  m: 0.00132
+  h: 0.7768
+  j: 0.7766
+  Ca_ss: 0.0001893
+  d: 5.06e-06
+  f: 0.9999
+  f2: 0.9995
+  fCass: 1
+  Ca_SR: 2.7656
+  R_prime: 0.9864
+parameter_names:
+- R
+- T
+- F
+- K_o
+- Ca_o
+- Na_o
+- Cm
+- Vol_c
+- stim_Period
+- P_kna
+- g_K1_0
+- Mg_Buf
+- SPM
+- fac
+- phi
+- g_Kr_0
+- T_Base
+- Sotalol_mM
+- kBinding
+- kDiss
+- g_Ks
+- g_to
+- g_Na
+- shift_INa_inact
+- g_bna
+- g_CaL
+- z
+- d_inf_shift
+- g_bca
+- g_pCa
+- K_pCa
+- g_pK
+- P_NaK
+- K_mk
+- K_mNa
+- K_NaCa
+- K_sat
+- alpha
+- gamma
+- Km_Ca
+- Km_Nai
+- V_sr
+- V_ss
+- Vol_xfer
+- K_up
+- Vol_leak
+- Vmax_up
+- k1_prime
+- k2_prime
+- EC
+- max_sr
+- min_sr
+- k3
+- k4
+- Vol_rel
+- Buf_c
+- K_buf_c
+- Buf_sr
+- K_buf_sr
+- Buf_ss
+- K_buf_ss
+state_names:
+- V
+- K_i
+- Na_i
+- Ca_i
+- Or4
+- Cr1
+- Cr2
+- Cr3
+- Ir5
+- BCr1
+- BCr2
+- BCr3
+- BOr4
+- BIr5
+- Xs
+- s
+- r
+- m
+- h
+- j
+- Ca_ss
+- d
+- f
+- f2
+- fCass
+- Ca_SR
+- R_prime

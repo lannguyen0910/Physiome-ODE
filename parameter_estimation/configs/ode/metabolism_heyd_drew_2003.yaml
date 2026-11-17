@@ -1,0 +1,65 @@
+name: MetabolismHeydDrew2003ODE
+state_dim: 11
+parameter_dim: 18
+parameters:
+  k11: 110
+  k11_2: 25
+  k71: 0.1
+  k72: 60
+  k12: 110
+  k12_2: 0.2
+  k51: 7
+  k52: 0
+  k41: 60
+  k31: 500
+  k32: 50
+  k42: 70
+  k22: 100
+  k22_2: 17
+  k21: 100
+  k21_2: 0.2
+  kreset1: 35
+  PE2: 0.1
+initial_state:
+  PB: 0.1
+  A1: 0.1
+  A2: 0.1
+  PC1: 0.1
+  PF1: 0.1
+  PG1: 0.1
+  PC2: 0.1
+  PF2: 0.1
+  PD1: 0.1
+  PE1: 0.1
+  PD2: 0.1
+parameter_names:
+- k11
+- k11_2
+- k71
+- k72
+- k12
+- k12_2
+- k51
+- k52
+- k41
+- k31
+- k32
+- k42
+- k22
+- k22_2
+- k21
+- k21_2
+- kreset1
+- PE2
+state_names:
+- PB
+- A1
+- A2
+- PC1
+- PF1
+- PG1
+- PC2
+- PF2
+- PD1
+- PE1
+- PD2

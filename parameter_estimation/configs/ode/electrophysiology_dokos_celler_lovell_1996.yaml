@@ -1,0 +1,129 @@
+name: ElectrophysiologyDokosCellerLovell1996ODE
+state_dim: 18
+parameter_dim: 43
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  C: 3.2e-05
+  g_CaL: 0.4
+  tau_dL: 0.002
+  alpha_fL2: 3
+  beta_fL2: 40000
+  g_CaT: 0.085
+  g_Na: 0.25
+  Kk: 0.00026
+  P_KNa: 0.035
+  Kmf: 10.3
+  g_fNa: 0.0081
+  g_fK: 0.0135
+  KmNa: 40
+  KmK: 1
+  i_pmax: 0.226
+  kNaCa: 4
+  Qci: 0.1369
+  Qn: 0.4315
+  Qco: 0
+  K3ni: 26.44
+  Kci: 0.0207
+  K1ni: 395.3
+  K2ni: 2.289
+  Kcni: 26.44
+  K3no: 4.663
+  K1no: 1628
+  K2no: 561.4
+  Kco: 3.663
+  g_Nab: 0.00024
+  KbK: 7.0e-05
+  V_i: 2.5e-06
+  i_up_max: 0.0212
+  KmCaup: 0.0005
+  KmCarel: 0.001
+  tau_rel: 0.005
+  tau_tr: 0.4
+  tau_b: 0.1
+  Nab: 140
+  Cab: 2
+  Kb: 5.4
+initial_state:
+  E: -64.9
+  Cai: 3.4e-05
+  Cao: 2.0004
+  Nai: 7.4994
+  Nao: 139.9929
+  Ki: 140.0073
+  Ko: 5.4243
+  dL: 0.0001
+  fL: 0.1505
+  fL2: 0.219
+  dT: 0.001
+  fT: 0.1328
+  m: 0.0139
+  h: 0.0087
+  x: 0.5682
+  y: 0.0287
+  Caup: 0.5832
+  Carel: 0.1101
+parameter_names:
+- R
+- T
+- F
+- C
+- g_CaL
+- tau_dL
+- alpha_fL2
+- beta_fL2
+- g_CaT
+- g_Na
+- Kk
+- P_KNa
+- Kmf
+- g_fNa
+- g_fK
+- KmNa
+- KmK
+- i_pmax
+- kNaCa
+- Qci
+- Qn
+- Qco
+- K3ni
+- Kci
+- K1ni
+- K2ni
+- Kcni
+- K3no
+- K1no
+- K2no
+- Kco
+- g_Nab
+- KbK
+- V_i
+- i_up_max
+- KmCaup
+- KmCarel
+- tau_rel
+- tau_tr
+- tau_b
+- Nab
+- Cab
+- Kb
+state_names:
+- E
+- Cai
+- Cao
+- Nai
+- Nao
+- Ki
+- Ko
+- dL
+- fL
+- fL2
+- dT
+- fT
+- m
+- h
+- x
+- y
+- Caup
+- Carel

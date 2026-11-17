@@ -1,0 +1,77 @@
+name: NeurobiologyBertram2008NoisyODE
+state_dim: 5
+parameter_dim: 30
+parameters:
+  Cm: 4525
+  gCa: 280
+  VCa: 100
+  vm: -22
+  sm: 7.5
+  gs1: 22
+  VK: -80
+  autos1: 1
+  s1knot: 1
+  tau_s1: 1000
+  vs1: -50
+  ss1: 5
+  gK: 1300
+  tau_n_bar: 8.25
+  vn: -9
+  sn: 10
+  gl: 41
+  Vl: -40
+  alpha_p: 1
+  tau_p: 100
+  p0: 0.2
+  noise: 1
+  w: 1
+  delNoise: 3
+  gs2: 16
+  autos2: 1
+  s2knot: 0.47
+  tau_s2: 30000
+  vs2: -40
+  ss2: 15
+initial_state:
+  V: -40
+  s1: 0.9
+  n: 0
+  p: 0.14
+  s2: 0.5
+parameter_names:
+- Cm
+- gCa
+- VCa
+- vm
+- sm
+- gs1
+- VK
+- autos1
+- s1knot
+- tau_s1
+- vs1
+- ss1
+- gK
+- tau_n_bar
+- vn
+- sn
+- gl
+- Vl
+- alpha_p
+- tau_p
+- p0
+- noise
+- w
+- delNoise
+- gs2
+- autos2
+- s2knot
+- tau_s2
+- vs2
+- ss2
+state_names:
+- V
+- s1
+- n
+- p
+- s2

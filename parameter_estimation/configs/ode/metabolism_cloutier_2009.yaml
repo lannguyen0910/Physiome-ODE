@@ -1,0 +1,329 @@
+name: MetabolismCloutier2009ODE
+state_dim: 36
+parameter_dim: 125
+parameters:
+  nOP: 15
+  NAero: 3
+  Rng: 1.8
+  Reg: 0.8
+  Ren: 0.4444444444444444
+  Rcn: 0.01222
+  Rcg: 0.022
+  Rce: 0.0275
+  O2a: 8.34
+  gn_NA: 0.0039
+  Sm_n: 40500
+  Vm: -70
+  Vn: 0.45
+  RT: 2577340
+  F: 96500
+  NAe: 150
+  kpump: 3.17e-07
+  Km_pump: 0.4243
+  Km_en_GLC: 5.32
+  Vm_en_GLC: 0.50417
+  Vmax_n_hk: 0.0513
+  Km_GLC: 0.105
+  G6P_inh_hk: 0.6
+  aG6P_inh_hk: 20
+  Vmaxf_n_pgi: 0.5
+  Vmaxr_n_pgi: 0.45
+  Km_G6P: 0.5
+  Km_F6P_pgi: 0.06
+  kn_pfk: 0.55783
+  Km_F6P_pfk: 0.18
+  Ki_ATP: 0.7595
+  nH: 4
+  kn_pgk: 0.4287
+  kn_pk: 28.6
+  kfn_ldh: 5.3
+  krn_ldh: 0.1046
+  Vmax_n_mito: 0.05557
+  Km_O2: 0.0029658
+  Km_ADP: 0.00107
+  Km_PYR: 0.0632
+  rATP_mito: 20
+  aATP_mito: 5
+  Vmax_ne_LAC: 0.1978
+  Km_ne_LAC: 0.09314
+  Vmax_n_ATPase: 0.04889
+  krn_ck: 0.015
+  kfn_ck: 0.0524681
+  nh_O2: 2.7
+  PScapn: 0.2202
+  Ko2: 0.089733
+  HbOP: 8.6
+  gg_NA: 0.00325
+  Sm_g: 10500
+  Vg: 0.25
+  Km_eg_GLC: 3.53
+  Vm_eg_GLC: 0.038089
+  KO1: 1
+  Km_cg_GLC: 9.92
+  Vm_cg_GLC: 0.0098394
+  Vmax_g_hk: 0.050461
+  Vmaxf_g_pgi: 0.5
+  Vmaxr_g_pgi: 0.45
+  kg_pfk: 0.403
+  kg_pgk: 0.2514
+  kg_pk: 2.73
+  kfg_ldh: 6.2613
+  krg_ldh: 0.54682
+  Vmax_g_mito: 0.008454
+  Vmax_ge_LAC: 0.086124
+  Km_ge_LAC: 0.22163
+  Vmax_gc_LAC: 0.00021856
+  Km_gc_LAC: 0.12862
+  Vmax_g_ATPase: 0.035657
+  krg_ck: 0.02073
+  kfg_ck: 0.0243
+  PScapg: 0.2457
+  nh_O2_2: 2.7
+  Vc: 0.0055
+  GLCa: 4.8
+  Km_ce_GLC: 8.4568
+  Vm_ce_GLC: 0.0489
+  LACa: 0.313
+  Km_ec_LAC: 0.764818
+  Vm_ec_LAC: 0.0325
+  R_GLU_NA: 0.075
+  Km_GLU: 0.05
+  KO2: 1
+  Vmax_g_gs: 0.3
+  Km_ATP: 0.01532
+  Vmax_eg_GLU: 0.0208
+  CO2a: 1.2
+  Vmax_glys: 0.0001528
+  Km_G6P_glys: 0.5
+  GLY_inh: 4.2
+  aGLY_inh: 20
+  Vmax_glyp: 4.922e-05
+  Km_GLY: 1
+  stim: 1
+  to: 200
+  to_GLY: 83
+  tend_GLY: 440
+  sr_GLY: 4
+  t1: 2
+  delta_GLY: 62
+  KO3: 1
+  CBF0: 0.012
+  tend: 300
+  sr: 4.59186
+  deltaf: 0.42
+  CBF0_2: 0.012
+  Vv0: 0.0236
+  tv: 35
+  NADH_n_tot: 0.22
+  NADH_g_tot: 0.22
+  PCrn_tot: 5
+  PCrg_tot: 5
+  ATPtot: 2.379
+  qak: 0.92
+  k1: 2.22
+  k2: 0.46
+  k3: 0.43
+  dHb0: 0.064
+  t_n_stim: 2
+  v1_n: 0.041
+  v2_n: 2.55
+initial_state:
+  NAn: 15.533
+  GLCn: 0.2633
+  G6Pn: 0.7275
+  F6Pn: 0.1091
+  GAPn: 0.0418
+  PEPn: 0.0037
+  PYRn: 0.0388
+  LACn: 0.3856
+  NADHn: 0.0319
+  ATPn: 2.2592
+  PCrn: 4.2529
+  O2n: 0.0975
+  GLUn: 3
+  NAg: 13.36
+  GLCg: 0.1656
+  G6Pg: 0.7326
+  F6Pg: 0.1116
+  GAPg: 0.0698
+  PEPg: 0.0254
+  PYRg: 0.1711
+  LACg: 0.4651
+  NADHg: 0.0445
+  ATPg: 2.24
+  PCrg: 4.6817
+  O2g: 0.1589
+  GLYg: 2.5
+  GLUg: 0
+  GLCe: 0.3339
+  LACe: 0.3986
+  GLUe: 0
+  O2c: 7.4201
+  GLCc: 4.6401
+  LACc: 0.3251
+  CO2c: 2.12
+  Vv: 0.0237
+  dHb: 0.0218
+parameter_names:
+- nOP
+- NAero
+- Rng
+- Reg
+- Ren
+- Rcn
+- Rcg
+- Rce
+- O2a
+- gn_NA
+- Sm_n
+- Vm
+- Vn
+- RT
+- F
+- NAe
+- kpump
+- Km_pump
+- Km_en_GLC
+- Vm_en_GLC
+- Vmax_n_hk
+- Km_GLC
+- G6P_inh_hk
+- aG6P_inh_hk
+- Vmaxf_n_pgi
+- Vmaxr_n_pgi
+- Km_G6P
+- Km_F6P_pgi
+- kn_pfk
+- Km_F6P_pfk
+- Ki_ATP
+- nH
+- kn_pgk
+- kn_pk
+- kfn_ldh
+- krn_ldh
+- Vmax_n_mito
+- Km_O2
+- Km_ADP
+- Km_PYR
+- rATP_mito
+- aATP_mito
+- Vmax_ne_LAC
+- Km_ne_LAC
+- Vmax_n_ATPase
+- krn_ck
+- kfn_ck
+- nh_O2
+- PScapn
+- Ko2
+- HbOP
+- gg_NA
+- Sm_g
+- Vg
+- Km_eg_GLC
+- Vm_eg_GLC
+- KO1
+- Km_cg_GLC
+- Vm_cg_GLC
+- Vmax_g_hk
+- Vmaxf_g_pgi
+- Vmaxr_g_pgi
+- kg_pfk
+- kg_pgk
+- kg_pk
+- kfg_ldh
+- krg_ldh
+- Vmax_g_mito
+- Vmax_ge_LAC
+- Km_ge_LAC
+- Vmax_gc_LAC
+- Km_gc_LAC
+- Vmax_g_ATPase
+- krg_ck
+- kfg_ck
+- PScapg
+- nh_O2_2
+- Vc
+- GLCa
+- Km_ce_GLC
+- Vm_ce_GLC
+- LACa
+- Km_ec_LAC
+- Vm_ec_LAC
+- R_GLU_NA
+- Km_GLU
+- KO2
+- Vmax_g_gs
+- Km_ATP
+- Vmax_eg_GLU
+- CO2a
+- Vmax_glys
+- Km_G6P_glys
+- GLY_inh
+- aGLY_inh
+- Vmax_glyp
+- Km_GLY
+- stim
+- to
+- to_GLY
+- tend_GLY
+- sr_GLY
+- t1
+- delta_GLY
+- KO3
+- CBF0
+- tend
+- sr
+- deltaf
+- CBF0_2
+- Vv0
+- tv
+- NADH_n_tot
+- NADH_g_tot
+- PCrn_tot
+- PCrg_tot
+- ATPtot
+- qak
+- k1
+- k2
+- k3
+- dHb0
+- t_n_stim
+- v1_n
+- v2_n
+state_names:
+- NAn
+- GLCn
+- G6Pn
+- F6Pn
+- GAPn
+- PEPn
+- PYRn
+- LACn
+- NADHn
+- ATPn
+- PCrn
+- O2n
+- GLUn
+- NAg
+- GLCg
+- G6Pg
+- F6Pg
+- GAPg
+- PEPg
+- PYRg
+- LACg
+- NADHg
+- ATPg
+- PCrg
+- O2g
+- GLYg
+- GLUg
+- GLCe
+- LACe
+- GLUe
+- O2c
+- GLCc
+- LACc
+- CO2c
+- Vv
+- dHb

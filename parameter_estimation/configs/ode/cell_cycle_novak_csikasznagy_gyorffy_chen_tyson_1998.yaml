@@ -1,0 +1,117 @@
+name: CellCycleNovakCsikasznagyGyorffyChenTyson1998ODE
+state_dim: 11
+parameter_dim: 44
+parameters:
+  k1: 0.03
+  ki: 200
+  kir: 1
+  k3: 0.15
+  k25: 0.5
+  k25r: 0.2
+  J25: 0.2
+  J25r: 0.2
+  kw: 0.5
+  kwr: 0.2
+  Jw: 0.2
+  Jwr: 0.2
+  km: 0.1
+  kmr: 0
+  Jm: 0.2
+  Jmr: 0.2
+  kas: 0.25
+  kad: 0.1
+  kaa: 0.001
+  kaa_2: 1
+  kai: 0.25
+  kx: 0
+  Jaa: 0.1
+  Jai: 0.1
+  kapr: 0.04
+  kapr_2: 3
+  kap: 4
+  Japr: 0.01
+  Jap: 0.01
+  Puc1: 0.013
+  mu: 0.005776
+  V2: 0.03
+  V2_2: 1
+  V2c: 0.03
+  V2c_2: 0.16
+  k4: 0.15
+  k4_2: 20
+  V25: 0.01
+  V25_2: 0.4
+  Vwee: 0.01
+  Vwee_2: 0.93
+  Vmik: 0.002
+  Vmik_2: 0.2
+  alpha: 0.1
+initial_state:
+  Cdc13_Cdc2: 1
+  mass: 1
+  Cdc13_P_Cdc2: 0
+  Rum1_Cdc13_Cdc2: 0
+  Rum1: 0
+  Cdc25P: 0
+  Wee1: 0
+  Mik1: 0
+  AAE_total: 2
+  AAE: 2
+  APC: 0
+parameter_names:
+- k1
+- ki
+- kir
+- k3
+- k25
+- k25r
+- J25
+- J25r
+- kw
+- kwr
+- Jw
+- Jwr
+- km
+- kmr
+- Jm
+- Jmr
+- kas
+- kad
+- kaa
+- kaa_2
+- kai
+- kx
+- Jaa
+- Jai
+- kapr
+- kapr_2
+- kap
+- Japr
+- Jap
+- Puc1
+- mu
+- V2
+- V2_2
+- V2c
+- V2c_2
+- k4
+- k4_2
+- V25
+- V25_2
+- Vwee
+- Vwee_2
+- Vmik
+- Vmik_2
+- alpha
+state_names:
+- Cdc13_Cdc2
+- mass
+- Cdc13_P_Cdc2
+- Rum1_Cdc13_Cdc2
+- Rum1
+- Cdc25P
+- Wee1
+- Mik1
+- AAE_total
+- AAE
+- APC

@@ -1,0 +1,343 @@
+name: ElectrophysiologyNiedererSmith2007ODE
+state_dim: 26
+parameter_dim: 142
+parameters:
+  NO_on: 0
+  pH_on: 0
+  SAC_on: 0
+  V_myo: 2.584e-05
+  V_SR: 2.098e-06
+  N: 75000
+  A_cap: 0.01534
+  R: 8314.5
+  T: 295
+  F: 96487
+  CmF: 0.0001
+  stim_period: 1000
+  stim_duration: 10
+  stim_amplitude: -0.0006
+  ExtensionRatio: 1
+  g_SAC: 4.1333e-07
+  E_R: -10
+  g_Ko: 1.2e-06
+  g_Na: 0.0008
+  Na_o: 140
+  g_t: 3.5e-05
+  a_endo: 0.583
+  b_endo: 0.417
+  K_o: 5.4
+  g_ss: 7.0e-06
+  g_K1: 2.4e-05
+  g_f: 1.45e-06
+  f_Na: 0.2
+  g_B_Na: 8.015e-08
+  g_B_K: 1.38e-07
+  scale_Na: 0
+  scale_K: 0
+  i_NaK_max: 9.5e-05
+  K_m_K: 1.5
+  K_m_Na: 10
+  Pco2: 5.8e-05
+  pH_e: 7.4
+  KA: 21.4935205515214
+  KB: 1.77948608115949e-07
+  kp1: 0.51156085723193
+  km1: 0.14069285629105
+  kp2: 0.001698
+  K_Hi: 0.000416869383470335
+  n_Hi: 2
+  Q_10Scaler: 0.35
+  Cle: 126
+  K_Cl: 17970.36
+  K_OH: 0.0008907
+  kp1_2: 14975.6
+  km1_2: 257.4
+  kp2_2: 4084.9
+  Q_10Scaler_2: 0.35
+  K_Na: 4866.11
+  K_HCO3: 0.008017
+  kp1_3: 4677
+  km1_3: 777.92
+  kp2_3: 6.656
+  K_Hi_2: 0.000183
+  n_Hi_2: 2.91
+  K_He: 6.53e-05
+  n_He: 2.18
+  Q_10Scaler_3: 0.35
+  K_Cl_2: 983.5
+  K_HCO3_2: 110.64
+  kp1_4: 20789.9
+  km1_4: 21118.2
+  kp2_4: 21256.54
+  K_Hi_3: 2.67e-05
+  n_Hi_3: 5.11
+  K_He_2: 0.000312
+  n_He_2: 1.44
+  Q_10Scaler_4: 0.35
+  PP_co2e: 0.05
+  CO_2sol: 0.03253
+  P_atm: 760
+  kf_co2hyd: 0.000365
+  kr_co2hyd: 0.481
+  pKa_ib1: 6.40013149605198
+  ib1: 31.2044223705215
+  pKa_ib2: 7.48048792987277
+  ib2: 6.84513535697271
+  pH_scale: 1
+  g_Cl: 2.0e-05
+  g_H: 4.0e-06
+  J_CO2: 0
+  Ca_o: 2
+  g_pCa: 3.5e-06
+  K_mpCa: 0.0005
+  delta: 0.075
+  g_Cab: 2.4216e-08
+  K_mNa: 87.5
+  K_mCa: 1.38
+  eta: 0.35
+  k_sat: 0.1
+  g_NCX: 0.0385
+  g_SERCA: 0.00045
+  K_SERCA: 0.0005
+  B_CMDN: 0.05
+  K_CMDN: 0.00238
+  g_SRl: 5.2e-06
+  B_TRPN: 0.07
+  g_D: 6.5e-11
+  J_R: 2.0e-11
+  J_L: 9.13e-13
+  V_L0: -2
+  delta_VL: 7
+  t_L: 1
+  a: 0.0625
+  b: 14
+  tau_L: 650
+  K_L: 0.00022
+  phi_L: 2.35
+  phi_R_base: 0.05
+  tau_R: 2.43
+  theta_R: 0.012
+  K_RyR: 0.041
+  c: 0.01
+  d: 100
+  k_on: 100
+  k_off: 0.2
+  gamma_trpn: 2
+  TRPN_tot: 0.07
+  T_ref: 56.2
+  alpha_0: 0.008
+  alpha_r1: 0.002
+  alpha_r2: 0.00175
+  n_Rel: 3
+  K_z: 0.15
+  n_Hill: 3
+  Ca_50ref: 0.00105
+  z_p: 0.85
+  beta_1: -4
+  beta_0: 4.9
+  a_2: 0.35
+  A_1: -29
+  A_2: 138
+  A_3: 129
+  alpha_1: 0.03
+  alpha_2: 0.13
+  alpha_3: 0.625
+  tau_s_ss: 2100
+  dExtensionRatiodt: 0
+initial_state:
+  V: -80.5561112771341
+  Na_i: 10.9735342589175
+  m: 0.00419283833975832
+  h: 0.675647510010602
+  j: 0.675294627571238
+  K_i: 142.021261491871
+  r: 0.00218107055088884
+  s: 0.922573773425153
+  s_slow: 0.530207467628341
+  r_ss: 0.00289374682707489
+  s_ss: 0.308572839431787
+  y: 0.00331726547133295
+  CO2i: 1.23610845162584
+  pH_i: 7.20905044774657
+  Cli: 16.2285651746901
+  HCO3i: 15.1428688811927
+  Ca_i: 8.60587059887361e-05
+  Ca_SR: 0.843733859307907
+  TRPN: 0.0670845085340179
+  z_1: 0.988955429362334
+  z_2: 0.00860686643357905
+  z_3: 0.00241692704700704
+  z: 0.0175189833295748
+  Q_1: 0
+  Q_2: 0
+  Q_3: 0
+parameter_names:
+- NO_on
+- pH_on
+- SAC_on
+- V_myo
+- V_SR
+- N
+- A_cap
+- R
+- T
+- F
+- CmF
+- stim_period
+- stim_duration
+- stim_amplitude
+- ExtensionRatio
+- g_SAC
+- E_R
+- g_Ko
+- g_Na
+- Na_o
+- g_t
+- a_endo
+- b_endo
+- K_o
+- g_ss
+- g_K1
+- g_f
+- f_Na
+- g_B_Na
+- g_B_K
+- scale_Na
+- scale_K
+- i_NaK_max
+- K_m_K
+- K_m_Na
+- Pco2
+- pH_e
+- KA
+- KB
+- kp1
+- km1
+- kp2
+- K_Hi
+- n_Hi
+- Q_10Scaler
+- Cle
+- K_Cl
+- K_OH
+- kp1_2
+- km1_2
+- kp2_2
+- Q_10Scaler_2
+- K_Na
+- K_HCO3
+- kp1_3
+- km1_3
+- kp2_3
+- K_Hi_2
+- n_Hi_2
+- K_He
+- n_He
+- Q_10Scaler_3
+- K_Cl_2
+- K_HCO3_2
+- kp1_4
+- km1_4
+- kp2_4
+- K_Hi_3
+- n_Hi_3
+- K_He_2
+- n_He_2
+- Q_10Scaler_4
+- PP_co2e
+- CO_2sol
+- P_atm
+- kf_co2hyd
+- kr_co2hyd
+- pKa_ib1
+- ib1
+- pKa_ib2
+- ib2
+- pH_scale
+- g_Cl
+- g_H
+- J_CO2
+- Ca_o
+- g_pCa
+- K_mpCa
+- delta
+- g_Cab
+- K_mNa
+- K_mCa
+- eta
+- k_sat
+- g_NCX
+- g_SERCA
+- K_SERCA
+- B_CMDN
+- K_CMDN
+- g_SRl
+- B_TRPN
+- g_D
+- J_R
+- J_L
+- V_L0
+- delta_VL
+- t_L
+- a
+- b
+- tau_L
+- K_L
+- phi_L
+- phi_R_base
+- tau_R
+- theta_R
+- K_RyR
+- c
+- d
+- k_on
+- k_off
+- gamma_trpn
+- TRPN_tot
+- T_ref
+- alpha_0
+- alpha_r1
+- alpha_r2
+- n_Rel
+- K_z
+- n_Hill
+- Ca_50ref
+- z_p
+- beta_1
+- beta_0
+- a_2
+- A_1
+- A_2
+- A_3
+- alpha_1
+- alpha_2
+- alpha_3
+- tau_s_ss
+- dExtensionRatiodt
+state_names:
+- V
+- Na_i
+- m
+- h
+- j
+- K_i
+- r
+- s
+- s_slow
+- r_ss
+- s_ss
+- y
+- CO2i
+- pH_i
+- Cli
+- HCO3i
+- Ca_i
+- Ca_SR
+- TRPN
+- z_1
+- z_2
+- z_3
+- z
+- Q_1
+- Q_2
+- Q_3

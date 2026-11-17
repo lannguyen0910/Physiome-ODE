@@ -1,0 +1,23 @@
+name: CardiovascularCirculationGuytonMuscleBloodFlowControl2008ODE
+state_dim: 2
+parameter_dim: 6
+parameters:
+  PMO: 38.0666
+  POM: 0.04
+  A4K: 0.1
+  AMM4: 0.005
+  POM2: 2
+  A4K2: 40000
+initial_state:
+  AMM1T: 1.00269
+  AMM2: 1.09071
+parameter_names:
+- PMO
+- POM
+- A4K
+- AMM4
+- POM2
+- A4K2
+state_names:
+- AMM1T
+- AMM2

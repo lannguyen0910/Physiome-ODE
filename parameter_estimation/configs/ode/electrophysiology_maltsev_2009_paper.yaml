@@ -1,0 +1,215 @@
+name: ElectrophysiologyMaltsev2009PaperODE
+state_dim: 29
+parameter_dim: 75
+parameters:
+  Cm: 32
+  R: 8314.4
+  T: 310.15
+  F: 96485
+  Nai: 10
+  Nao: 140
+  Ki: 140
+  Ko: 5.4
+  E_CaL: 45
+  g_CaL: 0.464
+  alpha_fCa: 0.021
+  Km_fCa: 0.00035
+  g_CaT: 0.1832
+  E_CaT: 45
+  g_Kr: 0.08113973
+  g_Ks: 0.0259
+  g_to: 0.252
+  g_sus: 0.02
+  g_if: 0.15
+  VIf_half: -64
+  g_st: 0.003
+  E_st: 37.4
+  g_b_Na: 0.00486
+  Km_Kp: 1.4
+  Km_Nap: 14
+  i_NaK_max: 2.88
+  g_b_Ca: 0.0006
+  kNaCa: 187.5
+  Qci: 0.1369
+  Qn: 0.4315
+  Qco: 0
+  K3ni: 26.44
+  Kci: 0.0207
+  K1ni: 395.3
+  K2ni: 2.289
+  Kcni: 26.44
+  K3no: 4.663
+  K1no: 1628
+  K2no: 561.4
+  Kco: 3.663
+  Cao: 2
+  ks: 250000
+  MaxSR: 15
+  MinSR: 1
+  EC50_SR: 0.45
+  HSR: 2.5
+  koCa: 10
+  kiCa: 0.5
+  kim: 0.005
+  kom: 0.06
+  tau_dif_Ca: 0.04
+  tau_tr: 40
+  P_up: 0.012
+  K_up: 0.0006
+  TC_tot: 0.031
+  TMC_tot: 0.062
+  CM_tot: 0.045
+  CQ_tot: 10
+  kf_TC: 88.8
+  kf_TMM: 2.277
+  kf_TMC: 227.7
+  kf_CM: 227.7
+  kf_CQ: 0.534
+  kb_TC: 0.446
+  kb_TMC: 0.00751
+  kb_TMM: 0.751
+  kb_CM: 0.542
+  kb_CQ: 0.445
+  Mgi: 2.5
+  V_jsr_part: 0.0012
+  V_i_part: 0.46
+  V_nsr_part: 0.0116
+  R_cell: 4
+  L_cell: 70
+  L_sub: 0.02
+initial_state:
+  Vm: -65
+  Ca_sub: 0.000223
+  dL: 0
+  fL: 1
+  fCa: 1
+  dT: 0
+  fT: 1
+  paS: 0
+  paF: 0
+  pi: 1
+  n: 0
+  q: 1
+  r: 0
+  y: 1
+  qa: 0
+  qi: 1
+  R: 0.7499955
+  O: 3.4e-06
+  I: 1.1e-06
+  RI: 0.25
+  Ca_jsr: 0.029
+  Ca_nsr: 1.35
+  Cai: 0.0001
+  fTMM: 0.69
+  fCMi: 0.042
+  fCMs: 0.089
+  fTC: 0.02
+  fTMC: 0.22
+  fCQ: 0.032
+parameter_names:
+- Cm
+- R
+- T
+- F
+- Nai
+- Nao
+- Ki
+- Ko
+- E_CaL
+- g_CaL
+- alpha_fCa
+- Km_fCa
+- g_CaT
+- E_CaT
+- g_Kr
+- g_Ks
+- g_to
+- g_sus
+- g_if
+- VIf_half
+- g_st
+- E_st
+- g_b_Na
+- Km_Kp
+- Km_Nap
+- i_NaK_max
+- g_b_Ca
+- kNaCa
+- Qci
+- Qn
+- Qco
+- K3ni
+- Kci
+- K1ni
+- K2ni
+- Kcni
+- K3no
+- K1no
+- K2no
+- Kco
+- Cao
+- ks
+- MaxSR
+- MinSR
+- EC50_SR
+- HSR
+- koCa
+- kiCa
+- kim
+- kom
+- tau_dif_Ca
+- tau_tr
+- P_up
+- K_up
+- TC_tot
+- TMC_tot
+- CM_tot
+- CQ_tot
+- kf_TC
+- kf_TMM
+- kf_TMC
+- kf_CM
+- kf_CQ
+- kb_TC
+- kb_TMC
+- kb_TMM
+- kb_CM
+- kb_CQ
+- Mgi
+- V_jsr_part
+- V_i_part
+- V_nsr_part
+- R_cell
+- L_cell
+- L_sub
+state_names:
+- Vm
+- Ca_sub
+- dL
+- fL
+- fCa
+- dT
+- fT
+- paS
+- paF
+- pi
+- n
+- q
+- r
+- y
+- qa
+- qi
+- R
+- O
+- I
+- RI
+- Ca_jsr
+- Ca_nsr
+- Cai
+- fTMM
+- fCMi
+- fCMs
+- fTC
+- fTMC
+- fCQ

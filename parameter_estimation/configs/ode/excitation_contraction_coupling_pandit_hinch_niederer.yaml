@@ -1,0 +1,219 @@
+name: ExcitationContractionCouplingPanditHinchNiedererODE
+state_dim: 22
+parameter_dim: 84
+parameters:
+  R: 8314.5
+  T: 295
+  F: 96487
+  Cm: 0.0001
+  stim_period: 1000
+  stim_duration: 10
+  stim_amplitude: -0.0006
+  V_myo: 25850
+  V_SR: 2098
+  V_myo_uL: 2.585e-05
+  V_SR_uL: 2.098e-06
+  i_NaK_max: 9.5e-05
+  K_m_K: 1.5
+  K_m_Na: 10
+  K_o: 5.4
+  Na_o: 140
+  Ca_TRPN_Max: 0.07
+  g_Na: 0.8
+  g_t: 0.035
+  a_endo: 0.583
+  b_endo: 0.417
+  g_ss: 0.007
+  g_K1: 0.024
+  g_f: 0.00145
+  f_Na: 0.2
+  g_B_Na: 8.015e-05
+  g_B_Ca: 3.24e-05
+  g_B_K: 0.000138
+  E_Ca: 65
+  Ca_o: 1.2
+  g_D: 0.065
+  J_R: 0.02
+  J_L: 0.000913
+  N: 50000
+  K_mNa: 87.5
+  K_mCa: 1.38
+  eta: 0.35
+  k_sat: 0.1
+  g_NCX: 0.0385
+  g_SERCA: 0.00045
+  K_SERCA: 0.0005
+  g_pCa: 3.5e-06
+  K_mpCa: 0.0005
+  g_CaB: 2.6875e-08
+  g_SRl: 1.8951e-05
+  k_CMDN: 0.002382
+  B_CMDN: 0.05
+  k_on: 100
+  k_Ref_off: 0.2
+  gamma_trpn: 2
+  alpha_0: 0.008
+  alpha_r1: 0.002
+  alpha_r2: 0.00175
+  n_Rel: 3
+  K_z: 0.15
+  n_Hill: 3
+  Ca_50ref: 0.00105
+  z_p: 0.85
+  beta_1: -4
+  beta_0: 4.9
+  T_ref: 56.2
+  a: 0.35
+  A_1: -29
+  A_2: 138
+  A_3: 129
+  alpha_1: 0.03
+  alpha_2: 0.13
+  alpha_3: 0.625
+  V_L: -2
+  del_VL: 7
+  phi_L: 2.35
+  t_L: 1
+  tau_L: 650
+  tau_R: 2.43
+  phi_R: 0.05
+  theta_R: 0.012
+  K_RyR: 0.041
+  K_L: 0.00022
+  a_2: 0.0625
+  b: 14
+  c: 0.01
+  d: 100
+  dExtensionRatiodt: 0
+  tau_s_ss: 2.1
+initial_state:
+  V: -80.50146
+  Na_i: 10.73519
+  Ca_i: 7.901351e-05
+  Ca_SR: 0.7
+  K_i: 139.2751
+  TRPN: 0.067593139865
+  m: 0.004164108
+  h: 0.6735613
+  j: 0.6729362
+  r: 0.002191519
+  s: 0.9842542
+  s_slow: 0.6421196
+  r_ss: 0.002907171
+  s_ss: 0.3142767
+  y: 0.003578708
+  z: 0.014417937837
+  Q_1: 0
+  Q_2: 0
+  Q_3: 0
+  z_1: 0.98859
+  z_2: 0.0087302
+  z_3: 0.0026566
+parameter_names:
+- R
+- T
+- F
+- Cm
+- stim_period
+- stim_duration
+- stim_amplitude
+- V_myo
+- V_SR
+- V_myo_uL
+- V_SR_uL
+- i_NaK_max
+- K_m_K
+- K_m_Na
+- K_o
+- Na_o
+- Ca_TRPN_Max
+- g_Na
+- g_t
+- a_endo
+- b_endo
+- g_ss
+- g_K1
+- g_f
+- f_Na
+- g_B_Na
+- g_B_Ca
+- g_B_K
+- E_Ca
+- Ca_o
+- g_D
+- J_R
+- J_L
+- N
+- K_mNa
+- K_mCa
+- eta
+- k_sat
+- g_NCX
+- g_SERCA
+- K_SERCA
+- g_pCa
+- K_mpCa
+- g_CaB
+- g_SRl
+- k_CMDN
+- B_CMDN
+- k_on
+- k_Ref_off
+- gamma_trpn
+- alpha_0
+- alpha_r1
+- alpha_r2
+- n_Rel
+- K_z
+- n_Hill
+- Ca_50ref
+- z_p
+- beta_1
+- beta_0
+- T_ref
+- a
+- A_1
+- A_2
+- A_3
+- alpha_1
+- alpha_2
+- alpha_3
+- V_L
+- del_VL
+- phi_L
+- t_L
+- tau_L
+- tau_R
+- phi_R
+- theta_R
+- K_RyR
+- K_L
+- a_2
+- b
+- c
+- d
+- dExtensionRatiodt
+- tau_s_ss
+state_names:
+- V
+- Na_i
+- Ca_i
+- Ca_SR
+- K_i
+- TRPN
+- m
+- h
+- j
+- r
+- s
+- s_slow
+- r_ss
+- s_ss
+- y
+- z
+- Q_1
+- Q_2
+- Q_3
+- z_1
+- z_2
+- z_3

@@ -1,0 +1,171 @@
+name: ElectrophysiologyInadaAN2009ODE
+state_dim: 29
+parameter_dim: 53
+parameters:
+  R: 8314.472
+  T: 310
+  F: 96485.3415
+  C: 4.0e-05
+  stim_start: 0.1
+  stim_end: 99999
+  stim_period: 1
+  stim_duration: 0.001
+  stim_amplitude: -2
+  g_f: 0
+  ACh: 0
+  g_Kr: 0.0015
+  Ki: 140
+  Kc: 5.4
+  g_K1: 0.0125
+  g_b: 0.0018
+  E_b: -52.5
+  I_p: 0.0246
+  Nai: 8
+  kNaCa: 5.916
+  Qci: 0.1369
+  Qn: 0.4315
+  Qco: 0
+  Kci: 0.0207
+  K1ni: 395.3
+  K2ni: 2.289
+  K3ni: 26.44
+  Kcni: 26.44
+  K3no: 4.663
+  K1no: 1628
+  K2no: 561.4
+  Kco: 3.663
+  Cao: 2
+  Nao: 140
+  g_Na: 5.0e-07
+  delta_m: 1.0e-05
+  g_CaL: 0.0185
+  E_CaL: 62.5
+  act_shift: 0
+  slope_factor_act: -6.61
+  inact_shift: -5
+  inact_shift_2: -5
+  g_to: 0.02
+  E_st: -37.4
+  g_st: 0
+  g_ACh_max: 0.0198
+  K_ACh: 0.00035
+  alpha_achf: 73.1
+  alpha_achs: 3.7
+  V_cell: 4.39823e-06
+  P_rel: 1805.6
+  K_up: 0.0006
+  tau_tr: 0.06
+initial_state:
+  V: -71.5535452525735
+  y: 0.231892950445813
+  paf: 0.000907827363439979
+  pas: 0.00289901267127429
+  pik: 0.987889953123897
+  Casub: 2.86962804165375e-05
+  m: 0.0104794040295793
+  h1: 0.792210965943567
+  h2: 0.78834840378483
+  d: 3.2286733432613e-05
+  f: 0.998822085003546
+  f2: 0.998815467202695
+  r: 0.00802880907824072
+  q_fast: 0.995494395556732
+  q_slow: 0.547966933708077
+  qa: 0.0758461021803425
+  qi: 0.943345608766177
+  achf: 0.760265641624297
+  achs: 0.764664867332735
+  Cai: 3.10430405261017e-05
+  Ca_up: 0.667220893111124
+  Ca_rel: 0.557458998353581
+  f_TC: 0.0061557815047835
+  f_TMC: 0.112200926320798
+  f_TMM: 0.784309464255762
+  f_CMi: 0.012895686161953
+  f_CMs: 0.0119201823967662
+  f_CQ: 0.400684024879925
+  f_CSL: 8.91124266400812e-06
+parameter_names:
+- R
+- T
+- F
+- C
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- g_f
+- ACh
+- g_Kr
+- Ki
+- Kc
+- g_K1
+- g_b
+- E_b
+- I_p
+- Nai
+- kNaCa
+- Qci
+- Qn
+- Qco
+- Kci
+- K1ni
+- K2ni
+- K3ni
+- Kcni
+- K3no
+- K1no
+- K2no
+- Kco
+- Cao
+- Nao
+- g_Na
+- delta_m
+- g_CaL
+- E_CaL
+- act_shift
+- slope_factor_act
+- inact_shift
+- inact_shift_2
+- g_to
+- E_st
+- g_st
+- g_ACh_max
+- K_ACh
+- alpha_achf
+- alpha_achs
+- V_cell
+- P_rel
+- K_up
+- tau_tr
+state_names:
+- V
+- y
+- paf
+- pas
+- pik
+- Casub
+- m
+- h1
+- h2
+- d
+- f
+- f2
+- r
+- q_fast
+- q_slow
+- qa
+- qi
+- achf
+- achs
+- Cai
+- Ca_up
+- Ca_rel
+- f_TC
+- f_TMC
+- f_TMM
+- f_CMi
+- f_CMs
+- f_CQ
+- f_CSL

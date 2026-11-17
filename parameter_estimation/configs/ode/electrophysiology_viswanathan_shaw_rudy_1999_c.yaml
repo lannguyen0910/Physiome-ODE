@@ -1,0 +1,185 @@
+name: ElectrophysiologyViswanathanShawRudy1999CODE
+state_dim: 25
+parameter_dim: 64
+parameters:
+  R: 8314
+  T: 310
+  F: 96485
+  stim_start: 100
+  stim_end: 99999000
+  stim_period: 1000
+  stim_duration: 2
+  stim_amplitude: -25.5
+  g_Na: 16
+  Nao: 132
+  delta_m: 1.0e-05
+  gamma_Nai: 0.75
+  gamma_Nao: 0.75
+  gamma_Ki: 0.75
+  gamma_Ko: 0.75
+  P_Ca: 0.00054
+  P_Na: 6.75e-07
+  P_K: 1.93e-07
+  gamma_Cai: 1
+  gamma_Cao: 0.341
+  Cao: 1.8
+  Ko: 4.5
+  Km_Ca: 0.0006
+  g_CaT: 0.05
+  PNaK: 0.01833
+  g_Kp: 0.00552
+  nATP: 0.24
+  nicholsarea: 5.0e-05
+  ATPi: 3
+  hATP: 2
+  kATP: 0.00025
+  K_mpCa: 0.0005
+  I_pCa: 1.15
+  g_Nab: 0.004
+  g_Cab: 0.003016
+  I_NaK: 2
+  K_mNai: 10
+  K_mKo: 1.5
+  K_m_ns_Ca: 0.0012
+  n_NaCa: 3
+  K_NaCa: 0.002
+  d_NaCa: 0.001
+  gamma: 0.5
+  G_rel_max: 60000
+  G_rel_overload: 4000
+  tau_tr: 0.18
+  K_mrel: 0.0008
+  delta_Ca_ith: 0.00018
+  CSQN_max: 10
+  K_mCSQN: 0.8
+  K_mup: 0.00092
+  I_up: 5
+  Ca_NSR_max: 15
+  A_cap: 1.434e-07
+  K_mTn: 0.0005
+  K_mCMDN: 0.00238
+  Tn_max: 0.07
+  CMDN_max: 0.05
+  CSQNthresh: 0.7
+  Logicthresh: 0.98
+  preplength: 0.001
+  radius: 0.00011
+  g_to: 0
+  P_ns_Ca: 0
+initial_state:
+  V: -88.5004
+  Nai: 14.177596
+  m: 0.0008601
+  h: 0.992806
+  j: 0.99511469
+  Cai: 0.00034209
+  Ki: 138.37949
+  d: 3.538268e-06
+  f: 0.995259
+  b: 0.0010301
+  g: 0.9341828
+  xr: 0.0007500578
+  xs1: 0.0421517
+  xs2: 0.08866
+  zdv: 0.01198974
+  ydv: 0.97497
+  Ca_JSR: 0.8204291
+  Ca_NSR: 2.7872629
+  APtrack: 3.7458e-87
+  APtrack2: 2.07066e-86
+  APtrack3: 0.01924195
+  Cainfluxtrack: 1.660129e-87
+  OVRLDtrack: 2.0e-323
+  OVRLDtrack2: -2.5e-323
+  OVRLDtrack3: 2.2645e-282
+parameter_names:
+- R
+- T
+- F
+- stim_start
+- stim_end
+- stim_period
+- stim_duration
+- stim_amplitude
+- g_Na
+- Nao
+- delta_m
+- gamma_Nai
+- gamma_Nao
+- gamma_Ki
+- gamma_Ko
+- P_Ca
+- P_Na
+- P_K
+- gamma_Cai
+- gamma_Cao
+- Cao
+- Ko
+- Km_Ca
+- g_CaT
+- PNaK
+- g_Kp
+- nATP
+- nicholsarea
+- ATPi
+- hATP
+- kATP
+- K_mpCa
+- I_pCa
+- g_Nab
+- g_Cab
+- I_NaK
+- K_mNai
+- K_mKo
+- K_m_ns_Ca
+- n_NaCa
+- K_NaCa
+- d_NaCa
+- gamma
+- G_rel_max
+- G_rel_overload
+- tau_tr
+- K_mrel
+- delta_Ca_ith
+- CSQN_max
+- K_mCSQN
+- K_mup
+- I_up
+- Ca_NSR_max
+- A_cap
+- K_mTn
+- K_mCMDN
+- Tn_max
+- CMDN_max
+- CSQNthresh
+- Logicthresh
+- preplength
+- radius
+- g_to
+- P_ns_Ca
+state_names:
+- V
+- Nai
+- m
+- h
+- j
+- Cai
+- Ki
+- d
+- f
+- b
+- g
+- xr
+- xs1
+- xs2
+- zdv
+- ydv
+- Ca_JSR
+- Ca_NSR
+- APtrack
+- APtrack2
+- APtrack3
+- Cainfluxtrack
+- OVRLDtrack
+- OVRLDtrack2
+- OVRLDtrack3

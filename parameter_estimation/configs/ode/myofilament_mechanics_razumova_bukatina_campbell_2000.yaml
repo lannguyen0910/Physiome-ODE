@@ -1,0 +1,41 @@
+name: MyofilamentMechanicsRazumovaBukatinaCampbell2000ODE
+state_dim: 3
+parameter_dim: 14
+parameters:
+  R_T: 1
+  k_0_on: 0
+  k_0_off: 100
+  k_Ca_on: 120
+  k_Ca_off: 50
+  f_0: 50
+  f_prime_0: 400
+  h: 8
+  h_prime: 6
+  g: 4
+  n_H: 1
+  u: 1
+  w: 1
+  v: 1
+initial_state:
+  D: 0
+  A_1: 0
+  A_2: 0
+parameter_names:
+- R_T
+- k_0_on
+- k_0_off
+- k_Ca_on
+- k_Ca_off
+- f_0
+- f_prime_0
+- h
+- h_prime
+- g
+- n_H
+- u
+- w
+- v
+state_names:
+- D
+- A_1
+- A_2

@@ -1,0 +1,53 @@
+name: ElectrophysiologyMcallisterNobleTsien1975AODE
+state_dim: 10
+parameter_dim: 13
+parameters:
+  C: 10
+  E_Na: 40
+  g_Na: 150
+  g_si: 0.8
+  g_si_2: 0.04
+  E_si: 70
+  E_K: -110
+  E_s: -52
+  E_Cl: -70
+  g_qr: 2.5
+  E_K1: -30
+  g_Nab: 0.105
+  g_Clb: 0.01
+initial_state:
+  V: -78.041367
+  m: 0.02566853
+  h: 0.78656359
+  d: 0.00293135
+  f: 0.80873917
+  s: 0.75473994
+  x1: 0.02030289
+  x2: 0.0176854
+  q: 3.11285794
+  r: 0.13500116
+parameter_names:
+- C
+- E_Na
+- g_Na
+- g_si
+- g_si_2
+- E_si
+- E_K
+- E_s
+- E_Cl
+- g_qr
+- E_K1
+- g_Nab
+- g_Clb
+state_names:
+- V
+- m
+- h
+- d
+- f
+- s
+- x1
+- x2
+- q
+- r

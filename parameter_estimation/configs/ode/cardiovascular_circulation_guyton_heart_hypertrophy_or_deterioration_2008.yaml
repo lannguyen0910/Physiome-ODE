@@ -1,0 +1,29 @@
+name: CardiovascularCirculationGuytonHeartHypertrophyOrDeterioration2008ODE
+state_dim: 3
+parameter_dim: 8
+parameters:
+  QAO: 5.00707
+  PA: 103.525
+  POT: 35.1148
+  PPA: 15.6376
+  HSL: 1
+  Z13: 0.625
+  HSR: 1
+  DHDTR: 0.05
+initial_state:
+  HPL: 1.00163
+  HPR: 1.00237
+  HMD1: 1
+parameter_names:
+- QAO
+- PA
+- POT
+- PPA
+- HSL
+- Z13
+- HSR
+- DHDTR
+state_names:
+- HPL
+- HPR
+- HMD1

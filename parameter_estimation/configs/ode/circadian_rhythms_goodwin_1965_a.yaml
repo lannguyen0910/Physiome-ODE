@@ -1,0 +1,23 @@
+name: CircadianRhythmsGoodwin1965AODE
+state_dim: 2
+parameter_dim: 6
+parameters:
+  ai: 72
+  bi: 2
+  Ai: 36
+  ki: 1
+  beta_i: 0
+  alpha_i: 1
+initial_state:
+  Xi: 7
+  Yi: -10
+parameter_names:
+- ai
+- bi
+- Ai
+- ki
+- beta_i
+- alpha_i
+state_names:
+- Xi
+- Yi

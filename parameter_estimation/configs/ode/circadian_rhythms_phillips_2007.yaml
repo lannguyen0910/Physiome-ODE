@@ -1,0 +1,43 @@
+name: CircadianRhythmsPhillips2007ODE
+state_dim: 3
+parameter_dim: 15
+parameters:
+  tau_v: 10
+  v_vm: -1.9
+  Qmax: 100
+  theta: 10
+  sigma: 3
+  Vao: 1
+  tau_m: 10
+  v_mv: -1.9
+  v_maQao: 1
+  chi: 10.8
+  mu: 3.6
+  c0: 1
+  v_vc: -6.3
+  v_vh: 0.19
+  omega: 0.2617993877991494
+initial_state:
+  Vv: 0
+  Vm: 0
+  H: 15
+parameter_names:
+- tau_v
+- v_vm
+- Qmax
+- theta
+- sigma
+- Vao
+- tau_m
+- v_mv
+- v_maQao
+- chi
+- mu
+- c0
+- v_vc
+- v_vh
+- omega
+state_names:
+- Vv
+- Vm
+- H

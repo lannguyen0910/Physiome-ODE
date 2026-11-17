@@ -1,0 +1,81 @@
+name: CalciumDynamicsSnyderPalmerMoore2000ODE
+state_dim: 10
+parameter_dim: 27
+parameters:
+  Ca_e: 0.002
+  k1: 0.2
+  k_on1: 2000000000
+  k_off1: 1400
+  k_on2: 13000000
+  k_off2: 3.9
+  k_s: 9
+  Km_NaCaX: 3.6e-05
+  Vmax_NaCaX: 0.0012
+  kf: 2500
+  Km_s: 2.5e-07
+  Vmax_s: 0.000525
+  K_ons: 8772
+  K_offs: 5.596536
+  Bmax_s: 0.008
+  Rt: 1.5e-07
+  Bmax_f1: 0.0002
+  Bmax_f2: 0.0011
+  Kb_f1: 1.7e-05
+  Kb_f2: 1.3e-05
+  V_f: 0.0013
+  Bmax_c: 0.00012
+  dye_c: 0
+  Kb_c: 9.6e-07
+  Kb_dye: 2.0e-07
+  V_c: 0.9287
+  V_s: 0.07
+initial_state:
+  Ca_f: 1.2e-07
+  Ca_2_S1: 0
+  Ca_S2: 0
+  S1: 0
+  S2: 0
+  Ca_s: 0.000201
+  cas1: 0
+  cas2: 0
+  Ca_c: 1.0e-07
+  Ca_CSQ: 0
+parameter_names:
+- Ca_e
+- k1
+- k_on1
+- k_off1
+- k_on2
+- k_off2
+- k_s
+- Km_NaCaX
+- Vmax_NaCaX
+- kf
+- Km_s
+- Vmax_s
+- K_ons
+- K_offs
+- Bmax_s
+- Rt
+- Bmax_f1
+- Bmax_f2
+- Kb_f1
+- Kb_f2
+- V_f
+- Bmax_c
+- dye_c
+- Kb_c
+- Kb_dye
+- V_c
+- V_s
+state_names:
+- Ca_f
+- Ca_2_S1
+- Ca_S2
+- S1
+- S2
+- Ca_s
+- cas1
+- cas2
+- Ca_c
+- Ca_CSQ

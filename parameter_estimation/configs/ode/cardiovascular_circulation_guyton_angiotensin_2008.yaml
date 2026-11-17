@@ -1,0 +1,39 @@
+name: CardiovascularCirculationGuytonAngiotensin2008ODE
+state_dim: 2
+parameter_dim: 14
+parameters:
+  MDFLW: 1.00051
+  ANXM: 0
+  ANV: 5000
+  REK: 1
+  ANGKNS: 0
+  ANGINF: 0
+  ANT: 12
+  ANMUL: 1.8
+  ANMLL: 0.7
+  ANCSNS: 0.4
+  ANUM: 6
+  ANULL: 0.8
+  ANUVM: 0
+  Z12: 5
+initial_state:
+  ANX1: 0
+  ANC: 0.859476
+parameter_names:
+- MDFLW
+- ANXM
+- ANV
+- REK
+- ANGKNS
+- ANGINF
+- ANT
+- ANMUL
+- ANMLL
+- ANCSNS
+- ANUM
+- ANULL
+- ANUVM
+- Z12
+state_names:
+- ANX1
+- ANC

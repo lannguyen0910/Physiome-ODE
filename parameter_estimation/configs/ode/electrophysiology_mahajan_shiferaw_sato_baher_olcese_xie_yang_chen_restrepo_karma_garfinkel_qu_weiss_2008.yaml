@@ -1,0 +1,209 @@
+name: ElectrophysiologyMahajanShiferawSatoBaherOlceseXieYangChenRestrepoKarmaGarfinkelQuWeiss2008ODE
+state_dim: 26
+parameter_dim: 75
+parameters:
+  R: 8.314472
+  T: 308
+  F: 96.4853415
+  K_o: 5.4
+  Ca_o: 1.8
+  Na_o: 136
+  wca: 8
+  stim_offset: 0
+  stim_period: 400
+  stim_duration: 3
+  stim_amplitude: -15
+  gna: 12
+  gca: 182
+  pca: 0.00054
+  vth: 0
+  s6: 8
+  vx: -40
+  sx: 3
+  vy: -40
+  sy: 4
+  vyr: -40
+  syr: 11.32
+  cat: 3
+  cpt: 6.09365
+  k2: 0.000103615
+  k1t: 0.00413
+  k2t: 0.00224
+  r1: 0.3
+  r2: 3
+  s1t: 0.00195
+  tca: 78.0329
+  taupo: 1
+  tau3: 3
+  gkix: 0.3
+  gkr: 0.0125
+  gks: 0.1386
+  gtos: 0.04
+  gtof: 0.11
+  gNaK: 1.5
+  xkmko: 1.5
+  xkmnai: 12
+  gNaCa: 0.84
+  xkdna: 0.3
+  xmcao: 1.3
+  xmnao: 87.5
+  xmnai: 12.3
+  xmcai: 0.0036
+  cstar: 90
+  gryr: 2.58079
+  gbarsr: 26841.8
+  gdyad: 9000
+  ax: 0.3576
+  ay: 0.05
+  av: 11.3
+  taua: 100
+  taur: 30
+  cup: 0.5
+  kj: 50
+  vup: 0.4
+  gleak: 2.069e-05
+  bcal: 24
+  xkcal: 7
+  srmax: 47
+  srkd: 0.6
+  bmem: 15
+  kmem: 0.3
+  bsar: 42
+  ksar: 13
+  xkon: 0.0327
+  xkoff: 0.0196
+  btrop: 70
+  taud: 4
+  taups: 0.5
+  K_i: 140
+  prNaK: 0.01833
+initial_state:
+  V: -87.169816169406
+  xm: 0.001075453357
+  xh: 0.990691306716
+  xj: 0.993888937283
+  Ca_dyad: 1.716573130685
+  c1: 1.8211252e-05
+  c2: 0.979322592773
+  xi1ca: 0.001208153482
+  xi1ba: 3.3616596e-05
+  xi2ca: 0.004173008466
+  xi2ba: 0.015242594688
+  xr: 0.007074239331
+  Ca_i: 0.256752008084
+  xs1: 0.048267587131
+  xs2: 0.105468807033
+  xtos: 0.00364776906
+  ytos: 0.174403618112
+  xtof: 0.003643592594
+  ytof: 0.993331326442
+  Na_i: 11.441712311614
+  Ca_submem: 0.226941113355
+  Ca_NSR: 104.450004990523
+  Ca_JSR: 97.505463697266
+  xir: 0.006679257264
+  tropi: 22.171689894953
+  trops: 19.864701949854
+parameter_names:
+- R
+- T
+- F
+- K_o
+- Ca_o
+- Na_o
+- wca
+- stim_offset
+- stim_period
+- stim_duration
+- stim_amplitude
+- gna
+- gca
+- pca
+- vth
+- s6
+- vx
+- sx
+- vy
+- sy
+- vyr
+- syr
+- cat
+- cpt
+- k2
+- k1t
+- k2t
+- r1
+- r2
+- s1t
+- tca
+- taupo
+- tau3
+- gkix
+- gkr
+- gks
+- gtos
+- gtof
+- gNaK
+- xkmko
+- xkmnai
+- gNaCa
+- xkdna
+- xmcao
+- xmnao
+- xmnai
+- xmcai
+- cstar
+- gryr
+- gbarsr
+- gdyad
+- ax
+- ay
+- av
+- taua
+- taur
+- cup
+- kj
+- vup
+- gleak
+- bcal
+- xkcal
+- srmax
+- srkd
+- bmem
+- kmem
+- bsar
+- ksar
+- xkon
+- xkoff
+- btrop
+- taud
+- taups
+- K_i
+- prNaK
+state_names:
+- V
+- xm
+- xh
+- xj
+- Ca_dyad
+- c1
+- c2
+- xi1ca
+- xi1ba
+- xi2ca
+- xi2ba
+- xr
+- Ca_i
+- xs1
+- xs2
+- xtos
+- ytos
+- xtof
+- ytof
+- Na_i
+- Ca_submem
+- Ca_NSR
+- Ca_JSR
+- xir
+- tropi
+- trops

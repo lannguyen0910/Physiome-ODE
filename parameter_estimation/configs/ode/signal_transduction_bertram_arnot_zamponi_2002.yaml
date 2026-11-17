@@ -1,0 +1,73 @@
+name: SignalTransductionBertramArnotZamponi2002ODE
+state_dim: 11
+parameter_dim: 22
+parameters:
+  R_gas_const: 8314.41
+  Temp: 310
+  F: 96485
+  Cm: 1
+  IstimStart: 10
+  IstimEnd: 50000
+  IstimAmplitude: 40
+  IstimPeriod: 100
+  IstimPulseDuration: 1
+  T_bar: 4000
+  kr_plus: 0.15
+  kr_minus: 2.5
+  Ca_ex: 2000
+  Dc: 220
+  r: 10
+  g_Ca: 1.2
+  P: 0.006
+  kG_minus: 0.00025
+  kG2_minus: 0.016
+  kG3_minus: 1.024
+  ka_plus: 200
+  ka_minus: 0.0015
+initial_state:
+  V: -65
+  n: 0
+  R: 0
+  a: 0
+  C1: 1
+  C2: 0
+  C_G1: 0
+  C3: 0
+  C_G2: 0
+  C4: 0
+  C_G3: 0
+parameter_names:
+- R_gas_const
+- Temp
+- F
+- Cm
+- IstimStart
+- IstimEnd
+- IstimAmplitude
+- IstimPeriod
+- IstimPulseDuration
+- T_bar
+- kr_plus
+- kr_minus
+- Ca_ex
+- Dc
+- r
+- g_Ca
+- P
+- kG_minus
+- kG2_minus
+- kG3_minus
+- ka_plus
+- ka_minus
+state_names:
+- V
+- n
+- R
+- a
+- C1
+- C2
+- C_G1
+- C3
+- C_G2
+- C4
+- C_G3

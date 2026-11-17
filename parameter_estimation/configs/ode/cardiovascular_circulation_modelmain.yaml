@@ -1,0 +1,211 @@
+name: CardiovascularCirculationModelMainODE
+state_dim: 14
+parameter_dim: 88
+parameters:
+  CVao: 350
+  PlvIni: 1
+  VlvIni: 5
+  Vlv0: 500
+  CVmi: 400
+  PlaIni: 1
+  VlaIni: 4
+  Vla0: 20
+  ElvMax: 2.5
+  ElvMin: 0.1
+  T: 1
+  Ts1: 0.3
+  Ts2: 0.45
+  ElaMax: 0.25
+  ElaMin: 0.15
+  Tpwb: 0.92
+  Tpww: 0.09
+  EraMax: 0.25
+  EraMin: 0.15
+  PraIni: 1
+  VraIni: 4
+  ErvMax: 1.15
+  ErvMin: 0.1
+  PrvIni: 1
+  VrvIni: 10
+  CVpa: 350
+  CVti: 400
+  Vra0: 20
+  Vrv0: 500
+  CVpa_2: 350
+  PrvIni_2: 1
+  VrvIni_2: 10
+  Vrv0_2: 500
+  CVti_2: 400
+  PraIni_2: 1
+  VraIni_2: 4
+  Vra0_2: 20
+  ErvMax_2: 1.15
+  ErvMin_2: 0.1
+  T_2: 1
+  Ts1_2: 0.3
+  Ts2_2: 0.45
+  EraMax_2: 0.25
+  EraMin_2: 0.15
+  Tpwb_2: 0.92
+  Tpww_2: 0.09
+  ElaMax_2: 0.25
+  ElaMin_2: 0.15
+  PlaIni_2: 1
+  VlaIni_2: 4
+  ElvMax_2: 2.5
+  ElvMin_2: 0.1
+  PlvIni_2: 1
+  VlvIni_2: 5
+  CVao_2: 350
+  CVmi_2: 400
+  Vlv0_2: 500
+  Vla0_2: 20
+  Rsas: 0.003
+  Csas: 0.08
+  Lsas: 6.2e-05
+  P0sas: 100
+  Q0sas: 0
+  Rsat: 0.05
+  Csat: 1.6
+  Lsat: 0.0017
+  P0sat: 100
+  Q0sat: 0
+  Rsar: 0.5
+  Rscp: 0.52
+  Rsvn: 0.075
+  Csvn: 20.5
+  P0svn: 0
+  Rpas: 0.002
+  Cpas: 0.18
+  Lpas: 5.2e-05
+  P0pas: 30
+  Q0pas: 0
+  Rpat: 0.01
+  Cpat: 3.8
+  Lpat: 0.0017
+  P0pat: 30
+  Q0pat: 0
+  Rpar: 0.05
+  Rpcp: 0.25
+  Rpvn: 0.0006
+  Cpvn: 20.5
+  P0pvn: 0
+initial_state:
+  Pi: 100
+  Pi_2: 30
+  V: 500
+  V_2: 20
+  V_3: 500
+  V_4: 20
+  Pi_3: 100
+  Qo: 0
+  Qo_2: 0
+  Pi_4: 0
+  Pi_5: 30
+  Qo_3: 0
+  Qo_4: 0
+  Pi_6: 0
+parameter_names:
+- CVao
+- PlvIni
+- VlvIni
+- Vlv0
+- CVmi
+- PlaIni
+- VlaIni
+- Vla0
+- ElvMax
+- ElvMin
+- T
+- Ts1
+- Ts2
+- ElaMax
+- ElaMin
+- Tpwb
+- Tpww
+- EraMax
+- EraMin
+- PraIni
+- VraIni
+- ErvMax
+- ErvMin
+- PrvIni
+- VrvIni
+- CVpa
+- CVti
+- Vra0
+- Vrv0
+- CVpa_2
+- PrvIni_2
+- VrvIni_2
+- Vrv0_2
+- CVti_2
+- PraIni_2
+- VraIni_2
+- Vra0_2
+- ErvMax_2
+- ErvMin_2
+- T_2
+- Ts1_2
+- Ts2_2
+- EraMax_2
+- EraMin_2
+- Tpwb_2
+- Tpww_2
+- ElaMax_2
+- ElaMin_2
+- PlaIni_2
+- VlaIni_2
+- ElvMax_2
+- ElvMin_2
+- PlvIni_2
+- VlvIni_2
+- CVao_2
+- CVmi_2
+- Vlv0_2
+- Vla0_2
+- Rsas
+- Csas
+- Lsas
+- P0sas
+- Q0sas
+- Rsat
+- Csat
+- Lsat
+- P0sat
+- Q0sat
+- Rsar
+- Rscp
+- Rsvn
+- Csvn
+- P0svn
+- Rpas
+- Cpas
+- Lpas
+- P0pas
+- Q0pas
+- Rpat
+- Cpat
+- Lpat
+- P0pat
+- Q0pat
+- Rpar
+- Rpcp
+- Rpvn
+- Cpvn
+- P0pvn
+state_names:
+- Pi
+- Pi_2
+- V
+- V_2
+- V_3
+- V_4
+- Pi_3
+- Qo
+- Qo_2
+- Pi_4
+- Pi_5
+- Qo_3
+- Qo_4
+- Pi_6

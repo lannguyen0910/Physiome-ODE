@@ -1,0 +1,81 @@
+name: ElectrophysiologyCuiKaandorpLloyd2008BODE
+state_dim: 20
+parameter_dim: 17
+parameters:
+  r3: 44100000000
+  r4: 0.009
+  k_1: 0.9
+  k1a: 1
+  k2: 0.02
+  k_2: 0.3
+  r1: 273
+  r2: 0.0003437
+  k1b: 0.01253
+  k1: 0.025
+  r5: 30000
+  r6: 0.01506
+  k2a: 5.0e-05
+  k2b: 0.0002
+  k2c: 0.0037
+  td0: 1800
+  td: 2700
+initial_state:
+  Py: 25
+  Zn: 10000
+  Py1: 0
+  Dw: 4
+  Qw2: 0
+  Qw1: 0
+  Rw: 50
+  Mw: 0
+  Px: 50
+  Px1: 0
+  Dz: 2
+  Qz4: 0
+  Qz2: 0
+  Tp: 10000
+  Tp1: 0
+  Qz1: 0
+  Rz: 100
+  Qz3: 0
+  Qz5: 0
+  Mz: 0
+parameter_names:
+- r3
+- r4
+- k_1
+- k1a
+- k2
+- k_2
+- r1
+- r2
+- k1b
+- k1
+- r5
+- r6
+- k2a
+- k2b
+- k2c
+- td0
+- td
+state_names:
+- Py
+- Zn
+- Py1
+- Dw
+- Qw2
+- Qw1
+- Rw
+- Mw
+- Px
+- Px1
+- Dz
+- Qz4
+- Qz2
+- Tp
+- Tp1
+- Qz1
+- Rz
+- Qz3
+- Qz5
+- Mz

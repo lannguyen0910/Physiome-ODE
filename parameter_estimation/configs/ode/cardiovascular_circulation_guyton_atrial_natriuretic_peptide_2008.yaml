@@ -1,0 +1,21 @@
+name: CardiovascularCirculationGuytonAtrialNatriureticPeptide2008ODE
+state_dim: 1
+parameter_dim: 6
+parameters:
+  PLA: 2
+  PRA: 0.00852183
+  ANPKNS: 0
+  ANPINF: 0
+  ANPTC: 4
+  ANPXUL: 10
+initial_state:
+  ANPC: 1
+parameter_names:
+- PLA
+- PRA
+- ANPKNS
+- ANPINF
+- ANPTC
+- ANPXUL
+state_names:
+- ANPC

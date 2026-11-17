@@ -1,0 +1,57 @@
+name: ElectrophysiologyBertramPreviteShermanKinardSatin2000FastODE
+state_dim: 4
+parameter_dim: 21
+parameters:
+  Cm: 4524
+  Vm: -22
+  VCa: 100
+  gCa: 280
+  sm: 7.5
+  VK: -80
+  gK: 1300
+  lambda_var: 1.1
+  tnbar: 9.09
+  Vn: -9
+  sn: 10
+  gs1: 20
+  Vs1: -40
+  ss1: 0.5
+  taus1: 1000
+  Vs2: -42
+  ss2: 0.4
+  gs2: 32
+  taus2: 120000
+  gl: 25
+  Vl: -40
+initial_state:
+  V: -43
+  n: 0.03
+  s1: 0.1
+  s2: 0.434
+parameter_names:
+- Cm
+- Vm
+- VCa
+- gCa
+- sm
+- VK
+- gK
+- lambda_var
+- tnbar
+- Vn
+- sn
+- gs1
+- Vs1
+- ss1
+- taus1
+- Vs2
+- ss2
+- gs2
+- taus2
+- gl
+- Vl
+state_names:
+- V
+- n
+- s1
+- s2

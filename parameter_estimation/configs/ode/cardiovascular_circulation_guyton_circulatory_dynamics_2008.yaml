@@ -1,0 +1,97 @@
+name: CardiovascularCirculationGuytonCirculatoryDynamics2008ODE
+state_dim: 5
+parameter_dim: 40
+parameters:
+  ADHMV: 1
+  AMM: 1
+  ANU: 0.925271
+  ANUVN: 1
+  ARM: 1.16463
+  ATRRFB: 1
+  ATRVFB: 0
+  AU: 1.00022
+  AUH: 1.00012
+  AUM: 1.00066
+  AVE: 1
+  HMD: 1
+  HPL: 1.00163
+  HPR: 1.00237
+  MYOGRS: 1
+  OSA: 0.97287
+  PAMK: 1
+  PC: 16.9144
+  RBF: 1.22057
+  VIM: 1.00076
+  VP: 3.00449
+  VRC: 2.00439
+  VV6: 0.0101913
+  VV7: 0.00366525
+  VVR: 2.50967
+  HTAUML: 0.4
+  QRF: 0.15
+  HSR: 1
+  HSL: 1
+  ANY: -0.2
+  CV: 0.1
+  PR1LL: 0
+  CN7: 0.2
+  CN2: 0.0212
+  RVSM: 1
+  PAEX: 2
+  RAR: 30.52
+  RMULT1: 1
+  RAM: 96.3
+  FIS: 0
+initial_state:
+  VVS1: 3.28246
+  VAS1: 0.862514
+  VLA1: 0.379883
+  VPA1: 0.38131
+  VRA1: 0.100043
+parameter_names:
+- ADHMV
+- AMM
+- ANU
+- ANUVN
+- ARM
+- ATRRFB
+- ATRVFB
+- AU
+- AUH
+- AUM
+- AVE
+- HMD
+- HPL
+- HPR
+- MYOGRS
+- OSA
+- PAMK
+- PC
+- RBF
+- VIM
+- VP
+- VRC
+- VV6
+- VV7
+- VVR
+- HTAUML
+- QRF
+- HSR
+- HSL
+- ANY
+- CV
+- PR1LL
+- CN7
+- CN2
+- RVSM
+- PAEX
+- RAR
+- RMULT1
+- RAM
+- FIS
+state_names:
+- VVS1
+- VAS1
+- VLA1
+- VPA1
+- VRA1

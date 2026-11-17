@@ -1,0 +1,25 @@
+name: ElectrophysiologyHodgkinHuxley1952Variant01ODE
+state_dim: 4
+parameter_dim: 5
+parameters:
+  E_R: 0
+  Cm: 1
+  g_Na: 120
+  g_K: 36
+  g_L: 0.3
+initial_state:
+  V: 0
+  m: 0.05
+  h: 0.6
+  n: 0.325
+parameter_names:
+- E_R
+- Cm
+- g_Na
+- g_K
+- g_L
+state_names:
+- V
+- m
+- h
+- n

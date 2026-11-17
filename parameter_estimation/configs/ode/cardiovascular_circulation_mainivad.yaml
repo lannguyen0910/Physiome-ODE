@@ -1,0 +1,135 @@
+name: CardiovascularCirculationMainIVadODE
+state_dim: 7
+parameter_dim: 57
+parameters:
+  CVao: 350
+  PlvIni: 1
+  VlvIni: 5
+  Vlv0: 500
+  CVmi: 400
+  PlaIni: 1
+  VlaIni: 4
+  Vla0: 20
+  ElvMax: 0.5
+  ElvMin: 0.1
+  T: 1
+  Ts1: 0.3
+  Ts2: 0.45
+  ElaMax: 0.25
+  ElaMin: 0.15
+  Tpwb: 0.92
+  Tpww: 0.09
+  Rsas: 0.003
+  Csas: 0.08
+  Lsas: 6.2e-05
+  P0sas: 100
+  Q0sas: 0
+  Rsat: 0.05
+  Csat: 1.6
+  Lsat: 0.0017
+  P0sat: 100
+  Q0sat: 0
+  Rsar: 0.5
+  Rscp: 0.52
+  Rsvn: 0.075
+  Csvn: 20.5
+  P0svn: 0
+  Ts2_2: 0.45
+  T_2: 1
+  Kp0: 19.5184
+  Kp1: -0.0030361
+  Kp2: -1.23045
+  Kp3: 0.000578974
+  Kp4: -5.8777e-08
+  Kp5: -1.27539e-06
+  Kp6: 2.04834e-10
+  W: 3600
+  ElaMax_2: 0.25
+  ElaMin_2: 0.15
+  PlaIni_2: 1
+  VlaIni_2: 4
+  ElvMax_2: 0.5
+  ElvMin_2: 0.1
+  PlvIni_2: 1
+  VlvIni_2: 5
+  Tpwb_2: 0.92
+  Tpww_2: 0.09
+  Ts1_2: 0.3
+  CVao_2: 350
+  CVmi_2: 400
+  Vlv0_2: 500
+  Vla0_2: 20
+initial_state:
+  Pi: 100
+  V: 500
+  V_2: 20
+  Qo: 0
+  Pi_2: 100
+  Qo_2: 0
+  Pi_3: 0
+parameter_names:
+- CVao
+- PlvIni
+- VlvIni
+- Vlv0
+- CVmi
+- PlaIni
+- VlaIni
+- Vla0
+- ElvMax
+- ElvMin
+- T
+- Ts1
+- Ts2
+- ElaMax
+- ElaMin
+- Tpwb
+- Tpww
+- Rsas
+- Csas
+- Lsas
+- P0sas
+- Q0sas
+- Rsat
+- Csat
+- Lsat
+- P0sat
+- Q0sat
+- Rsar
+- Rscp
+- Rsvn
+- Csvn
+- P0svn
+- Ts2_2
+- T_2
+- Kp0
+- Kp1
+- Kp2
+- Kp3
+- Kp4
+- Kp5
+- Kp6
+- W
+- ElaMax_2
+- ElaMin_2
+- PlaIni_2
+- VlaIni_2
+- ElvMax_2
+- ElvMin_2
+- PlvIni_2
+- VlvIni_2
+- Tpwb_2
+- Tpww_2
+- Ts1_2
+- CVao_2
+- CVmi_2
+- Vlv0_2
+- Vla0_2
+state_names:
+- Pi
+- V
+- V_2
+- Qo
+- Pi_2
+- Qo_2
+- Pi_3

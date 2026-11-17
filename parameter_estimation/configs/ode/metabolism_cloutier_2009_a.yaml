@@ -1,0 +1,105 @@
+name: MetabolismCloutier2009AODE
+state_dim: 7
+parameter_dim: 42
+parameters:
+  Vmax_hk: 2.5
+  Km_ATP_hk: 0.5
+  KI_F6P: 0.068
+  Vmax_pfk: 3.85
+  Km_ATP_pfk: 0.05
+  Km_F6P_pfk: 0.18
+  Km_F26P_pfk: 0.01
+  Vmaxf_pfk2: 0
+  Vmaxr_pfk2: 0
+  Km_ATP_pfk2: 0.05
+  Km_F6P_pfk2: 0.01
+  Km_F26P_pfk2: 0.0001
+  Vmax_pk: 5
+  Km_ADP_pk: 0.005
+  Km_GAP_pk: 0.4
+  Vmax_op: 1
+  Km_ADP_op: 0.005
+  Km_PYR_op: 0.5
+  kf_ldh: 0
+  kr_ldh: 0
+  kf_ck: 0
+  kr_ck: 0
+  PCrtot: 20
+  Vmax_ATPase: 0.9355
+  Km_ATP: 0.5
+  Vlac_0: 0.355
+  K_LAC_eff: 0.71
+  K_LAC: 0.641
+  ANP: 2.51
+  Q_adk: 0.92
+  nATP: 0.4
+  KI_ATP: 1
+  nAMP: 0.5
+  Ka_AMP: 0.05
+  stim: 1
+  to: 50
+  tend: 200
+  v1_n: 0.5
+  v2_n: 0
+  t_n_stim: 2
+  Kamp_pfk2: 0.005
+  nh_amp: 2
+initial_state:
+  F6P: 0.2
+  F26P: 0.001
+  GAP: 0.0405
+  PYR: 0.1
+  LAC: 0.5
+  ATP: 2.402
+  PCr: 18.14
+parameter_names:
+- Vmax_hk
+- Km_ATP_hk
+- KI_F6P
+- Vmax_pfk
+- Km_ATP_pfk
+- Km_F6P_pfk
+- Km_F26P_pfk
+- Vmaxf_pfk2
+- Vmaxr_pfk2
+- Km_ATP_pfk2
+- Km_F6P_pfk2
+- Km_F26P_pfk2
+- Vmax_pk
+- Km_ADP_pk
+- Km_GAP_pk
+- Vmax_op
+- Km_ADP_op
+- Km_PYR_op
+- kf_ldh
+- kr_ldh
+- kf_ck
+- kr_ck
+- PCrtot
+- Vmax_ATPase
+- Km_ATP
+- Vlac_0
+- K_LAC_eff
+- K_LAC
+- ANP
+- Q_adk
+- nATP
+- KI_ATP
+- nAMP
+- Ka_AMP
+- stim
+- to
+- tend
+- v1_n
+- v2_n
+- t_n_stim
+- Kamp_pfk2
+- nh_amp
+state_names:
+- F6P
+- F26P
+- GAP
+- PYR
+- LAC
+- ATP
+- PCr

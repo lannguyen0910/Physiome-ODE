@@ -1,0 +1,151 @@
+name: ElectrophysiologyLivshitzRudy2007ODE
+state_dim: 18
+parameter_dim: 54
+parameters:
+  F: 96485
+  R: 8314
+  Temp: 310
+  K_o: 4.5
+  Na_o: 140
+  Ca_o: 1.8
+  l: 0.01
+  ra: 0.0011
+  stim_offset: 0
+  stim_period: 400
+  stim_duration: 3
+  stim_amplitude: -15
+  GNa: 16
+  gacai: 1
+  gacao: 0.341
+  kmca: 0.0006
+  pca: 0.00054
+  pna: 6.75e-07
+  ganai: 0.75
+  ganao: 0.75
+  pk: 1.93e-07
+  gaki: 0.75
+  gako: 0.75
+  GK1max: 0.75
+  gkrmax: 0.02614
+  GKsmax: 0.433
+  kmnai: 10
+  kmko: 1.5
+  ibarnak: 2.25
+  c1: 0.00025
+  c2: 0.0001
+  gammas: 0.15
+  GKpmax: 0.00552
+  ibarpca: 1.15
+  kmpca: 0.0005
+  gcab: 0.003016
+  GNab: 0.004
+  gcat: 0.05
+  prnak: 0.01833
+  K_Relss: 1
+  tau: 4.75
+  kappa: 0.125
+  qn: 9
+  kmcsqn: 0.8
+  csqnbar: 10
+  kmup: 0.00092
+  iupbar: 0.00875
+  nsrbar: 15
+  tautr: 120
+  cmdnbar: 0.05
+  trpnbar: 0.07
+  kmcmdn: 0.00238
+  kmtrpn: 0.0005
+  constant_67: 0
+initial_state:
+  V: -89.4356034692784
+  H: 0.994401369032678
+  m: 0.000734780346592185
+  J: 0.996100688673679
+  Na_i: 16.612739313555
+  K_i: 139.730914103161
+  d: 3.2514786721066e-27
+  f: 0.997404948824816
+  xr: 0.000162194715543637
+  xs1: 0.0285147332973946
+  xs2: 0.0764114040188678
+  b: 0.000927461915392873
+  g: 0.952834331760863
+  Ca_JSR_T: 7.87371650296567
+  Rel: 1.06874246141923e-23
+  Ca_NSR: 2.71518235696672
+  Ca_T: 0.0257059808595638
+  Over: 1.0e-12
+parameter_names:
+- F
+- R
+- Temp
+- K_o
+- Na_o
+- Ca_o
+- l
+- ra
+- stim_offset
+- stim_period
+- stim_duration
+- stim_amplitude
+- GNa
+- gacai
+- gacao
+- kmca
+- pca
+- pna
+- ganai
+- ganao
+- pk
+- gaki
+- gako
+- GK1max
+- gkrmax
+- GKsmax
+- kmnai
+- kmko
+- ibarnak
+- c1
+- c2
+- gammas
+- GKpmax
+- ibarpca
+- kmpca
+- gcab
+- GNab
+- gcat
+- prnak
+- K_Relss
+- tau
+- kappa
+- qn
+- kmcsqn
+- csqnbar
+- kmup
+- iupbar
+- nsrbar
+- tautr
+- cmdnbar
+- trpnbar
+- kmcmdn
+- kmtrpn
+- constant_67
+state_names:
+- V
+- H
+- m
+- J
+- Na_i
+- K_i
+- d
+- f
+- xr
+- xs1
+- xs2
+- b
+- g
+- Ca_JSR_T
+- Rel
+- Ca_NSR
+- Ca_T
+- Over

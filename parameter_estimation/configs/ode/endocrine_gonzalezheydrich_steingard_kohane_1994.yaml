@@ -1,0 +1,35 @@
+name: EndocrineGonzalezheydrichSteingardKohane1994ODE
+state_dim: 3
+parameter_dim: 11
+parameters:
+  k1: 500000
+  k2: 0.01
+  k3: 0.01
+  k4: 10
+  k5: 0.004
+  k6: 0.035
+  Kd: 0.004
+  Imax: 0.99
+  k7: 1.0e-06
+  k8: 0.01
+  pulse: 50
+initial_state:
+  cortisol: 0
+  ACTH: 0
+  CRH: 50
+parameter_names:
+- k1
+- k2
+- k3
+- k4
+- k5
+- k6
+- Kd
+- Imax
+- k7
+- k8
+- pulse
+state_names:
+- cortisol
+- ACTH
+- CRH

@@ -1,0 +1,1541 @@
+name: ElectrophysiologyFavilleModel2008ODE
+state_dim: 80
+parameter_dim: 687
+parameters:
+  g_CaT: 700
+  ECaT: 17
+  alpha_OT: 800
+  beta_OT: 72
+  A_dT1: 0.0025
+  k_dT: -0.6
+  V_dT: -53
+  A_fT1: 0.019
+  A_fT2: 6.75
+  A_fT3: 2
+  A_fT4: -40
+  k_fT: 1
+  V_fT: -65
+  gCaExt: 100
+  KCaExt: 1
+  g_Kv1_1: 10
+  A_dv1_11a: 0
+  A_dv1_11b: 250
+  A_dv1_11c: -0.077
+  A_dv1_11d: -4.8
+  A_dv1_12: 0.8
+  A_dv1_13: -0.13
+  A_dv1_14: -25
+  A_fv1_11: 333
+  A_fv1_12: 0.1
+  A_fv1_13: 0.23
+  A_fv1_14: -44.8
+  g_KERG: 10
+  A_dERG1: 1000
+  A_dERG2: 0.7
+  A_dERG3: -0.56
+  A_dERG4: 30
+  g_KB: 6
+  g_Na: 2000
+  A_dNa1a: 250
+  A_dNa1b: 1000
+  A_dNa1c: -0.2
+  A_dNa1d: -15
+  A_dNa2: 1
+  A_dNa3: -0.147
+  A_dNa4: -35.3
+  A_fNa1a: 10
+  A_fNa1b: 50
+  A_fNa1c: -0.036
+  A_fNa1d: -38
+  A_fNa2: 1
+  A_fNa3: 0.167
+  A_fNa4: -83
+  g_L: 0.2
+  EL: 0
+  Cm: 20
+  T: 310.16
+  R: 0.008314
+  F: 0.09649
+  CO: 1800
+  KO: 5400
+  Ki: 145000
+  'NO': 140000
+  Ni: 10000
+  lambda_S2_Cy: 0.001
+  delta_SCy: 0.002
+  mu_S2Cy1: 0
+  mu_S2Cy2: 0.3361
+  mu_S2Cy3: 0.3658
+  mu_S2Cy4: 0.4357
+  mu_S2Cy5: 0.5351
+  mu_S2Cy6: 0.6366
+  mu_S2Cy7: 0.7386
+  mu_S2Cy8: 0.8361
+  mu_S2Cy9: 0.932
+  mu_S2Cy10: 1.0185
+  mu_A: 0.3
+  mu_B: 0.24
+  n_PU: 10
+  mu_Cy: 1.3
+  C_infinity: 0.12
+  P: 1
+  gCa: 0.074
+  kCa: 0.013
+  kVCa: -0.2
+  VhCa: -85
+  T_2: 310.16
+  R_2: 0.008314
+  F_2: 0.09649
+  CO_2: 1800
+  gNa: 13.5
+  NO_2: 140000
+  gNSCC_Ca: 0.1
+  hNSCC: 3
+  ENSCC: 0
+  KNSCC: 0.12
+  gNSCC_Na: 160
+  gPM: 675
+  KPM: 1
+  gNaP: 187.5
+  KNaP: 10000
+  hNaP: 4
+  ENaP: 10
+  VSERCA: 100000
+  A2: 0.0006
+  A4: 3.57
+  A5: 2.7e-05
+  A6: 2.31e-05
+  VMCU: 800
+  KMCU: 10
+  KINH: 10
+  hINH: 4
+  kIPR: 2000
+  k_1: 6.4
+  k1: 0
+  k2: 4
+  r2: 250
+  r_2: 0
+  r4: 750
+  R1: 36
+  R3: 300
+  g_beta: 1500
+  h_beta: 4
+  g_alpha: 0.85
+  K_beta: 0.35
+  K_phi3_act: 0.1
+  K_phi3_inh: 0.5
+  h_phi3_act: 3
+  h_phi3_inh: 3
+  g_phi3: 4.5
+  P_2: 1
+  VNCX: 3
+  KNCX: 0.3
+  delta_SPU: 18.5
+  gamma_S1: 100
+  gamma_MT: 200
+  gamma_ER: 20
+  gamma_S2: 1
+  Km: 0.01
+  Bm: 100
+  KO_2: 5400
+  Ki_2: 145000
+  n_PU_base: 50
+  gCa_2: 0.074
+  kCa_2: 0.013
+  kVCa_2: -0.2
+  VhCa_2: -85
+  T_3: 310.16
+  R_3: 0.008314
+  F_3: 0.09649
+  CO_3: 1800
+  gNa_2: 13.5
+  NO_3: 140000
+  gNSCC_Ca_2: 0.1
+  hNSCC_2: 3
+  ENSCC_2: 0
+  KNSCC_2: 0.12
+  gNSCC_Na_2: 160
+  gPM_2: 675
+  KPM_2: 1
+  gNaP_2: 187.5
+  KNaP_2: 10000
+  hNaP_2: 4
+  ENaP_2: 10
+  VSERCA_2: 100000
+  A2_2: 0.0006
+  A4_2: 3.57
+  A5_2: 2.7e-05
+  A6_2: 2.31e-05
+  VMCU_2: 800
+  KMCU_2: 10
+  KINH_2: 10
+  hINH_2: 4
+  kIPR_2: 2000
+  k_1_2: 6.4
+  k1_2: 0
+  k2_2: 4
+  r2_2: 250
+  r_2_2: 0
+  r4_2: 750
+  R1_2: 36
+  R3_2: 300
+  g_beta_2: 1500
+  h_beta_2: 4
+  g_alpha_2: 0.85
+  K_beta_2: 0.35
+  K_phi3_act_2: 0.1
+  K_phi3_inh_2: 0.5
+  h_phi3_act_2: 3
+  h_phi3_inh_2: 3
+  g_phi3_2: 4.5
+  P_3: 1
+  VNCX_2: 3
+  KNCX_2: 0.3
+  delta_SPU_2: 18.5
+  gamma_S1_2: 100
+  gamma_MT_2: 200
+  gamma_ER_2: 20
+  gamma_S2_2: 1
+  Km_2: 0.01
+  Bm_2: 100
+  KO_3: 5400
+  Ki_3: 145000
+  n_PU_base_2: 50
+  gCa_3: 0.074
+  kCa_3: 0.013
+  kVCa_3: -0.2
+  VhCa_3: -85
+  T_4: 310.16
+  R_4: 0.008314
+  F_4: 0.09649
+  CO_4: 1800
+  gNa_3: 13.5
+  NO_4: 140000
+  gNSCC_Ca_3: 0.1
+  hNSCC_3: 3
+  ENSCC_3: 0
+  KNSCC_3: 0.12
+  gNSCC_Na_3: 160
+  gPM_3: 675
+  KPM_3: 1
+  gNaP_3: 187.5
+  KNaP_3: 10000
+  hNaP_3: 4
+  ENaP_3: 10
+  VSERCA_3: 100000
+  A2_3: 0.0006
+  A4_3: 3.57
+  A5_3: 2.7e-05
+  A6_3: 2.31e-05
+  VMCU_3: 800
+  KMCU_3: 10
+  KINH_3: 10
+  hINH_3: 4
+  kIPR_3: 2000
+  k_1_3: 6.4
+  k1_3: 0
+  k2_3: 4
+  r2_3: 250
+  r_2_3: 0
+  r4_3: 750
+  R1_3: 36
+  R3_3: 300
+  g_beta_3: 1500
+  h_beta_3: 4
+  g_alpha_3: 0.85
+  K_beta_3: 0.35
+  K_phi3_act_3: 0.1
+  K_phi3_inh_3: 0.5
+  h_phi3_act_3: 3
+  h_phi3_inh_3: 3
+  g_phi3_3: 4.5
+  P_4: 1
+  VNCX_3: 3
+  KNCX_3: 0.3
+  delta_SPU_3: 18.5
+  gamma_S1_3: 100
+  gamma_MT_3: 200
+  gamma_ER_3: 20
+  gamma_S2_3: 1
+  Km_3: 0.01
+  Bm_3: 100
+  KO_4: 5400
+  Ki_4: 145000
+  n_PU_base_3: 50
+  gCa_4: 0.074
+  kCa_4: 0.013
+  kVCa_4: -0.2
+  VhCa_4: -85
+  T_5: 310.16
+  R_5: 0.008314
+  F_5: 0.09649
+  CO_5: 1800
+  gNa_4: 13.5
+  NO_5: 140000
+  gNSCC_Ca_4: 0.1
+  hNSCC_4: 3
+  ENSCC_4: 0
+  KNSCC_4: 0.12
+  gNSCC_Na_4: 160
+  gPM_4: 675
+  KPM_4: 1
+  gNaP_4: 187.5
+  KNaP_4: 10000
+  hNaP_4: 4
+  ENaP_4: 10
+  VSERCA_4: 100000
+  A2_4: 0.0006
+  A4_4: 3.57
+  A5_4: 2.7e-05
+  A6_4: 2.31e-05
+  VMCU_4: 800
+  KMCU_4: 10
+  KINH_4: 10
+  hINH_4: 4
+  kIPR_4: 2000
+  k_1_4: 6.4
+  k1_4: 0
+  k2_4: 4
+  r2_4: 250
+  r_2_4: 0
+  r4_4: 750
+  R1_4: 36
+  R3_4: 300
+  g_beta_4: 1500
+  h_beta_4: 4
+  g_alpha_4: 0.85
+  K_beta_4: 0.35
+  K_phi3_act_4: 0.1
+  K_phi3_inh_4: 0.5
+  h_phi3_act_4: 3
+  h_phi3_inh_4: 3
+  g_phi3_4: 4.5
+  P_5: 1
+  VNCX_4: 3
+  KNCX_4: 0.3
+  delta_SPU_4: 18.5
+  gamma_S1_4: 100
+  gamma_MT_4: 200
+  gamma_ER_4: 20
+  gamma_S2_4: 1
+  Km_4: 0.01
+  Bm_4: 100
+  KO_5: 5400
+  Ki_5: 145000
+  n_PU_base_4: 50
+  gCa_5: 0.074
+  kCa_5: 0.013
+  kVCa_5: -0.2
+  VhCa_5: -85
+  T_6: 310.16
+  R_6: 0.008314
+  F_6: 0.09649
+  CO_6: 1800
+  gNa_5: 13.5
+  NO_6: 140000
+  gNSCC_Ca_5: 0.1
+  hNSCC_5: 3
+  ENSCC_5: 0
+  KNSCC_5: 0.12
+  gNSCC_Na_5: 160
+  gPM_5: 675
+  KPM_5: 1
+  gNaP_5: 187.5
+  KNaP_5: 10000
+  hNaP_5: 4
+  ENaP_5: 10
+  VSERCA_5: 100000
+  A2_5: 0.0006
+  A4_5: 3.57
+  A5_5: 2.7e-05
+  A6_5: 2.31e-05
+  VMCU_5: 800
+  KMCU_5: 10
+  KINH_5: 10
+  hINH_5: 4
+  kIPR_5: 2000
+  k_1_5: 6.4
+  k1_5: 0
+  k2_5: 4
+  r2_5: 250
+  r_2_5: 0
+  r4_5: 750
+  R1_5: 36
+  R3_5: 300
+  g_beta_5: 1500
+  h_beta_5: 4
+  g_alpha_5: 0.85
+  K_beta_5: 0.35
+  K_phi3_act_5: 0.1
+  K_phi3_inh_5: 0.5
+  h_phi3_act_5: 3
+  h_phi3_inh_5: 3
+  g_phi3_5: 4.5
+  P_6: 1
+  VNCX_5: 3
+  KNCX_5: 0.3
+  delta_SPU_5: 18.5
+  gamma_S1_5: 100
+  gamma_MT_5: 200
+  gamma_ER_5: 20
+  gamma_S2_5: 1
+  Km_5: 0.01
+  Bm_5: 100
+  KO_6: 5400
+  Ki_6: 145000
+  n_PU_base_5: 50
+  gCa_6: 0.074
+  kCa_6: 0.013
+  kVCa_6: -0.2
+  VhCa_6: -85
+  T_7: 310.16
+  R_7: 0.008314
+  F_7: 0.09649
+  CO_7: 1800
+  gNa_6: 13.5
+  NO_7: 140000
+  gNSCC_Ca_6: 0.1
+  hNSCC_6: 3
+  ENSCC_6: 0
+  KNSCC_6: 0.12
+  gNSCC_Na_6: 160
+  gPM_6: 675
+  KPM_6: 1
+  gNaP_6: 187.5
+  KNaP_6: 10000
+  hNaP_6: 4
+  ENaP_6: 10
+  VSERCA_6: 100000
+  A2_6: 0.0006
+  A4_6: 3.57
+  A5_6: 2.7e-05
+  A6_6: 2.31e-05
+  VMCU_6: 800
+  KMCU_6: 10
+  KINH_6: 10
+  hINH_6: 4
+  kIPR_6: 2000
+  k_1_6: 6.4
+  k1_6: 0
+  k2_6: 4
+  r2_6: 250
+  r_2_6: 0
+  r4_6: 750
+  R1_6: 36
+  R3_6: 300
+  g_beta_6: 1500
+  h_beta_6: 4
+  g_alpha_6: 0.85
+  K_beta_6: 0.35
+  K_phi3_act_6: 0.1
+  K_phi3_inh_6: 0.5
+  h_phi3_act_6: 3
+  h_phi3_inh_6: 3
+  g_phi3_6: 4.5
+  P_7: 1
+  VNCX_6: 3
+  KNCX_6: 0.3
+  delta_SPU_6: 18.5
+  gamma_S1_6: 100
+  gamma_MT_6: 200
+  gamma_ER_6: 20
+  gamma_S2_6: 1
+  Km_6: 0.01
+  Bm_6: 100
+  KO_7: 5400
+  Ki_7: 145000
+  n_PU_base_6: 50
+  gCa_7: 0.074
+  kCa_7: 0.013
+  kVCa_7: -0.2
+  VhCa_7: -85
+  T_8: 310.16
+  R_8: 0.008314
+  F_8: 0.09649
+  CO_8: 1800
+  gNa_7: 13.5
+  NO_8: 140000
+  gNSCC_Ca_7: 0.1
+  hNSCC_7: 3
+  ENSCC_7: 0
+  KNSCC_7: 0.12
+  gNSCC_Na_7: 160
+  gPM_7: 675
+  KPM_7: 1
+  gNaP_7: 187.5
+  KNaP_7: 10000
+  hNaP_7: 4
+  ENaP_7: 10
+  VSERCA_7: 100000
+  A2_7: 0.0006
+  A4_7: 3.57
+  A5_7: 2.7e-05
+  A6_7: 2.31e-05
+  VMCU_7: 800
+  KMCU_7: 10
+  KINH_7: 10
+  hINH_7: 4
+  kIPR_7: 2000
+  k_1_7: 6.4
+  k1_7: 0
+  k2_7: 4
+  r2_7: 250
+  r_2_7: 0
+  r4_7: 750
+  R1_7: 36
+  R3_7: 300
+  g_beta_7: 1500
+  h_beta_7: 4
+  g_alpha_7: 0.85
+  K_beta_7: 0.35
+  K_phi3_act_7: 0.1
+  K_phi3_inh_7: 0.5
+  h_phi3_act_7: 3
+  h_phi3_inh_7: 3
+  g_phi3_7: 4.5
+  P_8: 1
+  VNCX_7: 3
+  KNCX_7: 0.3
+  delta_SPU_7: 18.5
+  gamma_S1_7: 100
+  gamma_MT_7: 200
+  gamma_ER_7: 20
+  gamma_S2_7: 1
+  Km_7: 0.01
+  Bm_7: 100
+  KO_8: 5400
+  Ki_8: 145000
+  n_PU_base_7: 50
+  gCa_8: 0.074
+  kCa_8: 0.013
+  kVCa_8: -0.2
+  VhCa_8: -85
+  T_9: 310.16
+  R_9: 0.008314
+  F_9: 0.09649
+  CO_9: 1800
+  gNa_8: 13.5
+  NO_9: 140000
+  gNSCC_Ca_8: 0.1
+  hNSCC_8: 3
+  ENSCC_8: 0
+  KNSCC_8: 0.12
+  gNSCC_Na_8: 160
+  gPM_8: 675
+  KPM_8: 1
+  gNaP_8: 187.5
+  KNaP_8: 10000
+  hNaP_8: 4
+  ENaP_8: 10
+  VSERCA_8: 100000
+  A2_8: 0.0006
+  A4_8: 3.57
+  A5_8: 2.7e-05
+  A6_8: 2.31e-05
+  VMCU_8: 800
+  KMCU_8: 10
+  KINH_8: 10
+  hINH_8: 4
+  kIPR_8: 2000
+  k_1_8: 6.4
+  k1_8: 0
+  k2_8: 4
+  r2_8: 250
+  r_2_8: 0
+  r4_8: 750
+  R1_8: 36
+  R3_8: 300
+  g_beta_8: 1500
+  h_beta_8: 4
+  g_alpha_8: 0.85
+  K_beta_8: 0.35
+  K_phi3_act_8: 0.1
+  K_phi3_inh_8: 0.5
+  h_phi3_act_8: 3
+  h_phi3_inh_8: 3
+  g_phi3_8: 4.5
+  P_9: 1
+  VNCX_8: 3
+  KNCX_8: 0.3
+  delta_SPU_8: 18.5
+  gamma_S1_8: 100
+  gamma_MT_8: 200
+  gamma_ER_8: 20
+  gamma_S2_8: 1
+  Km_8: 0.01
+  Bm_8: 100
+  KO_9: 5400
+  Ki_9: 145000
+  n_PU_base_8: 50
+  gCa_9: 0.074
+  kCa_9: 0.013
+  kVCa_9: -0.2
+  VhCa_9: -85
+  T_10: 310.16
+  R_10: 0.008314
+  F_10: 0.09649
+  CO_10: 1800
+  gNa_9: 13.5
+  NO_10: 140000
+  gNSCC_Ca_9: 0.1
+  hNSCC_9: 3
+  ENSCC_9: 0
+  KNSCC_9: 0.12
+  gNSCC_Na_9: 160
+  gPM_9: 675
+  KPM_9: 1
+  gNaP_9: 187.5
+  KNaP_9: 10000
+  hNaP_9: 4
+  ENaP_9: 10
+  VSERCA_9: 100000
+  A2_9: 0.0006
+  A4_9: 3.57
+  A5_9: 2.7e-05
+  A6_9: 2.31e-05
+  VMCU_9: 800
+  KMCU_9: 10
+  KINH_9: 10
+  hINH_9: 4
+  kIPR_9: 2000
+  k_1_9: 6.4
+  k1_9: 0
+  k2_9: 4
+  r2_9: 250
+  r_2_9: 0
+  r4_9: 750
+  R1_9: 36
+  R3_9: 300
+  g_beta_9: 1500
+  h_beta_9: 4
+  g_alpha_9: 0.85
+  K_beta_9: 0.35
+  K_phi3_act_9: 0.1
+  K_phi3_inh_9: 0.5
+  h_phi3_act_9: 3
+  h_phi3_inh_9: 3
+  g_phi3_9: 4.5
+  P_10: 1
+  VNCX_9: 3
+  KNCX_9: 0.3
+  delta_SPU_9: 18.5
+  gamma_S1_9: 100
+  gamma_MT_9: 200
+  gamma_ER_9: 20
+  gamma_S2_9: 1
+  Km_9: 0.01
+  Bm_9: 100
+  KO_10: 5400
+  Ki_10: 145000
+  n_PU_base_9: 50
+  gCa_10: 0.074
+  kCa_10: 0.013
+  kVCa_10: -0.2
+  VhCa_10: -85
+  T_11: 310.16
+  R_11: 0.008314
+  F_11: 0.09649
+  CO_11: 1800
+  gNa_10: 13.5
+  NO_11: 140000
+  gNSCC_Ca_10: 0.1
+  hNSCC_10: 3
+  ENSCC_10: 0
+  KNSCC_10: 0.12
+  gNSCC_Na_10: 160
+  gPM_10: 675
+  KPM_10: 1
+  gNaP_10: 187.5
+  KNaP_10: 10000
+  hNaP_10: 4
+  ENaP_10: 10
+  VSERCA_10: 100000
+  A2_10: 0.0006
+  A4_10: 3.57
+  A5_10: 2.7e-05
+  A6_10: 2.31e-05
+  VMCU_10: 800
+  KMCU_10: 10
+  KINH_10: 10
+  hINH_10: 4
+  kIPR_10: 2000
+  k_1_10: 6.4
+  k1_10: 0
+  k2_10: 4
+  r2_10: 250
+  r_2_10: 0
+  r4_10: 750
+  R1_10: 36
+  R3_10: 300
+  g_beta_10: 1500
+  h_beta_10: 4
+  g_alpha_10: 0.85
+  K_beta_10: 0.35
+  K_phi3_act_10: 0.1
+  K_phi3_inh_10: 0.5
+  h_phi3_act_10: 3
+  h_phi3_inh_10: 3
+  g_phi3_10: 4.5
+  P_11: 1
+  VNCX_10: 3
+  KNCX_10: 0.3
+  delta_SPU_10: 18.5
+  gamma_S1_10: 100
+  gamma_MT_10: 200
+  gamma_ER_10: 20
+  gamma_S2_10: 1
+  Km_10: 0.01
+  Bm_10: 100
+  KO_11: 5400
+  Ki_11: 145000
+  n_PU_base_10: 50
+initial_state:
+  OCaT: 0
+  Vm: -70
+  dT: 0.01
+  fT: 0.001
+  CCy: 0.12
+  dv1_1: 0
+  fv1_1: 1
+  dERG: 0
+  dNa: 0
+  fNa: 0.1
+  CS2: 0.023
+  CS2_2: 0.023
+  CS2_3: 0.023
+  CS2_4: 0.023
+  CS2_5: 0.023
+  CS2_6: 0.023
+  CS2_7: 0.023
+  CS2_8: 0.023
+  CS2_9: 0.023
+  CS2_10: 0.023
+  CS1: 0.12
+  CS1_2: 0.12
+  CS1_3: 0.12
+  CS1_4: 0.12
+  CS1_5: 0.12
+  CS1_6: 0.12
+  CS1_7: 0.12
+  CS1_8: 0.12
+  CS1_9: 0.12
+  CS1_10: 0.12
+  NS1: 10100
+  CER: 200
+  CMT: 0.2
+  H: 0.2
+  zeta: 0.3
+  NS1_2: 10100
+  CER_2: 200
+  CMT_2: 0.2
+  H_2: 0.2
+  zeta_2: 0.3
+  NS1_3: 10100
+  CER_3: 200
+  CMT_3: 0.2
+  H_3: 0.2
+  zeta_3: 0.3
+  NS1_4: 10100
+  CER_4: 200
+  CMT_4: 0.2
+  H_4: 0.2
+  zeta_4: 0.3
+  NS1_5: 10100
+  CER_5: 200
+  CMT_5: 0.2
+  H_5: 0.2
+  zeta_5: 0.3
+  NS1_6: 10100
+  CER_6: 200
+  CMT_6: 0.2
+  H_6: 0.2
+  zeta_6: 0.3
+  NS1_7: 10100
+  CER_7: 200
+  CMT_7: 0.2
+  H_7: 0.2
+  zeta_7: 0.3
+  NS1_8: 10100
+  CER_8: 200
+  CMT_8: 0.2
+  H_8: 0.2
+  zeta_8: 0.3
+  NS1_9: 10100
+  CER_9: 200
+  CMT_9: 0.2
+  H_9: 0.2
+  zeta_9: 0.3
+  NS1_10: 10100
+  CER_10: 200
+  CMT_10: 0.2
+  H_10: 0.2
+  zeta_10: 0.3
+parameter_names:
+- g_CaT
+- ECaT
+- alpha_OT
+- beta_OT
+- A_dT1
+- k_dT
+- V_dT
+- A_fT1
+- A_fT2
+- A_fT3
+- A_fT4
+- k_fT
+- V_fT
+- gCaExt
+- KCaExt
+- g_Kv1_1
+- A_dv1_11a
+- A_dv1_11b
+- A_dv1_11c
+- A_dv1_11d
+- A_dv1_12
+- A_dv1_13
+- A_dv1_14
+- A_fv1_11
+- A_fv1_12
+- A_fv1_13
+- A_fv1_14
+- g_KERG
+- A_dERG1
+- A_dERG2
+- A_dERG3
+- A_dERG4
+- g_KB
+- g_Na
+- A_dNa1a
+- A_dNa1b
+- A_dNa1c
+- A_dNa1d
+- A_dNa2
+- A_dNa3
+- A_dNa4
+- A_fNa1a
+- A_fNa1b
+- A_fNa1c
+- A_fNa1d
+- A_fNa2
+- A_fNa3
+- A_fNa4
+- g_L
+- EL
+- Cm
+- T
+- R
+- F
+- CO
+- KO
+- Ki
+- 'NO'
+- Ni
+- lambda_S2_Cy
+- delta_SCy
+- mu_S2Cy1
+- mu_S2Cy2
+- mu_S2Cy3
+- mu_S2Cy4
+- mu_S2Cy5
+- mu_S2Cy6
+- mu_S2Cy7
+- mu_S2Cy8
+- mu_S2Cy9
+- mu_S2Cy10
+- mu_A
+- mu_B
+- n_PU
+- mu_Cy
+- C_infinity
+- P
+- gCa
+- kCa
+- kVCa
+- VhCa
+- T_2
+- R_2
+- F_2
+- CO_2
+- gNa
+- NO_2
+- gNSCC_Ca
+- hNSCC
+- ENSCC
+- KNSCC
+- gNSCC_Na
+- gPM
+- KPM
+- gNaP
+- KNaP
+- hNaP
+- ENaP
+- VSERCA
+- A2
+- A4
+- A5
+- A6
+- VMCU
+- KMCU
+- KINH
+- hINH
+- kIPR
+- k_1
+- k1
+- k2
+- r2
+- r_2
+- r4
+- R1
+- R3
+- g_beta
+- h_beta
+- g_alpha
+- K_beta
+- K_phi3_act
+- K_phi3_inh
+- h_phi3_act
+- h_phi3_inh
+- g_phi3
+- P_2
+- VNCX
+- KNCX
+- delta_SPU
+- gamma_S1
+- gamma_MT
+- gamma_ER
+- gamma_S2
+- Km
+- Bm
+- KO_2
+- Ki_2
+- n_PU_base
+- gCa_2
+- kCa_2
+- kVCa_2
+- VhCa_2
+- T_3
+- R_3
+- F_3
+- CO_3
+- gNa_2
+- NO_3
+- gNSCC_Ca_2
+- hNSCC_2
+- ENSCC_2
+- KNSCC_2
+- gNSCC_Na_2
+- gPM_2
+- KPM_2
+- gNaP_2
+- KNaP_2
+- hNaP_2
+- ENaP_2
+- VSERCA_2
+- A2_2
+- A4_2
+- A5_2
+- A6_2
+- VMCU_2
+- KMCU_2
+- KINH_2
+- hINH_2
+- kIPR_2
+- k_1_2
+- k1_2
+- k2_2
+- r2_2
+- r_2_2
+- r4_2
+- R1_2
+- R3_2
+- g_beta_2
+- h_beta_2
+- g_alpha_2
+- K_beta_2
+- K_phi3_act_2
+- K_phi3_inh_2
+- h_phi3_act_2
+- h_phi3_inh_2
+- g_phi3_2
+- P_3
+- VNCX_2
+- KNCX_2
+- delta_SPU_2
+- gamma_S1_2
+- gamma_MT_2
+- gamma_ER_2
+- gamma_S2_2
+- Km_2
+- Bm_2
+- KO_3
+- Ki_3
+- n_PU_base_2
+- gCa_3
+- kCa_3
+- kVCa_3
+- VhCa_3
+- T_4
+- R_4
+- F_4
+- CO_4
+- gNa_3
+- NO_4
+- gNSCC_Ca_3
+- hNSCC_3
+- ENSCC_3
+- KNSCC_3
+- gNSCC_Na_3
+- gPM_3
+- KPM_3
+- gNaP_3
+- KNaP_3
+- hNaP_3
+- ENaP_3
+- VSERCA_3
+- A2_3
+- A4_3
+- A5_3
+- A6_3
+- VMCU_3
+- KMCU_3
+- KINH_3
+- hINH_3
+- kIPR_3
+- k_1_3
+- k1_3
+- k2_3
+- r2_3
+- r_2_3
+- r4_3
+- R1_3
+- R3_3
+- g_beta_3
+- h_beta_3
+- g_alpha_3
+- K_beta_3
+- K_phi3_act_3
+- K_phi3_inh_3
+- h_phi3_act_3
+- h_phi3_inh_3
+- g_phi3_3
+- P_4
+- VNCX_3
+- KNCX_3
+- delta_SPU_3
+- gamma_S1_3
+- gamma_MT_3
+- gamma_ER_3
+- gamma_S2_3
+- Km_3
+- Bm_3
+- KO_4
+- Ki_4
+- n_PU_base_3
+- gCa_4
+- kCa_4
+- kVCa_4
+- VhCa_4
+- T_5
+- R_5
+- F_5
+- CO_5
+- gNa_4
+- NO_5
+- gNSCC_Ca_4
+- hNSCC_4
+- ENSCC_4
+- KNSCC_4
+- gNSCC_Na_4
+- gPM_4
+- KPM_4
+- gNaP_4
+- KNaP_4
+- hNaP_4
+- ENaP_4
+- VSERCA_4
+- A2_4
+- A4_4
+- A5_4
+- A6_4
+- VMCU_4
+- KMCU_4
+- KINH_4
+- hINH_4
+- kIPR_4
+- k_1_4
+- k1_4
+- k2_4
+- r2_4
+- r_2_4
+- r4_4
+- R1_4
+- R3_4
+- g_beta_4
+- h_beta_4
+- g_alpha_4
+- K_beta_4
+- K_phi3_act_4
+- K_phi3_inh_4
+- h_phi3_act_4
+- h_phi3_inh_4
+- g_phi3_4
+- P_5
+- VNCX_4
+- KNCX_4
+- delta_SPU_4
+- gamma_S1_4
+- gamma_MT_4
+- gamma_ER_4
+- gamma_S2_4
+- Km_4
+- Bm_4
+- KO_5
+- Ki_5
+- n_PU_base_4
+- gCa_5
+- kCa_5
+- kVCa_5
+- VhCa_5
+- T_6
+- R_6
+- F_6
+- CO_6
+- gNa_5
+- NO_6
+- gNSCC_Ca_5
+- hNSCC_5
+- ENSCC_5
+- KNSCC_5
+- gNSCC_Na_5
+- gPM_5
+- KPM_5
+- gNaP_5
+- KNaP_5
+- hNaP_5
+- ENaP_5
+- VSERCA_5
+- A2_5
+- A4_5
+- A5_5
+- A6_5
+- VMCU_5
+- KMCU_5
+- KINH_5
+- hINH_5
+- kIPR_5
+- k_1_5
+- k1_5
+- k2_5
+- r2_5
+- r_2_5
+- r4_5
+- R1_5
+- R3_5
+- g_beta_5
+- h_beta_5
+- g_alpha_5
+- K_beta_5
+- K_phi3_act_5
+- K_phi3_inh_5
+- h_phi3_act_5
+- h_phi3_inh_5
+- g_phi3_5
+- P_6
+- VNCX_5
+- KNCX_5
+- delta_SPU_5
+- gamma_S1_5
+- gamma_MT_5
+- gamma_ER_5
+- gamma_S2_5
+- Km_5
+- Bm_5
+- KO_6
+- Ki_6
+- n_PU_base_5
+- gCa_6
+- kCa_6
+- kVCa_6
+- VhCa_6
+- T_7
+- R_7
+- F_7
+- CO_7
+- gNa_6
+- NO_7
+- gNSCC_Ca_6
+- hNSCC_6
+- ENSCC_6
+- KNSCC_6
+- gNSCC_Na_6
+- gPM_6
+- KPM_6
+- gNaP_6
+- KNaP_6
+- hNaP_6
+- ENaP_6
+- VSERCA_6
+- A2_6
+- A4_6
+- A5_6
+- A6_6
+- VMCU_6
+- KMCU_6
+- KINH_6
+- hINH_6
+- kIPR_6
+- k_1_6
+- k1_6
+- k2_6
+- r2_6
+- r_2_6
+- r4_6
+- R1_6
+- R3_6
+- g_beta_6
+- h_beta_6
+- g_alpha_6
+- K_beta_6
+- K_phi3_act_6
+- K_phi3_inh_6
+- h_phi3_act_6
+- h_phi3_inh_6
+- g_phi3_6
+- P_7
+- VNCX_6
+- KNCX_6
+- delta_SPU_6
+- gamma_S1_6
+- gamma_MT_6
+- gamma_ER_6
+- gamma_S2_6
+- Km_6
+- Bm_6
+- KO_7
+- Ki_7
+- n_PU_base_6
+- gCa_7
+- kCa_7
+- kVCa_7
+- VhCa_7
+- T_8
+- R_8
+- F_8
+- CO_8
+- gNa_7
+- NO_8
+- gNSCC_Ca_7
+- hNSCC_7
+- ENSCC_7
+- KNSCC_7
+- gNSCC_Na_7
+- gPM_7
+- KPM_7
+- gNaP_7
+- KNaP_7
+- hNaP_7
+- ENaP_7
+- VSERCA_7
+- A2_7
+- A4_7
+- A5_7
+- A6_7
+- VMCU_7
+- KMCU_7
+- KINH_7
+- hINH_7
+- kIPR_7
+- k_1_7
+- k1_7
+- k2_7
+- r2_7
+- r_2_7
+- r4_7
+- R1_7
+- R3_7
+- g_beta_7
+- h_beta_7
+- g_alpha_7
+- K_beta_7
+- K_phi3_act_7
+- K_phi3_inh_7
+- h_phi3_act_7
+- h_phi3_inh_7
+- g_phi3_7
+- P_8
+- VNCX_7
+- KNCX_7
+- delta_SPU_7
+- gamma_S1_7
+- gamma_MT_7
+- gamma_ER_7
+- gamma_S2_7
+- Km_7
+- Bm_7
+- KO_8
+- Ki_8
+- n_PU_base_7
+- gCa_8
+- kCa_8
+- kVCa_8
+- VhCa_8
+- T_9
+- R_9
+- F_9
+- CO_9
+- gNa_8
+- NO_9
+- gNSCC_Ca_8
+- hNSCC_8
+- ENSCC_8
+- KNSCC_8
+- gNSCC_Na_8
+- gPM_8
+- KPM_8
+- gNaP_8
+- KNaP_8
+- hNaP_8
+- ENaP_8
+- VSERCA_8
+- A2_8
+- A4_8
+- A5_8
+- A6_8
+- VMCU_8
+- KMCU_8
+- KINH_8
+- hINH_8
+- kIPR_8
+- k_1_8
+- k1_8
+- k2_8
+- r2_8
+- r_2_8
+- r4_8
+- R1_8
+- R3_8
+- g_beta_8
+- h_beta_8
+- g_alpha_8
+- K_beta_8
+- K_phi3_act_8
+- K_phi3_inh_8
+- h_phi3_act_8
+- h_phi3_inh_8
+- g_phi3_8
+- P_9
+- VNCX_8
+- KNCX_8
+- delta_SPU_8
+- gamma_S1_8
+- gamma_MT_8
+- gamma_ER_8
+- gamma_S2_8
+- Km_8
+- Bm_8
+- KO_9
+- Ki_9
+- n_PU_base_8
+- gCa_9
+- kCa_9
+- kVCa_9
+- VhCa_9
+- T_10
+- R_10
+- F_10
+- CO_10
+- gNa_9
+- NO_10
+- gNSCC_Ca_9
+- hNSCC_9
+- ENSCC_9
+- KNSCC_9
+- gNSCC_Na_9
+- gPM_9
+- KPM_9
+- gNaP_9
+- KNaP_9
+- hNaP_9
+- ENaP_9
+- VSERCA_9
+- A2_9
+- A4_9
+- A5_9
+- A6_9
+- VMCU_9
+- KMCU_9
+- KINH_9
+- hINH_9
+- kIPR_9
+- k_1_9
+- k1_9
+- k2_9
+- r2_9
+- r_2_9
+- r4_9
+- R1_9
+- R3_9
+- g_beta_9
+- h_beta_9
+- g_alpha_9
+- K_beta_9
+- K_phi3_act_9
+- K_phi3_inh_9
+- h_phi3_act_9
+- h_phi3_inh_9
+- g_phi3_9
+- P_10
+- VNCX_9
+- KNCX_9
+- delta_SPU_9
+- gamma_S1_9
+- gamma_MT_9
+- gamma_ER_9
+- gamma_S2_9
+- Km_9
+- Bm_9
+- KO_10
+- Ki_10
+- n_PU_base_9
+- gCa_10
+- kCa_10
+- kVCa_10
+- VhCa_10
+- T_11
+- R_11
+- F_11
+- CO_11
+- gNa_10
+- NO_11
+- gNSCC_Ca_10
+- hNSCC_10
+- ENSCC_10
+- KNSCC_10
+- gNSCC_Na_10
+- gPM_10
+- KPM_10
+- gNaP_10
+- KNaP_10
+- hNaP_10
+- ENaP_10
+- VSERCA_10
+- A2_10
+- A4_10
+- A5_10
+- A6_10
+- VMCU_10
+- KMCU_10
+- KINH_10
+- hINH_10
+- kIPR_10
+- k_1_10
+- k1_10
+- k2_10
+- r2_10
+- r_2_10
+- r4_10
+- R1_10
+- R3_10
+- g_beta_10
+- h_beta_10
+- g_alpha_10
+- K_beta_10
+- K_phi3_act_10
+- K_phi3_inh_10
+- h_phi3_act_10
+- h_phi3_inh_10
+- g_phi3_10
+- P_11
+- VNCX_10
+- KNCX_10
+- delta_SPU_10
+- gamma_S1_10
+- gamma_MT_10
+- gamma_ER_10
+- gamma_S2_10
+- Km_10
+- Bm_10
+- KO_11
+- Ki_11
+- n_PU_base_10
+state_names:
+- OCaT
+- Vm
+- dT
+- fT
+- CCy
+- dv1_1
+- fv1_1
+- dERG
+- dNa
+- fNa
+- CS2
+- CS2_2
+- CS2_3
+- CS2_4
+- CS2_5
+- CS2_6
+- CS2_7
+- CS2_8
+- CS2_9
+- CS2_10
+- CS1
+- CS1_2
+- CS1_3
+- CS1_4
+- CS1_5
+- CS1_6
+- CS1_7
+- CS1_8
+- CS1_9
+- CS1_10
+- NS1
+- CER
+- CMT
+- H
+- zeta
+- NS1_2
+- CER_2
+- CMT_2
+- H_2
+- zeta_2
+- NS1_3
+- CER_3
+- CMT_3
+- H_3
+- zeta_3
+- NS1_4
+- CER_4
+- CMT_4
+- H_4
+- zeta_4
+- NS1_5
+- CER_5
+- CMT_5
+- H_5
+- zeta_5
+- NS1_6
+- CER_6
+- CMT_6
+- H_6
+- zeta_6
+- NS1_7
+- CER_7
+- CMT_7
+- H_7
+- zeta_7
+- NS1_8
+- CER_8
+- CMT_8
+- H_8
+- zeta_8
+- NS1_9
+- CER_9
+- CMT_9
+- H_9
+- zeta_9
+- NS1_10
+- CER_10
+- CMT_10
+- H_10
+- zeta_10

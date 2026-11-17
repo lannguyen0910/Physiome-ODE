@@ -1,0 +1,45 @@
+name: ImmunologySchenzle1994ODE
+state_dim: 5
+parameter_dim: 14
+parameters:
+  mu0: 0.004
+  mu1: 0.3
+  delta1: 0.3
+  mu2: 1
+  phi: 1000
+  delta2: 1
+  alpha: 1.0e-06
+  beta: 0.5
+  gamma: 0.5
+  a: 1000
+  b: 0.2
+  X0: 100000000000
+  omega: 1.6e-16
+  Kmax: 2.6999999999999996e-13
+initial_state:
+  X: 100000000000
+  K: 1.35e-14
+  V: 1000
+  Y: 100
+  Z: 0
+parameter_names:
+- mu0
+- mu1
+- delta1
+- mu2
+- phi
+- delta2
+- alpha
+- beta
+- gamma
+- a
+- b
+- X0
+- omega
+- Kmax
+state_names:
+- X
+- K
+- V
+- Y
+- Z

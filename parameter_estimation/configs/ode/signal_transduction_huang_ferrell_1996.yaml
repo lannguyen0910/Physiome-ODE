@@ -1,0 +1,117 @@
+name: SignalTransductionHuangFerrell1996ODE
+state_dim: 18
+parameter_dim: 37
+parameters:
+  mostot: 0.003
+  e1tot: 0.0003
+  e2tot: 0.0003
+  mektot: 1.2
+  mekpasetot: 0.0003
+  mapktot: 1.2
+  mapkpasetot: 0.12
+  a1: 1000
+  a2: 1000
+  a3: 1000
+  a4: 1000
+  a5: 1000
+  a6: 1000
+  a7: 1000
+  a8: 1000
+  a9: 1000
+  a10: 1000
+  d1: 150
+  d2: 150
+  d3: 150
+  d4: 150
+  d5: 150
+  d6: 150
+  d7: 150
+  d8: 150
+  d9: 150
+  d10: 150
+  k1: 150
+  k2: 150
+  k3: 150
+  k4: 150
+  k5: 150
+  k6: 150
+  k7: 150
+  k8: 150
+  k9: 150
+  k10: 150
+initial_state:
+  mos: 0.003
+  mosstar: 0
+  mose1: 0
+  mosstare2: 0
+  mekstarmosstar: 0
+  mekmosstar: 0
+  mekstar: 0
+  mekstarstar: 0
+  mekstarmekpase: 0
+  mekstarstarmekpase: 0
+  mapkmekstarstar: 0
+  mapkstarmekstarstar: 0
+  mek: 1.2
+  mapkstar: 0
+  mapkstarstar: 0
+  mapkstarmapkpase: 0
+  mapkstarstarmapkpase: 0
+  mapk: 1.2
+parameter_names:
+- mostot
+- e1tot
+- e2tot
+- mektot
+- mekpasetot
+- mapktot
+- mapkpasetot
+- a1
+- a2
+- a3
+- a4
+- a5
+- a6
+- a7
+- a8
+- a9
+- a10
+- d1
+- d2
+- d3
+- d4
+- d5
+- d6
+- d7
+- d8
+- d9
+- d10
+- k1
+- k2
+- k3
+- k4
+- k5
+- k6
+- k7
+- k8
+- k9
+- k10
+state_names:
+- mos
+- mosstar
+- mose1
+- mosstare2
+- mekstarmosstar
+- mekmosstar
+- mekstar
+- mekstarstar
+- mekstarmekpase
+- mekstarstarmekpase
+- mapkmekstarstar
+- mapkstarmekstarstar
+- mek
+- mapkstar
+- mapkstarstar
+- mapkstarmapkpase
+- mapkstarstarmapkpase
+- mapk

@@ -1,0 +1,39 @@
+name: EndocrineRattananakulLenburyKrishnamaraWollkind2003AODE
+state_dim: 3
+parameter_dim: 13
+parameters:
+  a1: 0.05
+  k1: 0.1
+  b1: 0.1
+  epsilon: 0.1
+  a2: 0.009
+  a3: 0.675
+  k2: 0.5
+  b2: 0.3
+  delta: 0.9
+  a4: 0.01
+  a5: 0.005
+  k3: 0.025
+  b3: 0.01
+initial_state:
+  x: 2
+  y: 1
+  z: 0.15
+parameter_names:
+- a1
+- k1
+- b1
+- epsilon
+- a2
+- a3
+- k2
+- b2
+- delta
+- a4
+- a5
+- k3
+- b3
+state_names:
+- x
+- y
+- z
