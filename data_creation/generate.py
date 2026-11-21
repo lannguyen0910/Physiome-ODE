@@ -1,9 +1,8 @@
 import argparse
-import importlib
+import importlib.util
 import os
 import shutil
 import warnings
-from functools import partial
 from multiprocessing import Pool, cpu_count
 
 import numpy as np
@@ -14,7 +13,16 @@ warnings.filterwarnings("error")
 
 
 def generate(n, args):
-    """Solve model with ODE solver and save trajectory, parameters, and initial state."""
+    """
+    Solve model with ODE solver and save:
+        - trajectory
+        - ground-truth parameters
+        - ground-truth initial state
+
+    A sample is saved ONLY if the ODE solver successfully
+    reaches the complete requested time range and the resulting
+    trajectory is finite.
+    """
 
     seed = n
     TRIES = 10
@@ -33,13 +41,11 @@ def generate(n, args):
 
         np.random.seed(seed)
 
-        # ------------------------------------------------------------
+        # ============================================================
         # Load ODE model
-        # ------------------------------------------------------------
+        # ============================================================
 
-        model_path = (
-            "models/" + domain + "/" + model + "/model.py"
-        )
+        model_path = f"models/{domain}/{model}/model.py"
 
         spec = importlib.util.spec_from_file_location(
             "model_module",
@@ -47,68 +53,72 @@ def generate(n, args):
         )
 
         module = importlib.util.module_from_spec(spec)
-
         spec.loader.exec_module(module)
 
-        # ------------------------------------------------------------
+        # ============================================================
         # Initialize constants and state variables
-        # ------------------------------------------------------------
+        # ============================================================
 
-        LEGEND_STATES, legend_algebraic, legend_voi, legend_constants = (
-            module.createLegends()
-        )
+        (
+            LEGEND_STATES,
+            legend_algebraic,
+            legend_voi,
+            legend_constants
+        ) = module.createLegends()
 
         init_states, constants = module.initConsts()
 
+        # ============================================================
         # Randomize initial states
+        # ============================================================
+
         init_states = [
             np.random.uniform(
-                x * (1 - d_states),
-                x * (1 + d_states)
+                x * (1.0 - d_states),
+                x * (1.0 + d_states)
             )
             for x in init_states
         ]
 
+        # ============================================================
         # Randomize ODE parameters
+        # ============================================================
+
         constants = [
             np.random.uniform(
-                x * (1 - d_constants),
-                x * (1 + d_constants)
+                x * (1.0 - d_constants),
+                x * (1.0 + d_constants)
             )
             for x in constants
         ]
 
-        # ------------------------------------------------------------
-        # Keep a copy of the ground-truth values
-        # ------------------------------------------------------------
+        # ============================================================
+        # Ground truth
+        # ============================================================
 
-        # These are the actual parameters used to generate
-        # this trajectory.
         theta = np.asarray(
             constants,
             dtype=np.float32
         )
 
-        # These are the actual initial conditions used to
-        # generate this trajectory.
         y0 = np.asarray(
             init_states,
             dtype=np.float32
         )
 
-        # ------------------------------------------------------------
+        # ============================================================
         # Set timespan
-        # ------------------------------------------------------------
+        # ============================================================
 
         voi = np.linspace(
-            0,
-            T * 2,
+            0.0,
+            T * 2.0,
             N_t * 2
         )
 
-        # ------------------------------------------------------------
+        # ============================================================
         # Solve ODE
-        # ------------------------------------------------------------
+        # ============================================================
 
         try:
 
@@ -131,25 +141,59 @@ def generate(n, args):
                 constants
             )
 
-            states = np.array(
-                [
-                    [0.0] * len(voi)
-                ] * module.sizeStates
+            # Store trajectory.
+            # We intentionally initialize with NaN rather than zero.
+            #
+            # This is important:
+            # if integration stops early, we can detect the missing
+            # part of the trajectory instead of accidentally saving zeros.
+            states = np.full(
+                (module.sizeStates, len(voi)),
+                np.nan,
+                dtype=np.float64
             )
 
+            # Initial condition
             states[:, 0] = init_states
 
-            for i, t in enumerate(voi[1:]):
+            integration_success = True
 
-                if r.successful():
+            # --------------------------------------------------------
+            # Integrate every requested time point
+            # --------------------------------------------------------
 
-                    r.integrate(t)
+            for i, t in enumerate(voi[1:], start=1):
 
-                    states[:, i + 1] = r.y
-
-                else:
-
+                if not r.successful():
+                    integration_success = False
                     break
+
+                r.integrate(t)
+
+                # Check solver status immediately
+                if not r.successful():
+                    integration_success = False
+                    break
+
+                # Check returned state
+                if not np.all(np.isfinite(r.y)):
+                    integration_success = False
+                    break
+
+                states[:, i] = r.y
+
+            # --------------------------------------------------------
+            # IMPORTANT:
+            # Require the COMPLETE trajectory.
+            # --------------------------------------------------------
+
+            if not integration_success:
+                seed += total_samples
+                continue
+
+            if not np.all(np.isfinite(states)):
+                seed += total_samples
+                continue
 
         except (
             Exception,
@@ -158,12 +202,11 @@ def generate(n, args):
         ):
 
             seed += total_samples
-
             continue
 
-        # ------------------------------------------------------------
+        # ============================================================
         # Random crop
-        # ------------------------------------------------------------
+        # ============================================================
 
         if rand_start:
 
@@ -176,9 +219,16 @@ def generate(n, args):
 
             start = 0
 
-        # ------------------------------------------------------------
+        end = start + N_t
+
+        # Safety check
+        if end > len(voi):
+            seed += total_samples
+            continue
+
+        # ============================================================
         # Construct trajectory
-        # ------------------------------------------------------------
+        # ============================================================
 
         times = pd.DataFrame(
             {
@@ -186,61 +236,60 @@ def generate(n, args):
             }
         )
 
-        states = pd.DataFrame(
-            states[
-                :,
-                start:start + N_t
-            ].T,
+        trajectory = pd.DataFrame(
+            states[:, start:end].T,
             columns=LEGEND_STATES
         )
 
-        states = pd.concat(
+        trajectory = pd.concat(
             [
                 times,
-                states
+                trajectory
             ],
             axis=1
         )
 
-        # ------------------------------------------------------------
-        # Validate trajectory
-        # ------------------------------------------------------------
+        # ============================================================
+        # Validate final trajectory
+        # ============================================================
 
-        if (
-            np.max(
-                np.absolute(
-                    states.values
-                )
-            ) > 1e15
-        ):
+        values = trajectory.drop(columns=["t"]).to_numpy(
+            dtype=np.float64
+        )
 
+        # Reject NaN / Inf
+        if not np.all(np.isfinite(values)):
             seed += total_samples
-
             continue
 
-        if states.isna().any().any():
-
+        # Reject exploding trajectories
+        if np.max(np.abs(values)) > 1e15:
             seed += total_samples
-
             continue
 
         # ------------------------------------------------------------
+        # DO NOT reject zeros in general.
+        #
+        # A zero can theoretically be a legitimate model value.
+        # What matters here is that the trajectory is complete.
+        # ------------------------------------------------------------
+
+        # ============================================================
         # Save trajectory
-        # ------------------------------------------------------------
+        # ============================================================
 
         trajectory_path = (
             f"{outpath}/ts-data-{str(n)}.parquet"
         )
 
-        states.to_parquet(
+        trajectory.to_parquet(
             trajectory_path,
             index=None
         )
 
-        # ------------------------------------------------------------
-        # Save ground-truth parameters
-        # and initial state
-        # ------------------------------------------------------------
+        # ============================================================
+        # Save ground-truth parameters and initial state
+        # ============================================================
 
         metadata = {
             "theta": theta,
@@ -259,7 +308,9 @@ def generate(n, args):
 
         return
 
-    raise Exception("NO more TRIES")
+    raise Exception(
+        f"NO more TRIES for sample {n}"
+    )
 
 
 def create(args):
@@ -286,10 +337,13 @@ def create(args):
 
     args["out_path"] = out_path
 
+    # ================================================================
+    # Create directories
+    # ================================================================
+
     if not os.path.isdir(
         f"data/raw_data/{domain}/"
     ):
-
         os.makedirs(
             f"data/raw_data/{domain}/"
         )
@@ -297,16 +351,19 @@ def create(args):
     if not os.path.isdir(
         f"data/raw_data/{domain}/{model}"
     ):
-
         os.makedirs(
             f"data/raw_data/{domain}/{model}"
         )
 
+    # Remove old dataset
     if os.path.isdir(out_path):
-
         shutil.rmtree(out_path)
 
     os.makedirs(out_path)
+
+    # ================================================================
+    # Generate samples
+    # ================================================================
 
     iters = range(
         args["total_samples"]
