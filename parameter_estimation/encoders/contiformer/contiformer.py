@@ -45,35 +45,60 @@ class MultiHeadAttention(nn.Module):
 
     def forward(self, q, k, v, t, mask=None):
         d_k, n_head = self.d_k, self.n_head
-        sz_b, len_q, len_k, len_v = q.size(0), q.size(1), k.size(1), v.size(1)
+        sz_b, len_q, len_k, len_v = (
+            q.size(0),
+            q.size(1),
+            k.size(1),
+            v.size(1),
+        )
 
         residual = q
+
         if self.normalize_before:
             q = self.layer_norm(q)
 
-        # Pass through the pre-attention projection: b x lq x (n*dv)
-        # Separate different heads: b x lq x n x dv
-        q = self.w_qs(q, t).view(sz_b, len_q, len_q, -1, n_head, d_k)
-        k = self.w_ks(k, t).view(sz_b, len_k, len_k, -1, n_head, d_k)
-        v = self.w_vs(v, t).view(sz_b, len_v, len_v, -1, n_head, d_k)
+        q = self.w_qs(q, t).view(
+            sz_b, len_q, len_q, -1, n_head, d_k
+        )
 
-        # Transpose for attention dot product: b x n x lq x dv
-        q, k, v = q.permute(0, 4, 1, 2, 3, 5), k.permute(
-            0, 4, 1, 2, 3, 5), v.permute(0, 4, 1, 2, 3, 5)
+        k = self.w_ks(k, t).view(
+            sz_b, len_k, len_k, -1, n_head, d_k
+        )
+
+        v = self.w_vs(v, t).view(
+            sz_b, len_v, len_v, -1, n_head, d_k
+        )
+
+        q, k, v = q.permute(
+            0, 4, 1, 2, 3, 5
+        ), k.permute(
+            0, 4, 1, 2, 3, 5
+        ), v.permute(
+            0, 4, 1, 2, 3, 5
+        )
 
         if mask is not None:
-            mask = mask.unsqueeze(1)  # For head axis broadcasting.
+            # [B, L] -> [B, 1, 1, L]
+            # Broadcast over heads and query positions.
+            mask = mask[:, None, None, :]
 
-        output, attn = self.attention(q, k, v, mask=mask)
+        output, attn = self.attention(
+            q,
+            k,
+            v,
+            mask=mask,
+        )
 
-        # Transpose to move the head dimension back: b x lq x n x dv
-        # Combine the last two dimensions to concatenate all the heads together: b x lq x (n*dv)
-        output = output.transpose(1, 2).contiguous().view(sz_b, len_q, -1)
+        output = output.transpose(1, 2).contiguous().view(
+            sz_b, len_q, -1
+        )
+
         output = self.dropout(self.fc(output))
         output += residual
 
         if not self.normalize_before:
             output = self.layer_norm(output)
+
         return output, attn
 
     def interpolate(self, q, k, v, t, qt, mask=None):
@@ -95,7 +120,8 @@ class MultiHeadAttention(nn.Module):
             0, 4, 1, 2, 3, 5), v.permute(0, 4, 1, 2, 3, 5)
 
         if mask is not None:
-            mask = mask.unsqueeze(1)  # For head axis broadcasting.
+            # mask = mask.unsqueeze(1)  # For head axis broadcasting.
+            mask = mask[:, None, None, :]
 
         output, _ = self.attention.interpolate(q, k, v, mask=mask)
 
